@@ -1,0 +1,66 @@
+enigma serial access
+--------------------
+
+basically, serial it's the same thing as you would connect to port 80 via network -
+it's HTTP, and you should be able to do all things you want to do using http.
+
+However, as we don't have a defined "start" condition (like connection establishing
+when using tcp), we define the "break condition" as a defined start.
+
+(FYI: a "break condition" is a special out-of-bound serial character where the
+TX-line is set to 0 for a longer time than a character. Most terminal-programs
+should be able to send a break condition, in minicom for example you can press
+"Ctrl+A" "F".)
+
+After that, you issue the HTTP-request ("GET /... HTTP/1.0"), followed by a '\n'.
+Yes, that's NEWLINE, opposed to the usual Carriage Return used in terminals.
+
+(Sorry for that, but everything else would involve a modification on the input,
+and thus, the transmission wouldn't be 8bit clean. I didn't like that.)
+
+NOTE: enigma's serial access is most propably not yet enabled in your image, as
+it was committed to cvs at 03/04/17, but there will be a new image with this
+feature soon. but as said - it's like network access, just over serial port.
+
+enigma network access
+---------------------
+
+well, just usual HTTP on port 80 - nothing special. HTTP/1.1 persistent connections
+are not (yet) supported.
+
+enigma HTTP access
+------------------
+basically, look into src/enigma_dyn.cpp and src/enigma_web.cpp to see the commands
+defined there. as the webfrontend sucks (i'm still searching for somebody with
+XSLT knowledge who can design websites!), there is lot of stuff here i won't
+explain.
+
+the important things might be:
+
+GET /cgi-bin/xmessage?timeout=<seconds>&caption=<caption>&body=<body>[&type=<nr>]
+(for sending an on-screen message, type is optional. messageboxes with same type
+ override each other, allowing you to display some progress texts or something
+ like this)
+GET /cgi-bin/reloadSettings
+GET /cgi-bin/reloadRecordings
+GET /cgi-bin/saveRecordings
+GET /cgi-bin/reloadPlaylist
+GET /cgi-bin/savePlaylist
+GET /cgi-bin/reloadUserBouquets
+GET /cgi-bin/saveUserBouquets
+GET /cgi-bin/reloadTimerList
+GET /cgi-bin/saveTimerList
+GET /cgi-bin/startPlugin?name=<name>[&path=<path>]
+[GET|PUT] /config/enigma/services (or any other file)
+[GET|PUT] /root/proc/... (or any other file)
+
+Some actions may require authentication, in this case the realm is "dreambox",
+and valid username/passwords are these from the unix system, i.e. "root" and 
+"dreambox".
+
+
+
+sooo, if you want to upload new channellists, issue a "PUT" to 
+"/config/enigma/services", and a "GET /cgi-bin/reloadSettings" (etc.)
+
+if there are any questions, <felix@dream-multimedia-tv.de> will be there for you :)
