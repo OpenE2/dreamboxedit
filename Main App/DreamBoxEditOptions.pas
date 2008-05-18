@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, Registry, Sockets, IdBaseComponent,
   IdComponent, IdTCPConnection, IdTCPClient, IdFTP, ComCtrls, StrUtils,
-  Spin, IdExplicitTLSClientServerBase, DB, DBClient, Grids, DBGrids;
+  Spin, {IdExplicitTLSClientServerBase,} DB, DBClient, Grids, DBGrids;
 
 type
   TFormOptions = class(TForm)

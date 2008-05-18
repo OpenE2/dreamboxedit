@@ -31,7 +31,7 @@ begin
   FormSplash := TFormSplash.Create(Application);
   FormSplash.Show;
   FormSplash.Update;
-  Sleep(1000);
+  Sleep(5000);
 
   Application.Initialize;
   Application.Title := 'DreamBoxEdit';

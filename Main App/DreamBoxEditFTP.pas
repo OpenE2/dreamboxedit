@@ -6,8 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, registry, IdBaseComponent, IdComponent,
   IdTCPConnection, IdTCPClient, IdFTP, FileCtrl, LWBtn, IdTelnet,
-  IdAntiFreezeBase, IdAntiFreeze, StrUtils, Sockets, IdHTTP,
-  IdExplicitTLSClientServerBase;
+  IdAntiFreezeBase, IdAntiFreeze, StrUtils, Sockets, IdHTTP{,
+  IdExplicitTLSClientServerBase};
 
 type
   TFormFTP = class(TForm)
