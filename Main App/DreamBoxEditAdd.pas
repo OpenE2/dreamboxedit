@@ -63,16 +63,16 @@ begin
 
   NrList.Clear;
   lbBouquets.Items.Clear;
-  for i := 0 to FormMain.tv.Items.Count - 1
+  for i := 0 to FormMain.tvBouquets.Items.Count - 1
   do begin;
-    if (FormMain.tv.Items.Item[i].Level = 1) and
-       (FormMain.tv.Items.Item[i].Parent.Text[1] = 'P')
+    if (FormMain.tvBouquets.Items.Item[i].Level = 1) and
+       (FormMain.tvBouquets.Items.Item[i].Parent.Text[1] = 'P')
     then begin;
-      lbBouquets.Items.Add(FormMain.tv.Items.Item[i].Text);
-      pListData := FormMain.tv.Items.Item[i].Data;
+      lbBouquets.Items.Add(FormMain.tvBouquets.Items.Item[i].Text);
+      pListData := FormMain.tvBouquets.Items.Item[i].Data;
       NrList.Add(IntToStr(pListData.Number));
       if (eBouquet.Text <> '') and
-         (eBouquet.Text = FormMain.tv.Items.Item[i].Text)
+         (eBouquet.Text = FormMain.tvBouquets.Items.Item[i].Text)
       then begin;
         lbBouquets.ItemIndex := lbBouquets.Items.Count - 1;
         eBouquet.Text := '';
@@ -133,7 +133,7 @@ begin
     pListData.FileName := ld.FileName;
     pListData.Number := ld.Number;
     pListData.Locked := False;
-    tn := FormMain.tv.Items.AddChildObject(FormMain.tnBQ,eBouquet.Text,pListData);
+    tn := FormMain.tvBouquets.Items.AddChildObject(FormMain.tnBQ,eBouquet.Text,pListData);
     FormMain.tnBQ.AlphaSort(True);
     tn.Selected := True;
     tn.MakeVisible;

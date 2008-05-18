@@ -78,20 +78,20 @@ begin
   FileList.Add('lamedb');
   FileList.Add('bouquets.tv');
   FileList.Add('bouquets.radio');
-  for i := 0 to FormMain.tv.Items.Count - 1 do begin;
-    if (FormMain.tv.Items.Item[i].Level = 1) and
-       (FormMain.tv.Items.Item[i].Parent.Text[1] = 'T')
+  for i := 0 to FormMain.tvBouquets.Items.Count - 1 do begin;
+    if (FormMain.tvBouquets.Items.Item[i].Level = 1) and
+       (FormMain.tvBouquets.Items.Item[i].Parent.Text[1] = 'T')
     then begin;
-      pLD := FormMain.tv.Items.Item[i].Data;
+      pLD := FormMain.tvBouquets.Items.Item[i].Data;
       FileList.Add(pld.FileName);
     end;
   end;
   FileList.Add('userbouquets.radio.epl');
-  for i := 0 to FormMain.tv.Items.Count - 1 do begin;
-    if (FormMain.tv.Items.Item[i].Level = 1) and
-       (FormMain.tv.Items.Item[i].Parent.Text[1] = 'R')
+  for i := 0 to FormMain.tvBouquets.Items.Count - 1 do begin;
+    if (FormMain.tvBouquets.Items.Item[i].Level = 1) and
+       (FormMain.tvBouquets.Items.Item[i].Parent.Text[1] = 'R')
     then begin;
-      pLD := FormMain.tv.Items.Item[i].Data;
+      pLD := FormMain.tvBouquets.Items.Item[i].Data;
       FileList.Add(pld.FileName);
     end;
   end;
@@ -244,7 +244,8 @@ begin
   end;
 
   FormMain.AutoOpen := True;
-  FormMain.tbOpen.Click();
+  //FormMain.tbOpen.Click();
+  FormMain.acFileOpenExecute(Sender);
   BuildDisplay();
 end;
 
@@ -294,7 +295,8 @@ begin
   end;
 
   FormMain.AutoOpen := True;
-  FormMain.tbOpen.Click();
+  //FormMain.tbOpen.Click();
+  FormMain.acFileOpenExecute(Sender);
   BuildDisplay();
 end;
 

@@ -8,10 +8,8 @@ uses
 
 type
   TFormSplash = class(TForm)
-    Panel1: TPanel;
-    Label1: TLabel;
     Label2: TLabel;
-    Label3: TLabel;
+    Label1: TLabel;
     procedure FormPaint(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -59,8 +57,6 @@ begin
 
     // BitBlt the transparent DBox to the (TBitmap)MemoryDC...
     BMMemory.Canvas.Draw(0, 0, BMDBox);
-
-
 
     // BitBlt everything to the screen...
     BitBlt(Canvas.Handle, 0, 0, Width, Height, BMMemory.Canvas.Handle, 0, 0,

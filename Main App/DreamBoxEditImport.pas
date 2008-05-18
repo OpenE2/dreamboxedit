@@ -227,7 +227,7 @@ procedure TFormImport.FormShow(Sender: TObject);
 var
   Reg: Tregistry;
   Key: String;
-  l: Integer;
+  //l: Integer;
 begin
   Caption := FormMain.lwLngTrns(name,['Import TV and Radio services from SDX files (SatcoDX)']);
 
@@ -842,13 +842,13 @@ begin
         bnr := bsl.Values[b];
         if bnr = ''
         then begin;
-          for j := 0 to FormMain.tv.Items.Count - 1 do begin;
-            if (FormMain.tv.Items.Item[j].Level = 1) and
-               (FormMain.tv.Items.Item[j].Parent.Text[1] = 'P')
+          for j := 0 to FormMain.tvBouquets.Items.Count - 1 do begin;
+            if (FormMain.tvBouquets.Items.Item[j].Level = 1) and
+               (FormMain.tvBouquets.Items.Item[j].Parent.Text[1] = 'P')
             then begin;
-              if FormMain.tv.Items.Item[j].Text = b
+              if FormMain.tvBouquets.Items.Item[j].Text = b
               then begin;
-                pListData := FormMain.tv.Items.Item[j].Data;
+                pListData := FormMain.tvBouquets.Items.Item[j].Data;
                 bnr := IntToStr(pListData.Number);
                 break;
               end;
@@ -861,7 +861,7 @@ begin
             pListData.FileName := ld.FileName;
             pListData.Number := ld.Number;
             pListData.Locked := False;
-            FormMain.tv.Items.AddChildObject(FormMain.tnBQ,b,pListData);
+            FormMain.tvBouquets.Items.AddChildObject(FormMain.tnBQ,b,pListData);
             FormMain.tnBQ.AlphaSort(True);
             bnr := IntToStr(ld.Number);
           end;

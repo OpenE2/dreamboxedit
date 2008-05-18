@@ -245,14 +245,14 @@ begin
     if bSave.Tag = 0 { Edit service, button acts as Save }
     then begin;
       sl := TStringList.Create;
-      for i := 0 to FormMain.tv.Items.Count - 1 do begin;
-        if FormMain.tv.Items.Item[i].Level = 1
+      for i := 0 to FormMain.tvBouquets.Items.Count - 1 do begin;
+        if FormMain.tvBouquets.Items.Item[i].Level = 1
         then begin;
-          pListData := FormMain.tv.Items.Item[i].Data;
-          sl.Add(FormMain.tv.Items.Item[i].Parent.Text[1] +
+          pListData := FormMain.tvBouquets.Items.Item[i].Data;
+          sl.Add(FormMain.tvBouquets.Items.Item[i].Parent.Text[1] +
                  intToStr(pListdata.Number) + '=' +
-                 FormMain.tv.Items.Item[i].Text + ' (' +
-                 FormMain.tv.Items.Item[i].Parent.Text + ')');
+                 FormMain.tvBouquets.Items.Item[i].Text + ' (' +
+                 FormMain.tvBouquets.Items.Item[i].Parent.Text + ')');
         end;
       end;
 

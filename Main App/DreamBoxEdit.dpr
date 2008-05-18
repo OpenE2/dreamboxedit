@@ -23,7 +23,8 @@ uses
   DreamBoxEditCompareSets in 'DreamBoxEditCompareSets.pas' {FormCompareSet},
   DreamBoxEditTransponder in 'DreamBoxEditTransponder.pas' {FormTransponder},
   DreamBoxEditNewVersion in 'DreamBoxEditNewVersion.pas' {FormNewVersion},
-  DreamBoxEditSelDir in 'DreamBoxEditSelDir.pas' {FormSelDir};
+  DreamBoxEditSelDir in 'DreamBoxEditSelDir.pas' {FormSelDir},
+  uHelpers in 'uHelpers.pas';
 
 {$R *.res}
 

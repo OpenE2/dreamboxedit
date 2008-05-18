@@ -8,7 +8,8 @@ uses
   ExtCtrls, ToolWin, ImgList, LWPanel, Registry, LWBtn, FileCtrl, ShellApi,
   StrUtils, jpeg, DBCtrls, dbcgrids, Buttons, IdBaseComponent, IdComponent,
   IdTCPConnection, IdTCPClient, Sockets, CommCtrl, LWLanguage, IdFTP, DateUtils,
-  MidasLib, IdHTTP;
+  MidasLib, IdHTTP, ActnList, ActnCtrls, ActnMan, ActnMenus,
+  XPStyleActnCtrls;
 
 type
   TListData = record
@@ -29,49 +30,32 @@ type
     fmSave: TMenuItem;
     N1: TMenuItem;
     fmExit: TMenuItem;
-    ToolBar1: TToolBar;
-    tbOpen: TToolButton;
     ImageList1: TImageList;
-    tbSave: TToolButton;
-    tbAbout: TToolButton;
-    tbExit: TToolButton;
-    _ToolButton5: TToolButton;
     puServices: TPopupMenu;
     ShowDetails1: TMenuItem;
     DeletefromallBouquets1: TMenuItem;
-    tbFiles: TToolButton;
     fmAbout: TMenuItem;
     fmFiles: TMenuItem;
     DeleteService1: TMenuItem;
     N4: TMenuItem;
     Addthissatellitetobouquet1: TMenuItem;
     cdsLog: TClientDataSet;
-    tbLog: TToolButton;
     fmLog: TMenuItem;
     MakeaBouquetperSatellite1: TMenuItem;
-    tbHelp: TToolButton;
     fmHelp1: TMenuItem;
     fmHelp: TMenuItem;
-    tbOptions: TToolButton;
     cdsPos: TClientDataSet;
-    tbFTP: TToolButton;
-    _ToolButton3: TToolButton;
     N7: TMenuItem;
     N8: TMenuItem;
     CopyEditthisservice1: TMenuItem;
     puDet: TPopupMenu;
     Deletefromfavourites1: TMenuItem;
-    iLogo: TImage;
-    _ToolButton2: TToolButton;
     fmFTP: TMenuItem;
-    _ToolButton6: TToolButton;
-    _ToolButton4: TToolButton;
     N10: TMenuItem;
     Sortlistalfabeticaly1: TMenuItem;
     ZAPtoservice1: TMenuItem;
     N11: TMenuItem;
     Zaptoservice2: TMenuItem;
-    _ToolButton7: TToolButton;
     AddaNewService1: TMenuItem;
     Options2: TMenuItem;
     fmImportSatcoDX1: TMenuItem;
@@ -82,11 +66,11 @@ type
     cdsFRD: TClientDataSet;
     cdsFBQ: TClientDataSet;
     TimerDetScroll: TTimer;
-    LWPanelB: TLWPanel;
+    lwpnlMain: TLWPanel;
     LWPanelR: TLWPanel;
-    Splitter1: TSplitter;
+    spltrLeft: TSplitter;
     LWPanelRR: TLWPanel;
-    Splitter2: TSplitter;
+    spltrRight: TSplitter;
     LWPanelRL: TLWPanel;
     lvDet: TListView;
     LWPanel4: TLWPanel;
@@ -103,7 +87,6 @@ type
     Label3: TLabel;
     _lServD: TLabel;
     fmTools: TMenuItem;
-    _ToolButton8: TToolButton;
     N12: TMenuItem;
     fmImportUserBouquets: TMenuItem;
     N14: TMenuItem;
@@ -114,7 +97,7 @@ type
     ServCut: TMenuItem;
     ServCopy: TMenuItem;
     ServPaste: TMenuItem;
-    tv: TTreeView;
+    tvBouquets: TTreeView;
     puTV: TPopupMenu;
     tvInsert: TMenuItem;
     tvDelete: TMenuItem;
@@ -151,8 +134,6 @@ type
     fmEditSatXML: TMenuItem;
     N13: TMenuItem;
     fmCompareDB: TMenuItem;
-    tbFFTPDown: TToolButton;
-    tbFFTPUp: TToolButton;
     fmFFTPDown: TMenuItem;
     fmFFTPUp: TMenuItem;
     fmCompareDisk: TMenuItem;
@@ -162,7 +143,6 @@ type
     fmLanguage: TMenuItem;
     _fmUpdateLanguage: TMenuItem;
     N22: TMenuItem;
-    _ToolButton1: TToolButton;
     cdsLock: TClientDataSet;
     servLock: TMenuItem;
     DetLock: TMenuItem;
@@ -213,27 +193,56 @@ type
     cdsServComp: TClientDataSet;
     cdsServSave: TClientDataSet;
     cdsAlt: TClientDataSet;
+    ctrlBarMain: TControlBar;
+    ActionManager1: TActionManager;
+    ActionMainMenuBar1: TActionMainMenuBar;
+    ActionToolBar1: TActionToolBar;
+    acFileOpen: TAction;
+    acFileSave: TAction;
+    acFileSaveAs: TAction;
+    acFileExit: TAction;
+    acFastUploadSettings: TAction;
+    acImportUserBouquetFiles: TAction;
+    acImportSatcoDXFiles: TAction;
+    acReimportExportedServicesFile: TAction;
+    acReimportExportedBouquetFile: TAction;
+    acExportAllServicesToExcel: TAction;
+    acExportAllBouquetsToExcel: TAction;
+    acExportServicesToSatcoDX: TAction;
+    acShowRestoreFiles: TAction;
+    acUpdateSatellitesXML: TAction;
+    acClearSatellitesXML: TAction;
+    acEditSatellitesXML: TAction;
+    acCompareServicesDreambox: TAction;
+    acCompareServicesDisk: TAction;
+    acOptions: TAction;
+    acClearAllParentalLocks: TAction;
+    acSwitchVersionTwoAndThree: TAction;
+    acUpdateAllLanguageFiles: TAction;
+    acFastDownloadSettings: TAction;
+    acSearch: TAction;
+    acRepeatLastSearch: TAction;
+    acHelpContents: TAction;
+    acAbout: TAction;
+    acCheckForUpdates: TAction;
+    acShowLog: TAction;
+    ilNewMenu: TImageList;
+    acViewFTPSettings: TAction;
+    imgCorner: TImage;
+    pnlTopBar: TPanel;
+    lwpnlCornerImage: TLWPanel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure sbDrawPanel(StatusBar: TStatusBar;
       Panel: TStatusPanel; const Rect: TRect);
-    procedure tbOpenClick(Sender: TObject);
-    procedure tbExitClick(Sender: TObject);
-    procedure tbSaveClick(Sender: TObject);
-    procedure tbAboutClick(Sender: TObject);
     procedure puServicesPopup(Sender: TObject);
     procedure EditDetails1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure tbFilesClick(Sender: TObject);
     procedure DeletefromallBouquets1Click(Sender: TObject);
     procedure DeleteService1Click(Sender: TObject);
-    procedure tbLogClick(Sender: TObject);
     procedure MakeBouquetforthissatellite1Click(Sender: TObject);
     procedure MakeaBouquetperSatellite1Click(Sender: TObject);
-    procedure tbHelpClick(Sender: TObject);
-    procedure tbOptionsClick(Sender: TObject);
     procedure CopyEditThisService1Click(Sender: TObject);
-    procedure tbFTPClick(Sender: TObject);
     procedure lvDetDragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
     procedure lvDetDragDrop(Sender, Source: TObject; X, Y: Integer);
@@ -246,11 +255,8 @@ type
     procedure lvDetStartDrag(Sender: TObject; var DragObject: TDragObject);
     procedure DetSortClick(Sender: TObject);
     procedure AddANewService1Click(Sender: TObject);
-    procedure tbImportClick(Sender: TObject);
     procedure lvDetKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure fmSaveAsClick(Sender: TObject);
-    procedure fmUpdSatXMLClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure lvServCustomDrawItem(Sender: TCustomListView;
       Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
@@ -266,7 +272,6 @@ type
       Data: Integer; var Compare: Integer);
     procedure cbFTVDragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
-    procedure fmImportUserBouquetsClick(Sender: TObject);
     procedure DetCutClick(Sender: TObject);
     procedure DetPasteClick(Sender: TObject);
     procedure lvDetKeyPress(Sender: TObject; var Key: Char);
@@ -279,56 +284,47 @@ type
     procedure lvDetDblClick(Sender: TObject);
     procedure tvCollapseAllClick(Sender: TObject);
     procedure tvExpandAllClick(Sender: TObject);
-    procedure tvDragDrop(Sender, Source: TObject; X, Y: Integer);
-    procedure tvDragOver(Sender, Source: TObject; X, Y: Integer;
+    procedure tvBouquetsDragDrop(Sender, Source: TObject; X, Y: Integer);
+    procedure tvBouquetsDragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
-    procedure tvEdited(Sender: TObject; Node: TTreeNode; var S: String);
+    procedure tvBouquetsEdited(Sender: TObject; Node: TTreeNode; var S: String);
     procedure tvDeleteClick(Sender: TObject);
     procedure tvInsertClick(Sender: TObject);
     procedure tvPrefixClick(Sender: TObject);
-    procedure tvStartDrag(Sender: TObject; var DragObject: TDragObject);
-    procedure tvEditing(Sender: TObject; Node: TTreeNode;
+    procedure tvBouquetsStartDrag(Sender: TObject; var DragObject: TDragObject);
+    procedure tvBouquetsEditing(Sender: TObject; Node: TTreeNode;
       var AllowEdit: Boolean);
-    procedure tvCompare(Sender: TObject; Node1, Node2: TTreeNode;
+    procedure tvBouquetsCompare(Sender: TObject; Node1, Node2: TTreeNode;
       Data: Integer; var Compare: Integer);
     procedure tvSortClick(Sender: TObject);
     procedure puTVPopup(Sender: TObject);
-    procedure tvMouseDown(Sender: TObject; Button: TMouseButton;
+    procedure tvBouquetsMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure TimertvScrollTimer(Sender: TObject);
     procedure tvCleanUpBouquets(Sender: TObject);
-    procedure tvKeyDown(Sender: TObject; var Key: Word;
+    procedure tvBouquetsKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure tvChange(Sender: TObject; Node: TTreeNode);
+    procedure tvBouquetsChange(Sender: TObject; Node: TTreeNode);
     procedure cbServFilter(Sender: TObject);
     procedure tvRenameClick(Sender: TObject);
-    procedure fmExportServicesExcelClick(Sender: TObject);
     procedure _lDetNameMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure DetLocateInServices1Click(Sender: TObject);
     procedure SetPackagename1Click(Sender: TObject);
-    procedure fmExportBouquetsExcelClick(Sender: TObject);
-    procedure fmEditSatXMLClick(Sender: TObject);
     procedure cdsSatXMLBeforePost(DataSet: TDataSet);
     procedure lvDetColumnClick(Sender: TObject; Column: TListColumn);
     procedure cdsSatXMLAfterPost(DataSet: TDataSet);
     procedure cdsSatXMLAfterDelete(DataSet: TDataSet);
-    procedure fmCompareDBClick(Sender: TObject);
-    procedure tbFFTPDownClick(Sender: TObject);
-    procedure tbFFTPUpClick(Sender: TObject);
     procedure ToolBar1CustomDrawButton(Sender: TToolBar;
       Button: TToolButton; State: TCustomDrawState;
       var DefaultDraw: Boolean);
     procedure cbSatNameDropDown(Sender: TObject);
     procedure cbSatNameCloseUp(Sender: TObject);
-    procedure fmCompareDiskClick(Sender: TObject);
-    procedure _fmUpdateLanguageClick(Sender: TObject);
     procedure fmLanguageClick(Sender: TObject);
     procedure servLockClick(Sender: TObject);
     procedure lvServInfoTip(Sender: TObject; Item: TListItem;
       var InfoTip: String);
     procedure DetLockClick(Sender: TObject);
-    procedure fmClearLocksClick(Sender: TObject);
     procedure PopupDraw(Sender: TObject; ACanvas: TCanvas;
       ARect: TRect; Selected: Boolean);
     procedure DetMarkerEdit(Sender: TObject);
@@ -339,11 +335,8 @@ type
       FindData: Pointer; StartIndex: Integer; Direction: TSearchDirection;
       Wrap: Boolean; var Index: Integer);
     procedure DetRenameService(Sender: TObject);
-    procedure fmCheckfornewversionClick(Sender: TObject);
     procedure TimerCheckVersionOnTimer(Sender: TObject);
-    procedure fmExportServicesSatcoDXClick(Sender: TObject);
     procedure EditTransponderClick(Sender: TObject);
-    procedure fmImportExportedBouquetsClick(Sender: TObject);
     procedure DetInsertMarkerPosClick(Sender: TObject);
     procedure puLogoGotowebsite1Click(Sender: TObject);
     procedure DetInsertMarkerPackageClick(Sender: TObject);
@@ -356,20 +349,46 @@ type
     procedure ToggleKeepFlag1Click(Sender: TObject);
     procedure SetKeepFlagOff1Click(Sender: TObject);
     procedure ChangetypetoTV1Click(Sender: TObject);
-    procedure tvCustomDrawItem(Sender: TCustomTreeView; Node: TTreeNode;
+    procedure tvBouquetsCustomDrawItem(Sender: TCustomTreeView; Node: TTreeNode;
       State: TCustomDrawState; var DefaultDraw: Boolean);
     procedure tvToggleParentalLock1Click(Sender: TObject);
     procedure Renumberallservices1Click(Sender: TObject);
     procedure ClearNewFlagForSelected1Click(Sender: TObject);
-    procedure fmSwitchVersion2and3Click(Sender: TObject);
     procedure puReadVersionNotesClick(Sender: TObject);
     procedure Removeemptymarkers1Click(Sender: TObject);
-    procedure fmImportExportedServicesClick(Sender: TObject);
-    procedure fmSearchClick(Sender: TObject);
-    procedure fmSearchRepeatClick(Sender: TObject);
     procedure Search1Click(Sender: TObject);
     procedure sbMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
+    procedure acFileOpenExecute(Sender: TObject);
+    procedure acFileSaveExecute(Sender: TObject);
+    procedure acFileSaveAsExecute(Sender: TObject);
+    procedure acFileExitExecute(Sender: TObject);
+    procedure acFastUploadSettingsExecute(Sender: TObject);
+    procedure acImportUserBouquetFilesExecute(Sender: TObject);
+    procedure acImportSatcoDXFilesExecute(Sender: TObject);
+    procedure acReimportExportedServicesFileExecute(Sender: TObject);
+    procedure acExportAllServicesToExcelExecute(Sender: TObject);
+    procedure acExportAllBouquetsToExcelExecute(Sender: TObject);
+    procedure acExportServicesToSatcoDXExecute(Sender: TObject);
+    procedure acShowRestoreFilesExecute(Sender: TObject);
+    procedure acFastDownloadSettingsExecute(Sender: TObject);
+    procedure acReimportExportedBouquetFileExecute(Sender: TObject);
+    procedure acUpdateSatellitesXMLExecute(Sender: TObject);
+    procedure acClearSatellitesXMLExecute(Sender: TObject);
+    procedure acEditSatellitesXMLExecute(Sender: TObject);
+    procedure acCompareServicesDreamboxExecute(Sender: TObject);
+    procedure acCompareServicesDiskExecute(Sender: TObject);
+    procedure acOptionsExecute(Sender: TObject);
+    procedure acClearAllParentalLocksExecute(Sender: TObject);
+    procedure acSwitchVersionTwoAndThreeExecute(Sender: TObject);
+    procedure acUpdateAllLanguageFilesExecute(Sender: TObject);
+    procedure acViewFTPSettingsExecute(Sender: TObject);
+    procedure acCheckForUpdatesExecute(Sender: TObject);
+    procedure acSearchExecute(Sender: TObject);
+    procedure acRepeatLastSearchExecute(Sender: TObject);
+    procedure acShowLogExecute(Sender: TObject);
+    procedure acHelpContentsExecute(Sender: TObject);
+    procedure acAboutExecute(Sender: TObject);
   private
     { Private declarations }
     lvDetColumnToSort: Integer;
@@ -1166,56 +1185,93 @@ procedure TFormMain.SetMenu(const option: String);
 begin
   if option = 'off'
   then begin;
-    tbSave.Enabled := False;
-    fmSave.Enabled := False;
-    fmSaveAs.Enabled := False;
-    fmExportServicesExcel.Enabled := False;
-    fmExportBouquetsExcel.Enabled := False;
-    fmExportServicesSatcoDX.Enabled := False;
-    fmUpdSatXML.Enabled := False;
-    fmClearSatXML.Enabled := False;
-    fmEditSatXML.Enabled := False;
-    fmCompareDB.Enabled := False;
-    fmCompareDisk.Enabled := False;
-    fmClearLocks.Enabled := False;
-    fmSwitchVersion2and3.Enabled := False;
-    tbFiles.Enabled := False;
-    fmFiles.Enabled := False;
-    fmImportUserBouquets.Enabled := False;
-    fmSearch.Enabled := False;
-    fmSearchRepeat.Enabled := False;
-    tbFFTPUp.Enabled := False;
-    fmFFTPUp.Enabled := False;
+    //tbSave.Enabled := False;
+    //fmSave.Enabled := False;
+    //fmSaveAs.Enabled := False;
+    //fmExportServicesExcel.Enabled := False;
+    //fmExportBouquetsExcel.Enabled := False;
+    //fmExportServicesSatcoDX.Enabled := False;
+    //fmUpdSatXML.Enabled := False;
+    //fmClearSatXML.Enabled := False;
+    //fmEditSatXML.Enabled := False;
+    //fmCompareDB.Enabled := False;
+    //fmCompareDisk.Enabled := False;
+    //fmClearLocks.Enabled := False;
+    //fmSwitchVersion2and3.Enabled := False;
+    //tbFiles.Enabled := False;
+    //fmFiles.Enabled := False;
+    //fmImportUserBouquets.Enabled := False;
+    //fmSearch.Enabled := False;
+    //fmSearchRepeat.Enabled := False;
+    //tbFFTPUp.Enabled := False;
+    //fmFFTPUp.Enabled := False;
+
+    acFileSave.Enabled := False;
+    acFileSaveAs.Enabled := False;
+    acExportAllServicesToExcel.Enabled := False;
+    acExportAllBouquetsToExcel.Enabled := False;
+    acExportServicesToSatcoDX.Enabled := False;
+    acUpdateSatellitesXML.Enabled := False;
+    acClearSatellitesXML.Enabled := False;
+    acEditSatellitesXML.Enabled := False;
+    acCompareServicesDreambox.Enabled := False;
+    acCompareServicesDisk.Enabled := False;
+    acClearAllParentalLocks.Enabled := False;
+    acSwitchVersionTwoAndThree.Enabled := False;
+    acShowRestoreFiles.Enabled := False;
+    acImportUserBouquetFiles.Enabled := False;
+    acSearch.Enabled := False;
+    acRepeatLastSearch.Enabled := False;
+    acFastUploadSettings.Enabled := False;
   end
   else
   if option = 'loaded'
   then begin;
-    tbSave.Enabled := False;
-    fmSave.Enabled := False;
-    fmSaveAs.Enabled := True;
-    fmExportServicesExcel.Enabled := True;
-    fmExportBouquetsExcel.Enabled := True;
-    fmExportServicesSatcoDX.Enabled := True;
-    fmUpdSatXML.Enabled := True;
-    fmClearSatXML.Enabled := True;
-    fmEditSatXML.Enabled := True;
-    fmCompareDB.Enabled := True;
-    fmCompareDisk.Enabled := True;
-    fmClearLocks.Enabled := True;
-    fmSwitchVersion2and3.Enabled := True;
-    tbFiles.Enabled := True;
-    fmFiles.Enabled := True;
-    fmImportUserBouquets.Enabled := True;
-    fmSearch.Enabled := True;
-    fmSearchRepeat.Enabled := True;
-    tbFFTPUp.Enabled := True;
-    fmFFTPUp.Enabled := True;
+    //tbSave.Enabled := False;
+    //fmSave.Enabled := False;
+    //fmSaveAs.Enabled := True;
+    //fmExportServicesExcel.Enabled := True;
+    //fmExportBouquetsExcel.Enabled := True;
+    //fmExportServicesSatcoDX.Enabled := True;
+    //fmUpdSatXML.Enabled := True;
+    //fmClearSatXML.Enabled := True;
+    //fmEditSatXML.Enabled := True;
+    //fmCompareDB.Enabled := True;
+    //fmCompareDisk.Enabled := True;
+    //fmClearLocks.Enabled := True;
+    //fmSwitchVersion2and3.Enabled := True;
+    //tbFiles.Enabled := True;
+    //fmFiles.Enabled := True;
+    //fmImportUserBouquets.Enabled := True;
+    //fmSearch.Enabled := True;
+    //fmSearchRepeat.Enabled := True;
+    //tbFFTPUp.Enabled := True;
+    //fmFFTPUp.Enabled := True;
+
+    acFileSave.Enabled := True;
+    acFileSaveAs.Enabled := True;
+    acExportAllServicesToExcel.Enabled := True;
+    acExportAllBouquetsToExcel.Enabled := True;
+    acExportServicesToSatcoDX.Enabled := True;
+    acUpdateSatellitesXML.Enabled := True;
+    acClearSatellitesXML.Enabled := True;
+    acEditSatellitesXML.Enabled := True;
+    acCompareServicesDreambox.Enabled := True;
+    acCompareServicesDisk.Enabled := True;
+    acClearAllParentalLocks.Enabled := True;
+    acSwitchVersionTwoAndThree.Enabled := True;
+    acShowRestoreFiles.Enabled := True;
+    acImportUserBouquetFiles.Enabled := True;
+    acSearch.Enabled := True;
+    acRepeatLastSearch.Enabled := True;
+    acFastUploadSettings.Enabled := True;
   end
   else
-  if option = 'changed'
-  then begin;
-    tbSave.Enabled := True;
-    fmSave.Enabled := True;
+  if option = 'changed' then
+  begin
+    //tbSave.Enabled := True;
+    //fmSave.Enabled := True;
+    acFileSave.Enabled := True;
   end
   else MessageDlg('Internal error: invalid option passed for menu settings',
                   mtError,[mbOK],0);
@@ -1466,11 +1522,11 @@ begin
     for nr := 900608 to 1048575 do begin; { is hex DBE00 to FFFFF }
       s := 'userbouquet.' + LowerCase(IntToHex(nr,5)) + '.' + ets;
       fnd := False;
-      for i := 0 to tv.Items.Count - 1 do begin;
-        if (tv.Items.Item[i].Level = 1) and
-           (tv.Items.Item[i].Parent.Text[1] = bt)
+      for i := 0 to tvBouquets.Items.Count - 1 do begin;
+        if (tvBouquets.Items.Item[i].Level = 1) and
+           (tvBouquets.Items.Item[i].Parent.Text[1] = bt)
         then begin;
-          pListData := tv.Items.Item[i].Data;
+          pListData := tvBouquets.Items.Item[i].Data;
           if pListData.FileName = s
           then begin;
             fnd := True;
@@ -1493,11 +1549,11 @@ begin
     for nr := 0 to 1000 do begin;
       inc(nnr);
       fnd := False;
-      for i := 0 to tv.Items.Count - 1 do begin;
-        if (tv.Items.Item[i].Level = 1) and
-           (tv.Items.Item[i].Parent.Text[1] = bt)
+      for i := 0 to tvBouquets.Items.Count - 1 do begin;
+        if (tvBouquets.Items.Item[i].Level = 1) and
+           (tvBouquets.Items.Item[i].Parent.Text[1] = bt)
         then begin;
-          pListData := tv.Items.Item[i].Data;
+          pListData := tvBouquets.Items.Item[i].Data;
           if pListData.Number = nnr
           then begin;
             fnd := True;
@@ -1516,11 +1572,11 @@ begin
     bsl := TStringList.Create;
     bsl.Clear;
     bsl.Sorted := True;
-    for i := 0 to tv.Items.Count - 1 do begin;
-      if (tv.Items.Item[i].Level = 1) and
-         (tv.Items.Item[i].Parent.Text[1] = 'P')
+    for i := 0 to tvBouquets.Items.Count - 1 do begin;
+      if (tvBouquets.Items.Item[i].Level = 1) and
+         (tvBouquets.Items.Item[i].Parent.Text[1] = 'P')
       then begin;
-        pListData := tv.Items.Item[i].Data;
+        pListData := tvBouquets.Items.Item[i].Data;
         bsl.Add(IntToStr(pListData.Number));
       end;
     end;
@@ -1807,13 +1863,17 @@ begin
   lvDet.Columns[2].Caption := lwLngTrns(name,['Satpos']);
 end;
 
+{ TODO -oTammie78N -cUI : Should check what this function does and if this is still neccesary. }
 procedure TFormMain.FormatToolbar();
-var
-  i,n,minl,totl: Integer;
+{var
+  i,n,minl,totl: Integer;}
 begin
-  for i := 0 to ToolBar1.ButtonCount - 1 do begin;
+  {for i := 0 to ToolBar1.ButtonCount - 1 do
+  begin
     ToolBar1.Buttons[i].Caption := Trim(ToolBar1.Buttons[i].Caption);
-    while ToolBar1.Canvas.TextWidth(ToolBar1.Buttons[i].Caption) > 52 do begin
+
+    while ToolBar1.Canvas.TextWidth(ToolBar1.Buttons[i].Caption) > 52 do
+    begin
       ToolBar1.Buttons[i].Caption := LeftStr(ToolBar1.Buttons[i].Caption,
                                              Length(ToolBar1.Buttons[i].Caption)-1);
     end;
@@ -1835,7 +1895,7 @@ begin
     end;
     if (minl <= 35) and (totl <= ToolBar1.Width - 10)
     then ToolBar1.Buttons[n].Caption := ' ' + ToolBar1.Buttons[n].Caption + ' ';
-  end;
+  end;}
 end;
 
 procedure TFormMain.FormatPopupMenu(var puMenu: TPopupMenu);
@@ -2257,15 +2317,17 @@ begin
   Reg.CloseKey;
   Reg.Destroy;
 
-  if tbSave.Enabled
-  then begin;
+  //if tbSave.Enabled then
+  if acFileSave.Enabled then
+  begin
     r := MessageDlg(lwLngTrns(name,[
                     'You made changes that are not yet saved!~~'+
                     'Do you want to save them before quiting?~' +
                     '(Choosing "No" means any changes you made, will be lost)']),
                     mtWarning,[mbYes,mbNo,mbCancel],0);
-    if r = mrYes
-    then tbSave.Click()
+    if r = mrYes then
+    //then tbSave.Click()
+      acFileSaveExecute(Sender)
     else
       if r = mrCancel
       then begin;
@@ -2296,1788 +2358,6 @@ begin
       TextOut(Rect.left+2,Rect.top,Panel.Text);
     end;
   end;
-end;
-
-procedure TFormMain.tbOpenClick(Sender: TObject);
-var
-  tf: TextFile;
-  s,b,snr,bnr,descr,ubt,bn,lfn,altfn: String;
-  Reg: Tregistry;
-  sl,fsl,psl,dbset,alt: TStringList;
-  i,a,e,p,r,ib,ie: Integer;
-  seqnr,cbq: Integer;
-  ServErr,BouqErr,FTVErr, FRDErr: Integer;
-  add: Boolean;
-  pListData: ^TListData;
-begin
-  if tbSave.Enabled
-  then begin;
-    r := MessageDlg(lwLngTrns(name,[
-                    'You made changes that are not yet saved!~~'+
-                    'Do you want to save them before opening a new set?~' +
-                    '(Choosing "No" means any changes you made, will be lost)']),
-                    mtWarning,[mbYes,mbNo,mbCancel],0);
-    if r = mrYes
-    then tbSave.Click()
-    else
-      if r = mrCancel
-      then exit;
-  end;
-
-  if not AutoOpen
-  then begin;
-    Reg := TRegistry.Create;
-    Reg.RootKey := HKEY_CURRENT_USER;
-    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
-    if Reg.ValueExists('LastUsedDirectory')
-    then Dir := Reg.ReadString('LastUsedDirectory')
-    else Dir := '';
-    Reg.CloseKey;
-    Reg.Destroy;
-  end;
-
-  if not DirectoryExists(Dir)
-  then Dir := '';
-
-  if (AutoOpen) or
-     (SelDir(Dir,False))
-  then begin;
-    AutoOpen := False;
-    Log('i',lwLngTrns(name,['Directory % selected',Dir]));
-    if not FileExists(Dir + '\lamedb')
-    then SetVersionDefaults(2)
-    else SetVersionDefaults(3);
-
-    if not FileExists(Dir + '\' + ServFilename)
-    then begin;
-      MessageDlg(lwLngTrns(name,[
-                 'Directory "%" contains no file called "%".~~'+
-                 'You must first use the FTP option to copy all necessary ' +
-                 'files from the dreambox to your PC.',Dir,ServFilename]),
-                 mtError,[mbOk],0);
-      Log('e',lwLngTrns(name,['File services not found in "%"',Dir]));
-      Exit;
-    end;
-    if (not FileExists(Dir + '\bouquets')) and
-       (not FileExists(Dir + '\lamedb'))
-    then begin;
-      MessageDlg(lwLngTrns(name,[
-                 'Directory "%" contains no file called "bouquets"~~'+
-                 'You must first use the FTP option to copy all necessary ' +
-                 'files from the dreambox to your PC.',Dir]),
-                 mtError,[mbOk],0);
-      Log('e',lwLngTrns(name,['File % not found in "%"',
-                              'bouquets',Dir]));
-      Exit;
-    end;
-
-    Reg := TRegistry.Create;
-    Reg.RootKey := HKEY_CURRENT_USER;
-    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
-    Reg.WriteString('LastUsedDirectory',Dir);
-    Reg.CloseKey;
-    Reg.Destroy;
-
-    FormMain.Caption := 'LlamaWare DreamBoxEdit - ' + Dir;
-
-    screen.cursor := crHourglass;
-    ToolBar1.Enabled := False;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := 9;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
-    application.ProcessMessages;
-
-    psl := TStringList.Create;
-
-    cdsTSID.EmptyDataSet;
-    cdsTSID.Close;
-    cdsTSID.Open;
-
-    cdsServ.Filtered := False;
-    cdsServ.Filter := '';
-    cdsServ.EmptyDataSet;
-    cdsServ.Close;
-    cdsSERV.IndexFieldNames := 'servSID;servUniq;servTSID;servNID;servType';
-    cdsServ.Open;
-    HighDbeNr := 0;
-    cbTVRadio.ItemIndex := 0;
-    cbSatName.ItemIndex := 0;
-    ePackage.Text := '';
-    lvServ.items.Count := 0;
-
-    cdsLock.EmptyDataSet;
-    cdsLock.Close;
-    cdsLock.Open;
-    cdsAlt.EmptyDataSet;
-    cdsAlt.Close;
-    cdsAlt.Open;
-
-    cdsPos.EmptyDataSet;
-    cdsPos.Close;
-    cdsPos.Open;
-
-    cdsFTV.EmptyDataSet;
-    cdsFTV.Close;
-    cdsFTV.Open;
-    cdsFRD.EmptyDataSet;
-    cdsFRD.Close;
-    cdsFRD.Open;
-    cdsFBQ.EmptyDataSet;
-    cdsFBQ.Close;
-    cdsFBQ.Open;
-
-    lvDet.Items.BeginUpdate;
-    lvDet.Items.Clear;
-    lvDet.Items.EndUpdate;
-
-    V3OrderBy1 := '';
-
-    tv.Items.BeginUpdate;
-    for i := 0 to tv.Items.Count - 1 do begin;
-      if tv.Items.Item[i].Level = 1
-      then dispose(tv.Items.Item[i].Data);
-    end;
-    tv.Items.Clear;
-    tv.Items.EndUpdate;
-
-    BouqErr := 0;
-    FTVErr := 0;
-    FRDErr := 0;
-
-    { Default settings for satellite }
-    SatCable := 's';
-    if SettingsVersion = 2
-    then sb.Panels[2].Text := lwLngTrns(name,['Satellite'])
-    else sb.Panels[2].Text := '';
-
-    { process services file }
-    FormWait.pb.Position := 1;
-
-    ServErr := ReadServices(Dir+'\'+ServFilename,cdsServ,False);
-    if ServErr < 0
-    then begin;
-      screen.cursor := crdefault;
-      ToolBar1.Enabled := True;
-      FormWait.Hide;
-      exit;
-    end;
-
-    { process parental lock / blacklist / whitelist file (if present/specified) }
-    FormWait.pb.Position := 2;
-    BlackList := True; { Default }
-    lfn := 'services.locked'; { Default }
-    { Check for whitelist setting when settings type is not 2 }
-    if SettingsVersion <> 2
-    then begin;
-      lfn := 'blacklist'; { default for settings version 3 }
-      if FileExists(Dir+'\settings')
-      then begin;
-        dbset := TStringList.Create;
-        dbset.LoadFromFile(Dir+'/settings');
-        if pos('whitelist',lowercase(dbset.Text)) > 0
-        then begin;
-          Blacklist := False;
-          lfn := 'whitelist';
-          sb.Panels[4].Text := 'Parental control: Whitelist';
-        end;
-        dbset.Free;
-      end;
-    end;
-
-    if FileExists(Dir+'\'+lfn)
-    then begin;
-      sl := TStringList.Create;
-      sl.LoadFromFile(Dir+'\'+lfn);
-      for i := 0 to sl.Count - 1 do begin;
-        if pos('parental',lowercase(sl[i])) > 0
-        then continue;
-
-        if trim(sl[i]) <> ''
-        then begin;
-          ParseString(sl[i],psl);
-          if not CheckStringsOK(Dir+'\'+lfn,sl[i],psl,7,'NNHHHHH')
-          then begin;
-            inc(ServErr);
-            continue;
-          end;
-
-          { process entry }
-          cdsLock.Append;
-          cdsLock.FieldByName('lockI1').AsString := psl.Strings[0];
-          cdsLock.FieldByName('lockI2').AsString := psl.Strings[1];
-          if psl.Strings[10] = ''
-          then begin;
-            cdsLock.FieldByName('lockServType').AsInteger := StrToInt('$0'+psl.Strings[2]);
-            cdsLock.FieldByName('lockSID').AsInteger := StrToInt('$0'+psl.Strings[3]);
-            cdsLock.FieldByName('lockTSID').AsInteger := StrToInt('$0'+psl.Strings[4]);
-            cdsLock.FieldByName('lockNID').AsInteger := StrToInt('$0'+psl.Strings[5]);
-            cdsLock.FieldByName('lockUniq').AsInteger := StrToInt('$0'+psl.Strings[6]);
-            cdsLock.FieldByName('lockString').AsString := '';
-          end
-          else begin;                     
-            if psl.Count >= 11
-            then begin;
-              cdsLock.FieldByName('lockString').AsString := psl.Strings[10];
-              psl.Strings[10] := StringReplace(psl.Strings[10],'/','\',[rfReplaceAll]);
-              cdsLock.FieldByName('lockFilename').AsString := ExtractFilename(psl.Strings[10]);
-            end;
-          end;
-          cdsLock.Post;
-        end;
-      end;
-      sl.Free;
-
-      { update cdsServ with locks }
-      cdsLock.First;
-      while not cdsLock.Eof do begin;
-        if (cdsLock.FieldByName('lockI2').AsInteger = 0) and
-           (cdsServ.FindKey([cdsLock.FieldByName('lockSID').AsString,
-                             cdsLock.FieldByName('lockUniq').AsString,
-                             cdsLock.FieldByName('lockTSID').AsString,
-                             cdsLock.FieldByName('lockNID').AsString,
-                             cdsLock.FieldByName('lockServType').AsString]))
-        then begin;
-          cdsServ.Edit;
-          cdsServ.FieldByName('servLock').AsInteger := 1;
-          cdsServ.Post;
-          cdsLock.Delete;
-        end
-        else cdsLock.Next;
-      end;
-    end;
-
-    { process bouquets ('Providers') }
-    FormWait.pb.Position := 3;
-
-    tnBQ := tv.Items.Add(nil,'Providers');
-    if FileExists(Dir+'\bouquets')
-    then begin;
-      AssignFile(tf,Dir+'\bouquets');
-      SetLineBreakStyle(tf,tlbsLF);
-      Reset(tf);
-      snr := '';
-      cbq := 0;
-      ReadLn(tf,s);
-      while (s <> 'bouquets') and (not eof(tf)) do
-        ReadLn(tf,s);
-      ReadLn(tf,s);
-      while (s <> 'end') and (not eof(tf))
-      do begin;
-        bnr := s;
-        ReadLn(tf,b);
-        new(pListData);
-        pListData.FileName := '';
-        pListData.Number := StrToInt(bnr);
-        if cdsLock.Locate('lockServType;lockSID;lockTSID',
-                          VarArrayOf(['-3','18',StrToInt(bnr)]),[]) { -3 = fffffffd }
-        then begin;
-          pListData.Locked := True;
-          cdsLock.Delete;
-        end
-        else pListData.Locked := False;
-        tv.Items.AddChildObject(tnBQ,UTF8ToAnsi(b),pListData);
-
-        ReadLn(tf,s);
-        while (s <> '/') and (not eof(tf))
-        do begin;
-          add := true;
-          ParseString(s,psl);
-          if not CheckStringsOK(Dir+'\bouquets',s,psl,5,'HHHHH')
-          then begin;
-            inc(BouqErr);
-            add := False;
-          end;
-
-          { Temporary(?) set hex servicetype value to decimal }
-          if add
-          then
-            if not StrIsNumeric(psl.Strings[4],False)
-            then psl.Strings[4] := IntToStr(StrToInt('$'+psl.Strings[4]));
-
-          if trim(s) = ''
-          then add := false;
-          if (add) and
-             (psl.Count < 5)
-          then begin;
-            MessageDlg(lwLngTrns(name,['Invalid line found (not enough values) and skipped in file "bouquet"']),
-                                  mtWarning,[mbOK],0);
-            log('w',lwLngTrns(name,['Invalid line found (not enough values) and skipped in file "bouquet"']));
-            log('w','-->'+s);
-            Inc(BouqErr);
-            add := False;
-          end;
-          if (add) and
-             (not AllowDuplicates) and
-             (cdsFBQ.FindKey([bnr,
-                              IntToStr(StrToInt('$'+psl.Strings[0])),
-                              IntToStr(StrToInt('$'+psl.Strings[1])),
-                              IntToStr(StrToInt('$'+psl.Strings[2])),
-                              IntToStr(StrToInt('$'+psl.Strings[3])),
-                              psl.Strings[4]]))
-          then begin;
-            log('w',lwLngTrns(name,[
-                'Duplicate bouquet not loaded: % type: % (%:%:%:%' +
-                ' hex: %:%:%:%)',
-                b,psl.Strings[4],
-                IntToStr(StrToInt('$'+psl.Strings[0])),
-                IntToStr(StrToInt('$'+psl.Strings[1])),
-                IntToStr(StrToInt('$'+psl.Strings[2])),
-                IntToStr(StrToInt('$'+psl.Strings[3])),
-                psl.Strings[0],
-                psl.Strings[1],
-                psl.Strings[2],
-                psl.Strings[3]]));
-            Inc(BouqErr);
-            add := False;
-          end;
-          if (add) and
-             (not cdsServ.FindKey([IntToStr(StrToInt('$'+psl.Strings[0])),
-                                   IntToStr(StrToInt('$'+psl.Strings[1])),
-                                   IntToStr(StrToInt('$'+psl.Strings[2])),
-                                   IntToStr(StrToInt('$'+psl.Strings[3])),
-                                   psl.Strings[4]]))
-          then begin;
-            log('w',lwLngTrns(name,[
-                'Invalid bouquet entry in "%" not loaded: '+
-                'SID: %, Namespace: %, TSID: %, NID: %, Type: %: Service not found.',
-                b,
-                IntToStr(StrToInt('$'+psl.Strings[0])),
-                IntToStr(StrToInt('$'+psl.Strings[1])),
-                IntToStr(StrToInt('$'+psl.Strings[2])),
-                IntToStr(StrToInt('$'+psl.Strings[3])),
-                psl.Strings[4]]));
-            Inc(BouqErr);
-            add := False;
-          end;
-
-          if add
-          then begin;
-            inc(cbq);
-            cdsFBQ.Append;
-            cdsFBQ.FieldByName('fbqSeqNr').AsInteger := cbq;
-            cdsFBQ.FieldByName('fbqName').AsString := CleanText(cdsServ.FieldByName('servName').AsString);
-            cdsFBQ.FieldByName('fbqSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[0]));
-            cdsFBQ.FieldByName('fbqUniq').AsString := IntToStr(StrToInt('$0'+psl.Strings[1]));
-            cdsFBQ.FieldByName('fbqTSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[2]));
-            cdsFBQ.FieldByName('fbqNID').AsString := IntToStr(StrToInt('$0'+psl.Strings[3]));
-            cdsFBQ.FieldByName('fbqServType').AsString := psl.Strings[4];
-            cdsFBQ.FieldByName('fbqSetNr').AsString := bnr;
-            cdsFBQ.FieldByName('fbqDescr').AsString := '';
-            cdsFBQ.FieldByName('fbqDbeNr').AsString := cdsServ.FieldByName('servDbeNr').AsString;
-            cdsFBQ.FieldByName('fbqT').AsString := 'n';
-            cdsFBQ.Post;
-          end;
-
-          ReadLn(tf,s);
-        end;
-        ReadLn(tf,s);
-      end;
-      CloseFile(tf);
-      tnBQ.AlphaSort(True);
-    end;
-    if tnBQ.Count = 0
-    then begin;
-      new(pListData);
-      pListData.FileName := '';
-      pListData.Number := 1;
-      pListData.Locked := False;
-      tv.Items.AddChildObject(tnBQ,'Empty',pListData);
-    end;
-
-    { process TV User Bouquets Index File and TV User Bouquets Files }
-    FormWait.pb.Position := 4;
-
-    tnTV := tv.Items.Insert(TNBQ,'TV User Bouquets');
-
-    if FileExists(Dir + '\' + EplTVFilename)
-    then begin;
-      fsl := TStringList.Create;
-      fsl.Clear;
-      AssignFile(tf,Dir + '\' + EplTVFilename);
-      SetLineBreakStyle(tf,tlbsCRLF);
-      Reset(tf);
-      if SettingsVersion = 2
-      then begin;
-        while not eof(tf) do begin;
-          ReadLn(tf,s);
-          if (LowerCase(LeftStr(s,8)) = '#service') and
-             (LowerCase(RightStr(s,3)) = '.tv')
-          then begin;
-            for i := length(s) downto 0 do begin;
-              if s[i] = '/'
-              then break;
-            end;
-            s := RightStr(s,length(s)-i);
-            fsl.Add(s);
-          end;
-        end;
-      end
-      else begin;
-        while not eof(tf) do begin;
-          ReadLn(tf,s);
-          if LowerCase(LeftStr(s,8)) = '#service'
-          then begin;
-            for i := length(s) downto 0 do begin;
-              if s[i] = ':'
-              then break;
-            end;
-            s := RightStr(s,length(s)-i);
-            fsl.Add(s);
-          end;
-        end;
-      end;
-      CloseFile(tf);
-
-      seqnr := 0;
-      FormWait.pb.Position := 5;
-      for i := 0 to fsl.Count - 1 do begin;
-        { First extract filename with version>2 settings set }
-        if (SettingsVersion <> 2) and
-           (pos('"',fsl[i]) > 0)
-        then begin;
-          ib := pos('"',fsl[i]);
-          ie := posex('"',fsl[i],ib+1);
-          if V3OrderBy1 = ''
-          then begin;
-            V3OrderBy1 := LeftStr(fsl[i],ib);
-            V3OrderBy2 := copy(fsl[i],ie,length(fsl[i])-ie+1);
-          end;
-          fsl[i] := copy(fsl[i],ib+1,ie-ib-1);
-        end;
-
-        { Process user bouquet file }
-        if FileExists(Dir+'\' + fsl[i])
-        then begin;
-          AssignFile(tf,Dir+'\' + fsl[i]);
-          SetLineBreakStyle(tf,tlbsLF);
-          Reset(tf);
-          ReadLn(tf,s);
-          s := copy(s,7,length(s)-6);
-          new(pListData);
-          pListData.FileName := fsl[i];
-          pListData.Number := i;
-          if cdsLock.Locate('lockFilename',VarArrayOf([fsl[i]]),[])
-          then begin;
-            pListData.Locked := True;
-            cdsLock.Delete;
-          end
-          else pListData.Locked := False;
-          tv.Items.AddChildObject(tnTV,UTF8ToAnsi(s),pListData);
-          bn := UTF8ToAnsi(s);
-
-          sl := TStringList.Create;
-          while not eof(tf)
-          do begin;
-            ReadLn(tf,s);
-            if (copy(s,1,8) = '#SERVICE') or
-               (copy(s,1,12) = '#DESCRIPTION')
-            then sl.Add(s);
-          end;
-          CloseFile(tf);
-
-          for e := 0 to sl.Count - 1 do begin;
-            s := sl[e];
-
-            if copy(s,1,8) <> '#SERVICE'
-            then continue;
-
-            ParseString(s,psl);
-            if not CheckStringsOK(Dir+'\'+fsl[i],s,psl,8,'SSSHHHHH')
-            then begin;
-              inc(FTVErr);
-              continue;
-            end;
-
-            { handle alternatives in version > 2 }
-            if (SettingsVersion <> 2) and
-               (psl.Strings[1] = '1') and
-               (psl.Strings[2] = '134') and
-               (psl.Count >= 12) and
-               (pos('"',s) > 0)
-            then begin;
-              ib := pos('"',s);
-              ie := posex('"',s,ib+1);
-              altfn := copy(s,ib+1,ie-ib-1);
-              if FileExists(Dir+'\'+altfn)
-              then begin;
-                alt := TStringList.Create;
-                alt.LoadFromFile(Dir+'\'+altfn);
-                if alt.Count >= 2
-                then begin;
-                  s := alt.Strings[1];
-                  ParseString(s,psl);
-                  if not CheckStringsOK(Dir+'\'+fsl[i],s,psl,8,'SSSHHHHH')
-                  then begin;
-                    inc(FTVErr);
-                    continue;
-                  end;
-                  for a := 1 to 1 {alt.Count - 1} do begin; { for now: just the irst entry }
-                    cdsAlt.Append;
-                    cdsAlt.FieldByName('altBQName').AsString := bn;
-                    cdsAlt.FieldByName('altSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[4]));
-                    cdsAlt.FieldByName('altUniq').AsString := IntToStr(StrToInt('$0'+psl.Strings[7]));
-                    cdsAlt.FieldByName('altTSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[5]));
-                    cdsAlt.FieldByName('altNID').AsString := IntToStr(StrToInt('$0'+psl.Strings[6]));
-                    cdsAlt.FieldByName('altServType').AsString := psl.Strings[3];
-                    cdsAlt.FieldByName('altFileName').AsString := altfn;
-                    cdsAlt.Post;
-                  end;
-                end;
-                alt.Free;
-              end;
-            end;
-
-            { Settingsversion >2: set hex servicetype value to decimal }
-            if SettingsVersion <> 2
-            then psl.Strings[3] := IntToStr(StrToInt('$'+psl.Strings[3]));
-
-            if psl.Strings[1] <> '1'
-            then begin;
-              log('w',lwLngTrns(name,['Unsupported reference in TV User Bouquet ' +
-                                 '(%) to User Bouquet itself skipped:',fsl[i]]));
-              log('w','--data: ' + s);
-              inc(FTVErr);
-              continue;
-            end;
-            if (psl.Strings[2] = '15') and
-               (psl.Strings[3] <> 'fffffffd')
-            then begin;
-              log('w',lwLngTrns(name,['Unsupported reference in TV User Bouquet ' +
-                                '(%) skipped:',fsl[i]]));
-              log('w','--data: ' + s);
-              inc(FTVErr);
-              continue;
-            end;
-
-            { handle old references to bouquets }
-            if (psl.Strings[2] = '15') and
-               (psl.Strings[3] = 'fffffffd')
-            then begin;
-              log('w',lwLngTrns(name,['Reference in TV User Bouquet ' +
-                                '(%) to bouquet skipped:',fsl[i]]));
-              log('w','--data: ' + s);
-              inc(FTVErr);
-              continue;
-            end;
-
-            ubt := 'n';
-            descr := '';
-            { Handle Markers }
-            if psl.Strings[2] = '64'
-            then begin;
-              if (e < sl.Count - 1) and
-                 (copy(sl[e+1],1,12) = '#DESCRIPTION')
-              then
-                if copy(sl[e+1],1,13) = '#DESCRIPTION:'
-                then descr := trim(copy(sl[e+1],14,length(sl[e+1])-1))
-                else descr := trim(copy(sl[e+1],13,length(sl[e+1])-1))
-              else begin;
-                log('w',lwLngTrns(name,['Empty marker ignored (%)',
-                                  fsl[i]]));
-                inc(FTVErr);
-                continue;
-              end;
-              ubt := 'm';
-            end;
-
-            { handle duplicate references }
-            if (descr = '') and
-               (not AllowDuplicates) and
-               (cdsFTV.FindKey([IntToStr(i),
-                                IntToStr(StrToInt('$'+psl.Strings[4])),
-                                IntToStr(StrToInt('$'+psl.Strings[7])),
-                                IntToStr(StrToInt('$'+psl.Strings[5])),
-                                IntToStr(StrToInt('$'+psl.Strings[6])),
-                                psl.Strings[3]]))
-            then begin;
-              log('w',lwLngTrns(name,['Duplicate TV favourite (%) not loaded',fsl[i]]));
-              log('w','-- data: ' + s +
-                      ' (service: ' + cdsFTV.FieldByName('ftvName').AsString + ', ' +
-                      ' bouquet: ' + bn + ')');
-              inc(FTVErr);
-              continue;
-            end;
-
-            { handle reference to unknown service / sub service }
-            if (ubt = 'n') and
-               (not cdsServ.FindKey([IntToStr(StrToInt('$'+psl.Strings[4])),
-                                     IntToStr(StrToInt('$'+psl.Strings[7])),
-                                     IntToStr(StrToInt('$'+psl.Strings[5])),
-                                     IntToStr(StrToInt('$'+psl.Strings[6])),
-                                     psl.Strings[3]]))
-            then begin;
-              if (e >= sl.Count - 1) or
-                 (copy(sl[e+1],1,12) <> '#DESCRIPTION')
-              then begin;
-                log('w',lwLngTrns(name,['TV Favourite (%) without ' +
-                                   'corresponding service not loaded',fsl[i]]));
-                log('w','-- data: ' + s);
-                inc(FTVErr);
-                continue;
-              end;
-              ubt := 's';
-              descr := trim(copy(sl[e+1],14,length(sl[e+1])-1));
-            end;
-
-            { handle renamed services }
-            if (ubt = 'n') and
-               (e <= sl.Count - 2) and
-               (copy(sl[e+1],1,12) = '#DESCRIPTION')
-            then begin;
-              ubt := 'r';
-              if copy(sl[e+1],1,13) = '#DESCRIPTION:'
-              then descr := trim(copy(sl[e+1],14,length(sl[e+1])-1))
-              else descr := trim(copy(sl[e+1],13,length(sl[e+1])-1))
-            end;
-
-            { process service reference }
-            inc(seqnr);
-            cdsFTV.Append;
-            cdsFTV.FieldByName('ftvSeqNr').AsInteger := seqnr;
-            if (ubt = 'n') or
-               (ubt = 'r')
-            then cdsFTV.FieldByName('ftvName').AsString := CleanText(cdsServ.FieldByName('servName').AsString)
-            else cdsFTV.FieldByName('ftvName').AsString := CleanText(descr);
-            cdsFTV.FieldByName('ftvSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[4]));
-            cdsFTV.FieldByName('ftvUniq').AsString := IntToStr(StrToInt('$0'+psl.Strings[7]));
-            cdsFTV.FieldByName('ftvTSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[5]));
-            cdsFTV.FieldByName('ftvNID').AsString := IntToStr(StrToInt('$0'+psl.Strings[6]));
-            if ubt = 'm'
-            then cdsFTV.FieldByName('ftvServType').AsString := '0'
-            else cdsFTV.FieldByName('ftvServType').AsString := psl.Strings[3];
-            cdsFTV.FieldByName('ftvSetNr').AsInteger := i;
-            if descr <> ''
-            then cdsFTV.FieldByName('ftvDescr').AsString := CleanText(descr)
-            else cdsFTV.FieldByName('ftvDescr').AsString := '';
-            if (ubt = 'n') or
-               (ubt = 'r')
-            then cdsFTV.FieldByName('ftvDbeNr').AsString := cdsServ.FieldByName('servDbeNr').AsString
-            else cdsFTV.FieldByName('ftvDbeNr').AsString := '0';
-            cdsFTV.FieldByName('ftvT').AsString := ubt;
-            cdsFTV.Post;
-          end;
-          sl.Free;
-        end;
-      end;
-      fsl.Free;
-    end;
-    if tnTV.Count = 0
-    then begin;
-      new(pListData);
-      tv.Items.AddChildObject(tnTV,'Favorites',pListData);
-      pListData.FileName := 'userbouquet.dbe00.tv';
-      pListData.Number := 0;
-      pListData.Locked := False;
-    end;
-
-    { process Radio User Bouquet Index File and Radio User Bouquet Files }
-    FormWait.pb.Position := 6;
-
-    tnRD := tv.Items.Insert(TNBQ,'Radio User Bouquets');
-
-    if FileExists(Dir + '\' + EplRDFilename)
-    then begin;
-      fsl := TStringList.Create;
-      fsl.Clear;
-      AssignFile(tf,Dir + '\' + EplRDFilename);
-      SetLineBreakStyle(tf,tlbsCRLF);
-      Reset(tf);
-      if SettingsVersion = 2
-      then begin;
-        while not eof(tf) do begin;
-          ReadLn(tf,s);
-          if (LowerCase(LeftStr(s,8)) = '#service') and
-             (LowerCase(RightStr(s,6)) = '.radio')
-          then begin;
-            for i := length(s) downto 0 do begin;
-              if s[i] = '/'
-              then break;
-            end;
-            s := RightStr(s,length(s)-i);
-            fsl.Add(s);
-          end;
-        end;
-      end
-      else begin;
-        while not eof(tf) do begin;
-          ReadLn(tf,s);
-          if LowerCase(LeftStr(s,8)) = '#service'
-          then begin;
-            for i := length(s) downto 0 do begin;
-              if s[i] = ':'
-              then break;
-            end;
-            s := RightStr(s,length(s)-i);
-            fsl.Add(s);
-          end;
-        end;
-      end;
-      CloseFile(tf);
-
-      seqnr := 0;
-      FormWait.pb.Position := 7;
-      for i := 0 to fsl.Count - 1 do begin;
-        { First extract filename with version>2 settings set }
-        if (SettingsVersion <> 2) and
-           (pos('"',fsl[i]) > 0)
-        then begin;
-          ib := pos('"',fsl[i]);
-          ie := posex('"',fsl[i],ib+1);
-          if V3OrderBy1 = ''
-          then begin;
-            V3OrderBy1 := LeftStr(fsl[i],ib);
-            V3OrderBy2 := copy(fsl[i],ie,length(fsl[i])-ie+1);
-          end;
-          fsl[i] := copy(fsl[i],ib+1,ie-ib-1);
-        end;
-
-        { Process user bouquet file }
-        if FileExists(Dir+'\' + fsl[i])
-        then begin;
-          AssignFile(tf,Dir+'\' + fsl[i]);
-          SetLineBreakStyle(tf,tlbsLF);
-          Reset(tf);
-          ReadLn(tf,s);
-          s := copy(s,7,length(s)-6);
-          new(pListData);
-          pListData.FileName := fsl[i];
-          pListData.Number := i;
-          if cdsLock.Locate('lockFilename',VarArrayOf([fsl[i]]),[])
-          then begin;
-            pListData.Locked := True;
-            cdsLock.Delete;
-          end
-          else pListData.Locked := False;
-          tv.Items.AddChildObject(tnRD,UTF8ToAnsi(s),pListData);
-          bn := UTF8ToAnsi(s);
-          
-          sl := TStringList.Create;
-          while not eof(tf)
-          do begin;
-            ReadLn(tf,s);
-            if (copy(s,1,8) = '#SERVICE') or
-               (copy(s,1,12) = '#DESCRIPTION')
-            then sl.Add(s);
-          end;
-          CloseFile(tf);
-
-          for e := 0 to sl.Count - 1 do begin;
-            s := sl[e];
-
-            if copy(s,1,8) <> '#SERVICE'
-            then continue;
-
-            ParseString(s,psl);
-            if not CheckStringsOK(Dir+'\'+fsl[i],s,psl,8,'SSSHHHHH')
-            then begin;
-              inc(FRDErr);
-              continue;
-            end;
-
-            { handle alternatives in version > 2 }
-            if (SettingsVersion <> 2) and
-               (psl.Strings[1] = '1') and
-               (psl.Strings[2] = '134') and
-               (psl.Count >= 12) and
-               (pos('"',s) > 0)
-            then begin;
-              ib := pos('"',s);
-              ie := posex('"',s,ib+1);
-              altfn := copy(s,ib+1,ie-ib-1);
-              if FileExists(Dir+'\'+altfn)
-              then begin;
-                alt := TStringList.Create;
-                alt.LoadFromFile(Dir+'\'+altfn);
-                if alt.Count >= 2
-                then begin;
-                  s := alt.Strings[1];
-                  ParseString(s,psl);
-                  if not CheckStringsOK(Dir+'\'+fsl[i],s,psl,8,'SSSHHHHH')
-                  then begin;
-                    inc(FRDErr);
-                    continue;
-                  end;
-                  for a := 1 to 1 {alt.Count - 1} do begin; { for now: just the irst entry }
-                    cdsAlt.Append;
-                    cdsAlt.FieldByName('altBQName').AsString := bn;
-                    cdsAlt.FieldByName('altSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[4]));
-                    cdsAlt.FieldByName('altUniq').AsString := IntToStr(StrToInt('$0'+psl.Strings[7]));
-                    cdsAlt.FieldByName('altTSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[5]));
-                    cdsAlt.FieldByName('altNID').AsString := IntToStr(StrToInt('$0'+psl.Strings[6]));
-                    cdsAlt.FieldByName('altServType').AsString := psl.Strings[3];
-                    cdsAlt.FieldByName('altFileName').AsString := altfn;
-                    cdsAlt.Post;
-                  end;
-                end;
-                alt.Free;
-              end;
-            end;
-
-            { Settingsversion >2: set hex servicetype value to decimal }
-            if SettingsVersion <> 2
-            then psl.Strings[3] := IntToStr(StrToInt('$'+psl.Strings[3]));
-
-            if psl.Strings[1] <> '1'
-            then begin;
-              log('w',lwLngTrns(name,['Unsupported reference in Radio User Bouquet ' +
-                                 '(%) to User Bouquet itself skipped:',fsl[i]]));
-              log('w','--data: ' + s);
-              inc(FRDErr);
-              continue;
-            end;
-            if (psl.Strings[2] = '15') and
-               (psl.Strings[3] <> 'fffffffd')
-            then begin;
-              log('w',lwLngTrns(name,['Unsupported reference in Radio User Bouquet ' +
-                                 '(%) skipped:',fsl[i]]));
-              log('w','--data: ' + s);
-              inc(FRDErr);
-              continue;
-            end;
-
-            { handle old references to bouquets }
-            if (psl.Strings[2] = '15') and
-               (psl.Strings[3] = 'fffffffd')
-            then begin;
-              log('w',lwLngTrns(name,['Reference in Radio User Bouquet ' +
-                                 '(%) to bouquet skipped:',fsl[i]]));
-              log('w','--data: ' + s);
-              inc(FRDErr);
-              continue;
-            end;
-
-            { Handle Markers }
-            ubt := 'n';
-            descr := '';
-            if psl.Strings[2] = '64'
-            then begin;
-              if (e < sl.Count - 1) and
-                 (copy(sl[e+1],1,12) = '#DESCRIPTION')
-              then
-                if copy(sl[e+1],1,13) = '#DESCRIPTION:'
-                then descr := trim(copy(sl[e+1],14,length(sl[e+1])-1))
-                else descr := trim(copy(sl[e+1],13,length(sl[e+1])-1))
-              else begin;
-                log('w',lwLngTrns(name,['Empty marker ignored (%)',
-                                  fsl[i]]));
-                inc(FRDErr);
-                continue;
-              end;
-              ubt := 'm';
-            end;
-
-            { handle references to duplicate services }
-            if (descr = '') and
-               (not AllowDuplicates) and
-               (cdsFRD.FindKey([IntToStr(i),
-                                IntToStr(StrToInt('$'+psl.Strings[4])),
-                                IntToStr(StrToInt('$'+psl.Strings[7])),
-                                IntToStr(StrToInt('$'+psl.Strings[5])),
-                                IntToStr(StrToInt('$'+psl.Strings[6])),
-                                psl.Strings[3]]))
-            then begin;
-              log('w',lwLngTrns(name,['Duplicate Radio favourite (%) not loaded',fsl[i]]));
-              log('w','-- data: ' + s +
-                      ' (service: ' + cdsFRD.FieldByName('frdName').AsString + ', ' +
-                      ' bouquet: ' + bn + ')');
-              inc(FRDErr);
-              continue;
-            end;
-
-            { handle reference to unknown service / sub service }
-            if (ubt = 'n') and
-               (not cdsServ.FindKey([IntToStr(StrToInt('$'+psl.Strings[4])),
-                                     IntToStr(StrToInt('$'+psl.Strings[7])),
-                                     IntToStr(StrToInt('$'+psl.Strings[5])),
-                                     IntToStr(StrToInt('$'+psl.Strings[6])),
-                                     psl.Strings[3]]))
-            then begin;
-              if (e >= sl.Count - 1) or
-                 (copy(sl[e+1],1,12) <> '#DESCRIPTION')
-              then begin;
-                log('w',lwLngTrns(name,['Radio Favourite (%) without ' +
-                                  'corresponding service not loaded',fsl[i]]));
-                log('w','-- data: ' + s);
-                inc(FRDErr);
-                continue;
-              end;
-              ubt := 's';
-              descr := trim(copy(sl[e+1],14,length(sl[e+1])-1));
-            end;
-
-            { handle renamed services }
-            if (ubt = 'n') and
-               (e <= sl.Count - 2) and
-               (copy(sl[e+1],1,12) = '#DESCRIPTION')
-            then begin;
-              ubt := 'r';
-              if copy(sl[e+1],1,13) = '#DESCRIPTION:'
-              then descr := trim(copy(sl[e+1],14,length(sl[e+1])-1))
-              else descr := trim(copy(sl[e+1],13,length(sl[e+1])-1))
-            end;
-
-            inc(seqnr);
-            cdsFRD.Append;
-            cdsFRD.FieldByName('frdSeqNr').AsInteger := seqnr;
-            if (ubt = 'n') or
-               (ubt = 'r')
-            then cdsFRD.FieldByName('frdName').AsString := CleanText(cdsServ.FieldByName('servName').AsString)
-            else cdsFRD.FieldByName('frdName').AsString := CleanText(descr);
-            cdsFRD.FieldByName('frdSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[4]));
-            cdsFRD.FieldByName('frdUniq').AsString := IntToStr(StrToInt('$0'+psl.Strings[7]));
-            cdsFRD.FieldByName('frdTSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[5]));
-            cdsFRD.FieldByName('frdNID').AsString := IntToStr(StrToInt('$0'+psl.Strings[6]));
-            if ubt = 'm'
-            then cdsFRD.FieldByName('frdServType').AsString := '0'
-            else cdsFRD.FieldByName('frdServType').AsString := psl.Strings[3];
-            cdsFRD.FieldByName('frdSetNr').AsInteger := i;
-            if descr <> ''
-            then cdsFRD.FieldByName('frdDescr').AsString := CleanText(descr)
-            else cdsFRD.FieldByName('frdDescr').AsString := '';
-            if (ubt = 'n') or
-               (ubt = 'r')
-            then cdsFRD.FieldByName('frdDbeNr').AsString := cdsServ.FieldByName('servDbeNr').AsString
-            else cdsFRD.FieldByName('frdDbeNr').AsString := '0';
-            cdsFRD.FieldByName('frdT').AsString := ubt;
-            cdsFRD.Post;
-          end;
-          sl.Free;
-        end;
-      end;
-      fsl.Free;
-    end;
-    if tnRD.Count = 0
-    then begin;
-      new(pListData);
-      tv.Items.AddChildObject(tnRD,'Favorites',pListData);
-      pListData.FileName := 'userbouquet.dbe00.radio';
-      pListData.Number := 0;
-      pListData.Locked := False;
-    end;
-
-    { process satellites.xml }
-    FormWait.pb.Position := 8;
-
-    if FileExists(Dir+'\satellites.xml')
-    then begin;
-      AssignFile(tf,Dir+'\satellites.xml');
-      SetLineBreakStyle(tf,tlbsLF);
-      Reset(tf);
-      ReadLn(tf,s);
-      while not eof(tf) do begin;
-        if pos('position="',s) > 0
-        then begin;
-          ib := pos('position="',s);
-          ie := posex('"',s,ib+10);
-          if cdsPos.FindKey([StrToInt(copy(s,ib+10,ie-ib-10))])
-          then begin;
-            ib := pos('sat name="',s);
-            ie := posex('"',s,ib+10);
-            cdsPos.Edit;
-            cdsPos.FieldByName('PosName').AsString := copy(s,ib+10,ie-ib-10);
-            cdsPos.Post;
-          end
-          else begin;
-            cdsPos.Append;
-            cdsPos.FieldByName('PosInt').AsString := copy(s,ib+10,ie-ib-10);
-            cdsPos.FieldByName('PosStr').AsString := Format('%.1n',[StrToInt(copy(s,ib+10,ie-ib-10))/10]);
-            ib := pos('sat name="',s);
-            ie := posex('"',s,ib+10);
-            cdsPos.FieldByName('PosName').AsString := copy(s,ib+10,ie-ib-10);
-            cdsPos.Post;
-          end;
-        end;
-        ReadLn(tf,s);
-      end;
-      CloseFile(tf);
-    end;
-
-    { Ready }
-    tv.FullExpand;
-    tv.TopItem := tnTV;
-    screen.cursor := crdefault;
-    ToolBar1.Enabled := True;
-    FormWait.Hide;
-
-    cbSatName.ItemIndex := 0;
-    ePackage.Text := '';
-    cdsServ.IndexFieldNames := 'servCleanName;servPackage';
-    lvServ.Items.Count := cdsServ.RecordCount;
-    lvServ.Refresh;
-
-    SetMenu('loaded');
-
-    psl.Free;
-    FormMain.Caption := 'LlamaWare DreamBoxEdit - ' + Dir;
-
-    DetType := '';
-    tv.Items.Item[1].Selected := True;
-
-    if saveTVRadio
-    then begin;
-      Reg := TRegistry.Create;
-      Reg.RootKey := HKEY_CURRENT_USER;
-      Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
-      cbTVRadio.ItemIndex := Reg.ReadInteger('TV and Radio Services Selection');
-      Reg.CloseKey;
-      Reg.Destroy;
-      cbServFilter(Self);
-    end;
-
-    if (ServErr = 0) and
-       (BouqErr = 0) and
-       (FTVErr = 0) and
-       (FRDErr = 0)
-    then log('i',lwLngTrns(name,['Files loaded']))
-    else begin;
-      log('w',lwLngTrns(name,['Files loaded with errors']));
-      log('w',lwLngTrns(name,['-  errors in services file: %',IntToStr(ServErr)]));
-      log('w',lwLngTrns(name,['-  errors in bouquets file: %',IntToStr(BouqErr)]));
-      log('w',lwLngTrns(name,['-  errors in userbouquet.xxxxx.tv file(s) (TV): %',IntToStr(FTVErr)]));
-      log('w',lwLngTrns(name,['-  errors in userbouquet.xxxxx.radio file(s) (Radio): %',IntToStr(FRDErr)]));
-      log('w',lwLngTrns(name,['See earlier logged messages for more details']));
-      if (FTVErr <> 0) or
-         (FRDErr <> 0)
-      then begin;
-        log('w',lwLngTrns(name,['Explanation of errors found within TV and/or Radio User Bouquet:']));
-        log('w',lwLngTrns(name,['.. All files are loaded but unsupported ' +
-            ' references were found in the TV and/or Radio User Bouquet list!']));
-        log('w',lwLngTrns(name,['.. Those references were skipped as they were references '+
-            'to the complete services list, the complete bouquets list']));
-        log('w',lwLngTrns(name,['.. or a circular reference to User Bouquet itself, probably ' +
-            'created by accident']));
-        log('w',lwLngTrns(name,['.. Although you will loose these unsupported references, you '+
-            'can still go on editing and saving.']));
-      end;
-      MessageDlg(lwLngTrns(name,[
-                 'All files are loaded, but with errors:~' +
-                 ' errors in services file: %~' +
-                 ' errors in bouquets file: %~' +
-                 ' errors in userbouquet.xxxxx.tv file(s) (TV): %~' +
-                 ' errors in userbouquet.xxxxx.radio file(s) (Radio): %~~' +
-                 'Check the log file for more information!~~' +
-                 'All errors are related to invalid definitions and references ' +
-                 'within the selected settings files.~' +
-                 'This means the files are now cleaned up and contain only valid items. You ' +
-                 'can now go on editing the settings.',
-                 IntToStr(ServErr),IntToStr(BouqErr),IntToStr(FTVErr),IntToStr(FRDErr)]),
-                 mtWarning,[mbOK],0);
-      SetMenu('changed');
-    end;
-
-    if (satcable = 's') and (not FileExists(Dir + '\satellites.xml'))
-    then begin;
-      MessageDlg(lwLngTrns(name,[
-                 'Directory "%" contains no file called "satellites.xml"~' +
-                 'You can continue editing the file-set but now there is no translation '+
-                 'from satellite position to satellite name available.~~'+
-                 'You might consider to first copy all necessary ' +
-                 'files from the dreambox to your PC with the FTP function.',Dir]),
-                 mtWarning,[mbOk],0);
-      Log('w',lwLngTrns(name,['File % not found in "%"',
-                              'satellites.xml',Dir]));
-    end;
-  end;
-end;
-
-procedure TFormMain.tbExitClick(Sender: TObject);
-begin
-  Close;
-end;
-
-procedure TFormMain.tbSaveClick(Sender: TObject);
-var
-  tf: TextFile;
-  sif,s,fn,v2Sep,lfn,stype: String;
-  i,j,c,p,marker: Integer;
-  psl: TStringList;
-  pListData: ^TListData;
-  servsif: String;
-  servflt: Boolean;
-  TempStream: TMemoryStream;
-begin
-  if Dir = ''
-  then begin;
-    fmSaveAsClick(Self);
-    exit;
-  end;
-
-  psl := TStringList.Create;
-  marker := 0;
-
-  { first save current Det list }
-  lvDetSave();
-
-  { prepare files structure }
-  Log('i',lwLngTrns(name,['Saving file-set in %',Dir]));
-
-  if not FileExists(Dir + '\' + ServFilename + '_org')
-  then begin;
-    if RenameFile(Dir + '\' + ServFilename,Dir + '\' + ServFilename + '_org')
-    then Log('i',lwLngTrns(name,['% renamed to % in %',
-                           ServFilename,ServFilename + '_org',Dir]));
-  end
-  else begin;
-    if FileExists(Dir + '\' + ServFilename + '_bak')
-    then begin;
-      DeleteFile(Dir + '\' + ServFilename + '_bak');
-      Log('i',lwLngTrns(name,['% deleted from %',
-                        ServFilename + '_bak',Dir]));
-    end;
-    if RenameFile(Dir + '\' + ServFilename,Dir + '\' + ServFilename + '_bak')
-    then log('i',lwLngTrns(name,['% renamed to % in %',
-                           ServFilename,ServFilename + '_bak',Dir]));
-  end;
-
-  if SettingsVersion = 2
-  then lfn := 'services.locked'
-  else
-    if Blacklist
-    then lfn := 'blacklist'
-    else lfn := 'whitelist';
-  if not FileExists(Dir + '\' + lfn + '_org')
-  then begin;
-    if RenameFile(Dir + '\' + lfn,Dir + '\' + lfn + '_org')
-    then Log('i',lwLngTrns(name,['% renamed to % in %',
-                           lfn,lfn + '_org',Dir]));
-  end
-  else begin;
-    if FileExists(Dir + '\' + lfn + '_bak')
-    then begin;
-      DeleteFile(Dir + '\' + lfn + '_bak');
-      Log('i',lwLngTrns(name,['% deleted from %',
-                        lfn + '_bak',Dir]));
-    end;
-    if RenameFile(Dir + '\' + lfn,Dir + '\' + lfn + '_bak')
-    then log('i',lwLngTrns(name,['% renamed to % in %',
-                           lfn,lfn + '_bak',Dir]));
-  end;
-
-  if not FileExists(Dir + '\bouquets_org')
-  then begin;
-    if RenameFile(Dir + '\bouquets',Dir + '\bouquets_org')
-    then Log('i',lwLngTrns(name,['% renamed to % in %',
-                           'bouquets','bouquets_org',Dir]));
-  end
-  else begin;
-    if FileExists(Dir + '\bouquets_bak')
-    then begin;
-      DeleteFile(Dir + '\bouquets_bak');
-      Log('i',lwLngTrns(name,['% deleted from %',
-                        'bouquets_bak',Dir]));
-    end;
-    if RenameFile(Dir + '\bouquets',Dir + '\bouquets_bak')
-    then log('i',lwLngTrns(name,['% renamed to % in %',
-                           'bouquets','bouquets_bak',Dir]));
-  end;
-
-  screen.cursor := crHourglass;
-  ToolBar1.Enabled := False;
-  application.ProcessMessages;
-
-  {---------------------}
-  { Write services file }
-  {---------------------}
-
-  { write transponders }
-  cdsTSID.EmptyDataSet;
-  cdsTSID.Close;
-  cdsTSID.Open;
-
-  servsif := cdsServ.IndexFieldNames;
-  cdsServ.IndexFieldNames := '';
-  servflt := cdsServ.Filtered;
-  cdsServ.Filtered := False;
-
-  TempStream := TMemoryStream.Create;
-  cdsServ.SaveToStream(TempStream);
-  TempStream.Position := 0;
-  cdsServSave.LoadFromStream(TempStream);
-  TempStream.Free;
-
-  cdsServ.IndexFieldNames := servsif;
-  cdsServ.Filtered := servflt;
-
-  cdsServSave.First;
-  while not cdsServSave.Eof do begin;
-    if not cdsTSID.FindKey([cdsServSave.FieldByName('servUniq').AsString,
-                            cdsServSave.FieldByName('servTSID').AsString,
-                            cdsServSave.FieldByName('servNID').AsString])
-    then begin;
-      cdsTSID.Append;
-      cdsTSID.FieldByName('tsidSTC').AsString := cdsServSave.FieldByName('servSTC').AsString;
-      cdsTSID.FieldByName('tsidUniq').AsString := cdsServSave.FieldByName('servUniq').AsString;
-      cdsTSID.FieldByName('tsidTSID').AsString := cdsServSave.FieldByName('servTSID').AsString;
-      cdsTSID.FieldByName('tsidNID').AsString := cdsServSave.FieldByName('servNid').AsString;
-      cdsTSID.FieldByName('tsidFreq').AsString := cdsServSave.FieldByName('servFreq').AsString;
-      cdsTSID.FieldByName('tsidSymb').AsString := cdsServSave.FieldByName('servSymb').AsString;
-      cdsTSID.FieldByName('tsidPol').AsString := cdsServSave.FieldByName('servPol').AsString;
-      cdsTSID.FieldByName('tsidFEC').AsString := cdsServSave.FieldByName('servFEC').AsString;
-      cdsTSID.FieldByName('tsidPos').AsString := cdsServSave.FieldByName('servPos').AsString;
-      cdsTSID.FieldByName('tsidExtra').AsString := cdsServSave.FieldByName('servExtra').AsString;
-      cdsTSID.Post;
-    end;
-    cdsServSave.Next;
-  end;
-
-  p := 0;
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := cdsTSID.RecordCount +
-                     cdsServ.RecordCount +
-                     cdsFTV.RecordCount +
-                     cdsFRD.RecordCount +
-                     cdsFBQ.RecordCount;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
-
-  AssignFile(tf,Dir + '\' + ServFilename);
-  SetLineBreakStyle(tf,tlbsLF);
-  Rewrite(tf);
-  if SettingsVersion = 2
-  then WriteLn(tf,'eDVB services /2/')
-  else WriteLn(tf,'eDVB services /3/');
-
-  { write services file - transponder entries }
-  WriteLn(tf,'transponders');
-  cdsTSID.First;
-  while not cdsTSID.Eof
-  do begin;
-    inc(p);
-    if p mod 25 = 0
-    then FormWait.pb.Position := p;
-
-    s := LowerCase(IntToHex(StrToInt(cdsTSID.FieldByName('tsidUniq').AsString),8)) + ':' +
-         LowerCase(IntToHex(StrToInt(cdsTSID.FieldByName('tsidTSID').AsString),4)) + ':' +
-         LowerCase(IntToHex(StrToInt(cdsTSID.FieldByName('tsidNID').AsString),4));
-    WriteLn(tf,s);
-    if SatCable = 'c'
-    then begin;
-      s := #09 + 'c ' +
-           cdsTSID.FieldByName('tsidFreq').AsString + ':' +
-           cdsTSID.FieldByName('tsidSymb').AsString + ':' +
-           cdsTSID.FieldByName('tsidPol').AsString + ':' +
-           cdsTSID.FieldByName('tsidFEC').AsString;
-    end
-    else begin;
-      if cdsTSID.FieldByName('tsidSTC').AsString = 's'
-      then s := #09 + 's ' +
-                cdsTSID.FieldByName('tsidFreq').AsString + ':' +
-                cdsTSID.FieldByName('tsidSymb').AsString + ':' +
-                cdsTSID.FieldByName('tsidPol').AsString + ':' +
-                cdsTSID.FieldByName('tsidFEC').AsString + ':' +
-                cdsTSID.FieldByName('tsidPos').AsString +
-                cdsTSID.FieldByName('tsidExtra').AsString
-      else s := #09 +
-                cdsTSID.FieldByName('tsidSTC').AsString + ' ' +
-                cdsTSID.FieldByName('tsidFreq').AsString +
-                cdsTSID.FieldByName('tsidExtra').AsString;
-    end;
-
-    WriteLn(tf,s);
-    WriteLn(tf,'/');
-    cdsTSID.Next;
-  end;
-  WriteLn(tf,'end');
-
-  { write services file - service entries }
-  WriteLn(tf,'services');
-  cdsServSave.First;
-  c := 0;
-  while not cdsServSave.Eof
-  do begin;
-    inc(p);
-    if p mod 25 = 0
-    then FormWait.pb.Position := p;
-
-    inc(c);
-    s := IntToHex(StrToInt(cdsServSave.FieldByName('servSID').AsString),4) + ':' +
-         IntToHex(StrToInt(cdsServSave.FieldByName('servUniq').AsString),8) + ':' +
-         IntToHex(StrToInt(cdsServSave.FieldByName('servTSID').AsString),4) + ':' +
-         IntToHex(StrToInt(cdsServSave.FieldByName('servNID').AsString),4) + ':' +
-         cdsServSave.FieldByName('servType').AsString;
-    if cdsServSave.FieldByName('servNr').AsString <> ''
-    then s := s + ':' + cdsServSave.FieldByName('servNr').AsString
-    else s := s + ':' + IntToStr(c+200);
-    WriteLn(tf,s);
-    WriteLn(tf,cdsServSave.FieldByName('servName').AsString);
-    s := 'p:' + copy(cdsServSave.FieldByName('servPackage').AsString,1,50); { was 22 for some unknown reason ... :-( }
-    if RightStr(s,1) = ','
-    then s := LeftStr(s,length(s)-1);
-    if cdsServSave.FieldByName('servC08PCMDelay').AsInteger <> 0
-    then s := 'c:08' + IntToHex(StrToInt(cdsServSave.FieldByName('servC08PCMDelay').AsString),4) + ',' + s;
-    if cdsServSave.FieldByName('servC07BSDelay').AsInteger <> 0
-    then s := 'c:07' + IntToHex(StrToInt(cdsServSave.FieldByName('servC07BSDelay').AsString),4) + ',' + s;
-    if cdsServSave.FieldByName('serv3PID').AsInteger <> 0
-    then s := 'c:04' + IntToHex(StrToInt(cdsServSave.FieldByName('serv3PID').AsString),4) + ',' + s;
-    if cdsServSave.FieldByName('servPPID').AsInteger <> 0
-    then s := 'c:03' + IntToHex(StrToInt(cdsServSave.FieldByName('servPPID').AsString),4) + ',' + s;
-    if cdsServSave.FieldByName('servTPID').AsInteger <> 0
-    then s := 'c:02' + IntToHex(StrToInt(cdsServSave.FieldByName('servTPID').AsString),4) + ',' + s;
-    if cdsServSave.FieldByName('servAPID').AsInteger <> 0
-    then s := 'c:01' + IntToHex(StrToInt(cdsServSave.FieldByName('servAPID').AsString),4) + ',' + s;
-    if cdsServSave.FieldByName('servVPID').AsInteger <> 0
-    then s := 'c:00' + IntToHex(StrToInt(cdsServSave.FieldByName('servVPID').AsString),4) + ',' + s;
-
-    if cdsServSave.FieldByName('servFlags').AsInteger  and 127 <> 0
-    then s := 'f:' + IntToHex(cdsServSave.FieldByName('servFlags').AsInteger and 127,4) + ',' + s;
-    WriteLn(tf,s);
-    cdsServSave.Next;
-  end;
-  WriteLn(tf,'end');
-  WriteLn(tf,'Edited with LlamaWare DreamBoxEdit ' + FormAbout._lVersion.Caption +
-             ' on ' + FormatDateTime('ddmmmyyyy hh:mm:ss',now()));
-  CloseFile(tf);
-  Log('i',lwLngTrns(name,['services saved in %',Dir]));
-
-  {----------------------------------------------------}
-  { Write services.locked / whitelist / blacklist file }
-  {----------------------------------------------------}
-  AssignFile(tf,Dir + '\' + lfn);
-  SetLineBreakStyle(tf,tlbsLF);
-  Rewrite(tf);
-  if SettingsVersion = 2
-  then WriteLn(tf,'Parentallocked Services');
-  { original lock entries that are not processed by dreamboxedit + locks on subservices}
-  cdsLock.First;
-  while not cdsLock.Eof do begin;
-    s := cdsLock.FieldByName('lockI1').AsString + ':' +
-         cdsLock.FieldByName('lockI2').AsString + ':' +
-         {cdsLock.FieldByName('lockServType').AsString + ':' +}
-         IntToHex(StrToInt(cdsLock.FieldByName('lockServType').AsString),1) + ':' +
-         IntToHex(StrToInt(cdsLock.FieldByName('lockSID').AsString),1) + ':' +
-         IntToHex(StrToInt(cdsLock.FieldByName('lockTSID').AsString),1) + ':' +
-         IntToHex(StrToInt(cdsLock.FieldByName('lockNID').AsString),1) + ':' +
-         IntToHex(StrToInt(cdsLock.FieldByName('lockUniq').AsString),1) + ':0:0:0:' +
-         cdsLock.FieldByName('lockString').AsString;
-    s := UpperCase(s);
-    WriteLn(tf,s);
-    cdsLock.Next;
-  end;
-  { locked services }
-  cdsServSave.First;
-  while not cdsServSave.Eof do begin;
-    if cdsServSave.FieldByName('servLock').AsInteger = 1
-    then begin;
-      s := '1:0:' +
-           LowerCase(IntToHex(StrToInt(cdsServSave.FieldByName('servType').AsString),1)) + ':' +
-           LowerCase(IntToHex(StrToInt(cdsServSave.FieldByName('servSID').AsString),1)) + ':' +
-           LowerCase(IntToHex(StrToInt(cdsServSave.FieldByName('servTSID').AsString),1)) + ':' +
-           LowerCase(IntToHex(StrToInt(cdsServSave.FieldByName('servNID').AsString),1)) + ':' +
-           LowerCase(IntToHex(StrToInt(cdsServSave.FieldByName('servUniq').AsString),1)) + ':0:0:0:';
-      s := UpperCase(s);
-      WriteLn(tf,s);
-    end;
-    cdsServSave.Next;
-  end;
-
-  { locked (user) bouquets }
-  for i := 0 to tv.Items.Count - 1 do begin;
-    if (tv.Items[i].Data = nil) or
-       (tv.Items[i].Level = 0)
-    then continue;
-    pListData := tv.Items.Item[i].Data;
-    if not pListData.Locked
-    then continue;
-    if tv.Items[i].Parent.Text[1] = 'P'
-    then begin;
-      s := '1:15:fffffffd:12:' +
-           LowerCase(IntToHex(pListData.Number,1)) +
-           ':ffffffff:0:0:0:0:';
-    end
-    else begin;
-      fn := pListData.FileName;
-      j := pos('.',fn);
-      fn := RightStr(fn,length(fn)-j);
-      j := pos('.',fn);
-      fn := LeftStr(fn,j-1);
-      s := '4097:7:0:' +
-           fn +
-           ':0:0:0:0:0:0:' +
-           PathServices +
-           pListData.FileName;
-    end;
-    WriteLn(tf,s);
-  end;
-  CloseFile(tf);
-  Log('i',lwLngTrns(name,['services.lock saved in %',Dir]));
-
-  cdsServSave.EmptyDataSet;
-  cdsServSave.Close;
-  cdsServSave.Open;
-
-  {---------------------------------}
-  { Write bouquets (providers) file }
-  {---------------------------------}
-
-  { write bouquets }
-  if SettingsVersion = 2
-  then begin;
-    AssignFile(tf,Dir + '\bouquets');
-    SetLineBreakStyle(tf,tlbsLF);
-    Rewrite(tf);
-    WriteLn(tf,'eDVB bouquets /2/');
-    WriteLn(tf,'bouquets');
-    sif := cdsFBQ.IndexFieldNames;
-    cdsFBQ.IndexFieldNames := 'fbqSetNr;fbqSeqNr';
-    for i := 0 to tv.Items.Count - 1 do begin;
-      if (tv.Items.Item[i].Level <> 1) or
-         (tv.Items.Item[i].Parent.Text[1] <> 'P')
-      then continue;
-
-      pListData := tv.Items.Item[i].Data;
-      s := IntToStr(pListData.Number);
-      WriteLn(tf,s);
-      s := AnsiToUTF8(tv.Items.Item[i].Text);
-      WriteLn(tf,s);
-      cdsFBQ.FindKey([pListData.Number]);
-      while (not cdsFBQ.Eof) and
-            (cdsFBQ.FieldByName('fbqSetNr').AsInteger = pListData.Number)
-      do begin;
-        inc(p);
-        if p mod 25 = 0
-        then FormWait.pb.Position := p;
-
-        s := LowerCase(IntToHex(StrToInt(cdsFBQ.FieldByName('fbqSID').AsString),4)) + ':' +
-             LowerCase(IntToHex(StrToInt(cdsFBQ.FieldByName('fbqUniq').AsString),8)) + ':' +
-             LowerCase(IntToHex(StrToInt(cdsFBQ.FieldByName('fbqTSID').AsString),4)) + ':' +
-             LowerCase(IntToHex(StrToInt(cdsFBQ.FieldByName('fbqNID').AsString),4)) + ':' +
-             cdsFBQ.FieldByName('fbqServType').AsString;
-        WriteLn(tf,s);
-        cdsFBQ.Next;
-      end;
-      WriteLn(tf,'/');
-    end;
-    cdsFBQ.IndexFieldNames := sif;
-    WriteLn(tf,'end');
-    WriteLn(tf,'Edited with LlamaWare DreamBoxEdit ' + FormAbout._lVersion.Caption +
-               ' on ' + FormatDateTime('ddmmmyyyy hh:mm:ss',now()));
-    CloseFile(tf);
-    Log('i',lwLngTrns(name,['bouquets saved in %',Dir]));
-  end;
-
-  {---------------------------------}
-  { Write all TV User Bouquet files }
-  {---------------------------------}
-  if SettingsVersion = 2
-  then v2Sep := ':'
-  else v2Sep := '';
-  for i := 0 to tv.Items.Count - 1 do begin;
-    if (tv.Items.Item[i].Level <> 1) or
-       (tv.Items.Item[i].Parent.Text[1] <> 'T')
-    then continue;
-
-    pListData := tv.Items.Item[i].Data;
-    fn := pListData.FileName;
-    if FileExists(Dir + '\' + fn)
-    then begin;
-      if not FileExists(Dir + '\' + fn + '_org')
-      then begin;
-        if RenameFile(Dir + '\' + fn,Dir + '\' + fn + '_org')
-        then Log('i',lwLngTrns(name,['% renamed to % in %',
-                                     fn,fn + '_org',Dir]));
-      end
-      else begin;
-        if FileExists(Dir + '\' + fn + '_bak')
-        then begin;
-          DeleteFile(Dir + '\' + fn + '_bak');
-          Log('i',lwLngTrns(name,['% deleted from %',
-                                  fn + '_bak',Dir]));
-        end;
-        if RenameFile(Dir + '\' + fn,Dir + '\' + fn + '_bak')
-        then log('i',lwLngTrns(name,['% renamed to % in %',
-                                     fn,fn + '_bak',Dir]));
-      end;
-    end;
-
-    AssignFile(tf,Dir + '\' + fn);
-    SetLineBreakStyle(tf,tlbsCRLF);
-    Rewrite(tf);
-    WriteLn(tf,'#NAME ' + AnsiToUTF8(tv.Items.Item[i].Text));
-
-    sif := cdsFTV.IndexFieldNames;
-    cdsFTV.IndexFieldNames := 'ftvSeqNr';
-    cdsFTV.Filter := 'ftvSetNr = ''' + IntToStr(pListData.Number) + '''';
-    cdsFTV.Filtered := True;
-
-    cdsFTV.First;
-    while not cdsFTV.Eof
-    do begin;
-      inc(p);
-      if p mod 25 = 0
-      then FormWait.pb.Position := p;
-
-      { Check alternatives for service within bouquet if settingsversion > 2 }
-      if (SettingsVersion <> 2) and
-         (cdsAlt.FindKey([tv.Items.Item[i].Text,
-                          cdsFTV.FieldByName('ftvSID').AsString,
-                          cdsFTV.FieldByName('ftvUniq').AsString,
-                          cdsFTV.FieldByName('ftvTSID').AsString,
-                          cdsFTV.FieldByName('ftvNID').AsString,
-                          cdsFTV.FieldByName('ftvServType').AsString]))
-      then s := '#SERVICE 1:134:1:0:0:0:0:0:0:0:FROM BOUQUET "' +
-                cdsAlt.FieldByName('altFileName').AsString +
-                '" ORDER BY bouquet'
-      else begin;
-        { Write servicetype in hex for settingsversion > 2 }
-        if SettingsVersion = 2
-        then stype := cdsFTV.FieldByName('ftvServType').AsString
-        else stype := LowerCase(IntToHex(StrToInt(cdsFTV.FieldByName('ftvServType').AsString),1));
-         if cdsFTV.FieldByName('ftvT').AsString <> 'm'
-        then s := '#SERVICE' + v2Sep + ' 1:0:' +
-                  stype + ':' +
-                  LowerCase(IntToHex(StrToInt(cdsFTV.FieldByName('ftvSID').AsString),1)) + ':' +
-                  LowerCase(IntToHex(StrToInt(cdsFTV.FieldByName('ftvTSID').AsString),1)) + ':' +
-                  LowerCase(IntToHex(StrToInt(cdsFTV.FieldByName('ftvNID').AsString),1)) + ':' +
-                  LowerCase(IntToHex(StrToInt(cdsFTV.FieldByName('ftvUniq').AsString),1)) + ':0:0:0:'
-        else begin;
-          inc(marker);
-          s := '#SERVICE' + v2Sep + ' 1:64:' +
-               IntToHex(marker,1) +
-               ':0:0:0:0:0:0:0:';
-        end;
-      end;
-      WriteLn(tf,s);
-      if cdsFTV.FieldByName('ftvDescr').AsString <> ''
-      then begin;
-        s := '#DESCRIPTION' + v2Sep + ' ' + AnsiToUtf8(cdsFTV.FieldByName('ftvDescr').AsString);
-        WriteLn(tf,s);
-      end;
-      cdsFTV.Next;
-    end;
-
-    cdsFTV.Filtered := False;
-    cdsFTV.Filter := '';
-    cdsFTV.IndexFieldNames := sif;
-
-    CloseFile(tf);
-    Log('i',lwLngTrns(name,['TV User Bouquet % saved in %',tv.Items.Item[i].Text,Dir]));
-  end;
-  if FileExists(Dir + '\' + EplTVFilename)
-  then begin;
-    if not FileExists(Dir + '\' + EplTVFilename + '_org')
-    then begin;
-      if RenameFile(Dir + '\' + EplTVFilename,Dir + '\' + EplTVFilename + '_org')
-      then Log('i',lwLngTrns(name,['% renamed to % in %',
-                             EplTVFilename,EplTVFilename + '_org',Dir]));
-    end
-    else begin;
-      if FileExists(Dir + '\' + EplTVFilename + '_bak')
-      then begin;
-        DeleteFile(Dir + '\' + EplTVFilename + '_bak');
-        Log('i',lwLngTrns(name,['% deleted from %',
-                          EplTVFilename + '_bak',Dir]));
-      end;
-      if RenameFile(Dir + '\' + EplTVFilename,Dir + '\' + EplTVFilename + '_bak')
-      then log('i',lwLngTrns(name,['% renamed to % in %',
-                             EplTVFilename,EplTVFilename + '_bak',Dir]));
-    end;
-  end;
-  AssignFile(tf,Dir + '\' + EplTVFilename);
-  SetLineBreakStyle(tf,tlbsCRLF);
-  Rewrite(tf);
-  WriteLn(tf,'#NAME User - bouquets (TV)');
-  for i := 0 to tv.Items.Count - 1 do begin;
-    if (tv.Items.Item[i].Level <> 1) or
-       (tv.Items.Item[i].Parent.Text[1] <> 'T')
-    then continue;
-
-    pListData := tv.Items.Item[i].Data;
-    s := pListData.FileName;
-    for j := 1 to length(s) do begin;
-      if s[j] = '.'
-      then s[j] := ':';
-    end;
-    ParseString(s,psl);
-    if Settingsversion = 2
-    then begin;
-      WriteLn(tf,'#SERVICE: 4097:7:0:' +
-                 psl[1] +
-                 ':0:0:0:0:0:0:' + PathUserBouquets +
-                 pListData.FileName);
-      WriteLn(tf,'#TYPE 16385');
-      WriteLn(tf,PathUserBouquets +
-                 pListData.FileName);
-    end
-    else begin;
-      s := pListData.FileName;
-      { Add original "FROM ... ORDER BY" or whatever was in the read settings set }
-      if V3OrderBy1 <> ''
-      then s := V3OrderBy1 + s + V3OrderBy2;
-      WriteLn(tf,'#SERVICE: 1:7:1:0:0:0:0:0:0:0:' + s);
-    end;
-  end;
-  CloseFile(tf);
-  Log('i',lwLngTrns(name,['TV User Bouquet index file % saved in %',EplTVFilename,Dir]));
-
-  {------------------------------------}
-  { Write all Radio User Bouquet files }
-  {------------------------------------}
-  if SettingsVersion = 2
-  then v2Sep := ':'
-  else v2Sep := '';
-  for i := 0 to tv.Items.Count - 1 do begin;
-    if (tv.Items.Item[i].Level <> 1) or
-       (tv.Items.Item[i].Parent.Text[1] <> 'R')
-    then continue;
-
-    pListData := tv.Items.Item[i].Data;
-    fn := pListData.FileName;
-    if FileExists(Dir + '\' + fn)
-    then begin;
-      if not FileExists(Dir + '\' + fn + '_org')
-      then begin;
-        if RenameFile(Dir + '\' + fn,Dir + '\' + fn + '_org')
-        then Log('i',lwLngTrns(name,['% renamed to % in %',
-                                     fn,fn + '_org',Dir]));
-      end
-      else begin;
-        if FileExists(Dir + '\' + fn + '_bak')
-        then begin;
-          DeleteFile(Dir + '\' + fn + '_bak');
-          Log('i',lwLngTrns(name,['% deleted from %',
-                                  fn + '_bak',Dir]));
-        end;
-        if RenameFile(Dir + '\' + fn,Dir + '\' + fn + '_bak')
-        then log('i',lwLngTrns(name,['% renamed to % in %',
-                                     fn,fn + '_bak',Dir]));
-      end;
-    end;
-
-    AssignFile(tf,Dir + '\' + fn);
-    SetLineBreakStyle(tf,tlbsCRLF);
-    Rewrite(tf);
-    WriteLn(tf,'#NAME ' + AnsiToUTF8(tv.Items.Item[i].Text));
-
-    sif := cdsFRD.IndexFieldNames;
-    cdsFRD.IndexFieldNames := 'frdSeqNr';
-    cdsFRD.Filter := 'frdSetNr = ''' + IntToStr(pListData.Number) + '''';
-    cdsFRD.Filtered := True;
-
-    cdsFRD.First;
-    while not cdsFRD.Eof
-    do begin;
-      inc(p);
-      if p mod 25 = 0
-      then FormWait.pb.Position := p;
-
-      { Check alternatives for service within bouquet if settingsversion > 2 }
-      if (SettingsVersion <> 2) and
-         (cdsAlt.FindKey([tv.Items.Item[i].Text,
-                          cdsFRD.FieldByName('frdSID').AsString,
-                          cdsFRD.FieldByName('frdUniq').AsString,
-                          cdsFRD.FieldByName('frdTSID').AsString,
-                          cdsFRD.FieldByName('frdNID').AsString,
-                          cdsFRD.FieldByName('frdServType').AsString]))
-      then s := '#SERVICE 1:134:1:0:0:0:0:0:0:0:FROM BOUQUET "' +
-                cdsAlt.FieldByName('altFileName').AsString +
-                '" ORDER BY bouquet'
-      else begin;
-        { Write servicetype in hex for settingsversion 3 and higher }
-        if SettingsVersion = 2
-        then stype := cdsFRD.FieldByName('frdServType').AsString
-        else stype := LowerCase(IntToHex(StrToInt(cdsFRD.FieldByName('frdServType').AsString),1));
-        if cdsFRD.FieldByName('frdT').AsString <> 'm'
-        then s := '#SERVICE' + v2Sep + ' 1:0:' +
-                  stype + ':' +
-                  LowerCase(IntToHex(StrToInt(cdsFRD.FieldByName('frdSID').AsString),1)) + ':' +
-                  LowerCase(IntToHex(StrToInt(cdsFRD.FieldByName('frdTSID').AsString),1)) + ':' +
-                  LowerCase(IntToHex(StrToInt(cdsFRD.FieldByName('frdNID').AsString),1)) + ':' +
-                  LowerCase(IntToHex(StrToInt(cdsFRD.FieldByName('frdUniq').AsString),1)) + ':0:0:0:'
-        else begin;
-          inc(marker);
-          s := '#SERVICE' + v2Sep + ' 1:64:' +
-               IntToHex(marker,1) +
-               ':0:0:0:0:0:0:0:';
-        end;
-      end;  
-      WriteLn(tf,s);
-      if cdsFRD.FieldByName('frdDescr').AsString <> ''
-      then begin;
-        s := '#DESCRIPTION' + v2Sep + ' ' + AnsiToUtf8(cdsFRD.FieldByName('frdDescr').AsString);
-        WriteLn(tf,s);
-      end;
-      cdsFRD.Next;
-    end;
-
-    cdsFRD.Filtered := False;
-    cdsFRD.Filter := '';
-    cdsFRD.IndexFieldNames := sif;
-
-    CloseFile(tf);
-    Log('i',lwLngTrns(name,['Radio User Bouquet % saved in %',
-                            tv.Items.Item[i].Text,Dir]));
-  end;
-  if FileExists(Dir + '\' + EplRDFilename)
-  then begin;
-    if not FileExists(Dir + '\' + EplRDFilename + '_org')
-    then begin;
-      if RenameFile(Dir + '\' + EplRDFilename,Dir + '\' + EplRDFilename + '_org')
-      then Log('i',lwLngTrns(name,['% renamed to % in %',
-                             EplRDFilename,EplRDFilename + '_org',Dir]));
-    end
-    else begin;
-      if FileExists(Dir + '\' + EplRDFilename + '_bak')
-      then begin;
-        DeleteFile(Dir + '\' + EplRDFilename + '_bak');
-        Log('i',lwLngTrns(name,['% deleted from %',
-                          EplRDFilename + '_bak',Dir]));
-      end;
-      if RenameFile(Dir + '\' + EplRDFilename,Dir + '\' + EplRDFilename + '_bak')
-      then log('i',lwLngTrns(name,['% renamed to % in %',
-                             EplRDFilename,EplRDFilename + '_bak',Dir]));
-    end;
-  end;
-  AssignFile(tf,Dir + '\' + EplRDFilename);
-  SetLineBreakStyle(tf,tlbsCRLF);
-  Rewrite(tf);
-  WriteLn(tf,'#NAME User - bouquets (Radio)');
-  for i := 0 to tv.Items.Count - 1 do begin;
-    if (tv.Items.Item[i].Level <> 1) or
-       (tv.Items.Item[i].Parent.Text[1] <> 'R')
-    then continue;
-
-    pListData := tv.Items.Item[i].Data;
-    s := pListData.FileName;
-    for j := 1 to length(s) do begin;
-      if s[j] = '.'
-      then s[j] := ':';
-    end;
-    if SettingsVersion = 2
-    then begin;
-      ParseString(s,psl);
-      WriteLn(tf,'#SERVICE: 4097:7:0:' +
-                 psl[1] +
-                 ':0:0:0:0:0:0:' + PathUserBouquets +
-                 pListData.FileName);
-      WriteLn(tf,'#TYPE 16385');
-      WriteLn(tf,PathUserBouquets +
-                 pListData.FileName);
-    end
-    else begin;
-      s := pListData.FileName;
-      { Add original "FROM ... ORDER BY" or whatever was in the read settings set }
-      if V3OrderBy1 <> ''
-      then s := V3OrderBy1 + s + V3OrderBy2;
-      WriteLn(tf,'#SERVICE: 1:7:1:0:0:0:0:0:0:0:' + s);
-    end;
-  end;
-  CloseFile(tf);
-  Log('i',lwLngTrns(name,['Radio User Bouquet index file % saved in %',EplRDFilename,Dir]));
-
-  screen.cursor := crdefault;
-  ToolBar1.Enabled := True;
-  FormWait.Hide;
-  SetMenu('loaded');
-
-  psl.Free;
-end;
-
-procedure TFormMain.tbAboutClick(Sender: TObject);
-begin
-  FormAbout.ShowModal();
 end;
 
 procedure TFormMain.puServicesPopup(Sender: TObject);
@@ -4177,16 +2457,18 @@ begin
       sl.Free;
     end;
   end;
-  if lvServ.SelCount > 0
-  then begin;
+
+  if lvServ.SelCount > 0 then
+  begin
     puServices.Items[14].Enabled := True;
     puServices.Items[15].Enabled := True;
     puServices.Items[23].Enabled := True;
   end;
-  if (tbFiles.Enabled) and
+
+  //if (tbFiles.Enabled) and
+  if (acShowRestoreFiles.Enabled) and
      (IsClipboardFormatAvailable(ClipBFormat)) and
-     (lvServ.SelCount = 1)
-  then puServices.Items[16].Enabled := True;
+     (lvServ.SelCount = 1) then puServices.Items[16].Enabled := True;
 
   FormatPopupMenu(puServices);
 end;
@@ -4280,7 +2562,7 @@ begin
 
   lvServ.Width := lwPanelL.Width - 4;
   lvDet.Width := lwPanelRL.Width - 5;
-  tv.Width := lwPanelRR.Width - 3;
+  tvBouquets.Width := lwPanelRR.Width - 3;
 
   if Reg.ValueExists('MainDisplayColor')
   then MainColor := Reg.ReadInteger('MainDisplayColor')
@@ -4295,18 +2577,19 @@ begin
     Reg.WriteInteger('MainSplitterColor',SplitterColor);
   end;
 
-  ToolBar1.Color := MainColor;
-  lwPanelL.Color := MainColor;
+  //ToolBar1.Color := MainColor;
+  //lwPanelL.Color := MainColor;
   lwPanelL.Color2 := MainColor;
-  lwPanelRL.Color := MainColor;
-  lwPanelRL.Color2 := MainColor;
-  lwPanelRR.Color := MainColor;
-  lwPanelRR.Color2 := MainColor;
+  //lwPanelRL.Color := MainColor;
+  //lwPanelRL.Color2 := MainColor;
+  //lwPanelRR.Color := MainColor;
+  //lwPanelRR.Color2 := MainColor;
   LWPanel2.Color1 := MainColor;
   LWPanel3.Color1 := MainColor;
   LWPanel4.Color1 := MainColor;
-  Splitter1.Color := SplitterColor;
-  Splitter2.Color := SplitterColor;
+  spltrLeft.Color := SplitterColor;
+  spltrRight.Color := SplitterColor;
+  lwpnlCornerImage.Color1 := MainColor;
 
   for i := 0 to lvServ.Columns.Count - 1 do begin;
     Key := 'lvServ.' + IntToStr(i) + '.Width';
@@ -4633,18 +2916,23 @@ begin
     if Dir <> ''
     then begin;
       AutoOpen := True;
-      tbOpen.Click();
+      //tbOpen.Click();
+      acFileOpenExecute(Sender);
     end;
   end;
   
   if QuickFTPEnabled
   then begin;
-    tbFFTPDown.Visible := True;
-    tbFFTPUp.Visible := True;
+    //tbFFTPDown.Visible := True;
+    //tbFFTPUp.Visible := True;
+    acFastDownloadSettings.Enabled := True;
+    acFastUploadSettings.Enabled := True;
   end
   else begin;
-    tbFFTPDown.Visible := False;
-    tbFFTPUp.Visible := False;
+    //tbFFTPDown.Visible := False;
+    //tbFFTPUp.Visible := False;
+    acFastDownloadSettings.Enabled := False;
+    acFastUploadSettings.Enabled := False;
   end;
 
   if AutoCheckVersion
@@ -4694,11 +2982,6 @@ begin
   end;
   Reg.CloseKey;
   Reg.Destroy;
-end;
-
-procedure TFormMain.tbFilesClick(Sender: TObject);
-begin
-  FormFiles.ShowModal;
 end;
 
 procedure TFormMain.DeletefromallBouquets1Click(Sender: TObject);
@@ -4916,11 +3199,6 @@ begin
                     mtInformation,[mbOK],0);
 end;
 
-procedure TFormMain.tbLogClick(Sender: TObject);
-begin
-  FormLog.ShowModal;
-end;
-
 procedure TFormMain.MakeBouquetforthissatellite1Click(Sender: TObject);
 var
   b: String;
@@ -5040,7 +3318,7 @@ var
   pListData: ^TListData;
 begin
   Screen.Cursor := crHourGlass;
-  ToolBar1.Enabled := False;
+  //ToolBar1.Enabled := False;
 
   FormWait.pb.Caption := '';
   FormWait.pb.Min := 0;
@@ -5075,13 +3353,13 @@ begin
     bnr := bsl.Values[b];
     if bnr = ''
     then begin;
-      for i := 0 to tv.Items.Count - 1 do begin;
-        if (tv.Items.Item[i].Level = 1) and
-           (tv.Items.Item[i].Parent.Text[1] = 'P')
+      for i := 0 to tvBouquets.Items.Count - 1 do begin;
+        if (tvBouquets.Items.Item[i].Level = 1) and
+           (tvBouquets.Items.Item[i].Parent.Text[1] = 'P')
         then begin;
-          if tv.Items.Item[i].Text = b
+          if tvBouquets.Items.Item[i].Text = b
           then begin;
-            pListData := tv.Items.Item[i].Data;
+            pListData := tvBouquets.Items.Item[i].Data;
             bnr := IntToStr(pListData.Number);
             break;
           end;
@@ -5134,7 +3412,7 @@ begin
           pListData.FileName := ld.FileName;
           pListData.Number := ld.Number;
           pListData.Locked := False;
-          tv.Items.AddChildObject(tnBQ,b,pListData);
+          tvBouquets.Items.AddChildObject(tnBQ,b,pListData);
           tnBQ.AlphaSort(True);
           inc(cb);
           if bl = ''
@@ -5159,52 +3437,13 @@ begin
 
   FormWait.Hide;
   Screen.Cursor := crDefault;
-  ToolBar1.Enabled := True;
+  //ToolBar1.Enabled := True;
 
   if ShowResultMsg
   then MessageDlg(lwLngTrns(name,['% services added to bouquets per satellite.~~' +
                              '% new bouquets created:~%',
                              IntToStr(cs),IntToStr(cb),bl]),
                   mtInformation,[mbOK],0);
-end;
-
-procedure TFormMain.tbHelpClick(Sender: TObject);
-var
-  st: Integer;
-  f: String;
-begin
-  f := ExtractFilePath(Application.ExeName) + 'DreamBoxEdit';
-  if FileExists(f + '_' + Language + '.chm')
-  then f := f + '_' + Language + '.chm'
-  else begin;
-    log('i',lwLngTrns(name,['No help file in language % found. Defaulted to English',
-                      Language]));
-    f := f + '_English' + '.chm';
-    if not FileExists(f)
-    then begin;
-      MessageDlg(lwLngTrns(name,['DreamBoxEdit help file "%" not found.',f]),
-                 mtError,[mbOK],0);
-      log('e',lwLngTrns(name,['DreamBoxEdit help file "%" not found.',f]));
-      exit;
-    end;
-  end;
-
-  st := ShellExecute(0,'open',PChar(f),NIL,NIL,SW_SHOWNORMAL);
-  if st <= 32
-  then begin;
-    showmessage(lwLngTrns(name,['Returncode % from executing "%"',IntToStr(st),f]));
-    log('e',lwLngTrns(name,['Returncode % from executing "%"',IntToStr(st),f]));
-  end;
-end;
-
-procedure TFormMain.tbOptionsClick(Sender: TObject);
-begin
-  FormOptions.ShowModal;
-end;
-
-procedure TFormMain.tbFTPClick(Sender: TObject);
-begin
-  FormFTP.ShowModal;
 end;
 
 procedure TFormMain.lvDetDragOver(Sender, Source: TObject; X,
@@ -5549,9 +3788,10 @@ begin
     puDet.Items[7].Enabled := True;
   end;
 
-  if (tbFiles.Enabled) and
-     (IsClipboardFormatAvailable(ClipBFormat))
-  then puDet.Items[8].Enabled := True;
+  //if (tbFiles.Enabled) and
+  if (acShowRestoreFiles.Enabled) and
+     (IsClipboardFormatAvailable(ClipBFormat)) then
+     puDet.Items[8].Enabled := True;
 
   puDet.Items[12].Visible := True;
   puDet.Items[13].Visible := True;
@@ -5704,95 +3944,6 @@ begin
   end;
 end;
 
-procedure TFormMain.tbImportClick(Sender: TObject);
-var
-  Reg: TRegistry;
-  s: String;
-  pListData: ^TLIstData;
-begin
-  if tbFiles.Enabled = False
-  then begin;
-    s := ExtractFilePath(application.ExeName) + 'SatcoDX TransTable.txt';
-    if not FileExists(s)
-    then begin;
-      MessageDlg(lwLngTrns(name,['SatcoDX tranlation file "SatcoDX TransTable.txt" is missing ' +
-                            'from the directory where DreamBoxEdit is installed.~' +
-                            'Without this file the SatcoDX import function wil not work.~~' +
-                            'You can find this file in the installation package of DreamBoxEdit.']),
-                 mtError,[mbOK],0);
-      exit;
-    end;
-    if MessageDlg(lwLngTrns(name,['No file-set open and no directory selected.~~' +
-                             'You must first select or create a directory before you can import '+
-                             'your SatcoDX files and save.~' +
-                             'Do you want to select or create a directory now?']),
-                  mtConfirmation,[mbYes,mbNo],0) <> mrYes
-    then exit;
-
-    Reg := TRegistry.Create;
-    Reg.RootKey := HKEY_CURRENT_USER;
-    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
-    if Reg.ValueExists('LastUsedDirectory')
-    then Dir := Reg.ReadString('LastUsedDirectory')
-    else Dir := '';
-    Reg.CloseKey;
-    Reg.Destroy;
-    if not DirectoryExists(Dir)
-    then Dir := '';
-
-    if not SelDir(Dir,True)
-    then exit;
-    if FileExists(Dir + '\services')
-    then begin;
-      if MessageDlg(lwLngTrns(name,['You have selected a directory that already contains a file-set.~' +
-                               'When you later save the set you are now building, you will '+
-                               'completely overwrite the existing set.~~' +
-                               'Are you sure want to continue with this directory?']),
-                    mtConfirmation,[mbYes,mbNo],0) <> mrYes
-      then exit;
-    end;
-
-    Reg := TRegistry.Create;
-    Reg.RootKey := HKEY_CURRENT_USER;
-    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
-    Reg.WriteString('LastUsedDirectory',Dir);
-    Reg.CloseKey;
-    Reg.Destroy;
-
-    Log('i',lwLngTrns(name,['Directory % selected',Dir]));
-
-    tnBQ := tv.Items.Add(nil,'Providers');
-    tnTV := tv.Items.Insert(TNBQ,'TV User Bouquets');
-    new(pListData);
-    tv.Items.AddChildObject(tnTV,'Favorites',pListData);
-    pListData.FileName := 'userbouquet.dbe00.tv';
-    pListData.Number := 0;
-    pListData.Locked := False;
-
-    tnRD := tv.Items.Insert(TNBQ,'Radio User Bouquets');
-    new(pListData);
-    tv.Items.AddChildObject(tnRD,'Favorites',pListData);
-    pListData.FileName := 'userbouquet.dbe00.radio';
-    pListData.Number := 0;
-    pListData.Locked := False;
-
-    tv.FullExpand;
-  end;
-
-  if FormImport.ShowModal = mrOK
-  then begin;
-    lvServ.Refresh;
-    TotalsBuild();
-
-    SetMenu('loaded');
-    SetMenu('changed');
-
-    FormMain.Caption := 'LlamaWare DreamBoxEdit - ' + Dir;
-    tv.FullExpand;
-    tv.Items[1].Selected := True;
-  end;
-end;
-
 procedure TFormMain.lvDetKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -5828,192 +3979,6 @@ begin
                 else
                   if key = #12
                   then DetLockClick(Self);
-end;
-
-procedure TFormMain.fmSaveAsClick(Sender: TObject);
-var
-  Reg: Tregistry;
-  WDir,o,n: String;
-  po,pn: pchar;
-begin
-  WDir := Dir;
-  if not DirectoryExists(WDir)
-  then WDir := '';
-  if not SelDir(WDir,True)
-  then begin;
-    MessageDlg(lwLngTrns(name,['No directory for file-set selected. Files are not saved.']),
-               mtWarning,[mbOK],0);
-    exit;
-  end;
-
-  if FileExists(Dir + '\satellites.xml')
-  then begin;
-    if FileExists(WDir + 'satellites.xml')
-    then begin;
-      DeleteFile(WDir + '\satellites.xml');
-      Log('i',lwLngTrns(name,['% deleted from %',
-                              'satellites.xml', WDir]));
-    end;
-    o := Dir+'\satellites.xml';
-    n := WDir+'\satellites.xml';
-    po := pchar(o);
-    pn := pchar(n);
-    CopyFile(po,pn,False);
-    Log('i',lwLngTrns(name,['File % copied from % to %',
-                            'satellites.xml',Dir,WDir]));
-  end;
-
-  Dir := WDir;
-  Reg := TRegistry.Create;
-  Reg.RootKey := HKEY_CURRENT_USER;
-  Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
-  Reg.WriteString('LastUsedDirectory',Dir);
-  Reg.CloseKey;
-  Reg.Destroy;
-
-  FormMain.Caption := 'LlamaWare DreamBoxEdit - ' + Dir;
-  tbFiles.Enabled := True;
-
-  tbSaveClick(Self);
-end;
-
-procedure TFormMain.fmUpdSatXMLClick(Sender: TObject);
-var
-  sifTSID,sifSatXML: String;
-  wname,tsidsif: String;
-  p,ta,te,ts,seq: Integer;
-label
-  Skipped;
-begin
-  if not FileExists(Dir + '\satellites.xml')
-  then begin;
-    MessageDlg(lwLngTrns(name,['File satellites.xml not found in current directory %',Dir]),
-               mtError,[mbOK],0);
-    exit;
-  end;
-
-  log('i',lwLngTrns(name,['Updating satellites.xml with currently loaded transponder data']));
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := 100;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
-
-  { rebuild transponder table from services table }
-  FormWait.pb.Position := 1;
-  cdsTSID.EmptyDataSet;
-  cdsTSID.Close;
-  cdsTSID.Open;
-  sifTSID := cdsTSID.IndexFieldNames;
-  cdsTSID.IndexFieldNames := 'tsidPos;tsidFreq;tsidPol;tsidSymb;tsidFEC';
-  cdsServ.First;
-  while not cdsServ.Eof do begin;
-    if not cdsTSID.FindKey([cdsServ.FieldByName('servPos').AsString,
-                            cdsServ.FieldByName('servFreq').AsString,
-                            cdsServ.FieldByName('servPol').AsString,
-                            cdsServ.FieldByName('servSymb').AsString,
-                            cdsServ.FieldByName('servFEC').AsString])
-    then begin;
-      cdsTSID.Append;
-      cdsTSID.FieldByName('tsidUniq').AsString := cdsServ.FieldByName('servUniq').AsString;
-      cdsTSID.FieldByName('tsidTSID').AsString := cdsServ.FieldByName('servTSID').AsString;
-      cdsTSID.FieldByName('tsidNID').AsString := cdsServ.FieldByName('servNid').AsString;
-      cdsTSID.FieldByName('tsidFreq').AsString := cdsServ.FieldByName('servFreq').AsString;
-      cdsTSID.FieldByName('tsidSymb').AsString := cdsServ.FieldByName('servSymb').AsString;
-      cdsTSID.FieldByName('tsidPol').AsString := cdsServ.FieldByName('servPol').AsString;
-      cdsTSID.FieldByName('tsidFEC').AsString := cdsServ.FieldByName('servFEC').AsString;
-      cdsTSID.FieldByName('tsidPos').AsString := cdsServ.FieldByName('servPos').AsString;
-      cdsTSID.Post;
-    end;
-    cdsServ.Next;
-  end;
-
-  { Read the satellites.xml file }
-  EditSatXML := False;
-  ts := ReadSatXML(Dir+'\satellites.xml');
-  if (sender as TMenuItem).Name = 'fmClearSatXML'
-  then begin;
-    { if called from fmClearSatXML: empty table, only original headers are then processed }
-    tsidsif := cdsTSID.IndexFieldNames;
-    cdsTSID.IndexFieldNames := 'tsidPos';
-    cdsSatXML.First;
-    while not cdsSatXML.Eof do begin;
-      if not cdsTSID.FindKey([cdsSatXML.FieldByName('Pos').AsString])
-      then cdsSatXML.Delete
-      else cdsSatXML.Next;
-    end;
-    cdsTSID.IndexFieldNames := tsidsif;
-  end;
-  te := cdsSatXML.RecordCount;
-
-  { Update satellites.xml table with transponders }
-  p := 0;
-  FormWait.pb.Max := cdsTSID.RecordCount;
-  seq := cdsSatXML.RecordCount + 1;
-  ta := 0;
-  wname := '';
-  cdsTSID.First;
-  while not cdsTSID.Eof do begin;
-    inc(p);
-    if p mod 5 = 0
-    then FormWait.pb.Position := p;
-
-    if not cdsSatXML.FindKey([cdsTSID.FieldByName('tsidPos').AsString,
-                              cdsTSID.FieldByName('tsidFreq').AsString,
-                              cdsTSID.FieldByName('tsidPol').AsString,
-                              cdsTSID.FieldByName('tsidSymb').AsString,
-                              cdsTSID.FieldByName('tsidFEC').AsString])
-    then begin;
-      inc(ta);
-      if (cdsPOS.FindKey([cdsTSID.FieldByName('tsidPos').AsString])) and
-         (cdsPos.FieldByName('posName').AsString <> '')
-      then wname := cdsPOS.FieldByName('posName').AsString
-      else
-        if cdsSatXML.FindKey([cdsTSID.FieldByName('tsidPos').AsString])
-        then wname := cdsSatXML.FieldByName('Name').AsString
-        else wname := 'Satellite at ' +
-                      Format('%.1n',[cdsTSID.FieldByName('tsidPos').AsInteger/10]);
-
-      cdsSatXML.Append;
-      cdsSatXML.FieldByName('Name').AsString := wname;
-      cdsSatXML.FieldByName('Flags').AsString := '5';
-      cdsSatXML.FieldByName('Pos').AsString := cdsTSID.FieldByName('tsidPos').AsString;
-      cdsSatXML.FieldByName('Freq').AsString := cdsTSID.FieldByName('tsidFreq').AsString;
-      cdsSatXML.FieldByName('Pol').AsString := cdsTSID.FieldByName('tsidPol').AsString;
-      cdsSatXML.FieldByName('Symb').AsString := cdsTSID.FieldByName('tsidSymb').AsString;
-      cdsSatXML.FieldByName('FEC').AsString := cdsTSID.FieldByName('tsidFEC').AsString;
-      cdsSatXML.FieldByName('SeqNr').AsInteger := seq;
-      cdsSatXML.Post;
-      inc(seq);
-    end;
-    cdsTSID.Next;
-  end;
-  cdsTSID.IndexFieldNames := sifTSID;
-
-  { Write the updated satellited.xml table to file }
-  if NewSatXMLBottom
-  then begin;
-    sifSatXML := cdsSatXML.IndexFieldNames;
-    cdsSatXML.IndexFieldNames := 'Pos;SeqNr;Freq;Pol;Symb;FEC';
-  end;
-
-  WriteSatXML(Dir + '\satellites.xml');
-
-  if NewSatXMLBottom
-  then cdsSatXML.IndexFieldNames := sifSatXML;
-
-  FormWait.Hide;
-
-  log('i',lwLngTrns(name,['% existing transponders, ',IntToStr(te)]));
-  log('i',lwLngTrns(name,['% ... new transponders added,',IntToStr(ta)]));
-  log('i',lwLngTrns(name,['% ... invalid transponders skipped.',IntToStr(ts)]));
-  if ShowResultMsg
-  then MessageDlg(lwLngTrns(name,['% existing transponders,~' +
-                                  '% new transponders added,~' +
-                                  '% invalid transponders skipped.',
-                                  IntToStr(te),IntToStr(ta),IntToStr(ts)]),
-                  mtInformation,[mbOK],0);
-  log('i',lwLngTrns(name,['Ready updating satellites.xml']));
 end;
 
 procedure TFormMain.FormResize(Sender: TObject);
@@ -6307,35 +4272,6 @@ begin
       (DetType = 'P'))
   then Accept := Source is TListView
   else Accept := False;
-end;
-
-procedure TFormMain.fmImportUserBouquetsClick(Sender: TObject);
-var
-  Reg: TRegistry;
-  FavDir: String;
-begin
-  Reg := TRegistry.Create;
-  Reg.RootKey := HKEY_CURRENT_USER;
-  Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
-  if Reg.ValueExists('User Bouquets Directory')
-  then FavDir := Reg.ReadString('User Bouquet Directory')
-  else FavDir := Dir;
-  Reg.CloseKey;
-  Reg.Destroy;
-
-  if not SelDir(FavDir,False)
-  then exit;
-
-  Reg := TRegistry.Create;
-  Reg.RootKey := HKEY_CURRENT_USER;
-  Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
-  Reg.WriteString('User Bouquet Directory',FavDir);
-  Reg.CloseKey;
-  Reg.Destroy;
-
-  if FormImportUserBouquets.ShowModal <> mrOK
-  then exit
-  else SetMenu('changed');
 end;
 
 procedure TFormMain.DetCutClick(Sender: TObject);
@@ -6935,7 +4871,7 @@ begin
   end;
 
   Screen.Cursor := crHourGlass;
-  ToolBar1.Enabled := False;
+  //ToolBar1.Enabled := False;
 
   log('i',lwLngTrns(name,['Processing ZAP command for service: %',lvServ.Selected.Caption]));
 
@@ -6965,7 +4901,7 @@ begin
   if s = '0'
   then CmdOk := True;
 
-  ToolBar1.Enabled := True;
+  //ToolBar1.Enabled := True;
   Screen.Cursor := crDefault;
   if not CmdOk
   then begin;
@@ -7024,7 +4960,7 @@ begin
   end;
 
   Screen.Cursor := crHourGlass;
-  ToolBar1.Enabled := False;
+  //ToolBar1.Enabled := False;
 
   log('i',lwLngTrns(name,['Processing ZAP command for service: %',lvDet.Selected.Caption]));
 
@@ -7054,7 +4990,7 @@ begin
   if s = '0'
   then CmdOk := True;
 
-  ToolBar1.Enabled := True;
+  //ToolBar1.Enabled := True;
   Screen.Cursor := crDefault;
   if not CmdOk
   then begin;
@@ -7084,15 +5020,15 @@ end;
 
 procedure TFormMain.tvCollapseAllClick(Sender: TObject);
 begin
-  tv.FullCollapse;
+  tvBouquets.FullCollapse;
 end;
 
 procedure TFormMain.tvExpandAllClick(Sender: TObject);
 begin
-  tv.FullExpand;
+  tvBouquets.FullExpand;
 end;
 
-procedure TFormMain.tvDragDrop(Sender, Source: TObject; X, Y: Integer);
+procedure TFormMain.tvBouquetsDragDrop(Sender, Source: TObject; X, Y: Integer);
 var
   tn,ntn: TTreeNode;
   fwcds,twcds: TClientDataset;
@@ -7103,10 +5039,10 @@ var
   item: TListItem;              
   SkipWarning: Boolean;
 begin
-  if tv.Selected = nil
+  if tvBouquets.Selected = nil
   then Exit;
 
-  tn := tv.GetNodeAt(X,Y);
+  tn := tvBouquets.GetNodeAt(X,Y);
 
   { Dropped bouquet from within the treeview }
   if DragDropType = 'Bouq'
@@ -7115,16 +5051,16 @@ begin
        (tn.Parent = nil)
     then exit;
 
-    if (tv.Selected.Parent <> nil) and
-       (tv.Selected.Parent.Text[1] = tn.Parent.Text[1])
+    if (tvBouquets.Selected.Parent <> nil) and
+       (tvBouquets.Selected.Parent.Text[1] = tn.Parent.Text[1])
     then begin;
       { Within the TV or Radio section itself: just move the entry }
-      tv.Selected.MoveTo(tn,naInsert);
+      tvBouquets.Selected.MoveTo(tn,naInsert);
       SetMenu('changed');
     end
     else begin;
       { Between Bouquet and TV or Radio: copy the bouquet }
-      fpLD := tv.Selected.Data;
+      fpLD := tvBouquets.Selected.Data;
       ld := NewBouquet(tn.Parent.Text[1]);
       New(tpLD);
       tpLD.FileName := ld.FileName;
@@ -7132,30 +5068,30 @@ begin
       tpLD.Locked := fpLD.Locked;
       if tn.Parent.Text[1] = 'T'
       then begin;
-        ntn := tv.Items.InsertObject(tn,tv.Selected.Text,tpLD);
+        ntn := tvBouquets.Items.InsertObject(tn,tvBouquets.Selected.Text,tpLD);
         twcds := cdsFTV;
         tpf := 'ftv';
       end
       else
         if tn.Parent.Text[1] = 'R'
         then begin;
-          ntn := tv.Items.InsertObject(tn,tv.Selected.Text,tpLD);
+          ntn := tvBouquets.Items.InsertObject(tn,tvBouquets.Selected.Text,tpLD);
           twcds := cdsFRD;
           tpf := 'frd';
         end
         else begin;
-          ntn := tv.Items.InsertObject(tn,tv.Selected.Text,tpLD);
+          ntn := tvBouquets.Items.InsertObject(tn,tvBouquets.Selected.Text,tpLD);
           twcds := cdsFBQ;
           tpf := 'fbq';
         end;
       tnBQ.AlphaSort(True);
-      if tv.Selected.Parent.Text[1] = 'T'
+      if tvBouquets.Selected.Parent.Text[1] = 'T'
       then begin;
         fwcds := cdsFTV;
         fpf := 'ftv';
       end
       else
-        if tv.Selected.Parent.Text[1] = 'R'
+        if tvBouquets.Selected.Parent.Text[1] = 'R'
         then begin;
           fwcds := cdsFRD;
           fpf := 'frd';
@@ -7229,12 +5165,15 @@ begin
         fwcds.Next;
       end;
       log('i',lwLngTrns(name,['Bouquet % copied from % to %',
-                         tv.Selected.Text,tv.Selected.Parent.Text,tn.Parent.Text]));
+                         tvBouquets.Selected.Text,
+                         tvBouquets.Selected.Parent.Text,tn.Parent.Text]));
       ntn.MakeVisible;
       ntn.Selected := True;
       if ShowResultMsg
       then MessageDlg(lwLngTrns(name,['Bouquet % copied from % to %',
-                                 tv.Selected.Text,tv.Selected.Parent.Text,tn.Parent.Text]),
+                                 tvBouquets.Selected.Text,
+                                 tvBouquets.Selected.Parent.Text,
+                                 tn.Parent.Text]),
                       mtInformation,[mbOK],0);
     end;
     SetMenu('changed');
@@ -7417,7 +5356,7 @@ begin
   end;
 end;
 
-procedure TFormMain.tvDragOver(Sender, Source: TObject; X, Y: Integer;
+procedure TFormMain.tvBouquetsDragOver(Sender, Source: TObject; X, Y: Integer;
   State: TDragState; var Accept: Boolean);
 var
   tn: TTreeNode;
@@ -7426,21 +5365,21 @@ begin
 
   if source is TTreeView
   then begin;
-    tn := tv.GetNodeAt(X,Y);
+    tn := tvBouquets.GetNodeAt(X,Y);
     if (tn <> nil) and
-       (tv.Selected <> nil) and
+       (tvBouquets.Selected <> nil) and
        (tn.Parent <> nil) and
-       (tv.Selected.Parent <> nil)
+       (tvBouquets.Selected.Parent <> nil)
     then
       if (tn.Parent.Text[1] = 'P') and
-         (tv.Selected.Parent.Text[1] = 'P')
+         (tvBouquets.Selected.Parent.Text[1] = 'P')
       then
       else Accept := True;
   end;
 
   if Source is TLIstView
   then begin;
-    tn := tv.GetNodeAt(X,Y);
+    tn := tvBouquets.GetNodeAt(X,Y);
     if (tn <> nil) and
        (tn.Parent <> nil) 
     then Accept := True;
@@ -7449,11 +5388,11 @@ begin
   if y < 15
   then timertvScroll.Enabled := True
   else
-    if y > tv.Height-15
+    if y > tvBouquets.Height-15
     then timertvScroll.Enabled := True;
 end;
 
-procedure TFormMain.tvEdited(Sender: TObject; Node: TTreeNode;
+procedure TFormMain.tvBouquetsEdited(Sender: TObject; Node: TTreeNode;
   var S: String);
 begin
   log('i',lwLngTrns(name,['Bouquet % renamed to %',Node.Text,s]));
@@ -7477,8 +5416,8 @@ var
 begin
   skipconfirm := False;
   c := 0;
-  for i := 0 to tv.SelectionCount - 1 do begin;
-    stn := tv.Selections[i];
+  for i := 0 to tvBouquets.SelectionCount - 1 do begin;
+    stn := tvBouquets.Selections[i];
     if (stn = nil) or
        (stn.Parent = nil)
     then begin;
@@ -7553,9 +5492,9 @@ begin
 
   lp := nil;
   screen.Cursor := crHourGlass;
-  tv.Items.BeginUpdate;
-  for i := tv.SelectionCount - 1 downto 0 do begin;
-    stn := tv.Selections[i];
+  tvBouquets.Items.BeginUpdate;
+  for i := tvBouquets.SelectionCount - 1 downto 0 do begin;
+    stn := tvBouquets.Selections[i];
 
     if (stn = nil) or
        (stn.Parent = nil)
@@ -7574,7 +5513,7 @@ begin
     stn.Delete;
     inc(c);
   end;
-  tv.Items.EndUpdate;
+  tvBouquets.Items.EndUpdate;
   screen.Cursor := crDefault;
 
   if c > 0
@@ -7594,7 +5533,7 @@ var
   et: String;
   tn: TTreeNode;
 begin
-  if tv.Selected = nil
+  if tvBouquets.Selected = nil
   then begin;
     MessageDlg(lwLngTrns(name,['Please first select an entry in the part of the list where ' +
                           'the new entry should be added']),
@@ -7602,27 +5541,27 @@ begin
     exit;
   end;
 
-  if tv.Selected.Level = 1
-  then et := tv.Selected.Parent.Text[1]
-  else et := tv.Selected.Text[1];
+  if tvBouquets.Selected.Level = 1
+  then et := tvBouquets.Selected.Parent.Text[1]
+  else et := tvBouquets.Selected.Text[1];
 
   ld := NewBouquet(et);
 
   new(pListData);
   if et = 'P'
   then begin;
-    tn := tv.Items.AddChildObject(tnBQ,'<new bouquet>',pListData);
+    tn := tvBouquets.Items.AddChildObject(tnBQ,'<new bouquet>',pListData);
     tnBQ.AlphaSort(True);
   end
   else
     if et = 'T'
-    then tn := tv.Items.AddChildObject(tnTV,'<new user bouquet>',pListData)
-    else tn := tv.Items.AddChildObject(tnRD,'<new user bouquet>',pListData);
+    then tn := tvBouquets.Items.AddChildObject(tnTV,'<new user bouquet>',pListData)
+    else tn := tvBouquets.Items.AddChildObject(tnRD,'<new user bouquet>',pListData);
   pListData.FileName := ld.FileName;
   pListData.Number := ld.Number;
   pListData.Locked := False;
 
-  tv.ClearSelection(False);
+  tvBouquets.ClearSelection(False);
   tn.Selected := True;
   tn.MakeVisible;
 
@@ -7643,7 +5582,7 @@ var
   ld: TListData;
 begin
   Screen.Cursor := crHourGlass;
-  ToolBar1.Enabled := False;
+  //ToolBar1.Enabled := False;
 
   FormWait.pb.Caption := '';
   FormWait.pb.Min := 0;
@@ -7690,7 +5629,7 @@ begin
   servflt := cdsServ.Filtered;
   cdsServ.Filtered := False;
 
-  tv.Items.BeginUpdate;
+  tvBouquets.Items.BeginUpdate;
   cdsFBQ.First;
   while not cdsFBQ.Eof
   do begin;
@@ -7787,7 +5726,7 @@ begin
         slTrans.Add(obn + '=' + b);
         if NewBouq
         then begin;
-          tv.Items.AddChildObject(tnBQ,b,pListData);
+          tvBouquets.Items.AddChildObject(tnBQ,b,pListData);
           tnBQ.AlphaSort(True);
         end;
         log('i',lwLngTrns(name,['Prefixing bouquet names: bouquet % created',b]));
@@ -7830,7 +5769,7 @@ begin
       tnBQ.Item[i].Delete;
     end;
   end;
-  tv.Items.EndUpdate;
+  tvBouquets.Items.EndUpdate;
 
   slBouqToNr.Free;
   slNrToBouq.Free;
@@ -7847,7 +5786,7 @@ begin
   tnTV.Item[0].MakeVisible;
   FormWait.Hide;
   Screen.Cursor := crDefault;
-  ToolBar1.Enabled := True;
+  //ToolBar1.Enabled := True;
 
   if ShowResultMsg
   then MessageDlg(lwLngTrns(name,['% bouquet entries read.~' +
@@ -7861,13 +5800,13 @@ begin
           'are processed by this function.)']));
 end;
 
-procedure TFormMain.tvStartDrag(Sender: TObject;
+procedure TFormMain.tvBouquetsStartDrag(Sender: TObject;
   var DragObject: TDragObject);
 begin
   DragDropType := 'Bouq';
 end;
 
-procedure TFormMain.tvEditing(Sender: TObject; Node: TTreeNode;
+procedure TFormMain.tvBouquetsEditing(Sender: TObject; Node: TTreeNode;
   var AllowEdit: Boolean);
 begin
   if Node.Level <> 1
@@ -7875,7 +5814,7 @@ begin
   else AllowEdit := True;
 end;
 
-procedure TFormMain.tvCompare(Sender: TObject; Node1, Node2: TTreeNode;
+procedure TFormMain.tvBouquetsCompare(Sender: TObject; Node1, Node2: TTreeNode;
   Data: Integer; var Compare: Integer);
 begin
   if (Node1.Level <> 1) or
@@ -7886,14 +5825,14 @@ end;
 
 procedure TFormMain.tvSortClick(Sender: TObject);
 begin
-  if tv.Selected = nil
+  if tvBouquets.Selected = nil
   then exit;
 
-  if tv.Selected.level = 0
-  then tv.Selected.AlphaSort(True)
+  if tvBouquets.Selected.level = 0
+  then tvBouquets.Selected.AlphaSort(True)
   else
-    if tv.Selected.Level = 1
-    then tv.Selected.Parent.AlphaSort(True);
+    if tvBouquets.Selected.Level = 1
+    then tvBouquets.Selected.Parent.AlphaSort(True);
   SetMenu('changed');
 end;
 
@@ -7904,30 +5843,31 @@ begin
   for i := 0 to puTV.Items.Count - 1 do
     puTV.Items[i].Enabled := false;
 
-  if tbFiles.Enabled
-  then begin;
-    if tv.Selected <> nil
+  //if tbFiles.Enabled
+  if acShowRestoreFiles.Enabled then
+  begin
+    if tvBouquets.Selected <> nil
     then puTV.Items[3].Enabled := True;
 
-    if (tv.Selected <> nil) and
-       ((tv.Selected.Level = 0) and
-        (tv.Selected.Text[1] <> 'P')) or
-       ((tv.Selected.Level = 1) and
-        (tv.Selected.Parent.Text[1] <> 'P'))
+    if (tvBouquets.Selected <> nil) and
+       ((tvBouquets.Selected.Level = 0) and
+        (tvBouquets.Selected.Text[1] <> 'P')) or
+       ((tvBouquets.Selected.Level = 1) and
+        (tvBouquets.Selected.Parent.Text[1] <> 'P'))
     then puTV.Items[6].Enabled := True;
 
     puTV.Items[8].Enabled := True;
     puTV.Items[9].Enabled := True;
-    if (tv.Selected <> nil) and
-       (tv.Selected.Parent <> nil) and
-       (tv.Selected.Parent.Text[1] = 'P')
+    if (tvBouquets.Selected <> nil) and
+       (tvBouquets.Selected.Parent <> nil) and
+       (tvBouquets.Selected.Parent.Text[1] = 'P')
     then puTV.Items[11].Enabled := True;
 
     puTV.Items[13].Enabled := True;
     puTV.Items[14].Enabled := True;
 
-    if (tv.Selected <> nil) and
-       (tv.Selected.Level = 1)
+    if (tvBouquets.Selected <> nil) and
+       (tvBouquets.Selected.Level = 1)
     then begin;
       puTV.Items[0].Enabled := True;
       puTV.Items[2].Enabled := True;
@@ -7935,7 +5875,7 @@ begin
       puTV.Items[16].Enabled := True;
     end;
 
-    if tv.SelectionCount > 1
+    if tvBouquets.SelectionCount > 1
     then begin;
       for i := 0 to puTV.Items.Count - 1 do
         puTV.Items[i].Enabled := false;
@@ -7946,14 +5886,14 @@ begin
   FormatPopupMenu(puTV);
 end;
 
-procedure TFormMain.tvMouseDown(Sender: TObject; Button: TMouseButton;
+procedure TFormMain.tvBouquetsMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 var
   tn: TTreeNode;
 begin
   if Button = mbRight
   then begin;
-    tn := tv.GetNodeAt(X,Y);
+    tn := tvBouquets.GetNodeAt(X,Y);
     if tn <> nil
     then tn.Selected := True;
     puTV.Popup(tm.CursorPos.X,tm.CursorPos.Y);
@@ -7968,33 +5908,33 @@ begin
     exit;
   end;
 
-  if (tm.CursorPos.X > tv.ClientOrigin.X) and
-     (tm.CursorPos.X < tv.ClientOrigin.X + tv.Width)
+  if (tm.CursorPos.X > tvBouquets.ClientOrigin.X) and
+     (tm.CursorPos.X < tvBouquets.ClientOrigin.X + tvBouquets.Width)
   then begin;
-    if (tm.CursorPos.Y > tv.ClientOrigin.Y) and
-       (tm.CursorPos.y < tv.ClientOrigin.Y + 15)
+    if (tm.CursorPos.Y > tvBouquets.ClientOrigin.Y) and
+       (tm.CursorPos.y < tvBouquets.ClientOrigin.Y + 15)
     then begin;
-      if (tm.CursorPos.y < tv.ClientOrigin.Y + 3)
+      if (tm.CursorPos.y < tvBouquets.ClientOrigin.Y + 3)
       then begin;
-        SendMessage(tv.Handle,WM_VSCROLL,SB_LINEUP,0);
-        SendMessage(tv.Handle,WM_VSCROLL,SB_LINEUP,0);
+        SendMessage(tvBouquets.Handle,WM_VSCROLL,SB_LINEUP,0);
+        SendMessage(tvBouquets.Handle,WM_VSCROLL,SB_LINEUP,0);
       end;
-      if (tm.CursorPos.y < tv.ClientOrigin.Y + 7)
-      then SendMessage(tv.Handle,WM_VSCROLL,SB_LINEUP,0);
-      SendMessage(tv.Handle,WM_VSCROLL,SB_LINEUP,0);
+      if (tm.CursorPos.y < tvBouquets.ClientOrigin.Y + 7)
+      then SendMessage(tvBouquets.Handle,WM_VSCROLL,SB_LINEUP,0);
+      SendMessage(tvBouquets.Handle,WM_VSCROLL,SB_LINEUP,0);
       exit;
     end;
-    if (tm.CursorPos.Y > tv.ClientOrigin.Y + tv.Height - 15) and
-       (tm.CursorPos.y < tv.ClientOrigin.Y + tv.Height)
+    if (tm.CursorPos.Y > tvBouquets.ClientOrigin.Y + tvBouquets.Height - 15) and
+       (tm.CursorPos.y < tvBouquets.ClientOrigin.Y + tvBouquets.Height)
     then begin;
-      if tm.CursorPos.Y > tv.ClientOrigin.Y + tv.Height - 3
+      if tm.CursorPos.Y > tvBouquets.ClientOrigin.Y + tvBouquets.Height - 3
       then begin;
-        SendMessage(tv.Handle,WM_VSCROLL,SB_LINEDOWN,0);
-        SendMessage(tv.Handle,WM_VSCROLL,SB_LINEDOWN,0);
+        SendMessage(tvBouquets.Handle,WM_VSCROLL,SB_LINEDOWN,0);
+        SendMessage(tvBouquets.Handle,WM_VSCROLL,SB_LINEDOWN,0);
       end;
-      if tm.CursorPos.Y > tv.ClientOrigin.Y + tv.Height - 7
-      then SendMessage(tv.Handle,WM_VSCROLL,SB_LINEDOWN,0);
-      SendMessage(tv.Handle,WM_VSCROLL,SB_LINEDOWN,0);
+      if tm.CursorPos.Y > tvBouquets.ClientOrigin.Y + tvBouquets.Height - 7
+      then SendMessage(tvBouquets.Handle,WM_VSCROLL,SB_LINEDOWN,0);
+      SendMessage(tvBouquets.Handle,WM_VSCROLL,SB_LINEDOWN,0);
       exit;
     end;
   end;
@@ -8024,23 +5964,23 @@ begin
     crit := StrToInt(n);
   end;
 
-  if tv.Selected = nil
+  if tvBouquets.Selected = nil
   then exit;
 
-  if ((tv.Selected.Level = 0) and
-      (tv.Selected.Text[1] = 'T')) or
-     ((tv.Selected.Level = 1) and
-      (tv.Selected.Parent.Text[1] = 'T'))
+  if ((tvBouquets.Selected.Level = 0) and
+      (tvBouquets.Selected.Text[1] = 'T')) or
+     ((tvBouquets.Selected.Level = 1) and
+      (tvBouquets.Selected.Parent.Text[1] = 'T'))
   then begin;
     cds := cdsFTV;
     fn := 'ftv';
     tn := tnTV;
   end
   else
-    if ((tv.Selected.Level = 0) and
-        (tv.Selected.Text[1] = 'R')) or
-       ((tv.Selected.Level = 1) and
-        (tv.Selected.Parent.Text[1] = 'R'))
+    if ((tvBouquets.Selected.Level = 0) and
+        (tvBouquets.Selected.Text[1] = 'R')) or
+       ((tvBouquets.Selected.Level = 1) and
+        (tvBouquets.Selected.Parent.Text[1] = 'R'))
     then begin;
       cds := cdsFRD;
       fn := 'frd';
@@ -8063,7 +6003,7 @@ begin
   c := 0;
   p := 0;
   RebuildDet := False;
-  tv.Items.BeginUpdate;
+  tvBouquets.Items.BeginUpdate;
   for i := tn.Count - 1 downto 0 do begin;
     inc(p);
     FormWait.pb.Position := p;
@@ -8088,7 +6028,7 @@ begin
     cds.Filtered := False;
     cds.Filter := '';
   end;
-  tv.Items.EndUpdate;
+  tvBouquets.Items.EndUpdate;
   FormWait.Hide;
   Screen.Cursor := crDefault;
 
@@ -8107,10 +6047,10 @@ begin
   end;
 end;
 
-procedure TFormMain.tvKeyDown(Sender: TObject; var Key: Word;
+procedure TFormMain.tvBouquetsKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if tv.IsEditing
+  if tvBouquets.IsEditing
   then exit;
 
   if key = 46
@@ -8120,7 +6060,7 @@ begin
     then tvInsertClick(Self);
 end;
 
-procedure TFormMain.tvChange(Sender: TObject; Node: TTreeNode);
+procedure TFormMain.tvBouquetsChange(Sender: TObject; Node: TTreeNode);
 var
   pListData: ^TListData;
 begin
@@ -8234,415 +6174,9 @@ end;
 
 procedure TFormMain.tvRenameClick(Sender: TObject);
 begin
-  if (tv.Selected <> nil) and
-     (tv.Selected.Level = 1)
-  then tv.Selected.EditText;
-end;
-
-procedure TFormMain.fmExportServicesExcelClick(Sender: TObject);
-var
-  tf: TextFile;
-  s,pol,fec,sat,servsif: String;
-  servflt: Boolean;
-  p: Integer;
-  TempStream: TMemoryStream;
-begin
-  expd.FileName := Dir + '\DreamBoxEdit Export Services.txt';
-  if expd.Execute
-  then begin;
-    TempStream := TMemoryStream.Create;
-    cdsServ.SaveToStream(TempStream);
-    TempStream.Position := 0;
-    cdsServSave.LoadFromStream(TempStream);
-    TempStream.Free;
-
-    screen.Cursor := crHourGlass;
-
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := cdsServSave.RecordCount;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
-    application.ProcessMessages;           
-    p := 0;
-
-    log('i',lwLngTrns(name,['Exporting services to %',expd.FileName]));
-    AssignFile(tf,expd.FileName);
-    Rewrite(tf);
-    s := 'Service Name'#09 +
-         'Package'#09 +
-         'Type'#09 +
-         'Satellite position'#09 +
-         'Satellite name'#09 +
-         'Frequency'#09 +
-         'Symbolrate'#09 +
-         'Polarization'#09 +
-         'FEC'#09 +
-         'Service ID'#09 +
-         'Transponder ID'#09 +
-         'Network ID'#09 +
-         'Namespace'#09 +
-         'Channelnumber'#09 +
-         'Video PID'#09 +
-         'Audio PID'#09 +
-         'Teletext PID'#09 +
-         'PCR PID'#09 +
-         'AC3 PID'#09 +
-         'Flags';
-    WriteLn(tf,s);
-    servsif := cdsServSave.IndexFieldNames;
-    cdsServSave.IndexFieldNames := 'servPos;servName;servFreq';
-    servflt := cdsServSave.Filtered;
-    cdsServSave.Filtered := False;
-    cdsServSave.First;
-    while not cdsServSave.Eof do begin;
-      inc(p);
-      if p mod 25 = 0
-      then FormWait.pb.Position := p;
-
-      if cdsServSave.FieldByName('servPol').AsInteger = 0
-      then pol := 'H'
-      else pol := 'V';
-      case cdsServSave.FieldByName('servFEC').AsInteger of
-        0: fec := 'auto';
-        1: fec := ' 1/2';
-        2: fec := ' 2/3';
-        3: fec := ' 3/4';
-        4: fec := ' 5/6';
-        5: fec := ' 7/8';
-        else fec := 'invalid';
-      end;
-      if cdsPos.FindKey([cdsServSave.FieldByName('servPos').AsString])
-      then
-        if cdsPos.FieldByName('posName').AsString <> ''
-        then sat := cdsPos.FieldByName('posName').AsString
-        else sat := cdsServSave.FieldByName('servPos').AsString
-      else sat := cdsServSave.FieldByName('servPos').AsString;
-      s := cdsServSave.FieldByname('servName').AsString + #09 +
-           cdsServSave.FieldByname('servPackage').AsString + #09 +
-           cdsServSave.FieldByname('servType').AsString + #09 +
-           Format('%.1n',[cdsServSave.FieldByName('servPos').AsInteger/10]) + #09 +
-           sat + #09 +
-           cdsServSave.FieldByName('servFreq').AsString + #09 +
-           cdsServSave.FieldByName('servSymb').AsString + #09 +
-           pol + #09 +
-           fec + #09 +
-           cdsServSave.FieldByName('servSID').AsString + #09 +
-           cdsServSave.FieldByName('servTSID').AsString + #09 +
-           cdsServSave.FieldByName('servNID').AsString + #09 +
-           cdsServSave.FieldByName('servUniq').AsString + #09 +
-           cdsServSave.FieldByName('servNr').AsString + #09 +
-           cdsServSave.FieldByName('servVPID').AsString + #09 +
-           cdsServSave.FieldByName('servAPID').AsString + #09 +
-           cdsServSave.FieldByName('servTPID').AsString + #09 +
-           cdsServSave.FieldByName('servPPID').AsString + #09 +
-           cdsServSave.FieldByName('serv3PID').AsString + #09 +
-           IntToStr(cdsServSave.FieldByName('servFlags').AsInteger and 127);
-      WriteLn(tf,s);
-      cdsServSave.Next;
-    end;
-    cdsServSave.IndexFieldNames := servsif;
-    cdsServSave.Filtered := servflt;
-    CloseFile(tf);
-
-    FormWait.Hide;
-    screen.Cursor := crDefault;
-
-    MessageDlg(lwLngTrns(name,['Export file saved to %',expd.FileName]),
-               mtInformation,[mbOK],0);
-  end;
-end;
-
-procedure TFormMain.fmExportBouquetsExcelClick(Sender: TObject);
-var
-  tf: TextFile;
-  s,pol,fec,sat,sif,servsif: String;
-  r,i,seq,p: Integer;
-  pListData: ^TListData;
-  servflt: Boolean;
-begin
-  if tbSave.Enabled
-  then begin;
-    r := MessageDlg(lwLngTrns(name,['You made changes that are not yet saved!~~' +
-                    'Do you want to save them before making an export file?']),
-                    mtWarning,[mbYes,mbNo,mbCancel],0);
-    if r = mrYes
-    then tbSave.Click()
-    else
-      if r = mrCancel
-      then exit;
-  end;
-
-  expd.FileName := Dir + '\DreamBoxEdit Export Bouquets.txt';
-  if expd.Execute
-  then begin;
-    screen.Cursor := crHourGlass;
-
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := tnTV.Count +
-                       tnRD.Count +
-                       tnBQ.Count;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
-    application.ProcessMessages;
-    p := 0;
-
-    log('i',lwLngTrns(name,['Exporting services to %',expd.FileName]));
-    AssignFile(tf,expd.FileName);
-    Rewrite(tf);
-    s := 'Bouquetnumber'#09 +
-         'Sequence nr in Bouquet'#09 +
-         'Bouquet Type'#09 +
-         'Bouquet Name'#09 +
-         'Service Name'#09 +
-         'Package'#09 +
-         'Type'#09 +
-         'Satellite position'#09 +
-         'Satellite name'#09 +
-         'Frequency'#09 +
-         'Symbolrate'#09 +
-         'Polarization'#09 +
-         'FEC'#09 +
-         'Service ID'#09 +
-         'Transponder ID'#09 +
-         'Network ID'#09 +
-         'Namespace'#09 +
-         'Channelnumber'#09 +
-         'Video PID'#09 +
-         'Audio PID'#09 +
-         'Teletext PID'#09 +
-         'PCR PID'#09 +
-         'AC3 PID'#09 +
-         'Flags';
-    WriteLn(tf,s);
-
-    servsif := cdsServ.IndexFieldNames;
-    cdsServ.IndexFieldNames := 'servDbeNr';
-    servflt := cdsServ.Filtered;
-    cdsServ.Filtered := False;
-
-    { Export User Bouquets TV }
-    for i := 0 to tnTV.Count -1 do begin;
-      inc(p);
-      FormWait.pb.Position := p;
-
-      pListData := tnTV.Item[i].Data;
-      cdsFTV.Filter := 'ftvSetNr = ''' + IntToStr(pListData.Number) + '''';
-      cdsFTV.Filtered := True;
-      sif := cdsFTV.IndexFieldNames;
-      cdsFTV.IndexFieldNames := 'ftvSetNr;ftvSeqNr';
-      seq := 0;
-      cdsFTV.First;
-      while not cdsFTV.Eof do begin;
-        if cdsFTV.FieldByName('ftvT').AsString <> 'n'
-        then begin;
-          s := '';
-          cdsFTV.Next;
-          continue;
-        end;
-
-        cdsServ.FindKey([cdsFTV.FieldByName('ftvDbeNr').AsString]);
-        if cdsServ.FieldByName('servPol').AsInteger = 0
-        then pol := 'H'
-        else pol := 'V';
-        case cdsServ.FieldByName('servFEC').AsInteger of
-          0: fec := 'auto';
-          1: fec := ' 1/2';
-          2: fec := ' 2/3';
-          3: fec := ' 3/4';
-          4: fec := ' 5/6';
-          5: fec := ' 7/8';
-          else fec := 'invalid';
-        end;
-        if cdsPos.FindKey([cdsServ.FieldByName('servPos').AsString])
-        then
-          if cdsPos.FieldByName('posName').AsString <> ''
-          then sat := cdsPos.FieldByName('posName').AsString
-          else sat := cdsServ.FieldByName('servPos').AsString
-        else sat := cdsServ.FieldByName('servPos').AsString;
-        s := IntToStr(pListData.Number) + #09 +
-             IntToStr(seq) + #09 +
-             'User Bouquets TV' + #09 +
-             tnTV.Item[i].Text + #09 +
-             cdsServ.FieldByname('servName').AsString + #09 +
-             cdsServ.FieldByname('servPackage').AsString + #09 +
-             cdsServ.FieldByname('servType').AsString + #09 +
-             Format('%.1n',[cdsServ.FieldByName('servPos').AsInteger/10]) + #09 +
-             sat + #09 +
-             cdsServ.FieldByName('servFreq').AsString + #09 +
-             cdsServ.FieldByName('servSymb').AsString + #09 +
-             pol + #09 +
-             fec + #09 +
-             cdsServ.FieldByName('servSID').AsString + #09 +
-             cdsServ.FieldByName('servTSID').AsString + #09 +
-             cdsServ.FieldByName('servNID').AsString + #09 +
-             cdsServ.FieldByName('servUniq').AsString + #09 +
-             cdsServ.FieldByName('servNr').AsString + #09 +
-             cdsServ.FieldByName('servVPID').AsString + #09 +
-             cdsServ.FieldByName('servAPID').AsString + #09 +
-             cdsServ.FieldByName('servTPID').AsString + #09 +
-             cdsServ.FieldByName('servPPID').AsString + #09 +
-             cdsServ.FieldByName('serv3PID').AsString + #09 +
-             IntToStr(cdsServ.FieldByName('servFlags').AsInteger and 127);
-        inc(seq);
-        WriteLn(tf,s);
-        cdsFTV.Next;
-      end;
-      cdsFTV.IndexFieldNames := sif;
-      cdsFTV.Filtered := False;
-      cdsFTV.Filter := '';
-    end;
-
-    { Export User Bouquets Radio }
-    for i := 0 to tnRD.Count -1 do begin;
-      inc(p);
-      FormWait.pb.Position := p;
-
-      pListData := tnRD.Item[i].Data;
-      cdsFRD.Filter := 'frdSetNr = ''' + IntToStr(pListData.Number) + '''';
-      cdsFRD.Filtered := True;
-      sif := cdsFRD.IndexFieldNames;
-      cdsFRD.IndexFieldNames := 'frdSetNr;frdSeqNr';
-      seq := 0;
-      cdsFRD.First;
-      while not cdsFRD.Eof do begin;
-        if cdsFRD.FieldByName('frdT').AsString <> 'n'
-        then begin;
-          s := '';
-          cdsFRD.Next;
-          continue;
-        end;
-
-        cdsServ.FindKey([cdsFRD.FieldByName('frdDbeNr').AsString]);
-        if cdsServ.FieldByName('servPol').AsInteger = 0
-        then pol := 'H'
-        else pol := 'V';
-        case cdsServ.FieldByName('servFEC').AsInteger of
-          0: fec := 'auto';
-          1: fec := ' 1/2';
-          2: fec := ' 2/3';
-          3: fec := ' 3/4';
-          4: fec := ' 5/6';
-          5: fec := ' 7/8';
-          else fec := 'invalid';
-        end;
-        if cdsPos.FindKey([cdsServ.FieldByName('servPos').AsString])
-        then
-          if cdsPos.FieldByName('posName').AsString <> ''
-          then sat := cdsPos.FieldByName('posName').AsString
-          else sat := cdsServ.FieldByName('servPos').AsString
-        else sat := cdsServ.FieldByName('servPos').AsString;
-        s := IntToStr(pListData.Number) + #09 +
-             IntToStr(seq) + #09 +
-             'User Bouquets Radio' + #09 +
-             tnRD.Item[i].Text + #09 +
-             cdsServ.FieldByname('servName').AsString + #09 +
-             cdsServ.FieldByname('servPackage').AsString + #09 +
-             cdsServ.FieldByname('servType').AsString + #09 +
-             Format('%.1n',[cdsServ.FieldByName('servPos').AsInteger/10]) + #09 +
-             sat + #09 +
-             cdsServ.FieldByName('servFreq').AsString + #09 +
-             cdsServ.FieldByName('servSymb').AsString + #09 +
-             pol + #09 +
-             fec + #09 +
-             cdsServ.FieldByName('servSID').AsString + #09 +
-             cdsServ.FieldByName('servTSID').AsString + #09 +
-             cdsServ.FieldByName('servNID').AsString + #09 +
-             cdsServ.FieldByName('servUniq').AsString + #09 +
-             cdsServ.FieldByName('servNr').AsString + #09 +
-             cdsServ.FieldByName('servVPID').AsString + #09 +
-             cdsServ.FieldByName('servAPID').AsString + #09 +
-             cdsServ.FieldByName('servTPID').AsString + #09 +
-             cdsServ.FieldByName('servPPID').AsString + #09 +
-             cdsServ.FieldByName('serv3PID').AsString + #09 +
-             IntToStr(cdsServ.FieldByName('servFlags').AsInteger and 127);
-        inc(seq);
-        WriteLn(tf,s);
-        cdsFRD.Next;
-      end;
-      cdsFRD.IndexFieldNames := sif;
-      cdsFRD.Filtered := False;
-      cdsFRD.Filter := '';
-    end;
-
-    { Export Bouquets }
-    for i := 0 to tnBQ.Count -1 do begin;
-      inc(p);
-      FormWait.pb.Position := p;
-
-      pListData := tnBQ.Item[i].Data;
-      cdsFBQ.Filter := 'fbqSetNr = ''' + IntToStr(pListData.Number) + '''';
-      cdsFBQ.Filtered := True;
-      sif := cdsFBQ.IndexFieldNames;
-      if pListData.Number < 0
-      then cdsFBQ.IndexFieldNames := 'fbqSetNr;fbqSeqNr'
-      else cdsFBQ.IndexFieldNames := 'fbqSetNr;fbqName;fbqSeqNr';
-      seq := 0;
-      cdsFBQ.First;
-      while not cdsFBQ.Eof do begin;
-        cdsServ.FindKey([cdsFBQ.FieldByName('fbqDbeNr').AsString]);
-        if cdsServ.FieldByName('servPol').AsInteger = 0
-        then pol := 'H'
-        else pol := 'V';
-        case cdsServ.FieldByName('servFEC').AsInteger of
-          0: fec := 'auto';
-          1: fec := ' 1/2';
-          2: fec := ' 2/3';
-          3: fec := ' 3/4';
-          4: fec := ' 5/6';
-          5: fec := ' 7/8';
-          else fec := 'invalid';
-        end;
-        if cdsPos.FindKey([cdsServ.FieldByName('servPos').AsString])
-        then
-          if cdsPos.FieldByName('posName').AsString <> ''
-          then sat := cdsPos.FieldByName('posName').AsString
-          else sat := cdsServ.FieldByName('servPos').AsString
-        else sat := cdsServ.FieldByName('servPos').AsString;
-        s := IntToStr(pListData.Number) + #09 +
-             IntToStr(seq) + #09 +
-             'Bouquets' + #09 +
-             tnBQ.Item[i].Text + #09 +
-             cdsServ.FieldByname('servName').AsString + #09 +
-             cdsServ.FieldByname('servPackage').AsString+ #09 +
-             cdsServ.FieldByname('servType').AsString + #09 +
-             Format('%.1n',[cdsServ.FieldByName('servPos').AsInteger/10]) + #09 +
-             sat + #09 +
-             cdsServ.FieldByName('servFreq').AsString + #09 +
-             cdsServ.FieldByName('servSymb').AsString + #09 +
-             pol + #09 +
-             fec + #09 +
-             cdsServ.FieldByName('servSID').AsString + #09 +
-             cdsServ.FieldByName('servTSID').AsString + #09 +
-             cdsServ.FieldByName('servNID').AsString + #09 +
-             cdsServ.FieldByName('servUniq').AsString + #09 +
-             cdsServ.FieldByName('servNr').AsString + #09 +
-             cdsServ.FieldByName('servVPID').AsString + #09 +
-             cdsServ.FieldByName('servAPID').AsString + #09 +
-             cdsServ.FieldByName('servTPID').AsString + #09 +
-             cdsServ.FieldByName('servPPID').AsString + #09 +
-             cdsServ.FieldByName('serv3PID').AsString + #09 +
-             IntToStr(cdsServ.FieldByName('servFlags').AsInteger and 127);
-        inc(seq);
-        WriteLn(tf,s);
-        cdsFBQ.Next;
-      end;
-      cdsFBQ.IndexFieldNames := sif;
-      cdsFBQ.Filtered := False;
-      cdsFBQ.Filter := '';
-    end;
-    cdsServ.IndexFieldNames := servsif;
-    cdsServ.Filtered := servflt;
-
-    CloseFile(tf);
-
-    FormWait.Hide;
-
-    screen.Cursor := crDefault;
-    MessageDlg(lwLngTrns(name,['Export file saved to %',expd.FileName]),
-               mtInformation,[mbOK],0);
-  end;
+  if (tvBouquets.Selected <> nil) and
+     (tvBouquets.Selected.Level = 1)
+  then tvBouquets.Selected.EditText;
 end;
 
 procedure TFormMain._lDetNameMouseMove(Sender: TObject; Shift: TShiftState;
@@ -8758,31 +6292,6 @@ begin
   screen.Cursor := crDefault;
 end;
 
-procedure TFormMain.fmEditSatXMLClick(Sender: TObject);
-var
-  ts: Integer;
-begin
-  if not FileExists(Dir + '\satellites.xml')
-  then begin;
-    MessageDlg(lwLngTrns(name,['File satellites.xml not found in current directory %',Dir]),
-               mtError,[mbOK],0);
-    exit;
-  end;
-
-  EditSatXML := False;
-  ts := ReadSatXML(Dir+'\satellites.xml');
-  if ts > 0
-  then MessageDlg(lwLngTrns(name,['% invalid transponder definitions skipped. ' +
-                             'See the log for more information.~' +
-                             'This is not a severe error, you can just continue.',IntToStr(ts)]),
-                  mtWarning,[mbOK],0);
-
-  FormEditSatXML.lFileName.Caption := Dir+'\satellites.xml';
-
-  EditSatXML := True;
-  FormEditSatXML.ShowModal;
-end;
-
 procedure TFormMain.cdsSatXMLBeforePost(DataSet: TDataSet);
 begin
   if not EditSatXML
@@ -8880,149 +6389,11 @@ begin
   then FormEditSatXML.lTT.Caption := IntToStr(cdsSatXML.RecordCount);
 end;
 
-procedure TFormMain.fmCompareDBClick(Sender: TObject);
-var
-  r,rc: Integer;
-  d,fn: String;
-  SR: TSearchRec;
-  FileAttr: Integer;
-begin
-  d := Dir + '\temp';
-  if not DirectoryExists(d)
-  then ForceDirectories(d);
-
-  Toolbar1.Enabled := False;
-  if not FormFTP.FTPGetFiles(d,True,False,True)
-  then begin;
-    MessageDlg(lwLngTrns(name,['There were errors retrieving the files from the Dreambox.~' +
-                          'Check the log for more information.']),
-               mtError,[mbOK],0);
-    ToolBar1.Enabled := True;
-  end;
-  ToolBar1.Enabled := True;
-
-  cdsServComp.EmptyDataSet;
-  cdsServComp.Close;
-  cdsServComp.Open;
-
-  if FileExists(d + '\lamedb')
-  then fn := 'lamedb'
-  else fn := 'services';
-  r := ReadServices(d + '\' + fn,cdsServComp,True);
-  if r < 0
-  then begin;
-    MessageDlg(lwLngTrns(name,['Error reading services file']),
-               mtError,[mbOK],0);
-    exit;
-  end;
-  if r > 0
-  then MessageDlg(lwLngTrns(name,['There were % service entries with errors found.~' +
-                  'See the log for more information', IntToStr(r)]),
-                  mtWarning,[mbOK],0);
-  FormCompareSet.lActiveDir.Caption := Dir;
-  FormCompareSet.lCompareDir.Caption := d + '\' + fn;
-  if FormCompareSet.ShowModal = mrOK
-  then begin;
-    lvServ.Items.Count := cdsServ.RecordCount;
-    lvServ.Refresh;
-    TotalsBuild();
-
-    SetMenu('changed');
-  end;
-
-  FileAttr := faAnyFile;
-  rc := FindFirst(d + '\*.*',FileAttr,SR);
-  while rc = 0 do begin
-    if (SR.Name <> '.') and (SR.Name <> '..')
-    then
-      if (SR.Attr AND faDirectory) <> faDirectory
-      then DeleteFile(d + '\' + SR.Name);
-    rc := FindNext(SR);
-  end;
-  FindClose(sr);
-
-  RemoveDir(d);
-end;
-
-procedure TFormMain.tbFFTPDownClick(Sender: TObject);
-var
-  Reg: TRegistry;
-begin
-  application.ProcessMessages;
-
-  Reg := TRegistry.Create;
-  Reg.RootKey := HKEY_CURRENT_USER;
-  Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
-  if Reg.ValueExists('LastUsedDirectory')
-  then Dir := Reg.ReadString('LastUsedDirectory')
-  else Dir := '';
-  Reg.CloseKey;
-  Reg.Destroy;
-
-  if Dir = ''
-  then begin;
-    MessageDlg(lwLngTrns(name,['The Fast FTP Download function retrieves a file-set to ' +
-                          'the last used directory.~' +
-                          'There is no known last used directory so you have to ' +
-                          'choose normal FTP first.']),
-               mtError,[mbOK],0);
-    exit;
-  end;
-
-  if not DirectoryExists(Dir)
-  then begin;
-    MessageDlg(FormMain.lwLngTrns(name,[
-               'Directory "%" does not exist on your PC. Please first select ' +
-               'a valid directory on the FTP screen.',Dir]),
-               mtError,[mbOK],0);
-    exit;
-  end;
-
-  if (FileExists(Dir+'\'+'services')) or
-     (FileExists(Dir+'\'+'lamedb')) or
-     (FileExists(Dir+'\'+'bouquets')) or
-     (FileExists(Dir+'\'+'satellites.xml'))
-  then begin;
-    if MessageDlg(lwLngTrns(name,['Directory "%" already contains ' +
-                             'one or more of the files you are going to download.~~' +
-                             'Are you sure you want to overwrite them?',Dir]),
-                  mtConfirmation,[mbYes,mbNo],0) <> mrYes
-    then exit;
-  end;
-
-  Toolbar1.Enabled := False;
-
-  if FormFTP.FTPGetFiles(Dir,True,False,False)
-  then begin;
-    AutoOpen := True;
-    tbOpen.Click();
-  end
-  else MessageDlg(lwLngTrns(name,['There were errors retrieving the files from the Dreambox.~' +
-                             'Check the log for more information.']),
-                  mtError,[mbOK],0);
-  ToolBar1.Enabled := True;
-end;
-
-procedure TFormMain.tbFFTPUpClick(Sender: TObject);
-begin
-  application.ProcessMessages;
-
-  if lvServ.Items.Count = 0
-  then begin;
-    MessageDlg(lwLngTrns(name,['There is no file-set loaded to upload to the Dreambox.']),
-               mtError,[mbOK],0);
-    exit;
-  end;
-
-  Toolbar1.Enabled := False;
-  FormFTP.bSendClick(Self);
-  ToolBar1.Enabled := True;
-end;
-
+{ TODO -oTammie78N -cUI : This function is obsolete. }
 procedure TFormMain.ToolBar1CustomDrawButton(Sender: TToolBar;
   Button: TToolButton; State: TCustomDrawState; var DefaultDraw: Boolean);
 begin
-  if Button.Name = 'tbFFTPDown'
+  {if Button.Name = 'tbFFTPDown'
   then begin;
     ToolBar1.Canvas.Brush.Color := clTeal;
     ToolBar1.Canvas.Pen.Color := clTeal;
@@ -9046,7 +6417,7 @@ begin
     ToolBar1.Canvas.Polygon([Point(Button.Left+3,9),
                              Point(Button.Left+7,5),
                              Point(Button.Left+11,9)]);
-  end;
+  end;}
 end;
 
 procedure TFormMain.cbSatNameDropDown(Sender: TObject);
@@ -9086,75 +6457,6 @@ begin
   cbSatName.Width := cbSatName.Width - 75;
   if cbSatName.ItemIndex < 0
   then cbSatName.ItemIndex := cbSatName.Tag;
-end;
-
-procedure TFormMain.fmCompareDiskClick(Sender: TObject);
-var
-  r: Integer;
-begin
-  od.FileName := '';
-  od.Title := lwLngTrns(name,['Select the services file to compare with']);
-  od.Filter := 'services|services;lamedb';
-  if od.Execute
-  then begin;
-    cdsServComp.EmptyDataSet;
-    cdsServComp.Close;
-    cdsServComp.Open;
-
-    r := ReadServices(od.FileName,cdsServComp,True);
-    if r < 0
-    then begin;
-      MessageDlg(lwLngTrns(name,['Error reading services file']),
-                 mtError,[mbOK],0);
-      exit;
-    end;
-    if r > 0
-    then MessageDlg(lwLngTrns(name,['There were % service entries with errors found.~' +
-                               'See the log for more information',IntToStr(r)]),
-                    mtWarning,[mbOK],0);
-    FormCompareSet.lActiveDir.Caption := Dir;
-    FormCompareSet.lCompareDir.Caption := od.FileName;
-    if FormCompareSet.ShowModal = mrOK
-    then begin;
-      lvServ.Items.Count := cdsServ.RecordCount;
-      lvServ.Refresh;
-      TotalsBuild();
-
-      SetMenu('changed');
-    end;
-  end;
-end;
-
-procedure TFormMain._fmUpdateLanguageClick(Sender: TObject);
-var
-  l,i: Integer;
-  lf,s: String;
-begin
-  if not OriginalEnglish
-  then begin;
-    MessageDlg('This option is only available if the program is started in English '#13 +
-               'and no language selection is made',
-               mtError,[mbOK],0);
-    exit;
-  end;
-
-  Screen.Cursor := crHourGlass;
-  for l := 0 to MainMenu1.Items[5].Count - 1 do begin;
-    lf := ExtractFilePath(application.exename) +
-          MainMenu1.Items[5].Items[l].Caption +
-          '.lng';
-    if FileExists(lf)
-    then begin;
-      s := lf + '.' + FormatDateTime('yyyymmdd hhmmss',now()) + '.save';
-      CopyFile(PChar(lf),
-               PChar(s),
-               false);
-    end;
-    for i := 0 to Screen.FormCount - 1 do begin;
-      MultiLang.SaveLanguage(FormAbout._lVersion.Caption,Screen.Forms[i],MainMenu1.Items[5].Items[l].Caption,True,False,True);
-    end;
-  end;
-  Screen.Cursor := crDefault;
 end;
 
 procedure TFormMain.fmLanguageClick(Sender: TObject);
@@ -9314,79 +6616,6 @@ begin
   lvDet.Repaint;
   lvServ.Repaint;
   SetMenu('changed');
-end;
-
-procedure TFormMain.fmClearLocksClick(Sender: TObject);
-var
-  i,cs,cb,co: Integer;
-  servsif: String;
-  servflt: Boolean;
-  pListData: ^TListData;
-begin
-  cs := 0;
-  cb := 0;
-  co := 0;
-  cdsLock.First;
-  while not cdsLock.Eof do begin;
-    inc(co);
-    cdsLock.Delete;
-    cdsLock.First;
-  end;
-
-  ServEdit := True;
-  servsif := cdsServ.IndexFieldNames;
-  cdsServ.IndexFieldNames := '';
-  servflt := cdsServ.Filtered;
-  cdsServ.Filtered := False;
-  cdsServ.First;
-  while not cdsServ.Eof do begin;
-    if cdsServ.FieldByName('servLock').AsInteger = 1
-    then begin;
-      inc(cs);
-      cdsServ.Edit;
-      cdsServ.FieldByName('servLock').AsInteger := 0;
-      cdsServ.Post;
-    end;
-    cdsServ.Next;
-  end;
-  cdsServ.IndexFieldNames := servsif;
-  cdsServ.Filtered := servflt;
-  ServEdit := False;
-  lvServ.Refresh;
-
-  for i := 0 to lvDet.Items.Count - 1 do begin;
-    if lvDet.Items[i].SubItems[9] = '1'
-    then lvDet.Items[i].SubItems[9] := '0';
-  end;
-
-  for i := 0 to tv.Items.Count - 1 do begin;
-    if (tv.Items[i].Data = nil) or
-       (tv.Items[i].Level = 0)
-    then continue;
-    pListData := tv.Items.Item[i].Data;
-    if pListData.Locked
-    then begin;
-      inc(cb);
-      pListData.Locked := False;
-    end;
-  end;
-
-  lvServ.Repaint;
-  lvDet.Repaint;
-  tv.Repaint;
-  if (cs > 0) or
-     (cb > 0) or
-     (co > 0)
-  then SetMenu('changed');
-
-  if ShowResultMsg
-  then begin;
-    MessageDlg(lwLngTrns(name,['% locks from services removed,~' +
-                               '% locks from bouquets removed,~' +
-                               '% other locks removed.',
-                               IntToStr(cs),IntToStr(cb),IntToStr(co)]),
-                               mtInformation,[mbOK],0);
-  end;
 end;
 
 procedure TFormMain.PopupDraw(Sender: TObject;
@@ -9719,12 +6948,6 @@ begin
   lvDetSave();
 end;
 
-procedure TFormMain.fmCheckfornewversionClick(Sender: TObject);
-begin
-  TimerCheckVersion.Interval := 2;
-  TimerCheckVersion.Enabled := True;
-end;
-
 procedure TFormMain.TimerCheckVersionOnTimer(Sender: TObject);
 var
   s,ds: String;
@@ -9898,157 +7121,6 @@ begin
   sl.Free;
 end;
 
-procedure TFormMain.fmExportServicesSatcoDXClick(Sender: TObject);
-var
-  tf: TextFile;
-  s,pol,fec,typ,pos,sat,servsif: String;
-  vpid,apid,ppid: String;
-  servflt: Boolean;
-  p,err: Integer;
-  TempStream: TMemoryStream;
-begin
-  expd.FileName := Dir + '\DreamBoxEdit Export SatcoDX.txt';
-  if expd.Execute
-  then begin;
-    TempStream := TMemoryStream.Create;
-    cdsServ.SaveToStream(TempStream);
-    TempStream.Position := 0;
-    cdsServSave.LoadFromStream(TempStream);
-    TempStream.Free;
-
-    screen.Cursor := crHourGlass;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := cdsServSave.RecordCount;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
-    application.ProcessMessages;
-    p := 0;
-
-    log('i',lwLngTrns(name,['Exporting services to %',expd.FileName]));
-    AssignFile(tf,expd.FileName);
-    SetLineBreakStyle(tf,tlbsLF);
-    Rewrite(tf);
-
-    servsif := cdsServSave.IndexFieldNames;
-    cdsServSave.IndexFieldNames := 'servPos;servFreq;servName';
-    servflt := cdsServSave.Filtered;
-    cdsServSave.Filtered := False;
-
-    err := 0;
-    cdsServSave.First;
-    while not cdsServSave.Eof do begin;
-      inc(p);
-      if p mod 25 = 0
-      then FormWait.pb.Position := p;
-
-      if (cdsServSave.FieldByName('servSID').AsInteger < 0) or
-         (cdsServSave.FieldByName('servSID').AsInteger > 99999) or
-         (cdsServSave.FieldByName('servNID').AsInteger < 0) or
-         (cdsServSave.FieldByName('servNID').AsInteger > 99999) or
-         (cdsServSave.FieldByName('servTSID').AsInteger < 0) or
-         (cdsServSave.FieldByName('servTSID').AsInteger > 99999)
-      then begin;
-        err := err + 1;
-        Log('e',lwLngTrns(name,['Error exporting service % of satellite at % ' +
-                                'to SatcoDX format, invalid SID, NID and/or TSID:',
-                                cdsServSave.FieldByname('servName').AsString,
-                                cdsServSave.FieldByName('servPos').AsString]));
-        Log('e','--> ' +
-                cdsServSave.FieldByName('servSID').AsString + ' ' +
-                cdsServSave.FieldByName('servNID').AsString + ' ' +
-                cdsServSave.FieldByName('servTSID').AsString);
-        cdsServSave.Next;
-        continue;
-      end;
-
-      if cdsServSave.FieldByname('servType').AsInteger in [1,4]
-      then Typ := 'T'
-      else
-        if cdsServSave.FieldByname('servType').AsInteger = 2
-        then Typ := 'R'
-        else Typ := 'D';
-      if cdsServSave.FieldByName('servPol').AsInteger = 0
-      then pol := '1'
-      else pol := '0';
-      if cdsServSave.FieldByName('servFEC').AsInteger = 5
-      then fec := '7'
-      else
-        if cdsServSave.FieldByName('servFEC').AsInteger = 4
-        then fec := '5'
-        else fec := cdsServSave.FieldByName('servFEC').AsString;
-      if cdsServSave.FieldByName('servVPID').AsInteger = 0
-      then vpid := '____'
-      else vpid := Format('%4.4d',[cdsServSave.FieldByName('servVPID').AsInteger]);
-      if cdsServSave.FieldByName('servAPID').AsInteger = 0
-      then apid := '____'
-      else apid := Format('%4.4d',[cdsServSave.FieldByName('servAPID').AsInteger]);
-      if cdsServSave.FieldByName('servPPID').AsInteger = 0
-      then ppid := '____'
-      else ppid := Format('%4.4d',[cdsServSave.FieldByName('servPPID').AsInteger]);
-
-      if cdsServSave.FieldByName('servPos').AsInteger >= 0
-      then pos := Format('%4.4d',[cdsServSave.FieldByName('servPos').AsInteger])
-      else pos := Format('%4.4d',[3600 + cdsServSave.FieldByName('servPos').AsInteger]);
-
-      if cdsPos.FindKey([cdsServSave.FieldByName('servPos').AsString])
-      then
-        if cdsPos.FieldByName('posName').AsString <> ''
-        then sat := cdsPos.FieldByName('posName').AsString
-        else sat := cdsServSave.FieldByName('servPos').AsString
-      else sat := cdsServSave.FieldByName('servPos').AsString;
-
-      s := 'SATCODX103' +
-            Format('%-18s',[LeftStr(sat,18)]) +
-            typ +
-            'MPG2' +
-            Format('%9.9d',[cdsServSave.FieldByName('servFreq').AsInteger]) +
-            pol +
-            Format('%-8s',[LeftStr(cdsServSave.FieldByname('servName').AsString,8)]) +
-            pos +
-            '______' +
-            '__' +
-            '______' +
-            Format('%5.5d',[cdsServSave.FieldByName('servSymb').AsInteger div 1000]) +
-            fec +
-            vpid +
-            apid +
-            ppid +
-            Format('%5.5d',[cdsServSave.FieldByName('servSID').AsInteger]) +
-            Format('%5.5d',[cdsServSave.FieldByName('servNID').AsInteger]) +
-            Format('%5.5d',[cdsServSave.FieldByName('servTSID').AsInteger]) +
-            '___' +
-            '_' +
-            '__' +
-            '___' +
-            '____' +
-            Format('%-12s',[Copy(cdsServSave.FieldByname('servName').AsString,9,12)]);
-      WriteLn(tf,s);
-      cdsServSave.Next;
-    end;
-    cdsServSave.IndexFieldNames := servsif;
-    cdsServSave.Filtered := servflt;
-    CloseFile(tf);
-
-    FormWait.Hide;
-    screen.Cursor := crDefault;
-
-    if err = 0
-    then begin;
-      if ShowResultMsg
-      then MessageDlg(lwLngTrns(name,['Export file saved to %',expd.FileName]),
-                      mtInformation,[mbOK],0);
-    end
-    else begin;
-      MessageDlg(lwLngTrns(name,['Export file saved to %, but there were % errors.' +
-                                 '~See the log for more information.~~' +
-                                 'The services with errors were skipped!',
-                                 expd.FileName,IntToStr(err)]),
-                      mtError,[mbOK],0);
-    end;
-  end;
-end;
-
 procedure TFormMain.EditTransponderClick(Sender: TObject);
 begin
   if lvServ.Selected = nil
@@ -10060,556 +7132,6 @@ begin
   then begin;
     lvServ.Refresh;
     SetMenu('changed');
-  end;
-end;
-
-procedure TFormMain.fmImportExportedServicesClick(Sender: TObject);
-function IsValidLine(var slr: TStringList): Integer;
-begin
-  if not StrIsNumeric(slr[2],False) then result := 3
-  else if not StrIsNumeric(slr[3],True) then result := 4
-  else if not StrIsNumeric(slr[5],False) then result := 6
-  else if not StrIsNumeric(slr[6],False) then result := 7
-  else if not StrIsNumeric(slr[9],False) then result := 10
-  else if not StrIsNumeric(slr[10],False) then result := 11
-  else if not StrIsNumeric(slr[11],False) then result := 12
-  else if not StrIsNumeric(slr[12],False) then result := 13
-  else if not StrIsNumeric(slr[13],False) then result := 14
-  else if not StrIsNumeric(slr[14],False) then result := 15
-  else if not StrIsNumeric(slr[15],False) then result := 16
-  else if not StrIsNumeric(slr[16],False) then result := 17
-  else if not StrIsNumeric(slr[17],False) then result := 19
-  else if not StrIsNumeric(slr[18],False) then result := 19
-  else if not StrIsNumeric(slr[19],False) then result := 20
-  else result := -1;
-end;
-var
-  tf: TextFile;
-  s: String;
-  sl,sli: TStringList;
-  i,p,err,col,cs: Integer;
-  servsif: String;
-  servflt: Boolean;
-  Reg: TRegistry;
-  pListData: ^TLIstData;
-begin
-  if tbFiles.Enabled = False
-  then begin;
-    if MessageDlg(lwLngTrns(name,['No file-set open and no directory selected.~~' +
-                             'You must first select or create a directory before you can import '+
-                             'your exported services file and save.~' +
-                             'Do you want to select or create a directory now?']),
-                  mtConfirmation,[mbYes,mbNo],0) <> mrYes
-    then exit;
-
-    Reg := TRegistry.Create;
-    Reg.RootKey := HKEY_CURRENT_USER;
-    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
-    if Reg.ValueExists('LastUsedDirectory')
-    then Dir := Reg.ReadString('LastUsedDirectory')
-    else Dir := '';
-    Reg.CloseKey;
-    Reg.Destroy;
-    if not DirectoryExists(Dir)
-    then Dir := '';
-
-    if not SelDir(Dir,True)
-    then exit;
-    if FileExists(Dir + '\services')
-    then begin;
-      if MessageDlg(lwLngTrns(name,['You have selected a directory that already contains a file-set.~' +
-                               'When you later save the set you are now building, you will '+
-                               'completely overwrite the existing set.~~' +
-                               'Are you sure want to continue with this directory?']),
-                    mtConfirmation,[mbYes,mbNo],0) <> mrYes
-      then exit;
-    end;
-
-    Reg := TRegistry.Create;
-    Reg.RootKey := HKEY_CURRENT_USER;
-    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
-    Reg.WriteString('LastUsedDirectory',Dir);
-    Reg.CloseKey;
-    Reg.Destroy;
-
-    Log('i',lwLngTrns(name,['Directory % selected',Dir]));
-
-    tnBQ := tv.Items.Add(nil,'Providers');
-    tnTV := tv.Items.Insert(TNBQ,'TV User Bouquets');
-    new(pListData);
-    tv.Items.AddChildObject(tnTV,'Favorites',pListData);
-    pListData.FileName := 'userbouquet.dbe00.tv';
-    pListData.Number := 0;
-    pListData.Locked := False;
-
-    tnRD := tv.Items.Insert(TNBQ,'Radio User Bouquets');
-    new(pListData);
-    tv.Items.AddChildObject(tnRD,'Favorites',pListData);
-    pListData.FileName := 'userbouquet.dbe00.radio';
-    pListData.Number := 0;
-    pListData.Locked := False;
-
-    tv.FullExpand;
-  end;
-
-  od.FileName := '';
-  od.Title := lwLngTrns(name,['Select the exported services file to import']);
-  od.Filter := 'Text files (*.txt)|*.TXT|Any file (*.*)|*.*';
-  if od.Execute
-  then begin;
-    { Check choosen file for correct format }
-    sl := TStringList.Create;
-    sli := TStringList.Create;
-    AssignFile(tf,od.FileName);
-    Reset(tf);
-    Readln(tf,s);
-    s := StringReplace(s,#9,#13,[rfReplaceAll]);
-    sl.Text := s;
-    if (eof(tf)) or
-       (sl.Count <> 20) or
-       (sl[0] <> 'Service Name') or
-       (sl[19] <> 'Flags')
-    then begin;
-      CloseFile(tf);
-      sl.Free;
-      sli.Free;
-      MessageDlg(lwLngTrns(name,['Empty or invalid file for import.~~'+
-                                 'A valid file:~' +
-                                 '- is a by DreamBoxEdit exported services file,~' +
-                                 '- has 20 columns (tab delimted),~' +
-                                 '- starts with a row containing the fieldnames.']),
-                 mtError,[mbOK],0);
-      exit;
-    end;
-
-    while not eof(tf) do begin;
-      Readln(tf,s);
-      sli.Add(s);
-    end;
-    CloseFile(tf);
-
-    screen.Cursor := crHourGlass;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := sli.Count;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
-    application.ProcessMessages;
-
-    log('i',lwLngTrns(name,['Starting import of exported services file "%"',
-                            od.FileName]));
-
-    servsif := cdsServ.IndexFieldNames;
-    cdsServ.IndexFieldNames := 'servSID;servUniq;servTSID;servNID;servType';
-    servflt := cdsServ.Filtered;
-    cdsServ.Filtered := False;
-
-    err := 0;
-    cs := 0;
-    p := 1;
-    for i := 0 to sli.Count - 1 do begin;
-      s := sli[i];
-      s := StringReplace(s,#9,#13,[rfReplaceAll]);
-      sl.Text := s;
-
-      inc(p);
-      if p mod 25 = 0
-      then FormWait.pb.Position := p;
-
-      col := IsValidLine(sl);
-      if col > 0
-      then begin;
-        inc(err);
-        log('i',lwLngTrns(name,['Import of exported services file: error in line %, column %',
-                                IntToStr(p),IntToStr(col)]));
-        continue;
-      end;
-
-      { Create new service }
-      if not cdsServ.FindKey([sl[9],sl[12],sl[10],sl[11],sl[2]])
-      then begin;
-        inc(cs);
-        inc(HighDbeNr);
-        cdsServ.Append;
-        cdsServ.FieldByName('servSID').AsString := sl[9];
-        cdsServ.FieldByName('servUniq').AsString := sl[12];
-        cdsServ.FieldByName('servTSID').AsString := sl[10];
-        cdsServ.FieldByName('servNID').AsString := sl[11];
-        cdsServ.FieldByName('servType').AsString := sl[2];
-        cdsServ.FieldByName('servName').AsString := sl[0];
-        cdsServ.FieldByName('servPackage').AsString := sl[1];
-        cdsServ.FieldByName('servNr').AsString := sl[13];
-        cdsServ.FieldByName('servFreq').AsString := sl[5];
-        cdsServ.FieldByName('servSymb').AsString := sl[6];
-        if sl[7] = 'H'
-        then cdsServ.FieldByName('servPol').AsString := '0'
-        else cdsServ.FieldByName('servPol').AsString := '1';
-        sl[8] := Trim(sl[8]);
-        if sl[8] = '1/2'
-        then cdsServ.FieldByName('servFEC').AsString := '1'
-        else
-          if sl[8] = '2/3'
-          then cdsServ.FieldByName('servFEC').AsString := '2'
-          else
-            if sl[8] = '3/4'
-            then cdsServ.FieldByName('servFEC').AsString := '3'
-            else
-              if sl[8] = '5/6'
-              then cdsServ.FieldByName('servFEC').AsString := '4'
-              else
-                if sl[8] = '7/8'
-                then cdsServ.FieldByName('servFEC').AsString := '5'
-                else cdsServ.FieldByName('servFEC').AsString := '0';
-        cdsServ.FieldByName('servPos').AsString := FloatToStr(StrToFloat(sl[3])*10);
-        cdsServ.FieldByName('servVPID').AsString := sl[14];
-        cdsServ.FieldByName('servAPID').AsString := sl[15];
-        cdsServ.FieldByName('servTPID').AsString := sl[16];
-        cdsServ.FieldByName('servPPID').AsString := sl[17];
-        cdsServ.FieldByName('serv3PID').AsString := sl[18];
-        cdsServ.FieldByName('servFlags').AsString := sl[19];
-        cdsServ.FieldByName('servLock').AsString := '0';
-        cdsServ.FieldByName('servDbeNr').AsInteger := HighDbeNr;
-        cdsServ.FieldByName('servTypeTxt').AsString := TrnsServType(cdsServ.FieldByName('servType').AsInteger);
-        cdsServ.FieldByName('servExtra').AsString := ':2:0';
-        cdsServ.FieldByName('servCleanName').AsString := CleanText(sl[0]);
-        cdsServ.Post;
-      end;
-    end;
-
-    cdsServ.IndexFieldNames := servsif;
-    cdsServ.Filtered := servflt;
-
-    sl.Free;
-    sli.Free;
-    lvServ.Items.Count := cdsServ.RecordCount;
-    lvServ.Refresh;
-    TotalsBuild();
-    tv.FullExpand;
-
-    FormWait.Hide;
-    screen.Cursor := crDefault;
-
-    s := lwLngTrns(name,['Import of exported services file finished. ' +
-                         'There were % services added ' +
-                         'and % error(s) found (see log).',
-                         IntToStr(cs),IntToStr(err)]);
-    log('i',s);
-
-    if cs > 0
-    then begin;
-      SetMenu('loaded');
-      SetMenu('changed');
-      Caption := 'LlamaWare DreamBoxEdit - ' + Dir;
-    end;
-
-    if ShowResultMsg
-    then MessageDlg(s,mtInformation,[mbOK],0);
-  end;
-end;
-
-procedure TFormMain.fmImportExportedBouquetsClick(Sender: TObject);
-function IsValidLine(var slr: TStringList): Integer;
-begin
-  if not StrIsNumeric(slr[0],False) then result := 1
-  else if not StrIsNumeric(slr[1],False) then result := 2
-  else if not StrIsNumeric(slr[6],False) then result := 7
-  else if not StrIsNumeric(slr[7],True) then result := 8
-  else if not StrIsNumeric(slr[9],False) then result := 10
-  else if not StrIsNumeric(slr[10],False) then result := 11
-  else if not StrIsNumeric(slr[13],False) then result := 14
-  else if not StrIsNumeric(slr[14],False) then result := 15
-  else if not StrIsNumeric(slr[15],False) then result := 16
-  else if not StrIsNumeric(slr[16],False) then result := 17
-  else if not StrIsNumeric(slr[17],False) then result := 18
-  else if not StrIsNumeric(slr[18],False) then result := 19
-  else if not StrIsNumeric(slr[19],False) then result := 20
-  else if not StrIsNumeric(slr[20],False) then result := 21
-  else if not StrIsNumeric(slr[21],False) then result := 22
-  else if not StrIsNumeric(slr[22],False) then result := 23
-  else if not StrIsNumeric(slr[23],False)  then result := 24
-  else result := -1;
-end;
-var
-  tf: TextFile;
-  s,et,pf: String;
-  sl,sli: TStringList;
-  i,p,err,col,cs,cb,sbnr: Integer;
-  servsif: String;
-  servflt: Boolean;
-  Reg: TRegistry;
-  pListData: ^TLIstData;
-  ld: TListData;
-  cds: TClientDataset;
-begin
-  if tbFiles.Enabled = False
-  then begin;
-    if MessageDlg(lwLngTrns(name,['No file-set open and no directory selected.~~' +
-                             'You must first select or create a directory before you can import '+
-                             'your exported bouquets file and save.~' +
-                             'Do you want to select or create a directory now?']),
-                  mtConfirmation,[mbYes,mbNo],0) <> mrYes
-    then exit;
-
-    Reg := TRegistry.Create;
-    Reg.RootKey := HKEY_CURRENT_USER;
-    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
-    if Reg.ValueExists('LastUsedDirectory')
-    then Dir := Reg.ReadString('LastUsedDirectory')
-    else Dir := '';
-    Reg.CloseKey;
-    Reg.Destroy;
-    if not DirectoryExists(Dir)
-    then Dir := '';
-
-    if not SelDir(Dir,True)
-    then exit;
-    if FileExists(Dir + '\services')
-    then begin;
-      if MessageDlg(lwLngTrns(name,['You have selected a directory that already contains a file-set.~' +
-                               'When you later save the set you are now building, you will '+
-                               'completely overwrite the existing set.~~' +
-                               'Are you sure want to continue with this directory?']),
-                    mtConfirmation,[mbYes,mbNo],0) <> mrYes
-      then exit;
-    end;
-
-    Reg := TRegistry.Create;
-    Reg.RootKey := HKEY_CURRENT_USER;
-    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
-    Reg.WriteString('LastUsedDirectory',Dir);
-    Reg.CloseKey;
-    Reg.Destroy;
-
-    Log('i',lwLngTrns(name,['Directory % selected',Dir]));
-
-    tnBQ := tv.Items.Add(nil,'Providers');
-    tnTV := tv.Items.Insert(TNBQ,'TV User Bouquets');
-    new(pListData);
-    tv.Items.AddChildObject(tnTV,'Favorites',pListData);
-    pListData.FileName := 'userbouquet.dbe00.tv';
-    pListData.Number := 0;
-    pListData.Locked := False;
-
-    tnRD := tv.Items.Insert(TNBQ,'Radio User Bouquets');
-    new(pListData);
-    tv.Items.AddChildObject(tnRD,'Favorites',pListData);
-    pListData.FileName := 'userbouquet.dbe00.radio';
-    pListData.Number := 0;
-    pListData.Locked := False;
-
-    tv.FullExpand;
-  end;
-
-  od.FileName := '';
-  od.Title := lwLngTrns(name,['Select the exported bouquets file to import']);
-  od.Filter := 'Text files (*.txt)|*.TXT|Any file (*.*)|*.*';
-  if od.Execute
-  then begin;
-    { Check choosen file for correct format }
-    sl := TStringList.Create;
-    sli := TStringList.Create;
-    AssignFile(tf,od.FileName);
-    Reset(tf);
-    Readln(tf,s);
-    s := StringReplace(s,#9,#13,[rfReplaceAll]);
-    sl.Text := s;
-    if (eof(tf)) or
-       (sl.Count <> 24) or
-       (sl[2] <> 'Bouquet Type') or
-       (sl[23] <> 'Flags')
-    then begin;
-      CloseFile(tf);
-      sl.Free;
-      sli.Free;
-      MessageDlg(lwLngTrns(name,['Empty or invalid file for import.~~'+
-                                 'A valid file:~' +
-                                 '- is a by DreamBoxEdit exported bouquets file,~' +
-                                 '- has 24 columns (tab delimted),~' +
-                                 '- starts with a row containing the fieldnames.']),
-                 mtError,[mbOK],0);
-      exit;
-    end;
-
-    while not eof(tf) do begin;
-      Readln(tf,s);
-      sli.Add(s);
-    end;
-    CloseFile(tf);
-
-    screen.Cursor := crHourGlass;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := sli.Count;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
-    application.ProcessMessages;
-
-    log('i',lwLngTrns(name,['Starting import of exported bouquets file "%"',
-                            od.FileName]));
-
-    servsif := cdsServ.IndexFieldNames;
-    cdsServ.IndexFieldNames := 'servSID;servUniq;servTSID;servNID;servType';
-    servflt := cdsServ.Filtered;
-    cdsServ.Filtered := False;
-
-    cds := nil;
-    sbnr := -1;
-    err := 0;
-    cs := 0;
-    cb := 0;
-    p := 1;
-    for i := 0 to sli.Count - 1 do begin;
-      s := sli[i];
-      s := StringReplace(s,#9,#13,[rfReplaceAll]);
-      sl.Text := s;
-
-      inc(p);
-      if p mod 25 = 0
-      then FormWait.pb.Position := p;
-
-      col := IsValidLine(sl);
-      if col > 0
-      then begin;
-        inc(err);
-        log('i',lwLngTrns(name,['Import of exported bouquets file: error in line %, column %',
-                                IntToStr(p),IntToStr(col)]));
-        continue;
-      end;
-
-      { Create new service }
-      if not cdsServ.FindKey([sl[13],sl[16],sl[14],sl[15],sl[6]])
-      then begin;
-        inc(cs);
-        inc(HighDbeNr);
-        cdsServ.Append;
-        cdsServ.FieldByName('servSID').AsString := sl[13];
-        cdsServ.FieldByName('servUniq').AsString := sl[16];
-        cdsServ.FieldByName('servTSID').AsString := sl[14];
-        cdsServ.FieldByName('servNID').AsString := sl[15];
-        cdsServ.FieldByName('servType').AsString := sl[6];
-        cdsServ.FieldByName('servName').AsString := sl[4];
-        cdsServ.FieldByName('servPackage').AsString := sl[5];
-        cdsServ.FieldByName('servNr').AsString := sl[17];
-        cdsServ.FieldByName('servFreq').AsString := sl[9];
-        cdsServ.FieldByName('servSymb').AsString := sl[10];
-        if sl[11] = 'H'
-        then cdsServ.FieldByName('servPol').AsString := '0'
-        else cdsServ.FieldByName('servPol').AsString := '1';
-        sl[12] := Trim(sl[12]);
-        if sl[12] = '1/2'
-        then cdsServ.FieldByName('servFEC').AsString := '1'
-        else
-          if sl[12] = '2/3'
-          then cdsServ.FieldByName('servFEC').AsString := '2'
-          else
-            if sl[12] = '3/4'
-            then cdsServ.FieldByName('servFEC').AsString := '3'
-            else
-              if sl[12] = '5/6'
-              then cdsServ.FieldByName('servFEC').AsString := '4'
-              else
-                if sl[12] = '7/8'
-                then cdsServ.FieldByName('servFEC').AsString := '5'
-                else cdsServ.FieldByName('servFEC').AsString := '0';
-        cdsServ.FieldByName('servPos').AsString := FloatToStr(StrToFloat(sl[7])*10);
-        cdsServ.FieldByName('servVPID').AsString := sl[18];
-        cdsServ.FieldByName('servAPID').AsString := sl[19];
-        cdsServ.FieldByName('servTPID').AsString := sl[20];
-        cdsServ.FieldByName('servPPID').AsString := sl[21];
-        cdsServ.FieldByName('serv3PID').AsString := sl[22];
-        cdsServ.FieldByName('servFlags').AsString := sl[23];
-        cdsServ.FieldByName('servLock').AsString := '0';
-        cdsServ.FieldByName('servDbeNr').AsInteger := HighDbeNr;
-        cdsServ.FieldByName('servTypeTxt').AsString := TrnsServType(cdsServ.FieldByName('servType').AsInteger);
-        cdsServ.FieldByName('servExtra').AsString := ':2:0';
-        cdsServ.FieldByName('servCleanName').AsString := CleanText(sl[4]);
-        cdsServ.Post;
-      end;
-
-      { Create bouquet entry }
-      inc(cb);
-      if StrToInt(sl[0]) <> sbnr
-      then begin;
-        sbnr := StrToInt(sl[0]);
-        if sl[2] = 'User Bouquets TV'
-        then begin;
-          et := 'T';
-          cds := cdsFTV;
-          pf := 'ftv';
-        end
-        else
-          if sl[2] = 'User Bouquets Radio'
-          then begin;
-            et := 'R';
-            cds := cdsFRD;
-            pf := 'frd';
-          end
-          else begin;
-            et := 'P';
-            cds := cdsFBQ;
-            pf := 'fbq';
-          end;
-
-        ld := NewBouquet(et);
-
-        new(pListData);
-        if et = 'P'
-        then begin;
-          tv.Items.AddChildObject(tnBQ,sl[3],pListData);
-          tnBQ.AlphaSort(True);
-        end
-        else
-          if et = 'T'
-          then tv.Items.AddChildObject(tnTV,sl[3],pListData)
-          else tv.Items.AddChildObject(tnRD,sl[3],pListData);
-        pListData.FileName := ld.FileName;
-        pListData.Number := ld.Number;
-        pListData.Locked := False;
-      end;
-      cds.Append;
-      cds.FieldByName(pf+'SeqNr').AsString := sl[1];
-      cds.FieldByName(pf+'Name').AsString := CleanText(sl[4]);
-      cds.FieldByName(pf+'SID').AsString := sl[13];
-      cds.FieldByName(pf+'Uniq').AsString := sl[16];
-      cds.FieldByName(pf+'TSID').AsString := sl[14];
-      cds.FieldByName(pf+'NID').AsString := sl[15];
-      cds.FieldByName(pf+'ServType').AsString := sl[6];
-      cds.FieldByName(pf+'SetNr').AsInteger := ld.Number;
-      cds.FieldByName(pf+'Descr').AsString := '';
-      cds.FieldByName(pf+'DbeNr').AsString := cdsServ.FieldByName('servDbeNr').AsString;
-      cds.FieldByName(pf+'T').AsString := 'n';
-      cds.Post;
-    end;
-
-    cdsServ.IndexFieldNames := servsif;
-    cdsServ.Filtered := servflt;
-
-    sl.Free;
-    sli.Free;
-    lvServ.Items.Count := cdsServ.RecordCount;
-    lvServ.Refresh;
-    TotalsBuild();
-    tv.FullExpand;
-
-    FormWait.Hide;
-    screen.Cursor := crDefault;
-
-    s := lwLngTrns(name,['Import of exported bouquets file finished. ' +
-                         'There were % services added, % bouquet entries added ' +
-                         'and % error(s) found (see log).',
-                         IntToStr(cs),IntToStr(cb),IntToStr(err)]);
-    log('i',s);
-
-    if (cs > 0) or
-       (cb > 0)
-    then begin;
-      SetMenu('loaded');
-      SetMenu('changed');
-      Caption := 'LlamaWare DreamBoxEdit - ' + Dir;
-    end;
-
-    if ShowResultMsg
-    then MessageDlg(s,mtInformation,[mbOK],0);    
   end;
 end;
 
@@ -10824,7 +7346,7 @@ begin
   pack := lvServ.Selected.SubItems[0];
 
   Screen.Cursor := crHourGlass;
-  ToolBar1.Enabled := False;
+  //ToolBar1.Enabled := False;
 
   FormWait.pb.Caption := '';
   FormWait.pb.Min := 0;
@@ -10857,13 +7379,13 @@ begin
     bnr := bsl.Values[pack];
     if bnr = ''
     then begin;
-      for i := 0 to tv.Items.Count - 1 do begin;
-        if (tv.Items.Item[i].Level = 1) and
-           (tv.Items.Item[i].Parent.Text[1] = 'P')
+      for i := 0 to tvBouquets.Items.Count - 1 do begin;
+        if (tvBouquets.Items.Item[i].Level = 1) and
+           (tvBouquets.Items.Item[i].Parent.Text[1] = 'P')
         then begin;
-          if tv.Items.Item[i].Text = pack
+          if tvBouquets.Items.Item[i].Text = pack
           then begin;
-            pListData := tv.Items.Item[i].Data;
+            pListData := tvBouquets.Items.Item[i].Data;
             bnr := IntToStr(pListData.Number);
             break;
           end;
@@ -10916,7 +7438,7 @@ begin
           pListData.FileName := ld.FileName;
           pListData.Number := ld.Number;
           pListData.Locked := False;
-          tv.Items.AddChildObject(tnBQ,pack,pListData);
+          tvBouquets.Items.AddChildObject(tnBQ,pack,pListData);
           tnBQ.AlphaSort(True);
         end;
       end;
@@ -10936,7 +7458,7 @@ begin
 
   FormWait.Hide;
   Screen.Cursor := crDefault;
-  ToolBar1.Enabled := True;
+  //ToolBar1.Enabled := True;
 
   if ShowResultMsg
   then MessageDlg(lwLngTrns(name,['% Services added to Bouquet %',IntToStr(cs),pack]),
@@ -10956,7 +7478,7 @@ begin
   then exit;
 
   Screen.Cursor := crHourGlass;
-  ToolBar1.Enabled := False;
+  //ToolBar1.Enabled := False;
   FormWait.pb.Caption := '';
   FormWait.pb.Min := 0;
   FormWait.pb.Max := cdsServ.RecordCount;
@@ -10972,7 +7494,7 @@ begin
   bsl.Sorted := True;
   bsl.CaseSensitive := False;
 
-  tv.Items.BeginUpdate;
+  tvBouquets.Items.BeginUpdate;
   cdsServ.First;
   while not cdsServ.Eof
   do begin;
@@ -10987,13 +7509,13 @@ begin
     bnr := bsl.Values[b];
     if bnr = ''
     then begin;
-      for i := 0 to tv.Items.Count - 1 do begin;
-        if (tv.Items.Item[i].Level = 1) and
-           (tv.Items.Item[i].Parent.Text[1] = 'P')
+      for i := 0 to tvBouquets.Items.Count - 1 do begin;
+        if (tvBouquets.Items.Item[i].Level = 1) and
+           (tvBouquets.Items.Item[i].Parent.Text[1] = 'P')
         then begin;
-          if tv.Items.Item[i].Text = b
+          if tvBouquets.Items.Item[i].Text = b
           then begin;
-            pListData := tv.Items.Item[i].Data;
+            pListData := tvBouquets.Items.Item[i].Data;
             bnr := IntToStr(pListData.Number);
             break;
           end;
@@ -11046,7 +7568,7 @@ begin
           pListData.FileName := ld.FileName;
           pListData.Number := ld.Number;
           pListData.Locked := False;
-          tv.Items.AddChildObject(tnBQ,b,pListData);
+          tvBouquets.Items.AddChildObject(tnBQ,b,pListData);
           tnBQ.AlphaSort(True);
           inc(cb);
           if bl = ''
@@ -11063,7 +7585,7 @@ begin
   then SetMenu('changed');
 
   bsl.Free;
-  tv.Items.EndUpdate;
+  tvBouquets.Items.EndUpdate;
   TotalsBuild();
 
   tnTV.Item[0].Selected := True;
@@ -11071,7 +7593,7 @@ begin
 
   FormWait.Hide;
   Screen.Cursor := crDefault;
-  ToolBar1.Enabled := True;
+  //ToolBar1.Enabled := True;
 
   if ShowResultMsg
   then MessageDlg(lwLngTrns(name,['% Services added to Bouquets per package.~~' +
@@ -11097,7 +7619,7 @@ begin
   cdsFRD.IndexFieldNames := 'frdDbeNr';
 
   Screen.Cursor := crHourGlass;
-  ToolBar1.Enabled := False;
+  //ToolBar1.Enabled := False;
   FormWait.pb.Caption := '';
   FormWait.pb.Min := 0;
   FormWait.pb.Max := cdsServ.RecordCount;
@@ -11144,7 +7666,7 @@ begin
 
   FormWait.Hide;
   Screen.Cursor := crDefault;
-  ToolBar1.Enabled := True;
+  //ToolBar1.Enabled := True;
 
   if ShowResultMsg
   then MessageDlg(lwLngTrns(name,['% services were not found in any userbouquet ' +
@@ -11290,7 +7812,7 @@ begin
   TotalsBuild();
 end;
 
-procedure TFormMain.tvCustomDrawItem(Sender: TCustomTreeView;
+procedure TFormMain.tvBouquetsCustomDrawItem(Sender: TCustomTreeView;
   Node: TTreeNode; State: TCustomDrawState; var DefaultDraw: Boolean);
 var
   pListData: ^TListData;
@@ -11308,13 +7830,13 @@ procedure TFormMain.tvToggleParentalLock1Click(Sender: TObject);
 var
   pListData: ^TListData;
 begin
-  if (tv.Selected = nil) or
-     (tv.Selected.Data = nil)
+  if (tvBouquets.Selected = nil) or
+     (tvBouquets.Selected.Data = nil)
   then exit;
 
-  pListData := tv.Selected.Data;
+  pListData := tvBouquets.Selected.Data;
   pListData.Locked := not pListData.Locked;
-  tv.Repaint;
+  tvBouquets.Repaint;
   SetMenu('changed');
 end;
 
@@ -11354,7 +7876,7 @@ begin
   then exit;
 
   Screen.Cursor := crHourGlass;
-  ToolBar1.Enabled := False;
+  //ToolBar1.Enabled := False;
   FormWait.pb.Caption := '';
   FormWait.pb.Min := 0;
   FormWait.pb.Max := lvServ.SelCount;
@@ -11392,7 +7914,7 @@ begin
   end;
 
   FormWait.Hide;
-  ToolBar1.Enabled := True;
+  //ToolBar1.Enabled := True;
   Screen.Cursor := crDefault;
 
   lvServ.Refresh;
@@ -11402,26 +7924,6 @@ begin
   then MessageDlg(lwLngTrns(name,['"New" flag reset for % services',
                             IntToStr(c)]),
                   mtInformation,[mbOK],0);
-end;
-
-procedure TFormMain.fmSwitchVersion2and3Click(
-  Sender: TObject);
-begin
-  if SettingsVersion = 2
-  then SetVersionDefaults(3)
-  else SetVersionDefaults(2);
-  SetMenu('changed');
-  MessageDlg(lwLngTrns(name,['The version of the settings set is now changed to %.~~' +
-                             'This means that the next time you save this settings set ' +
-                             'it will be saved in that format.~' +
-                             'Be ware: a version 3 set will NOT work for a Dreambox that ' +
-                             'expects a version 2 set.~' +
-                             'And a version 2 set not on a receiver that expects version 3 ' +
-                             '(7025 and up).~~' +
-                             'You can always see which version is selected at the bottom statusbar ' +
-                             'on the main screen of DreamBoxEdit!',
-                             IntToStr(SettingsVersion)]),
-             mtInformation,[mbOK],0);
 end;
 
 procedure TFormMain.puReadVersionNotesClick(Sender: TObject);
@@ -11498,16 +8000,6 @@ begin
   TotalsBuild();
 end;
 
-procedure TFormMain.fmSearchClick(Sender: TObject);
-begin
-  SearchServices('new');
-end;
-
-procedure TFormMain.fmSearchRepeatClick(Sender: TObject);
-begin
-  SearchServices('repeat');
-end;
-
 procedure TFormMain.Search1Click(Sender: TObject);
 var
   l: Integer;
@@ -11571,6 +8063,3608 @@ begin
                                   'with Whitelist all allowed services are shown in green.']);
     else sb.Hint := 'All copyrights by LlamaWare';
   end;
+end;
+
+procedure TFormMain.acFileOpenExecute(Sender: TObject);
+var
+  tf: TextFile;
+  s,b,snr,bnr,descr,ubt,bn,lfn,altfn: String;
+  Reg: Tregistry;
+  sl,fsl,psl,dbset,alt: TStringList;
+  i,a,e,p,r,ib,ie: Integer;
+  seqnr,cbq: Integer;
+  ServErr,BouqErr,FTVErr, FRDErr: Integer;
+  add: Boolean;
+  pListData: ^TListData;
+begin
+  //if tbSave.Enabled
+  if acFileSave.Enabled then
+  begin
+    r := MessageDlg(lwLngTrns(name,[
+                    'You made changes that are not yet saved!~~'+
+                    'Do you want to save them before opening a new set?~' +
+                    '(Choosing "No" means any changes you made, will be lost)']),
+                    mtWarning,[mbYes,mbNo,mbCancel],0);
+    if r = mrYes then
+      //tbSave.Click()
+      acFileSaveExecute(Sender)
+    else
+      if r = mrCancel
+      then exit;
+  end;
+
+  if not AutoOpen
+  then begin;
+    Reg := TRegistry.Create;
+    Reg.RootKey := HKEY_CURRENT_USER;
+    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+    if Reg.ValueExists('LastUsedDirectory')
+    then Dir := Reg.ReadString('LastUsedDirectory')
+    else Dir := '';
+    Reg.CloseKey;
+    Reg.Destroy;
+  end;
+
+  if not DirectoryExists(Dir)
+  then Dir := '';
+
+  if (AutoOpen) or
+     (SelDir(Dir,False))
+  then begin;
+    AutoOpen := False;
+    Log('i',lwLngTrns(name,['Directory % selected',Dir]));
+    if not FileExists(Dir + '\lamedb')
+    then SetVersionDefaults(2)
+    else SetVersionDefaults(3);
+
+    if not FileExists(Dir + '\' + ServFilename)
+    then begin;
+      MessageDlg(lwLngTrns(name,[
+                 'Directory "%" contains no file called "%".~~'+
+                 'You must first use the FTP option to copy all necessary ' +
+                 'files from the dreambox to your PC.',Dir,ServFilename]),
+                 mtError,[mbOk],0);
+      Log('e',lwLngTrns(name,['File services not found in "%"',Dir]));
+      Exit;
+    end;
+    if (not FileExists(Dir + '\bouquets')) and
+       (not FileExists(Dir + '\lamedb'))
+    then begin;
+      MessageDlg(lwLngTrns(name,[
+                 'Directory "%" contains no file called "bouquets"~~'+
+                 'You must first use the FTP option to copy all necessary ' +
+                 'files from the dreambox to your PC.',Dir]),
+                 mtError,[mbOk],0);
+      Log('e',lwLngTrns(name,['File % not found in "%"',
+                              'bouquets',Dir]));
+      Exit;
+    end;
+
+    Reg := TRegistry.Create;
+    Reg.RootKey := HKEY_CURRENT_USER;
+    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+    Reg.WriteString('LastUsedDirectory',Dir);
+    Reg.CloseKey;
+    Reg.Destroy;
+
+    FormMain.Caption := 'LlamaWare DreamBoxEdit - ' + Dir;
+
+    screen.cursor := crHourglass;
+    //ToolBar1.Enabled := False;
+    FormWait.pb.Caption := '';
+    FormWait.pb.Min := 0;
+    FormWait.pb.Max := 9;
+    FormWait.pb.Position := 0;
+    FormWait.Show;
+    application.ProcessMessages;
+
+    psl := TStringList.Create;
+
+    cdsTSID.EmptyDataSet;
+    cdsTSID.Close;
+    cdsTSID.Open;
+
+    cdsServ.Filtered := False;
+    cdsServ.Filter := '';
+    cdsServ.EmptyDataSet;
+    cdsServ.Close;
+    cdsSERV.IndexFieldNames := 'servSID;servUniq;servTSID;servNID;servType';
+    cdsServ.Open;
+    HighDbeNr := 0;
+    cbTVRadio.ItemIndex := 0;
+    cbSatName.ItemIndex := 0;
+    ePackage.Text := '';
+    lvServ.items.Count := 0;
+
+    cdsLock.EmptyDataSet;
+    cdsLock.Close;
+    cdsLock.Open;
+    cdsAlt.EmptyDataSet;
+    cdsAlt.Close;
+    cdsAlt.Open;
+
+    cdsPos.EmptyDataSet;
+    cdsPos.Close;
+    cdsPos.Open;
+
+    cdsFTV.EmptyDataSet;
+    cdsFTV.Close;
+    cdsFTV.Open;
+    cdsFRD.EmptyDataSet;
+    cdsFRD.Close;
+    cdsFRD.Open;
+    cdsFBQ.EmptyDataSet;
+    cdsFBQ.Close;
+    cdsFBQ.Open;
+
+    lvDet.Items.BeginUpdate;
+    lvDet.Items.Clear;
+    lvDet.Items.EndUpdate;
+
+    V3OrderBy1 := '';
+
+    tvBouquets.Items.BeginUpdate;
+    for i := 0 to tvBouquets.Items.Count - 1 do begin;
+      if tvBouquets.Items.Item[i].Level = 1
+      then dispose(tvBouquets.Items.Item[i].Data);
+    end;
+    tvBouquets.Items.Clear;
+    tvBouquets.Items.EndUpdate;
+
+    BouqErr := 0;
+    FTVErr := 0;
+    FRDErr := 0;
+
+    { Default settings for satellite }
+    SatCable := 's';
+    if SettingsVersion = 2
+    then sb.Panels[2].Text := lwLngTrns(name,['Satellite'])
+    else sb.Panels[2].Text := '';
+
+    { process services file }
+    FormWait.pb.Position := 1;
+
+    ServErr := ReadServices(Dir+'\'+ServFilename,cdsServ,False);
+    if ServErr < 0
+    then begin;
+      screen.cursor := crdefault;
+      //ToolBar1.Enabled := True;
+      FormWait.Hide;
+      exit;
+    end;
+
+    { process parental lock / blacklist / whitelist file (if present/specified) }
+    FormWait.pb.Position := 2;
+    BlackList := True; { Default }
+    lfn := 'services.locked'; { Default }
+    { Check for whitelist setting when settings type is not 2 }
+    if SettingsVersion <> 2
+    then begin;
+      lfn := 'blacklist'; { default for settings version 3 }
+      if FileExists(Dir+'\settings')
+      then begin;
+        dbset := TStringList.Create;
+        dbset.LoadFromFile(Dir+'/settings');
+        if pos('whitelist',lowercase(dbset.Text)) > 0
+        then begin;
+          Blacklist := False;
+          lfn := 'whitelist';
+          sb.Panels[4].Text := 'Parental control: Whitelist';
+        end;
+        dbset.Free;
+      end;
+    end;
+
+    if FileExists(Dir+'\'+lfn)
+    then begin;
+      sl := TStringList.Create;
+      sl.LoadFromFile(Dir+'\'+lfn);
+      for i := 0 to sl.Count - 1 do begin;
+        if pos('parental',lowercase(sl[i])) > 0
+        then continue;
+
+        if trim(sl[i]) <> ''
+        then begin;
+          ParseString(sl[i],psl);
+          if not CheckStringsOK(Dir+'\'+lfn,sl[i],psl,7,'NNHHHHH')
+          then begin;
+            inc(ServErr);
+            continue;
+          end;
+
+          { process entry }
+          cdsLock.Append;
+          cdsLock.FieldByName('lockI1').AsString := psl.Strings[0];
+          cdsLock.FieldByName('lockI2').AsString := psl.Strings[1];
+          if psl.Strings[10] = ''
+          then begin;
+            cdsLock.FieldByName('lockServType').AsInteger := StrToInt('$0'+psl.Strings[2]);
+            cdsLock.FieldByName('lockSID').AsInteger := StrToInt('$0'+psl.Strings[3]);
+            cdsLock.FieldByName('lockTSID').AsInteger := StrToInt('$0'+psl.Strings[4]);
+            cdsLock.FieldByName('lockNID').AsInteger := StrToInt('$0'+psl.Strings[5]);
+            cdsLock.FieldByName('lockUniq').AsInteger := StrToInt('$0'+psl.Strings[6]);
+            cdsLock.FieldByName('lockString').AsString := '';
+          end
+          else begin;                     
+            if psl.Count >= 11
+            then begin;
+              cdsLock.FieldByName('lockString').AsString := psl.Strings[10];
+              psl.Strings[10] := StringReplace(psl.Strings[10],'/','\',[rfReplaceAll]);
+              cdsLock.FieldByName('lockFilename').AsString := ExtractFilename(psl.Strings[10]);
+            end;
+          end;
+          cdsLock.Post;
+        end;
+      end;
+      sl.Free;
+
+      { update cdsServ with locks }
+      cdsLock.First;
+      while not cdsLock.Eof do begin;
+        if (cdsLock.FieldByName('lockI2').AsInteger = 0) and
+           (cdsServ.FindKey([cdsLock.FieldByName('lockSID').AsString,
+                             cdsLock.FieldByName('lockUniq').AsString,
+                             cdsLock.FieldByName('lockTSID').AsString,
+                             cdsLock.FieldByName('lockNID').AsString,
+                             cdsLock.FieldByName('lockServType').AsString]))
+        then begin;
+          cdsServ.Edit;
+          cdsServ.FieldByName('servLock').AsInteger := 1;
+          cdsServ.Post;
+          cdsLock.Delete;
+        end
+        else cdsLock.Next;
+      end;
+    end;
+
+    { process bouquets ('Providers') }
+    FormWait.pb.Position := 3;
+
+    tnBQ := tvBouquets.Items.Add(nil,'Providers');
+    if FileExists(Dir+'\bouquets')
+    then begin;
+      AssignFile(tf,Dir+'\bouquets');
+      SetLineBreakStyle(tf,tlbsLF);
+      Reset(tf);
+      snr := '';
+      cbq := 0;
+      ReadLn(tf,s);
+      while (s <> 'bouquets') and (not eof(tf)) do
+        ReadLn(tf,s);
+      ReadLn(tf,s);
+      while (s <> 'end') and (not eof(tf))
+      do begin;
+        bnr := s;
+        ReadLn(tf,b);
+        new(pListData);
+        pListData.FileName := '';
+        pListData.Number := StrToInt(bnr);
+        if cdsLock.Locate('lockServType;lockSID;lockTSID',
+                          VarArrayOf(['-3','18',StrToInt(bnr)]),[]) { -3 = fffffffd }
+        then begin;
+          pListData.Locked := True;
+          cdsLock.Delete;
+        end
+        else pListData.Locked := False;
+        tvBouquets.Items.AddChildObject(tnBQ,UTF8ToAnsi(b),pListData);
+
+        ReadLn(tf,s);
+        while (s <> '/') and (not eof(tf))
+        do begin;
+          add := true;
+          ParseString(s,psl);
+          if not CheckStringsOK(Dir+'\bouquets',s,psl,5,'HHHHH')
+          then begin;
+            inc(BouqErr);
+            add := False;
+          end;
+
+          { Temporary(?) set hex servicetype value to decimal }
+          if add
+          then
+            if not StrIsNumeric(psl.Strings[4],False)
+            then psl.Strings[4] := IntToStr(StrToInt('$'+psl.Strings[4]));
+
+          if trim(s) = ''
+          then add := false;
+          if (add) and
+             (psl.Count < 5)
+          then begin;
+            MessageDlg(lwLngTrns(name,['Invalid line found (not enough values) and skipped in file "bouquet"']),
+                                  mtWarning,[mbOK],0);
+            log('w',lwLngTrns(name,['Invalid line found (not enough values) and skipped in file "bouquet"']));
+            log('w','-->'+s);
+            Inc(BouqErr);
+            add := False;
+          end;
+          if (add) and
+             (not AllowDuplicates) and
+             (cdsFBQ.FindKey([bnr,
+                              IntToStr(StrToInt('$'+psl.Strings[0])),
+                              IntToStr(StrToInt('$'+psl.Strings[1])),
+                              IntToStr(StrToInt('$'+psl.Strings[2])),
+                              IntToStr(StrToInt('$'+psl.Strings[3])),
+                              psl.Strings[4]]))
+          then begin;
+            log('w',lwLngTrns(name,[
+                'Duplicate bouquet not loaded: % type: % (%:%:%:%' +
+                ' hex: %:%:%:%)',
+                b,psl.Strings[4],
+                IntToStr(StrToInt('$'+psl.Strings[0])),
+                IntToStr(StrToInt('$'+psl.Strings[1])),
+                IntToStr(StrToInt('$'+psl.Strings[2])),
+                IntToStr(StrToInt('$'+psl.Strings[3])),
+                psl.Strings[0],
+                psl.Strings[1],
+                psl.Strings[2],
+                psl.Strings[3]]));
+            Inc(BouqErr);
+            add := False;
+          end;
+          if (add) and
+             (not cdsServ.FindKey([IntToStr(StrToInt('$'+psl.Strings[0])),
+                                   IntToStr(StrToInt('$'+psl.Strings[1])),
+                                   IntToStr(StrToInt('$'+psl.Strings[2])),
+                                   IntToStr(StrToInt('$'+psl.Strings[3])),
+                                   psl.Strings[4]]))
+          then begin;
+            log('w',lwLngTrns(name,[
+                'Invalid bouquet entry in "%" not loaded: '+
+                'SID: %, Namespace: %, TSID: %, NID: %, Type: %: Service not found.',
+                b,
+                IntToStr(StrToInt('$'+psl.Strings[0])),
+                IntToStr(StrToInt('$'+psl.Strings[1])),
+                IntToStr(StrToInt('$'+psl.Strings[2])),
+                IntToStr(StrToInt('$'+psl.Strings[3])),
+                psl.Strings[4]]));
+            Inc(BouqErr);
+            add := False;
+          end;
+
+          if add
+          then begin;
+            inc(cbq);
+            cdsFBQ.Append;
+            cdsFBQ.FieldByName('fbqSeqNr').AsInteger := cbq;
+            cdsFBQ.FieldByName('fbqName').AsString := CleanText(cdsServ.FieldByName('servName').AsString);
+            cdsFBQ.FieldByName('fbqSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[0]));
+            cdsFBQ.FieldByName('fbqUniq').AsString := IntToStr(StrToInt('$0'+psl.Strings[1]));
+            cdsFBQ.FieldByName('fbqTSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[2]));
+            cdsFBQ.FieldByName('fbqNID').AsString := IntToStr(StrToInt('$0'+psl.Strings[3]));
+            cdsFBQ.FieldByName('fbqServType').AsString := psl.Strings[4];
+            cdsFBQ.FieldByName('fbqSetNr').AsString := bnr;
+            cdsFBQ.FieldByName('fbqDescr').AsString := '';
+            cdsFBQ.FieldByName('fbqDbeNr').AsString := cdsServ.FieldByName('servDbeNr').AsString;
+            cdsFBQ.FieldByName('fbqT').AsString := 'n';
+            cdsFBQ.Post;
+          end;
+
+          ReadLn(tf,s);
+        end;
+        ReadLn(tf,s);
+      end;
+      CloseFile(tf);
+      tnBQ.AlphaSort(True);
+    end;
+    if tnBQ.Count = 0
+    then begin;
+      new(pListData);
+      pListData.FileName := '';
+      pListData.Number := 1;
+      pListData.Locked := False;
+      tvBouquets.Items.AddChildObject(tnBQ,'Empty',pListData);
+    end;
+
+    { process TV User Bouquets Index File and TV User Bouquets Files }
+    FormWait.pb.Position := 4;
+
+    tnTV := tvBouquets.Items.Insert(TNBQ,'TV User Bouquets');
+
+    if FileExists(Dir + '\' + EplTVFilename)
+    then begin;
+      fsl := TStringList.Create;
+      fsl.Clear;
+      AssignFile(tf,Dir + '\' + EplTVFilename);
+      SetLineBreakStyle(tf,tlbsCRLF);
+      Reset(tf);
+      if SettingsVersion = 2
+      then begin;
+        while not eof(tf) do begin;
+          ReadLn(tf,s);
+          if (LowerCase(LeftStr(s,8)) = '#service') and
+             (LowerCase(RightStr(s,3)) = '.tv')
+          then begin;
+            for i := length(s) downto 0 do begin;
+              if s[i] = '/'
+              then break;
+            end;
+            s := RightStr(s,length(s)-i);
+            fsl.Add(s);
+          end;
+        end;
+      end
+      else begin;
+        while not eof(tf) do begin;
+          ReadLn(tf,s);
+          if LowerCase(LeftStr(s,8)) = '#service'
+          then begin;
+            for i := length(s) downto 0 do begin;
+              if s[i] = ':'
+              then break;
+            end;
+            s := RightStr(s,length(s)-i);
+            fsl.Add(s);
+          end;
+        end;
+      end;
+      CloseFile(tf);
+
+      seqnr := 0;
+      FormWait.pb.Position := 5;
+      for i := 0 to fsl.Count - 1 do begin;
+        { First extract filename with version>2 settings set }
+        if (SettingsVersion <> 2) and
+           (pos('"',fsl[i]) > 0)
+        then begin;
+          ib := pos('"',fsl[i]);
+          ie := posex('"',fsl[i],ib+1);
+          if V3OrderBy1 = ''
+          then begin;
+            V3OrderBy1 := LeftStr(fsl[i],ib);
+            V3OrderBy2 := copy(fsl[i],ie,length(fsl[i])-ie+1);
+          end;
+          fsl[i] := copy(fsl[i],ib+1,ie-ib-1);
+        end;
+
+        { Process user bouquet file }
+        if FileExists(Dir+'\' + fsl[i])
+        then begin;
+          AssignFile(tf,Dir+'\' + fsl[i]);
+          SetLineBreakStyle(tf,tlbsLF);
+          Reset(tf);
+          ReadLn(tf,s);
+          s := copy(s,7,length(s)-6);
+          new(pListData);
+          pListData.FileName := fsl[i];
+          pListData.Number := i;
+          if cdsLock.Locate('lockFilename',VarArrayOf([fsl[i]]),[])
+          then begin;
+            pListData.Locked := True;
+            cdsLock.Delete;
+          end
+          else pListData.Locked := False;
+          tvBouquets.Items.AddChildObject(tnTV,UTF8ToAnsi(s),pListData);
+          bn := UTF8ToAnsi(s);
+
+          sl := TStringList.Create;
+          while not eof(tf)
+          do begin;
+            ReadLn(tf,s);
+            if (copy(s,1,8) = '#SERVICE') or
+               (copy(s,1,12) = '#DESCRIPTION')
+            then sl.Add(s);
+          end;
+          CloseFile(tf);
+
+          for e := 0 to sl.Count - 1 do begin;
+            s := sl[e];
+
+            if copy(s,1,8) <> '#SERVICE'
+            then continue;
+
+            ParseString(s,psl);
+            if not CheckStringsOK(Dir+'\'+fsl[i],s,psl,8,'SSSHHHHH')
+            then begin;
+              inc(FTVErr);
+              continue;
+            end;
+
+            { handle alternatives in version > 2 }
+            if (SettingsVersion <> 2) and
+               (psl.Strings[1] = '1') and
+               (psl.Strings[2] = '134') and
+               (psl.Count >= 12) and
+               (pos('"',s) > 0)
+            then begin;
+              ib := pos('"',s);
+              ie := posex('"',s,ib+1);
+              altfn := copy(s,ib+1,ie-ib-1);
+              if FileExists(Dir+'\'+altfn)
+              then begin;
+                alt := TStringList.Create;
+                alt.LoadFromFile(Dir+'\'+altfn);
+                if alt.Count >= 2
+                then begin;
+                  s := alt.Strings[1];
+                  ParseString(s,psl);
+                  if not CheckStringsOK(Dir+'\'+fsl[i],s,psl,8,'SSSHHHHH')
+                  then begin;
+                    inc(FTVErr);
+                    continue;
+                  end;
+                  for a := 1 to 1 {alt.Count - 1} do begin; { for now: just the irst entry }
+                    cdsAlt.Append;
+                    cdsAlt.FieldByName('altBQName').AsString := bn;
+                    cdsAlt.FieldByName('altSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[4]));
+                    cdsAlt.FieldByName('altUniq').AsString := IntToStr(StrToInt('$0'+psl.Strings[7]));
+                    cdsAlt.FieldByName('altTSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[5]));
+                    cdsAlt.FieldByName('altNID').AsString := IntToStr(StrToInt('$0'+psl.Strings[6]));
+                    cdsAlt.FieldByName('altServType').AsString := psl.Strings[3];
+                    cdsAlt.FieldByName('altFileName').AsString := altfn;
+                    cdsAlt.Post;
+                  end;
+                end;
+                alt.Free;
+              end;
+            end;
+
+            { Settingsversion >2: set hex servicetype value to decimal }
+            if SettingsVersion <> 2
+            then psl.Strings[3] := IntToStr(StrToInt('$'+psl.Strings[3]));
+
+            if psl.Strings[1] <> '1'
+            then begin;
+              log('w',lwLngTrns(name,['Unsupported reference in TV User Bouquet ' +
+                                 '(%) to User Bouquet itself skipped:',fsl[i]]));
+              log('w','--data: ' + s);
+              inc(FTVErr);
+              continue;
+            end;
+            if (psl.Strings[2] = '15') and
+               (psl.Strings[3] <> 'fffffffd')
+            then begin;
+              log('w',lwLngTrns(name,['Unsupported reference in TV User Bouquet ' +
+                                '(%) skipped:',fsl[i]]));
+              log('w','--data: ' + s);
+              inc(FTVErr);
+              continue;
+            end;
+
+            { handle old references to bouquets }
+            if (psl.Strings[2] = '15') and
+               (psl.Strings[3] = 'fffffffd')
+            then begin;
+              log('w',lwLngTrns(name,['Reference in TV User Bouquet ' +
+                                '(%) to bouquet skipped:',fsl[i]]));
+              log('w','--data: ' + s);
+              inc(FTVErr);
+              continue;
+            end;
+
+            ubt := 'n';
+            descr := '';
+            { Handle Markers }
+            if psl.Strings[2] = '64'
+            then begin;
+              if (e < sl.Count - 1) and
+                 (copy(sl[e+1],1,12) = '#DESCRIPTION')
+              then
+                if copy(sl[e+1],1,13) = '#DESCRIPTION:'
+                then descr := trim(copy(sl[e+1],14,length(sl[e+1])-1))
+                else descr := trim(copy(sl[e+1],13,length(sl[e+1])-1))
+              else begin;
+                log('w',lwLngTrns(name,['Empty marker ignored (%)',
+                                  fsl[i]]));
+                inc(FTVErr);
+                continue;
+              end;
+              ubt := 'm';
+            end;
+
+            { handle duplicate references }
+            if (descr = '') and
+               (not AllowDuplicates) and
+               (cdsFTV.FindKey([IntToStr(i),
+                                IntToStr(StrToInt('$'+psl.Strings[4])),
+                                IntToStr(StrToInt('$'+psl.Strings[7])),
+                                IntToStr(StrToInt('$'+psl.Strings[5])),
+                                IntToStr(StrToInt('$'+psl.Strings[6])),
+                                psl.Strings[3]]))
+            then begin;
+              log('w',lwLngTrns(name,['Duplicate TV favourite (%) not loaded',fsl[i]]));
+              log('w','-- data: ' + s +
+                      ' (service: ' + cdsFTV.FieldByName('ftvName').AsString + ', ' +
+                      ' bouquet: ' + bn + ')');
+              inc(FTVErr);
+              continue;
+            end;
+
+            { handle reference to unknown service / sub service }
+            if (ubt = 'n') and
+               (not cdsServ.FindKey([IntToStr(StrToInt('$'+psl.Strings[4])),
+                                     IntToStr(StrToInt('$'+psl.Strings[7])),
+                                     IntToStr(StrToInt('$'+psl.Strings[5])),
+                                     IntToStr(StrToInt('$'+psl.Strings[6])),
+                                     psl.Strings[3]]))
+            then begin;
+              if (e >= sl.Count - 1) or
+                 (copy(sl[e+1],1,12) <> '#DESCRIPTION')
+              then begin;
+                log('w',lwLngTrns(name,['TV Favourite (%) without ' +
+                                   'corresponding service not loaded',fsl[i]]));
+                log('w','-- data: ' + s);
+                inc(FTVErr);
+                continue;
+              end;
+              ubt := 's';
+              descr := trim(copy(sl[e+1],14,length(sl[e+1])-1));
+            end;
+
+            { handle renamed services }
+            if (ubt = 'n') and
+               (e <= sl.Count - 2) and
+               (copy(sl[e+1],1,12) = '#DESCRIPTION')
+            then begin;
+              ubt := 'r';
+              if copy(sl[e+1],1,13) = '#DESCRIPTION:'
+              then descr := trim(copy(sl[e+1],14,length(sl[e+1])-1))
+              else descr := trim(copy(sl[e+1],13,length(sl[e+1])-1))
+            end;
+
+            { process service reference }
+            inc(seqnr);
+            cdsFTV.Append;
+            cdsFTV.FieldByName('ftvSeqNr').AsInteger := seqnr;
+            if (ubt = 'n') or
+               (ubt = 'r')
+            then cdsFTV.FieldByName('ftvName').AsString := CleanText(cdsServ.FieldByName('servName').AsString)
+            else cdsFTV.FieldByName('ftvName').AsString := CleanText(descr);
+            cdsFTV.FieldByName('ftvSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[4]));
+            cdsFTV.FieldByName('ftvUniq').AsString := IntToStr(StrToInt('$0'+psl.Strings[7]));
+            cdsFTV.FieldByName('ftvTSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[5]));
+            cdsFTV.FieldByName('ftvNID').AsString := IntToStr(StrToInt('$0'+psl.Strings[6]));
+            if ubt = 'm'
+            then cdsFTV.FieldByName('ftvServType').AsString := '0'
+            else cdsFTV.FieldByName('ftvServType').AsString := psl.Strings[3];
+            cdsFTV.FieldByName('ftvSetNr').AsInteger := i;
+            if descr <> ''
+            then cdsFTV.FieldByName('ftvDescr').AsString := CleanText(descr)
+            else cdsFTV.FieldByName('ftvDescr').AsString := '';
+            if (ubt = 'n') or
+               (ubt = 'r')
+            then cdsFTV.FieldByName('ftvDbeNr').AsString := cdsServ.FieldByName('servDbeNr').AsString
+            else cdsFTV.FieldByName('ftvDbeNr').AsString := '0';
+            cdsFTV.FieldByName('ftvT').AsString := ubt;
+            cdsFTV.Post;
+          end;
+          sl.Free;
+        end;
+      end;
+      fsl.Free;
+    end;
+    if tnTV.Count = 0
+    then begin;
+      new(pListData);
+      tvBouquets.Items.AddChildObject(tnTV,'Favorites',pListData);
+      pListData.FileName := 'userbouquet.dbe00.tv';
+      pListData.Number := 0;
+      pListData.Locked := False;
+    end;
+
+    { process Radio User Bouquet Index File and Radio User Bouquet Files }
+    FormWait.pb.Position := 6;
+
+    tnRD := tvBouquets.Items.Insert(TNBQ,'Radio User Bouquets');
+
+    if FileExists(Dir + '\' + EplRDFilename)
+    then begin;
+      fsl := TStringList.Create;
+      fsl.Clear;
+      AssignFile(tf,Dir + '\' + EplRDFilename);
+      SetLineBreakStyle(tf,tlbsCRLF);
+      Reset(tf);
+      if SettingsVersion = 2
+      then begin;
+        while not eof(tf) do begin;
+          ReadLn(tf,s);
+          if (LowerCase(LeftStr(s,8)) = '#service') and
+             (LowerCase(RightStr(s,6)) = '.radio')
+          then begin;
+            for i := length(s) downto 0 do begin;
+              if s[i] = '/'
+              then break;
+            end;
+            s := RightStr(s,length(s)-i);
+            fsl.Add(s);
+          end;
+        end;
+      end
+      else begin;
+        while not eof(tf) do begin;
+          ReadLn(tf,s);
+          if LowerCase(LeftStr(s,8)) = '#service'
+          then begin;
+            for i := length(s) downto 0 do begin;
+              if s[i] = ':'
+              then break;
+            end;
+            s := RightStr(s,length(s)-i);
+            fsl.Add(s);
+          end;
+        end;
+      end;
+      CloseFile(tf);
+
+      seqnr := 0;
+      FormWait.pb.Position := 7;
+      for i := 0 to fsl.Count - 1 do begin;
+        { First extract filename with version>2 settings set }
+        if (SettingsVersion <> 2) and
+           (pos('"',fsl[i]) > 0)
+        then begin;
+          ib := pos('"',fsl[i]);
+          ie := posex('"',fsl[i],ib+1);
+          if V3OrderBy1 = ''
+          then begin;
+            V3OrderBy1 := LeftStr(fsl[i],ib);
+            V3OrderBy2 := copy(fsl[i],ie,length(fsl[i])-ie+1);
+          end;
+          fsl[i] := copy(fsl[i],ib+1,ie-ib-1);
+        end;
+
+        { Process user bouquet file }
+        if FileExists(Dir+'\' + fsl[i])
+        then begin;
+          AssignFile(tf,Dir+'\' + fsl[i]);
+          SetLineBreakStyle(tf,tlbsLF);
+          Reset(tf);
+          ReadLn(tf,s);
+          s := copy(s,7,length(s)-6);
+          new(pListData);
+          pListData.FileName := fsl[i];
+          pListData.Number := i;
+          if cdsLock.Locate('lockFilename',VarArrayOf([fsl[i]]),[])
+          then begin;
+            pListData.Locked := True;
+            cdsLock.Delete;
+          end
+          else pListData.Locked := False;
+          tvBouquets.Items.AddChildObject(tnRD,UTF8ToAnsi(s),pListData);
+          bn := UTF8ToAnsi(s);
+          
+          sl := TStringList.Create;
+          while not eof(tf)
+          do begin;
+            ReadLn(tf,s);
+            if (copy(s,1,8) = '#SERVICE') or
+               (copy(s,1,12) = '#DESCRIPTION')
+            then sl.Add(s);
+          end;
+          CloseFile(tf);
+
+          for e := 0 to sl.Count - 1 do begin;
+            s := sl[e];
+
+            if copy(s,1,8) <> '#SERVICE'
+            then continue;
+
+            ParseString(s,psl);
+            if not CheckStringsOK(Dir+'\'+fsl[i],s,psl,8,'SSSHHHHH')
+            then begin;
+              inc(FRDErr);
+              continue;
+            end;
+
+            { handle alternatives in version > 2 }
+            if (SettingsVersion <> 2) and
+               (psl.Strings[1] = '1') and
+               (psl.Strings[2] = '134') and
+               (psl.Count >= 12) and
+               (pos('"',s) > 0)
+            then begin;
+              ib := pos('"',s);
+              ie := posex('"',s,ib+1);
+              altfn := copy(s,ib+1,ie-ib-1);
+              if FileExists(Dir+'\'+altfn)
+              then begin;
+                alt := TStringList.Create;
+                alt.LoadFromFile(Dir+'\'+altfn);
+                if alt.Count >= 2
+                then begin;
+                  s := alt.Strings[1];
+                  ParseString(s,psl);
+                  if not CheckStringsOK(Dir+'\'+fsl[i],s,psl,8,'SSSHHHHH')
+                  then begin;
+                    inc(FRDErr);
+                    continue;
+                  end;
+                  for a := 1 to 1 {alt.Count - 1} do begin; { for now: just the irst entry }
+                    cdsAlt.Append;
+                    cdsAlt.FieldByName('altBQName').AsString := bn;
+                    cdsAlt.FieldByName('altSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[4]));
+                    cdsAlt.FieldByName('altUniq').AsString := IntToStr(StrToInt('$0'+psl.Strings[7]));
+                    cdsAlt.FieldByName('altTSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[5]));
+                    cdsAlt.FieldByName('altNID').AsString := IntToStr(StrToInt('$0'+psl.Strings[6]));
+                    cdsAlt.FieldByName('altServType').AsString := psl.Strings[3];
+                    cdsAlt.FieldByName('altFileName').AsString := altfn;
+                    cdsAlt.Post;
+                  end;
+                end;
+                alt.Free;
+              end;
+            end;
+
+            { Settingsversion >2: set hex servicetype value to decimal }
+            if SettingsVersion <> 2
+            then psl.Strings[3] := IntToStr(StrToInt('$'+psl.Strings[3]));
+
+            if psl.Strings[1] <> '1'
+            then begin;
+              log('w',lwLngTrns(name,['Unsupported reference in Radio User Bouquet ' +
+                                 '(%) to User Bouquet itself skipped:',fsl[i]]));
+              log('w','--data: ' + s);
+              inc(FRDErr);
+              continue;
+            end;
+            if (psl.Strings[2] = '15') and
+               (psl.Strings[3] <> 'fffffffd')
+            then begin;
+              log('w',lwLngTrns(name,['Unsupported reference in Radio User Bouquet ' +
+                                 '(%) skipped:',fsl[i]]));
+              log('w','--data: ' + s);
+              inc(FRDErr);
+              continue;
+            end;
+
+            { handle old references to bouquets }
+            if (psl.Strings[2] = '15') and
+               (psl.Strings[3] = 'fffffffd')
+            then begin;
+              log('w',lwLngTrns(name,['Reference in Radio User Bouquet ' +
+                                 '(%) to bouquet skipped:',fsl[i]]));
+              log('w','--data: ' + s);
+              inc(FRDErr);
+              continue;
+            end;
+
+            { Handle Markers }
+            ubt := 'n';
+            descr := '';
+            if psl.Strings[2] = '64'
+            then begin;
+              if (e < sl.Count - 1) and
+                 (copy(sl[e+1],1,12) = '#DESCRIPTION')
+              then
+                if copy(sl[e+1],1,13) = '#DESCRIPTION:'
+                then descr := trim(copy(sl[e+1],14,length(sl[e+1])-1))
+                else descr := trim(copy(sl[e+1],13,length(sl[e+1])-1))
+              else begin;
+                log('w',lwLngTrns(name,['Empty marker ignored (%)',
+                                  fsl[i]]));
+                inc(FRDErr);
+                continue;
+              end;
+              ubt := 'm';
+            end;
+
+            { handle references to duplicate services }
+            if (descr = '') and
+               (not AllowDuplicates) and
+               (cdsFRD.FindKey([IntToStr(i),
+                                IntToStr(StrToInt('$'+psl.Strings[4])),
+                                IntToStr(StrToInt('$'+psl.Strings[7])),
+                                IntToStr(StrToInt('$'+psl.Strings[5])),
+                                IntToStr(StrToInt('$'+psl.Strings[6])),
+                                psl.Strings[3]]))
+            then begin;
+              log('w',lwLngTrns(name,['Duplicate Radio favourite (%) not loaded',fsl[i]]));
+              log('w','-- data: ' + s +
+                      ' (service: ' + cdsFRD.FieldByName('frdName').AsString + ', ' +
+                      ' bouquet: ' + bn + ')');
+              inc(FRDErr);
+              continue;
+            end;
+
+            { handle reference to unknown service / sub service }
+            if (ubt = 'n') and
+               (not cdsServ.FindKey([IntToStr(StrToInt('$'+psl.Strings[4])),
+                                     IntToStr(StrToInt('$'+psl.Strings[7])),
+                                     IntToStr(StrToInt('$'+psl.Strings[5])),
+                                     IntToStr(StrToInt('$'+psl.Strings[6])),
+                                     psl.Strings[3]]))
+            then begin;
+              if (e >= sl.Count - 1) or
+                 (copy(sl[e+1],1,12) <> '#DESCRIPTION')
+              then begin;
+                log('w',lwLngTrns(name,['Radio Favourite (%) without ' +
+                                  'corresponding service not loaded',fsl[i]]));
+                log('w','-- data: ' + s);
+                inc(FRDErr);
+                continue;
+              end;
+              ubt := 's';
+              descr := trim(copy(sl[e+1],14,length(sl[e+1])-1));
+            end;
+
+            { handle renamed services }
+            if (ubt = 'n') and
+               (e <= sl.Count - 2) and
+               (copy(sl[e+1],1,12) = '#DESCRIPTION')
+            then begin;
+              ubt := 'r';
+              if copy(sl[e+1],1,13) = '#DESCRIPTION:'
+              then descr := trim(copy(sl[e+1],14,length(sl[e+1])-1))
+              else descr := trim(copy(sl[e+1],13,length(sl[e+1])-1))
+            end;
+
+            inc(seqnr);
+            cdsFRD.Append;
+            cdsFRD.FieldByName('frdSeqNr').AsInteger := seqnr;
+            if (ubt = 'n') or
+               (ubt = 'r')
+            then cdsFRD.FieldByName('frdName').AsString := CleanText(cdsServ.FieldByName('servName').AsString)
+            else cdsFRD.FieldByName('frdName').AsString := CleanText(descr);
+            cdsFRD.FieldByName('frdSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[4]));
+            cdsFRD.FieldByName('frdUniq').AsString := IntToStr(StrToInt('$0'+psl.Strings[7]));
+            cdsFRD.FieldByName('frdTSID').AsString := IntToStr(StrToInt('$0'+psl.Strings[5]));
+            cdsFRD.FieldByName('frdNID').AsString := IntToStr(StrToInt('$0'+psl.Strings[6]));
+            if ubt = 'm'
+            then cdsFRD.FieldByName('frdServType').AsString := '0'
+            else cdsFRD.FieldByName('frdServType').AsString := psl.Strings[3];
+            cdsFRD.FieldByName('frdSetNr').AsInteger := i;
+            if descr <> ''
+            then cdsFRD.FieldByName('frdDescr').AsString := CleanText(descr)
+            else cdsFRD.FieldByName('frdDescr').AsString := '';
+            if (ubt = 'n') or
+               (ubt = 'r')
+            then cdsFRD.FieldByName('frdDbeNr').AsString := cdsServ.FieldByName('servDbeNr').AsString
+            else cdsFRD.FieldByName('frdDbeNr').AsString := '0';
+            cdsFRD.FieldByName('frdT').AsString := ubt;
+            cdsFRD.Post;
+          end;
+          sl.Free;
+        end;
+      end;
+      fsl.Free;
+    end;
+    if tnRD.Count = 0
+    then begin;
+      new(pListData);
+      tvBouquets.Items.AddChildObject(tnRD,'Favorites',pListData);
+      pListData.FileName := 'userbouquet.dbe00.radio';
+      pListData.Number := 0;
+      pListData.Locked := False;
+    end;
+
+    { process satellites.xml }
+    FormWait.pb.Position := 8;
+
+    if FileExists(Dir+'\satellites.xml')
+    then begin;
+      AssignFile(tf,Dir+'\satellites.xml');
+      SetLineBreakStyle(tf,tlbsLF);
+      Reset(tf);
+      ReadLn(tf,s);
+      while not eof(tf) do begin;
+        if pos('position="',s) > 0
+        then begin;
+          ib := pos('position="',s);
+          ie := posex('"',s,ib+10);
+          if cdsPos.FindKey([StrToInt(copy(s,ib+10,ie-ib-10))])
+          then begin;
+            ib := pos('sat name="',s);
+            ie := posex('"',s,ib+10);
+            cdsPos.Edit;
+            cdsPos.FieldByName('PosName').AsString := copy(s,ib+10,ie-ib-10);
+            cdsPos.Post;
+          end
+          else begin;
+            cdsPos.Append;
+            cdsPos.FieldByName('PosInt').AsString := copy(s,ib+10,ie-ib-10);
+            cdsPos.FieldByName('PosStr').AsString := Format('%.1n',[StrToInt(copy(s,ib+10,ie-ib-10))/10]);
+            ib := pos('sat name="',s);
+            ie := posex('"',s,ib+10);
+            cdsPos.FieldByName('PosName').AsString := copy(s,ib+10,ie-ib-10);
+            cdsPos.Post;
+          end;
+        end;
+        ReadLn(tf,s);
+      end;
+      CloseFile(tf);
+    end;
+
+    { Ready }
+    tvBouquets.FullExpand;
+    tvBouquets.TopItem := tnTV;
+    screen.cursor := crdefault;
+    //ToolBar1.Enabled := True;
+    FormWait.Hide;
+
+    cbSatName.ItemIndex := 0;
+    ePackage.Text := '';
+    cdsServ.IndexFieldNames := 'servCleanName;servPackage';
+    lvServ.Items.Count := cdsServ.RecordCount;
+    lvServ.Refresh;
+
+    SetMenu('loaded');
+
+    psl.Free;
+    FormMain.Caption := 'LlamaWare DreamBoxEdit - ' + Dir;
+
+    DetType := '';
+    tvBouquets.Items.Item[1].Selected := True;
+
+    if saveTVRadio
+    then begin;
+      Reg := TRegistry.Create;
+      Reg.RootKey := HKEY_CURRENT_USER;
+      Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+      cbTVRadio.ItemIndex := Reg.ReadInteger('TV and Radio Services Selection');
+      Reg.CloseKey;
+      Reg.Destroy;
+      cbServFilter(Self);
+    end;
+
+    if (ServErr = 0) and
+       (BouqErr = 0) and
+       (FTVErr = 0) and
+       (FRDErr = 0)
+    then log('i',lwLngTrns(name,['Files loaded']))
+    else begin;
+      log('w',lwLngTrns(name,['Files loaded with errors']));
+      log('w',lwLngTrns(name,['-  errors in services file: %',IntToStr(ServErr)]));
+      log('w',lwLngTrns(name,['-  errors in bouquets file: %',IntToStr(BouqErr)]));
+      log('w',lwLngTrns(name,['-  errors in userbouquet.xxxxx.tv file(s) (TV): %',IntToStr(FTVErr)]));
+      log('w',lwLngTrns(name,['-  errors in userbouquet.xxxxx.radio file(s) (Radio): %',IntToStr(FRDErr)]));
+      log('w',lwLngTrns(name,['See earlier logged messages for more details']));
+      if (FTVErr <> 0) or
+         (FRDErr <> 0)
+      then begin;
+        log('w',lwLngTrns(name,['Explanation of errors found within TV and/or Radio User Bouquet:']));
+        log('w',lwLngTrns(name,['.. All files are loaded but unsupported ' +
+            ' references were found in the TV and/or Radio User Bouquet list!']));
+        log('w',lwLngTrns(name,['.. Those references were skipped as they were references '+
+            'to the complete services list, the complete bouquets list']));
+        log('w',lwLngTrns(name,['.. or a circular reference to User Bouquet itself, probably ' +
+            'created by accident']));
+        log('w',lwLngTrns(name,['.. Although you will loose these unsupported references, you '+
+            'can still go on editing and saving.']));
+      end;
+      MessageDlg(lwLngTrns(name,[
+                 'All files are loaded, but with errors:~' +
+                 ' errors in services file: %~' +
+                 ' errors in bouquets file: %~' +
+                 ' errors in userbouquet.xxxxx.tv file(s) (TV): %~' +
+                 ' errors in userbouquet.xxxxx.radio file(s) (Radio): %~~' +
+                 'Check the log file for more information!~~' +
+                 'All errors are related to invalid definitions and references ' +
+                 'within the selected settings files.~' +
+                 'This means the files are now cleaned up and contain only valid items. You ' +
+                 'can now go on editing the settings.',
+                 IntToStr(ServErr),IntToStr(BouqErr),IntToStr(FTVErr),IntToStr(FRDErr)]),
+                 mtWarning,[mbOK],0);
+      SetMenu('changed');
+    end;
+
+    if (satcable = 's') and (not FileExists(Dir + '\satellites.xml'))
+    then begin;
+      MessageDlg(lwLngTrns(name,[
+                 'Directory "%" contains no file called "satellites.xml"~' +
+                 'You can continue editing the file-set but now there is no translation '+
+                 'from satellite position to satellite name available.~~'+
+                 'You might consider to first copy all necessary ' +
+                 'files from the dreambox to your PC with the FTP function.',Dir]),
+                 mtWarning,[mbOk],0);
+      Log('w',lwLngTrns(name,['File % not found in "%"',
+                              'satellites.xml',Dir]));
+    end;
+  end;
+end;
+
+procedure TFormMain.acFileSaveExecute(Sender: TObject);
+var
+  tf: TextFile;
+  sif,s,fn,v2Sep,lfn,stype: String;
+  i,j,c,p,marker: Integer;
+  psl: TStringList;
+  pListData: ^TListData;
+  servsif: String;
+  servflt: Boolean;
+  TempStream: TMemoryStream;
+begin
+  if Dir = ''
+  then begin;
+    acFileSaveAsExecute(Sender);
+    exit;
+  end;
+
+  psl := TStringList.Create;
+  marker := 0;
+
+  { first save current Det list }
+  lvDetSave();
+
+  { prepare files structure }
+  Log('i',lwLngTrns(name,['Saving file-set in %',Dir]));
+
+  if not FileExists(Dir + '\' + ServFilename + '_org')
+  then begin;
+    if RenameFile(Dir + '\' + ServFilename,Dir + '\' + ServFilename + '_org')
+    then Log('i',lwLngTrns(name,['% renamed to % in %',
+                           ServFilename,ServFilename + '_org',Dir]));
+  end
+  else begin;
+    if FileExists(Dir + '\' + ServFilename + '_bak')
+    then begin;
+      DeleteFile(Dir + '\' + ServFilename + '_bak');
+      Log('i',lwLngTrns(name,['% deleted from %',
+                        ServFilename + '_bak',Dir]));
+    end;
+    if RenameFile(Dir + '\' + ServFilename,Dir + '\' + ServFilename + '_bak')
+    then log('i',lwLngTrns(name,['% renamed to % in %',
+                           ServFilename,ServFilename + '_bak',Dir]));
+  end;
+
+  if SettingsVersion = 2
+  then lfn := 'services.locked'
+  else
+    if Blacklist
+    then lfn := 'blacklist'
+    else lfn := 'whitelist';
+  if not FileExists(Dir + '\' + lfn + '_org')
+  then begin;
+    if RenameFile(Dir + '\' + lfn,Dir + '\' + lfn + '_org')
+    then Log('i',lwLngTrns(name,['% renamed to % in %',
+                           lfn,lfn + '_org',Dir]));
+  end
+  else begin;
+    if FileExists(Dir + '\' + lfn + '_bak')
+    then begin;
+      DeleteFile(Dir + '\' + lfn + '_bak');
+      Log('i',lwLngTrns(name,['% deleted from %',
+                        lfn + '_bak',Dir]));
+    end;
+    if RenameFile(Dir + '\' + lfn,Dir + '\' + lfn + '_bak')
+    then log('i',lwLngTrns(name,['% renamed to % in %',
+                           lfn,lfn + '_bak',Dir]));
+  end;
+
+  if not FileExists(Dir + '\bouquets_org')
+  then begin;
+    if RenameFile(Dir + '\bouquets',Dir + '\bouquets_org')
+    then Log('i',lwLngTrns(name,['% renamed to % in %',
+                           'bouquets','bouquets_org',Dir]));
+  end
+  else begin;
+    if FileExists(Dir + '\bouquets_bak')
+    then begin;
+      DeleteFile(Dir + '\bouquets_bak');
+      Log('i',lwLngTrns(name,['% deleted from %',
+                        'bouquets_bak',Dir]));
+    end;
+    if RenameFile(Dir + '\bouquets',Dir + '\bouquets_bak')
+    then log('i',lwLngTrns(name,['% renamed to % in %',
+                           'bouquets','bouquets_bak',Dir]));
+  end;
+
+  screen.cursor := crHourglass;
+  //ToolBar1.Enabled := False;
+  application.ProcessMessages;
+
+  {---------------------}
+  { Write services file }
+  {---------------------}
+
+  { write transponders }
+  cdsTSID.EmptyDataSet;
+  cdsTSID.Close;
+  cdsTSID.Open;
+
+  servsif := cdsServ.IndexFieldNames;
+  cdsServ.IndexFieldNames := '';
+  servflt := cdsServ.Filtered;
+  cdsServ.Filtered := False;
+
+  TempStream := TMemoryStream.Create;
+  cdsServ.SaveToStream(TempStream);
+  TempStream.Position := 0;
+  cdsServSave.LoadFromStream(TempStream);
+  TempStream.Free;
+
+  cdsServ.IndexFieldNames := servsif;
+  cdsServ.Filtered := servflt;
+
+  cdsServSave.First;
+  while not cdsServSave.Eof do begin;
+    if not cdsTSID.FindKey([cdsServSave.FieldByName('servUniq').AsString,
+                            cdsServSave.FieldByName('servTSID').AsString,
+                            cdsServSave.FieldByName('servNID').AsString])
+    then begin;
+      cdsTSID.Append;
+      cdsTSID.FieldByName('tsidSTC').AsString := cdsServSave.FieldByName('servSTC').AsString;
+      cdsTSID.FieldByName('tsidUniq').AsString := cdsServSave.FieldByName('servUniq').AsString;
+      cdsTSID.FieldByName('tsidTSID').AsString := cdsServSave.FieldByName('servTSID').AsString;
+      cdsTSID.FieldByName('tsidNID').AsString := cdsServSave.FieldByName('servNid').AsString;
+      cdsTSID.FieldByName('tsidFreq').AsString := cdsServSave.FieldByName('servFreq').AsString;
+      cdsTSID.FieldByName('tsidSymb').AsString := cdsServSave.FieldByName('servSymb').AsString;
+      cdsTSID.FieldByName('tsidPol').AsString := cdsServSave.FieldByName('servPol').AsString;
+      cdsTSID.FieldByName('tsidFEC').AsString := cdsServSave.FieldByName('servFEC').AsString;
+      cdsTSID.FieldByName('tsidPos').AsString := cdsServSave.FieldByName('servPos').AsString;
+      cdsTSID.FieldByName('tsidExtra').AsString := cdsServSave.FieldByName('servExtra').AsString;
+      cdsTSID.Post;
+    end;
+    cdsServSave.Next;
+  end;
+
+  p := 0;
+  FormWait.pb.Caption := '';
+  FormWait.pb.Min := 0;
+  FormWait.pb.Max := cdsTSID.RecordCount +
+                     cdsServ.RecordCount +
+                     cdsFTV.RecordCount +
+                     cdsFRD.RecordCount +
+                     cdsFBQ.RecordCount;
+  FormWait.pb.Position := 0;
+  FormWait.Show;
+
+  AssignFile(tf,Dir + '\' + ServFilename);
+  SetLineBreakStyle(tf,tlbsLF);
+  Rewrite(tf);
+  if SettingsVersion = 2
+  then WriteLn(tf,'eDVB services /2/')
+  else WriteLn(tf,'eDVB services /3/');
+
+  { write services file - transponder entries }
+  WriteLn(tf,'transponders');
+  cdsTSID.First;
+  while not cdsTSID.Eof
+  do begin;
+    inc(p);
+    if p mod 25 = 0
+    then FormWait.pb.Position := p;
+
+    s := LowerCase(IntToHex(StrToInt(cdsTSID.FieldByName('tsidUniq').AsString),8)) + ':' +
+         LowerCase(IntToHex(StrToInt(cdsTSID.FieldByName('tsidTSID').AsString),4)) + ':' +
+         LowerCase(IntToHex(StrToInt(cdsTSID.FieldByName('tsidNID').AsString),4));
+    WriteLn(tf,s);
+    if SatCable = 'c'
+    then begin;
+      s := #09 + 'c ' +
+           cdsTSID.FieldByName('tsidFreq').AsString + ':' +
+           cdsTSID.FieldByName('tsidSymb').AsString + ':' +
+           cdsTSID.FieldByName('tsidPol').AsString + ':' +
+           cdsTSID.FieldByName('tsidFEC').AsString;
+    end
+    else begin;
+      if cdsTSID.FieldByName('tsidSTC').AsString = 's'
+      then s := #09 + 's ' +
+                cdsTSID.FieldByName('tsidFreq').AsString + ':' +
+                cdsTSID.FieldByName('tsidSymb').AsString + ':' +
+                cdsTSID.FieldByName('tsidPol').AsString + ':' +
+                cdsTSID.FieldByName('tsidFEC').AsString + ':' +
+                cdsTSID.FieldByName('tsidPos').AsString +
+                cdsTSID.FieldByName('tsidExtra').AsString
+      else s := #09 +
+                cdsTSID.FieldByName('tsidSTC').AsString + ' ' +
+                cdsTSID.FieldByName('tsidFreq').AsString +
+                cdsTSID.FieldByName('tsidExtra').AsString;
+    end;
+
+    WriteLn(tf,s);
+    WriteLn(tf,'/');
+    cdsTSID.Next;
+  end;
+  WriteLn(tf,'end');
+
+  { write services file - service entries }
+  WriteLn(tf,'services');
+  cdsServSave.First;
+  c := 0;
+  while not cdsServSave.Eof
+  do begin;
+    inc(p);
+    if p mod 25 = 0
+    then FormWait.pb.Position := p;
+
+    inc(c);
+    s := IntToHex(StrToInt(cdsServSave.FieldByName('servSID').AsString),4) + ':' +
+         IntToHex(StrToInt(cdsServSave.FieldByName('servUniq').AsString),8) + ':' +
+         IntToHex(StrToInt(cdsServSave.FieldByName('servTSID').AsString),4) + ':' +
+         IntToHex(StrToInt(cdsServSave.FieldByName('servNID').AsString),4) + ':' +
+         cdsServSave.FieldByName('servType').AsString;
+    if cdsServSave.FieldByName('servNr').AsString <> ''
+    then s := s + ':' + cdsServSave.FieldByName('servNr').AsString
+    else s := s + ':' + IntToStr(c+200);
+    WriteLn(tf,s);
+    WriteLn(tf,cdsServSave.FieldByName('servName').AsString);
+    s := 'p:' + copy(cdsServSave.FieldByName('servPackage').AsString,1,50); { was 22 for some unknown reason ... :-( }
+    if RightStr(s,1) = ','
+    then s := LeftStr(s,length(s)-1);
+    if cdsServSave.FieldByName('servC08PCMDelay').AsInteger <> 0
+    then s := 'c:08' + IntToHex(StrToInt(cdsServSave.FieldByName('servC08PCMDelay').AsString),4) + ',' + s;
+    if cdsServSave.FieldByName('servC07BSDelay').AsInteger <> 0
+    then s := 'c:07' + IntToHex(StrToInt(cdsServSave.FieldByName('servC07BSDelay').AsString),4) + ',' + s;
+    if cdsServSave.FieldByName('serv3PID').AsInteger <> 0
+    then s := 'c:04' + IntToHex(StrToInt(cdsServSave.FieldByName('serv3PID').AsString),4) + ',' + s;
+    if cdsServSave.FieldByName('servPPID').AsInteger <> 0
+    then s := 'c:03' + IntToHex(StrToInt(cdsServSave.FieldByName('servPPID').AsString),4) + ',' + s;
+    if cdsServSave.FieldByName('servTPID').AsInteger <> 0
+    then s := 'c:02' + IntToHex(StrToInt(cdsServSave.FieldByName('servTPID').AsString),4) + ',' + s;
+    if cdsServSave.FieldByName('servAPID').AsInteger <> 0
+    then s := 'c:01' + IntToHex(StrToInt(cdsServSave.FieldByName('servAPID').AsString),4) + ',' + s;
+    if cdsServSave.FieldByName('servVPID').AsInteger <> 0
+    then s := 'c:00' + IntToHex(StrToInt(cdsServSave.FieldByName('servVPID').AsString),4) + ',' + s;
+
+    if cdsServSave.FieldByName('servFlags').AsInteger  and 127 <> 0
+    then s := 'f:' + IntToHex(cdsServSave.FieldByName('servFlags').AsInteger and 127,4) + ',' + s;
+    WriteLn(tf,s);
+    cdsServSave.Next;
+  end;
+  WriteLn(tf,'end');
+  WriteLn(tf,'Edited with LlamaWare DreamBoxEdit ' + FormAbout._lVersion.Caption +
+             ' on ' + FormatDateTime('ddmmmyyyy hh:mm:ss',now()));
+  CloseFile(tf);
+  Log('i',lwLngTrns(name,['services saved in %',Dir]));
+
+  {----------------------------------------------------}
+  { Write services.locked / whitelist / blacklist file }
+  {----------------------------------------------------}
+  AssignFile(tf,Dir + '\' + lfn);
+  SetLineBreakStyle(tf,tlbsLF);
+  Rewrite(tf);
+  if SettingsVersion = 2
+  then WriteLn(tf,'Parentallocked Services');
+  { original lock entries that are not processed by dreamboxedit + locks on subservices}
+  cdsLock.First;
+  while not cdsLock.Eof do begin;
+    s := cdsLock.FieldByName('lockI1').AsString + ':' +
+         cdsLock.FieldByName('lockI2').AsString + ':' +
+         {cdsLock.FieldByName('lockServType').AsString + ':' +}
+         IntToHex(StrToInt(cdsLock.FieldByName('lockServType').AsString),1) + ':' +
+         IntToHex(StrToInt(cdsLock.FieldByName('lockSID').AsString),1) + ':' +
+         IntToHex(StrToInt(cdsLock.FieldByName('lockTSID').AsString),1) + ':' +
+         IntToHex(StrToInt(cdsLock.FieldByName('lockNID').AsString),1) + ':' +
+         IntToHex(StrToInt(cdsLock.FieldByName('lockUniq').AsString),1) + ':0:0:0:' +
+         cdsLock.FieldByName('lockString').AsString;
+    s := UpperCase(s);
+    WriteLn(tf,s);
+    cdsLock.Next;
+  end;
+  { locked services }
+  cdsServSave.First;
+  while not cdsServSave.Eof do begin;
+    if cdsServSave.FieldByName('servLock').AsInteger = 1
+    then begin;
+      s := '1:0:' +
+           LowerCase(IntToHex(StrToInt(cdsServSave.FieldByName('servType').AsString),1)) + ':' +
+           LowerCase(IntToHex(StrToInt(cdsServSave.FieldByName('servSID').AsString),1)) + ':' +
+           LowerCase(IntToHex(StrToInt(cdsServSave.FieldByName('servTSID').AsString),1)) + ':' +
+           LowerCase(IntToHex(StrToInt(cdsServSave.FieldByName('servNID').AsString),1)) + ':' +
+           LowerCase(IntToHex(StrToInt(cdsServSave.FieldByName('servUniq').AsString),1)) + ':0:0:0:';
+      s := UpperCase(s);
+      WriteLn(tf,s);
+    end;
+    cdsServSave.Next;
+  end;
+
+  { locked (user) bouquets }
+  for i := 0 to tvBouquets.Items.Count - 1 do begin;
+    if (tvBouquets.Items[i].Data = nil) or
+       (tvBouquets.Items[i].Level = 0)
+    then continue;
+    pListData := tvBouquets.Items.Item[i].Data;
+    if not pListData.Locked
+    then continue;
+    if tvBouquets.Items[i].Parent.Text[1] = 'P'
+    then begin;
+      s := '1:15:fffffffd:12:' +
+           LowerCase(IntToHex(pListData.Number,1)) +
+           ':ffffffff:0:0:0:0:';
+    end
+    else begin;
+      fn := pListData.FileName;
+      j := pos('.',fn);
+      fn := RightStr(fn,length(fn)-j);
+      j := pos('.',fn);
+      fn := LeftStr(fn,j-1);
+      s := '4097:7:0:' +
+           fn +
+           ':0:0:0:0:0:0:' +
+           PathServices +
+           pListData.FileName;
+    end;
+    WriteLn(tf,s);
+  end;
+  CloseFile(tf);
+  Log('i',lwLngTrns(name,['services.lock saved in %',Dir]));
+
+  cdsServSave.EmptyDataSet;
+  cdsServSave.Close;
+  cdsServSave.Open;
+
+  {---------------------------------}
+  { Write bouquets (providers) file }
+  {---------------------------------}
+
+  { write bouquets }
+  if SettingsVersion = 2
+  then begin;
+    AssignFile(tf,Dir + '\bouquets');
+    SetLineBreakStyle(tf,tlbsLF);
+    Rewrite(tf);
+    WriteLn(tf,'eDVB bouquets /2/');
+    WriteLn(tf,'bouquets');
+    sif := cdsFBQ.IndexFieldNames;
+    cdsFBQ.IndexFieldNames := 'fbqSetNr;fbqSeqNr';
+    for i := 0 to tvBouquets.Items.Count - 1 do begin;
+      if (tvBouquets.Items.Item[i].Level <> 1) or
+         (tvBouquets.Items.Item[i].Parent.Text[1] <> 'P')
+      then continue;
+
+      pListData := tvBouquets.Items.Item[i].Data;
+      s := IntToStr(pListData.Number);
+      WriteLn(tf,s);
+      s := AnsiToUTF8(tvBouquets.Items.Item[i].Text);
+      WriteLn(tf,s);
+      cdsFBQ.FindKey([pListData.Number]);
+      while (not cdsFBQ.Eof) and
+            (cdsFBQ.FieldByName('fbqSetNr').AsInteger = pListData.Number)
+      do begin;
+        inc(p);
+        if p mod 25 = 0
+        then FormWait.pb.Position := p;
+
+        s := LowerCase(IntToHex(StrToInt(cdsFBQ.FieldByName('fbqSID').AsString),4)) + ':' +
+             LowerCase(IntToHex(StrToInt(cdsFBQ.FieldByName('fbqUniq').AsString),8)) + ':' +
+             LowerCase(IntToHex(StrToInt(cdsFBQ.FieldByName('fbqTSID').AsString),4)) + ':' +
+             LowerCase(IntToHex(StrToInt(cdsFBQ.FieldByName('fbqNID').AsString),4)) + ':' +
+             cdsFBQ.FieldByName('fbqServType').AsString;
+        WriteLn(tf,s);
+        cdsFBQ.Next;
+      end;
+      WriteLn(tf,'/');
+    end;
+    cdsFBQ.IndexFieldNames := sif;
+    WriteLn(tf,'end');
+    WriteLn(tf,'Edited with LlamaWare DreamBoxEdit ' + FormAbout._lVersion.Caption +
+               ' on ' + FormatDateTime('ddmmmyyyy hh:mm:ss',now()));
+    CloseFile(tf);
+    Log('i',lwLngTrns(name,['bouquets saved in %',Dir]));
+  end;
+
+  {---------------------------------}
+  { Write all TV User Bouquet files }
+  {---------------------------------}
+  if SettingsVersion = 2
+  then v2Sep := ':'
+  else v2Sep := '';
+  for i := 0 to tvBouquets.Items.Count - 1 do begin;
+    if (tvBouquets.Items.Item[i].Level <> 1) or
+       (tvBouquets.Items.Item[i].Parent.Text[1] <> 'T')
+    then continue;
+
+    pListData := tvBouquets.Items.Item[i].Data;
+    fn := pListData.FileName;
+    if FileExists(Dir + '\' + fn)
+    then begin;
+      if not FileExists(Dir + '\' + fn + '_org')
+      then begin;
+        if RenameFile(Dir + '\' + fn,Dir + '\' + fn + '_org')
+        then Log('i',lwLngTrns(name,['% renamed to % in %',
+                                     fn,fn + '_org',Dir]));
+      end
+      else begin;
+        if FileExists(Dir + '\' + fn + '_bak')
+        then begin;
+          DeleteFile(Dir + '\' + fn + '_bak');
+          Log('i',lwLngTrns(name,['% deleted from %',
+                                  fn + '_bak',Dir]));
+        end;
+        if RenameFile(Dir + '\' + fn,Dir + '\' + fn + '_bak')
+        then log('i',lwLngTrns(name,['% renamed to % in %',
+                                     fn,fn + '_bak',Dir]));
+      end;
+    end;
+
+    AssignFile(tf,Dir + '\' + fn);
+    SetLineBreakStyle(tf,tlbsCRLF);
+    Rewrite(tf);
+    WriteLn(tf,'#NAME ' + AnsiToUTF8(tvBouquets.Items.Item[i].Text));
+
+    sif := cdsFTV.IndexFieldNames;
+    cdsFTV.IndexFieldNames := 'ftvSeqNr';
+    cdsFTV.Filter := 'ftvSetNr = ''' + IntToStr(pListData.Number) + '''';
+    cdsFTV.Filtered := True;
+
+    cdsFTV.First;
+    while not cdsFTV.Eof
+    do begin;
+      inc(p);
+      if p mod 25 = 0
+      then FormWait.pb.Position := p;
+
+      { Check alternatives for service within bouquet if settingsversion > 2 }
+      if (SettingsVersion <> 2) and
+         (cdsAlt.FindKey([tvBouquets.Items.Item[i].Text,
+                          cdsFTV.FieldByName('ftvSID').AsString,
+                          cdsFTV.FieldByName('ftvUniq').AsString,
+                          cdsFTV.FieldByName('ftvTSID').AsString,
+                          cdsFTV.FieldByName('ftvNID').AsString,
+                          cdsFTV.FieldByName('ftvServType').AsString]))
+      then s := '#SERVICE 1:134:1:0:0:0:0:0:0:0:FROM BOUQUET "' +
+                cdsAlt.FieldByName('altFileName').AsString +
+                '" ORDER BY bouquet'
+      else begin;
+        { Write servicetype in hex for settingsversion > 2 }
+        if SettingsVersion = 2
+        then stype := cdsFTV.FieldByName('ftvServType').AsString
+        else stype := LowerCase(IntToHex(StrToInt(cdsFTV.FieldByName('ftvServType').AsString),1));
+         if cdsFTV.FieldByName('ftvT').AsString <> 'm'
+        then s := '#SERVICE' + v2Sep + ' 1:0:' +
+                  stype + ':' +
+                  LowerCase(IntToHex(StrToInt(cdsFTV.FieldByName('ftvSID').AsString),1)) + ':' +
+                  LowerCase(IntToHex(StrToInt(cdsFTV.FieldByName('ftvTSID').AsString),1)) + ':' +
+                  LowerCase(IntToHex(StrToInt(cdsFTV.FieldByName('ftvNID').AsString),1)) + ':' +
+                  LowerCase(IntToHex(StrToInt(cdsFTV.FieldByName('ftvUniq').AsString),1)) + ':0:0:0:'
+        else begin;
+          inc(marker);
+          s := '#SERVICE' + v2Sep + ' 1:64:' +
+               IntToHex(marker,1) +
+               ':0:0:0:0:0:0:0:';
+        end;
+      end;
+      WriteLn(tf,s);
+      if cdsFTV.FieldByName('ftvDescr').AsString <> ''
+      then begin;
+        s := '#DESCRIPTION' + v2Sep + ' ' + AnsiToUtf8(cdsFTV.FieldByName('ftvDescr').AsString);
+        WriteLn(tf,s);
+      end;
+      cdsFTV.Next;
+    end;
+
+    cdsFTV.Filtered := False;
+    cdsFTV.Filter := '';
+    cdsFTV.IndexFieldNames := sif;
+
+    CloseFile(tf);
+    Log('i',lwLngTrns(name,['TV User Bouquet % saved in %',tvBouquets.Items.Item[i].Text,Dir]));
+  end;
+  if FileExists(Dir + '\' + EplTVFilename)
+  then begin;
+    if not FileExists(Dir + '\' + EplTVFilename + '_org')
+    then begin;
+      if RenameFile(Dir + '\' + EplTVFilename,Dir + '\' + EplTVFilename + '_org')
+      then Log('i',lwLngTrns(name,['% renamed to % in %',
+                             EplTVFilename,EplTVFilename + '_org',Dir]));
+    end
+    else begin;
+      if FileExists(Dir + '\' + EplTVFilename + '_bak')
+      then begin;
+        DeleteFile(Dir + '\' + EplTVFilename + '_bak');
+        Log('i',lwLngTrns(name,['% deleted from %',
+                          EplTVFilename + '_bak',Dir]));
+      end;
+      if RenameFile(Dir + '\' + EplTVFilename,Dir + '\' + EplTVFilename + '_bak')
+      then log('i',lwLngTrns(name,['% renamed to % in %',
+                             EplTVFilename,EplTVFilename + '_bak',Dir]));
+    end;
+  end;
+  AssignFile(tf,Dir + '\' + EplTVFilename);
+  SetLineBreakStyle(tf,tlbsCRLF);
+  Rewrite(tf);
+  WriteLn(tf,'#NAME User - bouquets (TV)');
+  for i := 0 to tvBouquets.Items.Count - 1 do begin;
+    if (tvBouquets.Items.Item[i].Level <> 1) or
+       (tvBouquets.Items.Item[i].Parent.Text[1] <> 'T')
+    then continue;
+
+    pListData := tvBouquets.Items.Item[i].Data;
+    s := pListData.FileName;
+    for j := 1 to length(s) do begin;
+      if s[j] = '.'
+      then s[j] := ':';
+    end;
+    ParseString(s,psl);
+    if Settingsversion = 2
+    then begin;
+      WriteLn(tf,'#SERVICE: 4097:7:0:' +
+                 psl[1] +
+                 ':0:0:0:0:0:0:' + PathUserBouquets +
+                 pListData.FileName);
+      WriteLn(tf,'#TYPE 16385');
+      WriteLn(tf,PathUserBouquets +
+                 pListData.FileName);
+    end
+    else begin;
+      s := pListData.FileName;
+      { Add original "FROM ... ORDER BY" or whatever was in the read settings set }
+      if V3OrderBy1 <> ''
+      then s := V3OrderBy1 + s + V3OrderBy2;
+      WriteLn(tf,'#SERVICE: 1:7:1:0:0:0:0:0:0:0:' + s);
+    end;
+  end;
+  CloseFile(tf);
+  Log('i',lwLngTrns(name,['TV User Bouquet index file % saved in %',EplTVFilename,Dir]));
+
+  {------------------------------------}
+  { Write all Radio User Bouquet files }
+  {------------------------------------}
+  if SettingsVersion = 2
+  then v2Sep := ':'
+  else v2Sep := '';
+  for i := 0 to tvBouquets.Items.Count - 1 do begin;
+    if (tvBouquets.Items.Item[i].Level <> 1) or
+       (tvBouquets.Items.Item[i].Parent.Text[1] <> 'R')
+    then continue;
+
+    pListData := tvBouquets.Items.Item[i].Data;
+    fn := pListData.FileName;
+    if FileExists(Dir + '\' + fn)
+    then begin;
+      if not FileExists(Dir + '\' + fn + '_org')
+      then begin;
+        if RenameFile(Dir + '\' + fn,Dir + '\' + fn + '_org')
+        then Log('i',lwLngTrns(name,['% renamed to % in %',
+                                     fn,fn + '_org',Dir]));
+      end
+      else begin;
+        if FileExists(Dir + '\' + fn + '_bak')
+        then begin;
+          DeleteFile(Dir + '\' + fn + '_bak');
+          Log('i',lwLngTrns(name,['% deleted from %',
+                                  fn + '_bak',Dir]));
+        end;
+        if RenameFile(Dir + '\' + fn,Dir + '\' + fn + '_bak')
+        then log('i',lwLngTrns(name,['% renamed to % in %',
+                                     fn,fn + '_bak',Dir]));
+      end;
+    end;
+
+    AssignFile(tf,Dir + '\' + fn);
+    SetLineBreakStyle(tf,tlbsCRLF);
+    Rewrite(tf);
+    WriteLn(tf,'#NAME ' + AnsiToUTF8(tvBouquets.Items.Item[i].Text));
+
+    sif := cdsFRD.IndexFieldNames;
+    cdsFRD.IndexFieldNames := 'frdSeqNr';
+    cdsFRD.Filter := 'frdSetNr = ''' + IntToStr(pListData.Number) + '''';
+    cdsFRD.Filtered := True;
+
+    cdsFRD.First;
+    while not cdsFRD.Eof
+    do begin;
+      inc(p);
+      if p mod 25 = 0
+      then FormWait.pb.Position := p;
+
+      { Check alternatives for service within bouquet if settingsversion > 2 }
+      if (SettingsVersion <> 2) and
+         (cdsAlt.FindKey([tvBouquets.Items.Item[i].Text,
+                          cdsFRD.FieldByName('frdSID').AsString,
+                          cdsFRD.FieldByName('frdUniq').AsString,
+                          cdsFRD.FieldByName('frdTSID').AsString,
+                          cdsFRD.FieldByName('frdNID').AsString,
+                          cdsFRD.FieldByName('frdServType').AsString]))
+      then s := '#SERVICE 1:134:1:0:0:0:0:0:0:0:FROM BOUQUET "' +
+                cdsAlt.FieldByName('altFileName').AsString +
+                '" ORDER BY bouquet'
+      else begin;
+        { Write servicetype in hex for settingsversion 3 and higher }
+        if SettingsVersion = 2
+        then stype := cdsFRD.FieldByName('frdServType').AsString
+        else stype := LowerCase(IntToHex(StrToInt(cdsFRD.FieldByName('frdServType').AsString),1));
+        if cdsFRD.FieldByName('frdT').AsString <> 'm'
+        then s := '#SERVICE' + v2Sep + ' 1:0:' +
+                  stype + ':' +
+                  LowerCase(IntToHex(StrToInt(cdsFRD.FieldByName('frdSID').AsString),1)) + ':' +
+                  LowerCase(IntToHex(StrToInt(cdsFRD.FieldByName('frdTSID').AsString),1)) + ':' +
+                  LowerCase(IntToHex(StrToInt(cdsFRD.FieldByName('frdNID').AsString),1)) + ':' +
+                  LowerCase(IntToHex(StrToInt(cdsFRD.FieldByName('frdUniq').AsString),1)) + ':0:0:0:'
+        else begin;
+          inc(marker);
+          s := '#SERVICE' + v2Sep + ' 1:64:' +
+               IntToHex(marker,1) +
+               ':0:0:0:0:0:0:0:';
+        end;
+      end;  
+      WriteLn(tf,s);
+      if cdsFRD.FieldByName('frdDescr').AsString <> ''
+      then begin;
+        s := '#DESCRIPTION' + v2Sep + ' ' + AnsiToUtf8(cdsFRD.FieldByName('frdDescr').AsString);
+        WriteLn(tf,s);
+      end;
+      cdsFRD.Next;
+    end;
+
+    cdsFRD.Filtered := False;
+    cdsFRD.Filter := '';
+    cdsFRD.IndexFieldNames := sif;
+
+    CloseFile(tf);
+    Log('i',lwLngTrns(name,['Radio User Bouquet % saved in %',
+                            tvBouquets.Items.Item[i].Text,Dir]));
+  end;
+  if FileExists(Dir + '\' + EplRDFilename)
+  then begin;
+    if not FileExists(Dir + '\' + EplRDFilename + '_org')
+    then begin;
+      if RenameFile(Dir + '\' + EplRDFilename,Dir + '\' + EplRDFilename + '_org')
+      then Log('i',lwLngTrns(name,['% renamed to % in %',
+                             EplRDFilename,EplRDFilename + '_org',Dir]));
+    end
+    else begin;
+      if FileExists(Dir + '\' + EplRDFilename + '_bak')
+      then begin;
+        DeleteFile(Dir + '\' + EplRDFilename + '_bak');
+        Log('i',lwLngTrns(name,['% deleted from %',
+                          EplRDFilename + '_bak',Dir]));
+      end;
+      if RenameFile(Dir + '\' + EplRDFilename,Dir + '\' + EplRDFilename + '_bak')
+      then log('i',lwLngTrns(name,['% renamed to % in %',
+                             EplRDFilename,EplRDFilename + '_bak',Dir]));
+    end;
+  end;
+  AssignFile(tf,Dir + '\' + EplRDFilename);
+  SetLineBreakStyle(tf,tlbsCRLF);
+  Rewrite(tf);
+  WriteLn(tf,'#NAME User - bouquets (Radio)');
+  for i := 0 to tvBouquets.Items.Count - 1 do begin;
+    if (tvBouquets.Items.Item[i].Level <> 1) or
+       (tvBouquets.Items.Item[i].Parent.Text[1] <> 'R')
+    then continue;
+
+    pListData := tvBouquets.Items.Item[i].Data;
+    s := pListData.FileName;
+    for j := 1 to length(s) do begin;
+      if s[j] = '.'
+      then s[j] := ':';
+    end;
+    if SettingsVersion = 2
+    then begin;
+      ParseString(s,psl);
+      WriteLn(tf,'#SERVICE: 4097:7:0:' +
+                 psl[1] +
+                 ':0:0:0:0:0:0:' + PathUserBouquets +
+                 pListData.FileName);
+      WriteLn(tf,'#TYPE 16385');
+      WriteLn(tf,PathUserBouquets +
+                 pListData.FileName);
+    end
+    else begin;
+      s := pListData.FileName;
+      { Add original "FROM ... ORDER BY" or whatever was in the read settings set }
+      if V3OrderBy1 <> ''
+      then s := V3OrderBy1 + s + V3OrderBy2;
+      WriteLn(tf,'#SERVICE: 1:7:1:0:0:0:0:0:0:0:' + s);
+    end;
+  end;
+  CloseFile(tf);
+  Log('i',lwLngTrns(name,['Radio User Bouquet index file % saved in %',EplRDFilename,Dir]));
+
+  screen.cursor := crdefault;
+  //ToolBar1.Enabled := True;
+  FormWait.Hide;
+  SetMenu('loaded');
+
+  psl.Free;
+end;
+
+procedure TFormMain.acFileSaveAsExecute(Sender: TObject);
+var
+  Reg: Tregistry;
+  WDir,o,n: String;
+  po,pn: pchar;
+begin
+  WDir := Dir;
+  if not DirectoryExists(WDir)
+  then WDir := '';
+  if not SelDir(WDir,True)
+  then begin;
+    MessageDlg(lwLngTrns(name,['No directory for file-set selected. Files are not saved.']),
+               mtWarning,[mbOK],0);
+    exit;
+  end;
+
+  if FileExists(Dir + '\satellites.xml')
+  then begin;
+    if FileExists(WDir + 'satellites.xml')
+    then begin;
+      DeleteFile(WDir + '\satellites.xml');
+      Log('i',lwLngTrns(name,['% deleted from %',
+                              'satellites.xml', WDir]));
+    end;
+    o := Dir+'\satellites.xml';
+    n := WDir+'\satellites.xml';
+    po := pchar(o);
+    pn := pchar(n);
+    CopyFile(po,pn,False);
+    Log('i',lwLngTrns(name,['File % copied from % to %',
+                            'satellites.xml',Dir,WDir]));
+  end;
+
+  Dir := WDir;
+  Reg := TRegistry.Create;
+  Reg.RootKey := HKEY_CURRENT_USER;
+  Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+  Reg.WriteString('LastUsedDirectory',Dir);
+  Reg.CloseKey;
+  Reg.Destroy;
+
+  FormMain.Caption := 'LlamaWare DreamBoxEdit - ' + Dir;
+  //tbFiles.Enabled := True;
+  acShowRestoreFiles.Enabled := True;
+
+  //tbSaveClick(Self);
+  acFileSaveExecute(Self);
+end;
+
+procedure TFormMain.acFileExitExecute(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TFormMain.acFastUploadSettingsExecute(Sender: TObject);
+begin
+  application.ProcessMessages;
+
+  if lvServ.Items.Count = 0
+  then begin;
+    MessageDlg(lwLngTrns(name,['There is no file-set loaded to upload to the Dreambox.']),
+               mtError,[mbOK],0);
+    exit;
+  end;
+
+  //Toolbar1.Enabled := False;
+  FormFTP.bSendClick(Self);
+  //ToolBar1.Enabled := True;
+end;
+
+procedure TFormMain.acImportUserBouquetFilesExecute(Sender: TObject);
+var
+  Reg: TRegistry;
+  FavDir: String;
+begin
+  Reg := TRegistry.Create;
+  Reg.RootKey := HKEY_CURRENT_USER;
+  Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+  if Reg.ValueExists('User Bouquets Directory')
+  then FavDir := Reg.ReadString('User Bouquet Directory')
+  else FavDir := Dir;
+  Reg.CloseKey;
+  Reg.Destroy;
+
+  if not SelDir(FavDir,False)
+  then exit;
+
+  Reg := TRegistry.Create;
+  Reg.RootKey := HKEY_CURRENT_USER;
+  Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+  Reg.WriteString('User Bouquet Directory',FavDir);
+  Reg.CloseKey;
+  Reg.Destroy;
+
+  if FormImportUserBouquets.ShowModal <> mrOK
+  then exit
+  else SetMenu('changed');
+end;
+
+procedure TFormMain.acImportSatcoDXFilesExecute(Sender: TObject);
+var
+  Reg: TRegistry;
+  s: String;
+  pListData: ^TLIstData;
+begin
+  //if tbFiles.Enabled = False then
+  if acShowRestoreFiles.Enabled = False then
+  begin
+    s := ExtractFilePath(application.ExeName) + 'SatcoDX TransTable.txt';
+    if not FileExists(s)
+    then begin;
+      MessageDlg(lwLngTrns(name,['SatcoDX tranlation file "SatcoDX TransTable.txt" is missing ' +
+                            'from the directory where DreamBoxEdit is installed.~' +
+                            'Without this file the SatcoDX import function wil not work.~~' +
+                            'You can find this file in the installation package of DreamBoxEdit.']),
+                 mtError,[mbOK],0);
+      exit;
+    end;
+    if MessageDlg(lwLngTrns(name,['No file-set open and no directory selected.~~' +
+                             'You must first select or create a directory before you can import '+
+                             'your SatcoDX files and save.~' +
+                             'Do you want to select or create a directory now?']),
+                  mtConfirmation,[mbYes,mbNo],0) <> mrYes
+    then exit;
+
+    Reg := TRegistry.Create;
+    Reg.RootKey := HKEY_CURRENT_USER;
+    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+    if Reg.ValueExists('LastUsedDirectory')
+    then Dir := Reg.ReadString('LastUsedDirectory')
+    else Dir := '';
+    Reg.CloseKey;
+    Reg.Destroy;
+    if not DirectoryExists(Dir)
+    then Dir := '';
+
+    if not SelDir(Dir,True)
+    then exit;
+    if FileExists(Dir + '\services')
+    then begin;
+      if MessageDlg(lwLngTrns(name,['You have selected a directory that already contains a file-set.~' +
+                               'When you later save the set you are now building, you will '+
+                               'completely overwrite the existing set.~~' +
+                               'Are you sure want to continue with this directory?']),
+                    mtConfirmation,[mbYes,mbNo],0) <> mrYes
+      then exit;
+    end;
+
+    Reg := TRegistry.Create;
+    Reg.RootKey := HKEY_CURRENT_USER;
+    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+    Reg.WriteString('LastUsedDirectory',Dir);
+    Reg.CloseKey;
+    Reg.Destroy;
+
+    Log('i',lwLngTrns(name,['Directory % selected',Dir]));
+
+    tnBQ := tvBouquets.Items.Add(nil,'Providers');
+    tnTV := tvBouquets.Items.Insert(TNBQ,'TV User Bouquets');
+    new(pListData);
+    tvBouquets.Items.AddChildObject(tnTV,'Favorites',pListData);
+    pListData.FileName := 'userbouquet.dbe00.tv';
+    pListData.Number := 0;
+    pListData.Locked := False;
+
+    tnRD := tvBouquets.Items.Insert(TNBQ,'Radio User Bouquets');
+    new(pListData);
+    tvBouquets.Items.AddChildObject(tnRD,'Favorites',pListData);
+    pListData.FileName := 'userbouquet.dbe00.radio';
+    pListData.Number := 0;
+    pListData.Locked := False;
+
+    tvBouquets.FullExpand;
+  end;
+
+  if FormImport.ShowModal = mrOK
+  then begin;
+    lvServ.Refresh;
+    TotalsBuild();
+
+    SetMenu('loaded');
+    SetMenu('changed');
+
+    FormMain.Caption := 'LlamaWare DreamBoxEdit - ' + Dir;
+    tvBouquets.FullExpand;
+    tvBouquets.Items[1].Selected := True;
+  end;
+end;
+
+procedure TFormMain.acReimportExportedServicesFileExecute(Sender: TObject);
+
+  function IsValidLine(var slr: TStringList): Integer;
+  begin
+    if not StrIsNumeric(slr[2],False) then result := 3
+    else if not StrIsNumeric(slr[3],True) then result := 4
+    else if not StrIsNumeric(slr[5],False) then result := 6
+    else if not StrIsNumeric(slr[6],False) then result := 7
+    else if not StrIsNumeric(slr[9],False) then result := 10
+    else if not StrIsNumeric(slr[10],False) then result := 11
+    else if not StrIsNumeric(slr[11],False) then result := 12
+    else if not StrIsNumeric(slr[12],False) then result := 13
+    else if not StrIsNumeric(slr[13],False) then result := 14
+    else if not StrIsNumeric(slr[14],False) then result := 15
+    else if not StrIsNumeric(slr[15],False) then result := 16
+    else if not StrIsNumeric(slr[16],False) then result := 17
+    else if not StrIsNumeric(slr[17],False) then result := 19
+    else if not StrIsNumeric(slr[18],False) then result := 19
+    else if not StrIsNumeric(slr[19],False) then result := 20
+    else result := -1;
+  end;
+
+var
+  tf: TextFile;
+  s: String;
+  sl,sli: TStringList;
+  i,p,err,col,cs: Integer;
+  servsif: String;
+  servflt: Boolean;
+  Reg: TRegistry;
+  pListData: ^TLIstData;
+begin
+  //if tbFiles.Enabled = False then
+  if acShowRestoreFiles.Enabled = False then
+  begin
+    if MessageDlg(lwLngTrns(name,['No file-set open and no directory selected.~~' +
+                             'You must first select or create a directory before you can import '+
+                             'your exported services file and save.~' +
+                             'Do you want to select or create a directory now?']),
+                  mtConfirmation,[mbYes,mbNo],0) <> mrYes
+    then exit;
+
+    Reg := TRegistry.Create;
+    Reg.RootKey := HKEY_CURRENT_USER;
+    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+    if Reg.ValueExists('LastUsedDirectory')
+    then Dir := Reg.ReadString('LastUsedDirectory')
+    else Dir := '';
+    Reg.CloseKey;
+    Reg.Destroy;
+    if not DirectoryExists(Dir)
+    then Dir := '';
+
+    if not SelDir(Dir,True)
+    then exit;
+    if FileExists(Dir + '\services')
+    then begin;
+      if MessageDlg(lwLngTrns(name,['You have selected a directory that already contains a file-set.~' +
+                               'When you later save the set you are now building, you will '+
+                               'completely overwrite the existing set.~~' +
+                               'Are you sure want to continue with this directory?']),
+                    mtConfirmation,[mbYes,mbNo],0) <> mrYes
+      then exit;
+    end;
+
+    Reg := TRegistry.Create;
+    Reg.RootKey := HKEY_CURRENT_USER;
+    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+    Reg.WriteString('LastUsedDirectory',Dir);
+    Reg.CloseKey;
+    Reg.Destroy;
+
+    Log('i',lwLngTrns(name,['Directory % selected',Dir]));
+
+    tnBQ := tvBouquets.Items.Add(nil,'Providers');
+    tnTV := tvBouquets.Items.Insert(TNBQ,'TV User Bouquets');
+    new(pListData);
+    tvBouquets.Items.AddChildObject(tnTV,'Favorites',pListData);
+    pListData.FileName := 'userbouquet.dbe00.tv';
+    pListData.Number := 0;
+    pListData.Locked := False;
+
+    tnRD := tvBouquets.Items.Insert(TNBQ,'Radio User Bouquets');
+    new(pListData);
+    tvBouquets.Items.AddChildObject(tnRD,'Favorites',pListData);
+    pListData.FileName := 'userbouquet.dbe00.radio';
+    pListData.Number := 0;
+    pListData.Locked := False;
+
+    tvBouquets.FullExpand;
+  end;
+
+  od.FileName := '';
+  od.Title := lwLngTrns(name,['Select the exported services file to import']);
+  od.Filter := 'Text files (*.txt)|*.TXT|Any file (*.*)|*.*';
+  if od.Execute
+  then begin;
+    { Check choosen file for correct format }
+    sl := TStringList.Create;
+    sli := TStringList.Create;
+    AssignFile(tf,od.FileName);
+    Reset(tf);
+    Readln(tf,s);
+    s := StringReplace(s,#9,#13,[rfReplaceAll]);
+    sl.Text := s;
+    if (eof(tf)) or
+       (sl.Count <> 20) or
+       (sl[0] <> 'Service Name') or
+       (sl[19] <> 'Flags')
+    then begin;
+      CloseFile(tf);
+      sl.Free;
+      sli.Free;
+      MessageDlg(lwLngTrns(name,['Empty or invalid file for import.~~'+
+                                 'A valid file:~' +
+                                 '- is a by DreamBoxEdit exported services file,~' +
+                                 '- has 20 columns (tab delimted),~' +
+                                 '- starts with a row containing the fieldnames.']),
+                 mtError,[mbOK],0);
+      exit;
+    end;
+
+    while not eof(tf) do begin;
+      Readln(tf,s);
+      sli.Add(s);
+    end;
+    CloseFile(tf);
+
+    screen.Cursor := crHourGlass;
+    FormWait.pb.Caption := '';
+    FormWait.pb.Min := 0;
+    FormWait.pb.Max := sli.Count;
+    FormWait.pb.Position := 0;
+    FormWait.Show;
+    application.ProcessMessages;
+
+    log('i',lwLngTrns(name,['Starting import of exported services file "%"',
+                            od.FileName]));
+
+    servsif := cdsServ.IndexFieldNames;
+    cdsServ.IndexFieldNames := 'servSID;servUniq;servTSID;servNID;servType';
+    servflt := cdsServ.Filtered;
+    cdsServ.Filtered := False;
+
+    err := 0;
+    cs := 0;
+    p := 1;
+    for i := 0 to sli.Count - 1 do begin;
+      s := sli[i];
+      s := StringReplace(s,#9,#13,[rfReplaceAll]);
+      sl.Text := s;
+
+      inc(p);
+      if p mod 25 = 0
+      then FormWait.pb.Position := p;
+
+      col := IsValidLine(sl);
+      if col > 0
+      then begin;
+        inc(err);
+        log('i',lwLngTrns(name,['Import of exported services file: error in line %, column %',
+                                IntToStr(p),IntToStr(col)]));
+        continue;
+      end;
+
+      { Create new service }
+      if not cdsServ.FindKey([sl[9],sl[12],sl[10],sl[11],sl[2]])
+      then begin;
+        inc(cs);
+        inc(HighDbeNr);
+        cdsServ.Append;
+        cdsServ.FieldByName('servSID').AsString := sl[9];
+        cdsServ.FieldByName('servUniq').AsString := sl[12];
+        cdsServ.FieldByName('servTSID').AsString := sl[10];
+        cdsServ.FieldByName('servNID').AsString := sl[11];
+        cdsServ.FieldByName('servType').AsString := sl[2];
+        cdsServ.FieldByName('servName').AsString := sl[0];
+        cdsServ.FieldByName('servPackage').AsString := sl[1];
+        cdsServ.FieldByName('servNr').AsString := sl[13];
+        cdsServ.FieldByName('servFreq').AsString := sl[5];
+        cdsServ.FieldByName('servSymb').AsString := sl[6];
+        if sl[7] = 'H'
+        then cdsServ.FieldByName('servPol').AsString := '0'
+        else cdsServ.FieldByName('servPol').AsString := '1';
+        sl[8] := Trim(sl[8]);
+        if sl[8] = '1/2'
+        then cdsServ.FieldByName('servFEC').AsString := '1'
+        else
+          if sl[8] = '2/3'
+          then cdsServ.FieldByName('servFEC').AsString := '2'
+          else
+            if sl[8] = '3/4'
+            then cdsServ.FieldByName('servFEC').AsString := '3'
+            else
+              if sl[8] = '5/6'
+              then cdsServ.FieldByName('servFEC').AsString := '4'
+              else
+                if sl[8] = '7/8'
+                then cdsServ.FieldByName('servFEC').AsString := '5'
+                else cdsServ.FieldByName('servFEC').AsString := '0';
+        cdsServ.FieldByName('servPos').AsString := FloatToStr(StrToFloat(sl[3])*10);
+        cdsServ.FieldByName('servVPID').AsString := sl[14];
+        cdsServ.FieldByName('servAPID').AsString := sl[15];
+        cdsServ.FieldByName('servTPID').AsString := sl[16];
+        cdsServ.FieldByName('servPPID').AsString := sl[17];
+        cdsServ.FieldByName('serv3PID').AsString := sl[18];
+        cdsServ.FieldByName('servFlags').AsString := sl[19];
+        cdsServ.FieldByName('servLock').AsString := '0';
+        cdsServ.FieldByName('servDbeNr').AsInteger := HighDbeNr;
+        cdsServ.FieldByName('servTypeTxt').AsString := TrnsServType(cdsServ.FieldByName('servType').AsInteger);
+        cdsServ.FieldByName('servExtra').AsString := ':2:0';
+        cdsServ.FieldByName('servCleanName').AsString := CleanText(sl[0]);
+        cdsServ.Post;
+      end;
+    end;
+
+    cdsServ.IndexFieldNames := servsif;
+    cdsServ.Filtered := servflt;
+
+    sl.Free;
+    sli.Free;
+    lvServ.Items.Count := cdsServ.RecordCount;
+    lvServ.Refresh;
+    TotalsBuild();
+    tvBouquets.FullExpand;
+
+    FormWait.Hide;
+    screen.Cursor := crDefault;
+
+    s := lwLngTrns(name,['Import of exported services file finished. ' +
+                         'There were % services added ' +
+                         'and % error(s) found (see log).',
+                         IntToStr(cs),IntToStr(err)]);
+    log('i',s);
+
+    if cs > 0
+    then begin;
+      SetMenu('loaded');
+      SetMenu('changed');
+      Caption := 'LlamaWare DreamBoxEdit - ' + Dir;
+    end;
+
+    if ShowResultMsg
+    then MessageDlg(s,mtInformation,[mbOK],0);
+  end;
+end;
+
+procedure TFormMain.acExportAllServicesToExcelExecute(Sender: TObject);
+var
+  tf: TextFile;
+  s,pol,fec,sat,servsif: String;
+  servflt: Boolean;
+  p: Integer;
+  TempStream: TMemoryStream;
+begin
+  expd.FileName := Dir + '\DreamBoxEdit Export Services.txt';
+  if expd.Execute
+  then begin;
+    TempStream := TMemoryStream.Create;
+    cdsServ.SaveToStream(TempStream);
+    TempStream.Position := 0;
+    cdsServSave.LoadFromStream(TempStream);
+    TempStream.Free;
+
+    screen.Cursor := crHourGlass;
+
+    FormWait.pb.Caption := '';
+    FormWait.pb.Min := 0;
+    FormWait.pb.Max := cdsServSave.RecordCount;
+    FormWait.pb.Position := 0;
+    FormWait.Show;
+    application.ProcessMessages;           
+    p := 0;
+
+    log('i',lwLngTrns(name,['Exporting services to %',expd.FileName]));
+    AssignFile(tf,expd.FileName);
+    Rewrite(tf);
+    s := 'Service Name'#09 +
+         'Package'#09 +
+         'Type'#09 +
+         'Satellite position'#09 +
+         'Satellite name'#09 +
+         'Frequency'#09 +
+         'Symbolrate'#09 +
+         'Polarization'#09 +
+         'FEC'#09 +
+         'Service ID'#09 +
+         'Transponder ID'#09 +
+         'Network ID'#09 +
+         'Namespace'#09 +
+         'Channelnumber'#09 +
+         'Video PID'#09 +
+         'Audio PID'#09 +
+         'Teletext PID'#09 +
+         'PCR PID'#09 +
+         'AC3 PID'#09 +
+         'Flags';
+    WriteLn(tf,s);
+    servsif := cdsServSave.IndexFieldNames;
+    cdsServSave.IndexFieldNames := 'servPos;servName;servFreq';
+    servflt := cdsServSave.Filtered;
+    cdsServSave.Filtered := False;
+    cdsServSave.First;
+    while not cdsServSave.Eof do begin;
+      inc(p);
+      if p mod 25 = 0
+      then FormWait.pb.Position := p;
+
+      if cdsServSave.FieldByName('servPol').AsInteger = 0
+      then pol := 'H'
+      else pol := 'V';
+      case cdsServSave.FieldByName('servFEC').AsInteger of
+        0: fec := 'auto';
+        1: fec := ' 1/2';
+        2: fec := ' 2/3';
+        3: fec := ' 3/4';
+        4: fec := ' 5/6';
+        5: fec := ' 7/8';
+        else fec := 'invalid';
+      end;
+      if cdsPos.FindKey([cdsServSave.FieldByName('servPos').AsString])
+      then
+        if cdsPos.FieldByName('posName').AsString <> ''
+        then sat := cdsPos.FieldByName('posName').AsString
+        else sat := cdsServSave.FieldByName('servPos').AsString
+      else sat := cdsServSave.FieldByName('servPos').AsString;
+      s := cdsServSave.FieldByname('servName').AsString + #09 +
+           cdsServSave.FieldByname('servPackage').AsString + #09 +
+           cdsServSave.FieldByname('servType').AsString + #09 +
+           Format('%.1n',[cdsServSave.FieldByName('servPos').AsInteger/10]) + #09 +
+           sat + #09 +
+           cdsServSave.FieldByName('servFreq').AsString + #09 +
+           cdsServSave.FieldByName('servSymb').AsString + #09 +
+           pol + #09 +
+           fec + #09 +
+           cdsServSave.FieldByName('servSID').AsString + #09 +
+           cdsServSave.FieldByName('servTSID').AsString + #09 +
+           cdsServSave.FieldByName('servNID').AsString + #09 +
+           cdsServSave.FieldByName('servUniq').AsString + #09 +
+           cdsServSave.FieldByName('servNr').AsString + #09 +
+           cdsServSave.FieldByName('servVPID').AsString + #09 +
+           cdsServSave.FieldByName('servAPID').AsString + #09 +
+           cdsServSave.FieldByName('servTPID').AsString + #09 +
+           cdsServSave.FieldByName('servPPID').AsString + #09 +
+           cdsServSave.FieldByName('serv3PID').AsString + #09 +
+           IntToStr(cdsServSave.FieldByName('servFlags').AsInteger and 127);
+      WriteLn(tf,s);
+      cdsServSave.Next;
+    end;
+    cdsServSave.IndexFieldNames := servsif;
+    cdsServSave.Filtered := servflt;
+    CloseFile(tf);
+
+    FormWait.Hide;
+    screen.Cursor := crDefault;
+
+    MessageDlg(lwLngTrns(name,['Export file saved to %',expd.FileName]),
+               mtInformation,[mbOK],0);
+  end;
+end;
+
+procedure TFormMain.acExportAllBouquetsToExcelExecute(Sender: TObject);
+var
+  tf: TextFile;
+  s,pol,fec,sat,sif,servsif: String;
+  r,i,seq,p: Integer;
+  pListData: ^TListData;
+  servflt: Boolean;
+begin
+  //if tbSave.Enabled then
+  if acFileSave.Enabled then
+  begin
+    r := MessageDlg(lwLngTrns(name,['You made changes that are not yet saved!~~' +
+                    'Do you want to save them before making an export file?']),
+                    mtWarning,[mbYes,mbNo,mbCancel],0);
+    if r = mrYes then
+      //tbSave.Click()
+      acFileSaveExecute(Sender)
+    else
+      if r = mrCancel
+      then exit;
+  end;
+
+  expd.FileName := Dir + '\DreamBoxEdit Export Bouquets.txt';
+  if expd.Execute
+  then begin;
+    screen.Cursor := crHourGlass;
+
+    FormWait.pb.Caption := '';
+    FormWait.pb.Min := 0;
+    FormWait.pb.Max := tnTV.Count +
+                       tnRD.Count +
+                       tnBQ.Count;
+    FormWait.pb.Position := 0;
+    FormWait.Show;
+    application.ProcessMessages;
+    p := 0;
+
+    log('i',lwLngTrns(name,['Exporting services to %',expd.FileName]));
+    AssignFile(tf,expd.FileName);
+    Rewrite(tf);
+    s := 'Bouquetnumber'#09 +
+         'Sequence nr in Bouquet'#09 +
+         'Bouquet Type'#09 +
+         'Bouquet Name'#09 +
+         'Service Name'#09 +
+         'Package'#09 +
+         'Type'#09 +
+         'Satellite position'#09 +
+         'Satellite name'#09 +
+         'Frequency'#09 +
+         'Symbolrate'#09 +
+         'Polarization'#09 +
+         'FEC'#09 +
+         'Service ID'#09 +
+         'Transponder ID'#09 +
+         'Network ID'#09 +
+         'Namespace'#09 +
+         'Channelnumber'#09 +
+         'Video PID'#09 +
+         'Audio PID'#09 +
+         'Teletext PID'#09 +
+         'PCR PID'#09 +
+         'AC3 PID'#09 +
+         'Flags';
+    WriteLn(tf,s);
+
+    servsif := cdsServ.IndexFieldNames;
+    cdsServ.IndexFieldNames := 'servDbeNr';
+    servflt := cdsServ.Filtered;
+    cdsServ.Filtered := False;
+
+    { Export User Bouquets TV }
+    for i := 0 to tnTV.Count -1 do begin;
+      inc(p);
+      FormWait.pb.Position := p;
+
+      pListData := tnTV.Item[i].Data;
+      cdsFTV.Filter := 'ftvSetNr = ''' + IntToStr(pListData.Number) + '''';
+      cdsFTV.Filtered := True;
+      sif := cdsFTV.IndexFieldNames;
+      cdsFTV.IndexFieldNames := 'ftvSetNr;ftvSeqNr';
+      seq := 0;
+      cdsFTV.First;
+      while not cdsFTV.Eof do begin;
+        if cdsFTV.FieldByName('ftvT').AsString <> 'n'
+        then begin;
+          s := '';
+          cdsFTV.Next;
+          continue;
+        end;
+
+        cdsServ.FindKey([cdsFTV.FieldByName('ftvDbeNr').AsString]);
+        if cdsServ.FieldByName('servPol').AsInteger = 0
+        then pol := 'H'
+        else pol := 'V';
+        case cdsServ.FieldByName('servFEC').AsInteger of
+          0: fec := 'auto';
+          1: fec := ' 1/2';
+          2: fec := ' 2/3';
+          3: fec := ' 3/4';
+          4: fec := ' 5/6';
+          5: fec := ' 7/8';
+          else fec := 'invalid';
+        end;
+        if cdsPos.FindKey([cdsServ.FieldByName('servPos').AsString])
+        then
+          if cdsPos.FieldByName('posName').AsString <> ''
+          then sat := cdsPos.FieldByName('posName').AsString
+          else sat := cdsServ.FieldByName('servPos').AsString
+        else sat := cdsServ.FieldByName('servPos').AsString;
+        s := IntToStr(pListData.Number) + #09 +
+             IntToStr(seq) + #09 +
+             'User Bouquets TV' + #09 +
+             tnTV.Item[i].Text + #09 +
+             cdsServ.FieldByname('servName').AsString + #09 +
+             cdsServ.FieldByname('servPackage').AsString + #09 +
+             cdsServ.FieldByname('servType').AsString + #09 +
+             Format('%.1n',[cdsServ.FieldByName('servPos').AsInteger/10]) + #09 +
+             sat + #09 +
+             cdsServ.FieldByName('servFreq').AsString + #09 +
+             cdsServ.FieldByName('servSymb').AsString + #09 +
+             pol + #09 +
+             fec + #09 +
+             cdsServ.FieldByName('servSID').AsString + #09 +
+             cdsServ.FieldByName('servTSID').AsString + #09 +
+             cdsServ.FieldByName('servNID').AsString + #09 +
+             cdsServ.FieldByName('servUniq').AsString + #09 +
+             cdsServ.FieldByName('servNr').AsString + #09 +
+             cdsServ.FieldByName('servVPID').AsString + #09 +
+             cdsServ.FieldByName('servAPID').AsString + #09 +
+             cdsServ.FieldByName('servTPID').AsString + #09 +
+             cdsServ.FieldByName('servPPID').AsString + #09 +
+             cdsServ.FieldByName('serv3PID').AsString + #09 +
+             IntToStr(cdsServ.FieldByName('servFlags').AsInteger and 127);
+        inc(seq);
+        WriteLn(tf,s);
+        cdsFTV.Next;
+      end;
+      cdsFTV.IndexFieldNames := sif;
+      cdsFTV.Filtered := False;
+      cdsFTV.Filter := '';
+    end;
+
+    { Export User Bouquets Radio }
+    for i := 0 to tnRD.Count -1 do begin;
+      inc(p);
+      FormWait.pb.Position := p;
+
+      pListData := tnRD.Item[i].Data;
+      cdsFRD.Filter := 'frdSetNr = ''' + IntToStr(pListData.Number) + '''';
+      cdsFRD.Filtered := True;
+      sif := cdsFRD.IndexFieldNames;
+      cdsFRD.IndexFieldNames := 'frdSetNr;frdSeqNr';
+      seq := 0;
+      cdsFRD.First;
+      while not cdsFRD.Eof do begin;
+        if cdsFRD.FieldByName('frdT').AsString <> 'n'
+        then begin;
+          s := '';
+          cdsFRD.Next;
+          continue;
+        end;
+
+        cdsServ.FindKey([cdsFRD.FieldByName('frdDbeNr').AsString]);
+        if cdsServ.FieldByName('servPol').AsInteger = 0
+        then pol := 'H'
+        else pol := 'V';
+        case cdsServ.FieldByName('servFEC').AsInteger of
+          0: fec := 'auto';
+          1: fec := ' 1/2';
+          2: fec := ' 2/3';
+          3: fec := ' 3/4';
+          4: fec := ' 5/6';
+          5: fec := ' 7/8';
+          else fec := 'invalid';
+        end;
+        if cdsPos.FindKey([cdsServ.FieldByName('servPos').AsString])
+        then
+          if cdsPos.FieldByName('posName').AsString <> ''
+          then sat := cdsPos.FieldByName('posName').AsString
+          else sat := cdsServ.FieldByName('servPos').AsString
+        else sat := cdsServ.FieldByName('servPos').AsString;
+        s := IntToStr(pListData.Number) + #09 +
+             IntToStr(seq) + #09 +
+             'User Bouquets Radio' + #09 +
+             tnRD.Item[i].Text + #09 +
+             cdsServ.FieldByname('servName').AsString + #09 +
+             cdsServ.FieldByname('servPackage').AsString + #09 +
+             cdsServ.FieldByname('servType').AsString + #09 +
+             Format('%.1n',[cdsServ.FieldByName('servPos').AsInteger/10]) + #09 +
+             sat + #09 +
+             cdsServ.FieldByName('servFreq').AsString + #09 +
+             cdsServ.FieldByName('servSymb').AsString + #09 +
+             pol + #09 +
+             fec + #09 +
+             cdsServ.FieldByName('servSID').AsString + #09 +
+             cdsServ.FieldByName('servTSID').AsString + #09 +
+             cdsServ.FieldByName('servNID').AsString + #09 +
+             cdsServ.FieldByName('servUniq').AsString + #09 +
+             cdsServ.FieldByName('servNr').AsString + #09 +
+             cdsServ.FieldByName('servVPID').AsString + #09 +
+             cdsServ.FieldByName('servAPID').AsString + #09 +
+             cdsServ.FieldByName('servTPID').AsString + #09 +
+             cdsServ.FieldByName('servPPID').AsString + #09 +
+             cdsServ.FieldByName('serv3PID').AsString + #09 +
+             IntToStr(cdsServ.FieldByName('servFlags').AsInteger and 127);
+        inc(seq);
+        WriteLn(tf,s);
+        cdsFRD.Next;
+      end;
+      cdsFRD.IndexFieldNames := sif;
+      cdsFRD.Filtered := False;
+      cdsFRD.Filter := '';
+    end;
+
+    { Export Bouquets }
+    for i := 0 to tnBQ.Count -1 do begin;
+      inc(p);
+      FormWait.pb.Position := p;
+
+      pListData := tnBQ.Item[i].Data;
+      cdsFBQ.Filter := 'fbqSetNr = ''' + IntToStr(pListData.Number) + '''';
+      cdsFBQ.Filtered := True;
+      sif := cdsFBQ.IndexFieldNames;
+      if pListData.Number < 0
+      then cdsFBQ.IndexFieldNames := 'fbqSetNr;fbqSeqNr'
+      else cdsFBQ.IndexFieldNames := 'fbqSetNr;fbqName;fbqSeqNr';
+      seq := 0;
+      cdsFBQ.First;
+      while not cdsFBQ.Eof do begin;
+        cdsServ.FindKey([cdsFBQ.FieldByName('fbqDbeNr').AsString]);
+        if cdsServ.FieldByName('servPol').AsInteger = 0
+        then pol := 'H'
+        else pol := 'V';
+        case cdsServ.FieldByName('servFEC').AsInteger of
+          0: fec := 'auto';
+          1: fec := ' 1/2';
+          2: fec := ' 2/3';
+          3: fec := ' 3/4';
+          4: fec := ' 5/6';
+          5: fec := ' 7/8';
+          else fec := 'invalid';
+        end;
+        if cdsPos.FindKey([cdsServ.FieldByName('servPos').AsString])
+        then
+          if cdsPos.FieldByName('posName').AsString <> ''
+          then sat := cdsPos.FieldByName('posName').AsString
+          else sat := cdsServ.FieldByName('servPos').AsString
+        else sat := cdsServ.FieldByName('servPos').AsString;
+        s := IntToStr(pListData.Number) + #09 +
+             IntToStr(seq) + #09 +
+             'Bouquets' + #09 +
+             tnBQ.Item[i].Text + #09 +
+             cdsServ.FieldByname('servName').AsString + #09 +
+             cdsServ.FieldByname('servPackage').AsString+ #09 +
+             cdsServ.FieldByname('servType').AsString + #09 +
+             Format('%.1n',[cdsServ.FieldByName('servPos').AsInteger/10]) + #09 +
+             sat + #09 +
+             cdsServ.FieldByName('servFreq').AsString + #09 +
+             cdsServ.FieldByName('servSymb').AsString + #09 +
+             pol + #09 +
+             fec + #09 +
+             cdsServ.FieldByName('servSID').AsString + #09 +
+             cdsServ.FieldByName('servTSID').AsString + #09 +
+             cdsServ.FieldByName('servNID').AsString + #09 +
+             cdsServ.FieldByName('servUniq').AsString + #09 +
+             cdsServ.FieldByName('servNr').AsString + #09 +
+             cdsServ.FieldByName('servVPID').AsString + #09 +
+             cdsServ.FieldByName('servAPID').AsString + #09 +
+             cdsServ.FieldByName('servTPID').AsString + #09 +
+             cdsServ.FieldByName('servPPID').AsString + #09 +
+             cdsServ.FieldByName('serv3PID').AsString + #09 +
+             IntToStr(cdsServ.FieldByName('servFlags').AsInteger and 127);
+        inc(seq);
+        WriteLn(tf,s);
+        cdsFBQ.Next;
+      end;
+      cdsFBQ.IndexFieldNames := sif;
+      cdsFBQ.Filtered := False;
+      cdsFBQ.Filter := '';
+    end;
+    cdsServ.IndexFieldNames := servsif;
+    cdsServ.Filtered := servflt;
+
+    CloseFile(tf);
+
+    FormWait.Hide;
+
+    screen.Cursor := crDefault;
+    MessageDlg(lwLngTrns(name,['Export file saved to %',expd.FileName]),
+               mtInformation,[mbOK],0);
+  end;
+end;
+
+procedure TFormMain.acExportServicesToSatcoDXExecute(Sender: TObject);
+var
+  tf: TextFile;
+  s,pol,fec,typ,pos,sat,servsif: String;
+  vpid,apid,ppid: String;
+  servflt: Boolean;
+  p,err: Integer;
+  TempStream: TMemoryStream;
+begin
+  expd.FileName := Dir + '\DreamBoxEdit Export SatcoDX.txt';
+  if expd.Execute
+  then begin;
+    TempStream := TMemoryStream.Create;
+    cdsServ.SaveToStream(TempStream);
+    TempStream.Position := 0;
+    cdsServSave.LoadFromStream(TempStream);
+    TempStream.Free;
+
+    screen.Cursor := crHourGlass;
+    FormWait.pb.Caption := '';
+    FormWait.pb.Min := 0;
+    FormWait.pb.Max := cdsServSave.RecordCount;
+    FormWait.pb.Position := 0;
+    FormWait.Show;
+    application.ProcessMessages;
+    p := 0;
+
+    log('i',lwLngTrns(name,['Exporting services to %',expd.FileName]));
+    AssignFile(tf,expd.FileName);
+    SetLineBreakStyle(tf,tlbsLF);
+    Rewrite(tf);
+
+    servsif := cdsServSave.IndexFieldNames;
+    cdsServSave.IndexFieldNames := 'servPos;servFreq;servName';
+    servflt := cdsServSave.Filtered;
+    cdsServSave.Filtered := False;
+
+    err := 0;
+    cdsServSave.First;
+    while not cdsServSave.Eof do begin;
+      inc(p);
+      if p mod 25 = 0
+      then FormWait.pb.Position := p;
+
+      if (cdsServSave.FieldByName('servSID').AsInteger < 0) or
+         (cdsServSave.FieldByName('servSID').AsInteger > 99999) or
+         (cdsServSave.FieldByName('servNID').AsInteger < 0) or
+         (cdsServSave.FieldByName('servNID').AsInteger > 99999) or
+         (cdsServSave.FieldByName('servTSID').AsInteger < 0) or
+         (cdsServSave.FieldByName('servTSID').AsInteger > 99999)
+      then begin;
+        err := err + 1;
+        Log('e',lwLngTrns(name,['Error exporting service % of satellite at % ' +
+                                'to SatcoDX format, invalid SID, NID and/or TSID:',
+                                cdsServSave.FieldByname('servName').AsString,
+                                cdsServSave.FieldByName('servPos').AsString]));
+        Log('e','--> ' +
+                cdsServSave.FieldByName('servSID').AsString + ' ' +
+                cdsServSave.FieldByName('servNID').AsString + ' ' +
+                cdsServSave.FieldByName('servTSID').AsString);
+        cdsServSave.Next;
+        continue;
+      end;
+
+      if cdsServSave.FieldByname('servType').AsInteger in [1,4]
+      then Typ := 'T'
+      else
+        if cdsServSave.FieldByname('servType').AsInteger = 2
+        then Typ := 'R'
+        else Typ := 'D';
+      if cdsServSave.FieldByName('servPol').AsInteger = 0
+      then pol := '1'
+      else pol := '0';
+      if cdsServSave.FieldByName('servFEC').AsInteger = 5
+      then fec := '7'
+      else
+        if cdsServSave.FieldByName('servFEC').AsInteger = 4
+        then fec := '5'
+        else fec := cdsServSave.FieldByName('servFEC').AsString;
+      if cdsServSave.FieldByName('servVPID').AsInteger = 0
+      then vpid := '____'
+      else vpid := Format('%4.4d',[cdsServSave.FieldByName('servVPID').AsInteger]);
+      if cdsServSave.FieldByName('servAPID').AsInteger = 0
+      then apid := '____'
+      else apid := Format('%4.4d',[cdsServSave.FieldByName('servAPID').AsInteger]);
+      if cdsServSave.FieldByName('servPPID').AsInteger = 0
+      then ppid := '____'
+      else ppid := Format('%4.4d',[cdsServSave.FieldByName('servPPID').AsInteger]);
+
+      if cdsServSave.FieldByName('servPos').AsInteger >= 0
+      then pos := Format('%4.4d',[cdsServSave.FieldByName('servPos').AsInteger])
+      else pos := Format('%4.4d',[3600 + cdsServSave.FieldByName('servPos').AsInteger]);
+
+      if cdsPos.FindKey([cdsServSave.FieldByName('servPos').AsString])
+      then
+        if cdsPos.FieldByName('posName').AsString <> ''
+        then sat := cdsPos.FieldByName('posName').AsString
+        else sat := cdsServSave.FieldByName('servPos').AsString
+      else sat := cdsServSave.FieldByName('servPos').AsString;
+
+      s := 'SATCODX103' +
+            Format('%-18s',[LeftStr(sat,18)]) +
+            typ +
+            'MPG2' +
+            Format('%9.9d',[cdsServSave.FieldByName('servFreq').AsInteger]) +
+            pol +
+            Format('%-8s',[LeftStr(cdsServSave.FieldByname('servName').AsString,8)]) +
+            pos +
+            '______' +
+            '__' +
+            '______' +
+            Format('%5.5d',[cdsServSave.FieldByName('servSymb').AsInteger div 1000]) +
+            fec +
+            vpid +
+            apid +
+            ppid +
+            Format('%5.5d',[cdsServSave.FieldByName('servSID').AsInteger]) +
+            Format('%5.5d',[cdsServSave.FieldByName('servNID').AsInteger]) +
+            Format('%5.5d',[cdsServSave.FieldByName('servTSID').AsInteger]) +
+            '___' +
+            '_' +
+            '__' +
+            '___' +
+            '____' +
+            Format('%-12s',[Copy(cdsServSave.FieldByname('servName').AsString,9,12)]);
+      WriteLn(tf,s);
+      cdsServSave.Next;
+    end;
+    cdsServSave.IndexFieldNames := servsif;
+    cdsServSave.Filtered := servflt;
+    CloseFile(tf);
+
+    FormWait.Hide;
+    screen.Cursor := crDefault;
+
+    if err = 0
+    then begin;
+      if ShowResultMsg
+      then MessageDlg(lwLngTrns(name,['Export file saved to %',expd.FileName]),
+                      mtInformation,[mbOK],0);
+    end
+    else begin;
+      MessageDlg(lwLngTrns(name,['Export file saved to %, but there were % errors.' +
+                                 '~See the log for more information.~~' +
+                                 'The services with errors were skipped!',
+                                 expd.FileName,IntToStr(err)]),
+                      mtError,[mbOK],0);
+    end;
+  end;
+end;
+
+procedure TFormMain.acShowRestoreFilesExecute(Sender: TObject);
+begin
+  FormFiles.ShowModal;
+end;
+
+procedure TFormMain.acFastDownloadSettingsExecute(Sender: TObject);
+var
+  Reg: TRegistry;
+begin
+  application.ProcessMessages;
+
+  Reg := TRegistry.Create;
+  Reg.RootKey := HKEY_CURRENT_USER;
+  Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+  if Reg.ValueExists('LastUsedDirectory')
+  then Dir := Reg.ReadString('LastUsedDirectory')
+  else Dir := '';
+  Reg.CloseKey;
+  Reg.Destroy;
+
+  if Dir = ''
+  then begin;
+    MessageDlg(lwLngTrns(name,['The Fast FTP Download function retrieves a file-set to ' +
+                          'the last used directory.~' +
+                          'There is no known last used directory so you have to ' +
+                          'choose normal FTP first.']),
+               mtError,[mbOK],0);
+    exit;
+  end;
+
+  if not DirectoryExists(Dir)
+  then begin;
+    MessageDlg(FormMain.lwLngTrns(name,[
+               'Directory "%" does not exist on your PC. Please first select ' +
+               'a valid directory on the FTP screen.',Dir]),
+               mtError,[mbOK],0);
+    exit;
+  end;
+
+  if (FileExists(Dir+'\'+'services')) or
+     (FileExists(Dir+'\'+'lamedb')) or
+     (FileExists(Dir+'\'+'bouquets')) or
+     (FileExists(Dir+'\'+'satellites.xml'))
+  then begin;
+    if MessageDlg(lwLngTrns(name,['Directory "%" already contains ' +
+                             'one or more of the files you are going to download.~~' +
+                             'Are you sure you want to overwrite them?',Dir]),
+                  mtConfirmation,[mbYes,mbNo],0) <> mrYes
+    then exit;
+  end;
+
+  //Toolbar1.Enabled := False;
+
+  if FormFTP.FTPGetFiles(Dir,True,False,False)
+  then begin;
+    AutoOpen := True;
+    //tbOpen.Click();
+    acFileOpenExecute(Sender);
+  end
+  else MessageDlg(lwLngTrns(name,['There were errors retrieving the files from the Dreambox.~' +
+                             'Check the log for more information.']),
+                  mtError,[mbOK],0);
+  //ToolBar1.Enabled := True;
+end;
+
+procedure TFormMain.acReimportExportedBouquetFileExecute(Sender: TObject);
+
+  function IsValidLine(var slr: TStringList): Integer;
+  begin
+    if not StrIsNumeric(slr[0],False) then result := 1
+    else if not StrIsNumeric(slr[1],False) then result := 2
+    else if not StrIsNumeric(slr[6],False) then result := 7
+    else if not StrIsNumeric(slr[7],True) then result := 8
+    else if not StrIsNumeric(slr[9],False) then result := 10
+    else if not StrIsNumeric(slr[10],False) then result := 11
+    else if not StrIsNumeric(slr[13],False) then result := 14
+    else if not StrIsNumeric(slr[14],False) then result := 15
+    else if not StrIsNumeric(slr[15],False) then result := 16
+    else if not StrIsNumeric(slr[16],False) then result := 17
+    else if not StrIsNumeric(slr[17],False) then result := 18
+    else if not StrIsNumeric(slr[18],False) then result := 19
+    else if not StrIsNumeric(slr[19],False) then result := 20
+    else if not StrIsNumeric(slr[20],False) then result := 21
+    else if not StrIsNumeric(slr[21],False) then result := 22
+    else if not StrIsNumeric(slr[22],False) then result := 23
+    else if not StrIsNumeric(slr[23],False)  then result := 24
+    else result := -1;
+  end;
+
+var
+  tf: TextFile;
+  s,et,pf: String;
+  sl,sli: TStringList;
+  i,p,err,col,cs,cb,sbnr: Integer;
+  servsif: String;
+  servflt: Boolean;
+  Reg: TRegistry;
+  pListData: ^TLIstData;
+  ld: TListData;
+  cds: TClientDataset;
+begin
+  //if tbFiles.Enabled = False then
+  if acShowRestoreFiles.Enabled = False then
+  begin
+    if MessageDlg(lwLngTrns(name,['No file-set open and no directory selected.~~' +
+                             'You must first select or create a directory before you can import '+
+                             'your exported bouquets file and save.~' +
+                             'Do you want to select or create a directory now?']),
+                  mtConfirmation,[mbYes,mbNo],0) <> mrYes
+    then exit;
+
+    Reg := TRegistry.Create;
+    Reg.RootKey := HKEY_CURRENT_USER;
+    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+    if Reg.ValueExists('LastUsedDirectory')
+    then Dir := Reg.ReadString('LastUsedDirectory')
+    else Dir := '';
+    Reg.CloseKey;
+    Reg.Destroy;
+    if not DirectoryExists(Dir)
+    then Dir := '';
+
+    if not SelDir(Dir,True)
+    then exit;
+    if FileExists(Dir + '\services')
+    then begin;
+      if MessageDlg(lwLngTrns(name,['You have selected a directory that already contains a file-set.~' +
+                               'When you later save the set you are now building, you will '+
+                               'completely overwrite the existing set.~~' +
+                               'Are you sure want to continue with this directory?']),
+                    mtConfirmation,[mbYes,mbNo],0) <> mrYes
+      then exit;
+    end;
+
+    Reg := TRegistry.Create;
+    Reg.RootKey := HKEY_CURRENT_USER;
+    Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+    Reg.WriteString('LastUsedDirectory',Dir);
+    Reg.CloseKey;
+    Reg.Destroy;
+
+    Log('i',lwLngTrns(name,['Directory % selected',Dir]));
+
+    tnBQ := tvBouquets.Items.Add(nil,'Providers');
+    tnTV := tvBouquets.Items.Insert(TNBQ,'TV User Bouquets');
+    new(pListData);
+    tvBouquets.Items.AddChildObject(tnTV,'Favorites',pListData);
+    pListData.FileName := 'userbouquet.dbe00.tv';
+    pListData.Number := 0;
+    pListData.Locked := False;
+
+    tnRD := tvBouquets.Items.Insert(TNBQ,'Radio User Bouquets');
+    new(pListData);
+    tvBouquets.Items.AddChildObject(tnRD,'Favorites',pListData);
+    pListData.FileName := 'userbouquet.dbe00.radio';
+    pListData.Number := 0;
+    pListData.Locked := False;
+
+    tvBouquets.FullExpand;
+  end;
+
+  od.FileName := '';
+  od.Title := lwLngTrns(name,['Select the exported bouquets file to import']);
+  od.Filter := 'Text files (*.txt)|*.TXT|Any file (*.*)|*.*';
+  if od.Execute
+  then begin;
+    { Check choosen file for correct format }
+    sl := TStringList.Create;
+    sli := TStringList.Create;
+    AssignFile(tf,od.FileName);
+    Reset(tf);
+    Readln(tf,s);
+    s := StringReplace(s,#9,#13,[rfReplaceAll]);
+    sl.Text := s;
+    if (eof(tf)) or
+       (sl.Count <> 24) or
+       (sl[2] <> 'Bouquet Type') or
+       (sl[23] <> 'Flags')
+    then begin;
+      CloseFile(tf);
+      sl.Free;
+      sli.Free;
+      MessageDlg(lwLngTrns(name,['Empty or invalid file for import.~~'+
+                                 'A valid file:~' +
+                                 '- is a by DreamBoxEdit exported bouquets file,~' +
+                                 '- has 24 columns (tab delimted),~' +
+                                 '- starts with a row containing the fieldnames.']),
+                 mtError,[mbOK],0);
+      exit;
+    end;
+
+    while not eof(tf) do begin;
+      Readln(tf,s);
+      sli.Add(s);
+    end;
+    CloseFile(tf);
+
+    screen.Cursor := crHourGlass;
+    FormWait.pb.Caption := '';
+    FormWait.pb.Min := 0;
+    FormWait.pb.Max := sli.Count;
+    FormWait.pb.Position := 0;
+    FormWait.Show;
+    application.ProcessMessages;
+
+    log('i',lwLngTrns(name,['Starting import of exported bouquets file "%"',
+                            od.FileName]));
+
+    servsif := cdsServ.IndexFieldNames;
+    cdsServ.IndexFieldNames := 'servSID;servUniq;servTSID;servNID;servType';
+    servflt := cdsServ.Filtered;
+    cdsServ.Filtered := False;
+
+    cds := nil;
+    sbnr := -1;
+    err := 0;
+    cs := 0;
+    cb := 0;
+    p := 1;
+    for i := 0 to sli.Count - 1 do begin;
+      s := sli[i];
+      s := StringReplace(s,#9,#13,[rfReplaceAll]);
+      sl.Text := s;
+
+      inc(p);
+      if p mod 25 = 0
+      then FormWait.pb.Position := p;
+
+      col := IsValidLine(sl);
+      if col > 0
+      then begin;
+        inc(err);
+        log('i',lwLngTrns(name,['Import of exported bouquets file: error in line %, column %',
+                                IntToStr(p),IntToStr(col)]));
+        continue;
+      end;
+
+      { Create new service }
+      if not cdsServ.FindKey([sl[13],sl[16],sl[14],sl[15],sl[6]])
+      then begin;
+        inc(cs);
+        inc(HighDbeNr);
+        cdsServ.Append;
+        cdsServ.FieldByName('servSID').AsString := sl[13];
+        cdsServ.FieldByName('servUniq').AsString := sl[16];
+        cdsServ.FieldByName('servTSID').AsString := sl[14];
+        cdsServ.FieldByName('servNID').AsString := sl[15];
+        cdsServ.FieldByName('servType').AsString := sl[6];
+        cdsServ.FieldByName('servName').AsString := sl[4];
+        cdsServ.FieldByName('servPackage').AsString := sl[5];
+        cdsServ.FieldByName('servNr').AsString := sl[17];
+        cdsServ.FieldByName('servFreq').AsString := sl[9];
+        cdsServ.FieldByName('servSymb').AsString := sl[10];
+        if sl[11] = 'H'
+        then cdsServ.FieldByName('servPol').AsString := '0'
+        else cdsServ.FieldByName('servPol').AsString := '1';
+        sl[12] := Trim(sl[12]);
+        if sl[12] = '1/2'
+        then cdsServ.FieldByName('servFEC').AsString := '1'
+        else
+          if sl[12] = '2/3'
+          then cdsServ.FieldByName('servFEC').AsString := '2'
+          else
+            if sl[12] = '3/4'
+            then cdsServ.FieldByName('servFEC').AsString := '3'
+            else
+              if sl[12] = '5/6'
+              then cdsServ.FieldByName('servFEC').AsString := '4'
+              else
+                if sl[12] = '7/8'
+                then cdsServ.FieldByName('servFEC').AsString := '5'
+                else cdsServ.FieldByName('servFEC').AsString := '0';
+        cdsServ.FieldByName('servPos').AsString := FloatToStr(StrToFloat(sl[7])*10);
+        cdsServ.FieldByName('servVPID').AsString := sl[18];
+        cdsServ.FieldByName('servAPID').AsString := sl[19];
+        cdsServ.FieldByName('servTPID').AsString := sl[20];
+        cdsServ.FieldByName('servPPID').AsString := sl[21];
+        cdsServ.FieldByName('serv3PID').AsString := sl[22];
+        cdsServ.FieldByName('servFlags').AsString := sl[23];
+        cdsServ.FieldByName('servLock').AsString := '0';
+        cdsServ.FieldByName('servDbeNr').AsInteger := HighDbeNr;
+        cdsServ.FieldByName('servTypeTxt').AsString := TrnsServType(cdsServ.FieldByName('servType').AsInteger);
+        cdsServ.FieldByName('servExtra').AsString := ':2:0';
+        cdsServ.FieldByName('servCleanName').AsString := CleanText(sl[4]);
+        cdsServ.Post;
+      end;
+
+      { Create bouquet entry }
+      inc(cb);
+      if StrToInt(sl[0]) <> sbnr
+      then begin;
+        sbnr := StrToInt(sl[0]);
+        if sl[2] = 'User Bouquets TV'
+        then begin;
+          et := 'T';
+          cds := cdsFTV;
+          pf := 'ftv';
+        end
+        else
+          if sl[2] = 'User Bouquets Radio'
+          then begin;
+            et := 'R';
+            cds := cdsFRD;
+            pf := 'frd';
+          end
+          else begin;
+            et := 'P';
+            cds := cdsFBQ;
+            pf := 'fbq';
+          end;
+
+        ld := NewBouquet(et);
+
+        new(pListData);
+        if et = 'P'
+        then begin;
+          tvBouquets.Items.AddChildObject(tnBQ,sl[3],pListData);
+          tnBQ.AlphaSort(True);
+        end
+        else
+          if et = 'T'
+          then tvBouquets.Items.AddChildObject(tnTV,sl[3],pListData)
+          else tvBouquets.Items.AddChildObject(tnRD,sl[3],pListData);
+        pListData.FileName := ld.FileName;
+        pListData.Number := ld.Number;
+        pListData.Locked := False;
+      end;
+      cds.Append;
+      cds.FieldByName(pf+'SeqNr').AsString := sl[1];
+      cds.FieldByName(pf+'Name').AsString := CleanText(sl[4]);
+      cds.FieldByName(pf+'SID').AsString := sl[13];
+      cds.FieldByName(pf+'Uniq').AsString := sl[16];
+      cds.FieldByName(pf+'TSID').AsString := sl[14];
+      cds.FieldByName(pf+'NID').AsString := sl[15];
+      cds.FieldByName(pf+'ServType').AsString := sl[6];
+      cds.FieldByName(pf+'SetNr').AsInteger := ld.Number;
+      cds.FieldByName(pf+'Descr').AsString := '';
+      cds.FieldByName(pf+'DbeNr').AsString := cdsServ.FieldByName('servDbeNr').AsString;
+      cds.FieldByName(pf+'T').AsString := 'n';
+      cds.Post;
+    end;
+
+    cdsServ.IndexFieldNames := servsif;
+    cdsServ.Filtered := servflt;
+
+    sl.Free;
+    sli.Free;
+    lvServ.Items.Count := cdsServ.RecordCount;
+    lvServ.Refresh;
+    TotalsBuild();
+    tvBouquets.FullExpand;
+
+    FormWait.Hide;
+    screen.Cursor := crDefault;
+
+    s := lwLngTrns(name,['Import of exported bouquets file finished. ' +
+                         'There were % services added, % bouquet entries added ' +
+                         'and % error(s) found (see log).',
+                         IntToStr(cs),IntToStr(cb),IntToStr(err)]);
+    log('i',s);
+
+    if (cs > 0) or
+       (cb > 0)
+    then begin;
+      SetMenu('loaded');
+      SetMenu('changed');
+      Caption := 'LlamaWare DreamBoxEdit - ' + Dir;
+    end;
+
+    if ShowResultMsg
+    then MessageDlg(s,mtInformation,[mbOK],0);    
+  end;
+end;
+
+procedure TFormMain.acUpdateSatellitesXMLExecute(Sender: TObject);
+var
+  sifTSID,sifSatXML: String;
+  wname,tsidsif: String;
+  p,ta,te,ts,seq: Integer;
+label
+  Skipped;
+begin
+  if not FileExists(Dir + '\satellites.xml')
+  then begin;
+    MessageDlg(lwLngTrns(name,['File satellites.xml not found in current directory %',Dir]),
+               mtError,[mbOK],0);
+    exit;
+  end;
+
+  log('i',lwLngTrns(name,['Updating satellites.xml with currently loaded transponder data']));
+  FormWait.pb.Caption := '';
+  FormWait.pb.Min := 0;
+  FormWait.pb.Max := 100;
+  FormWait.pb.Position := 0;
+  FormWait.Show;
+
+  { rebuild transponder table from services table }
+  FormWait.pb.Position := 1;
+  cdsTSID.EmptyDataSet;
+  cdsTSID.Close;
+  cdsTSID.Open;
+  sifTSID := cdsTSID.IndexFieldNames;
+  cdsTSID.IndexFieldNames := 'tsidPos;tsidFreq;tsidPol;tsidSymb;tsidFEC';
+  cdsServ.First;
+  while not cdsServ.Eof do begin;
+    if not cdsTSID.FindKey([cdsServ.FieldByName('servPos').AsString,
+                            cdsServ.FieldByName('servFreq').AsString,
+                            cdsServ.FieldByName('servPol').AsString,
+                            cdsServ.FieldByName('servSymb').AsString,
+                            cdsServ.FieldByName('servFEC').AsString])
+    then begin;
+      cdsTSID.Append;
+      cdsTSID.FieldByName('tsidUniq').AsString := cdsServ.FieldByName('servUniq').AsString;
+      cdsTSID.FieldByName('tsidTSID').AsString := cdsServ.FieldByName('servTSID').AsString;
+      cdsTSID.FieldByName('tsidNID').AsString := cdsServ.FieldByName('servNid').AsString;
+      cdsTSID.FieldByName('tsidFreq').AsString := cdsServ.FieldByName('servFreq').AsString;
+      cdsTSID.FieldByName('tsidSymb').AsString := cdsServ.FieldByName('servSymb').AsString;
+      cdsTSID.FieldByName('tsidPol').AsString := cdsServ.FieldByName('servPol').AsString;
+      cdsTSID.FieldByName('tsidFEC').AsString := cdsServ.FieldByName('servFEC').AsString;
+      cdsTSID.FieldByName('tsidPos').AsString := cdsServ.FieldByName('servPos').AsString;
+      cdsTSID.Post;
+    end;
+    cdsServ.Next;
+  end;
+
+  { Read the satellites.xml file }
+  EditSatXML := False;
+  ts := ReadSatXML(Dir+'\satellites.xml');
+  if (sender as TMenuItem).Name = 'fmClearSatXML'
+  then begin;
+    { if called from fmClearSatXML: empty table, only original headers are then processed }
+    tsidsif := cdsTSID.IndexFieldNames;
+    cdsTSID.IndexFieldNames := 'tsidPos';
+    cdsSatXML.First;
+    while not cdsSatXML.Eof do begin;
+      if not cdsTSID.FindKey([cdsSatXML.FieldByName('Pos').AsString])
+      then cdsSatXML.Delete
+      else cdsSatXML.Next;
+    end;
+    cdsTSID.IndexFieldNames := tsidsif;
+  end;
+  te := cdsSatXML.RecordCount;
+
+  { Update satellites.xml table with transponders }
+  p := 0;
+  FormWait.pb.Max := cdsTSID.RecordCount;
+  seq := cdsSatXML.RecordCount + 1;
+  ta := 0;
+  wname := '';
+  cdsTSID.First;
+  while not cdsTSID.Eof do begin;
+    inc(p);
+    if p mod 5 = 0
+    then FormWait.pb.Position := p;
+
+    if not cdsSatXML.FindKey([cdsTSID.FieldByName('tsidPos').AsString,
+                              cdsTSID.FieldByName('tsidFreq').AsString,
+                              cdsTSID.FieldByName('tsidPol').AsString,
+                              cdsTSID.FieldByName('tsidSymb').AsString,
+                              cdsTSID.FieldByName('tsidFEC').AsString])
+    then begin;
+      inc(ta);
+      if (cdsPOS.FindKey([cdsTSID.FieldByName('tsidPos').AsString])) and
+         (cdsPos.FieldByName('posName').AsString <> '')
+      then wname := cdsPOS.FieldByName('posName').AsString
+      else
+        if cdsSatXML.FindKey([cdsTSID.FieldByName('tsidPos').AsString])
+        then wname := cdsSatXML.FieldByName('Name').AsString
+        else wname := 'Satellite at ' +
+                      Format('%.1n',[cdsTSID.FieldByName('tsidPos').AsInteger/10]);
+
+      cdsSatXML.Append;
+      cdsSatXML.FieldByName('Name').AsString := wname;
+      cdsSatXML.FieldByName('Flags').AsString := '5';
+      cdsSatXML.FieldByName('Pos').AsString := cdsTSID.FieldByName('tsidPos').AsString;
+      cdsSatXML.FieldByName('Freq').AsString := cdsTSID.FieldByName('tsidFreq').AsString;
+      cdsSatXML.FieldByName('Pol').AsString := cdsTSID.FieldByName('tsidPol').AsString;
+      cdsSatXML.FieldByName('Symb').AsString := cdsTSID.FieldByName('tsidSymb').AsString;
+      cdsSatXML.FieldByName('FEC').AsString := cdsTSID.FieldByName('tsidFEC').AsString;
+      cdsSatXML.FieldByName('SeqNr').AsInteger := seq;
+      cdsSatXML.Post;
+      inc(seq);
+    end;
+    cdsTSID.Next;
+  end;
+  cdsTSID.IndexFieldNames := sifTSID;
+
+  { Write the updated satellited.xml table to file }
+  if NewSatXMLBottom
+  then begin;
+    sifSatXML := cdsSatXML.IndexFieldNames;
+    cdsSatXML.IndexFieldNames := 'Pos;SeqNr;Freq;Pol;Symb;FEC';
+  end;
+
+  WriteSatXML(Dir + '\satellites.xml');
+
+  if NewSatXMLBottom
+  then cdsSatXML.IndexFieldNames := sifSatXML;
+
+  FormWait.Hide;
+
+  log('i',lwLngTrns(name,['% existing transponders, ',IntToStr(te)]));
+  log('i',lwLngTrns(name,['% ... new transponders added,',IntToStr(ta)]));
+  log('i',lwLngTrns(name,['% ... invalid transponders skipped.',IntToStr(ts)]));
+  if ShowResultMsg
+  then MessageDlg(lwLngTrns(name,['% existing transponders,~' +
+                                  '% new transponders added,~' +
+                                  '% invalid transponders skipped.',
+                                  IntToStr(te),IntToStr(ta),IntToStr(ts)]),
+                  mtInformation,[mbOK],0);
+  log('i',lwLngTrns(name,['Ready updating satellites.xml']));
+end;
+
+procedure TFormMain.acClearSatellitesXMLExecute(Sender: TObject);
+begin
+  acUpdateSatellitesXMLExecute(Sender);
+end;
+
+procedure TFormMain.acEditSatellitesXMLExecute(Sender: TObject);
+var
+  ts: Integer;
+begin
+  if not FileExists(Dir + '\satellites.xml')
+  then begin;
+    MessageDlg(lwLngTrns(name,['File satellites.xml not found in current directory %',Dir]),
+               mtError,[mbOK],0);
+    exit;
+  end;
+
+  EditSatXML := False;
+  ts := ReadSatXML(Dir+'\satellites.xml');
+  if ts > 0
+  then MessageDlg(lwLngTrns(name,['% invalid transponder definitions skipped. ' +
+                             'See the log for more information.~' +
+                             'This is not a severe error, you can just continue.',IntToStr(ts)]),
+                  mtWarning,[mbOK],0);
+
+  FormEditSatXML.lFileName.Caption := Dir+'\satellites.xml';
+
+  EditSatXML := True;
+  FormEditSatXML.ShowModal;
+end;
+
+procedure TFormMain.acCompareServicesDreamboxExecute(Sender: TObject);
+var
+  r,rc: Integer;
+  d,fn: String;
+  SR: TSearchRec;
+  FileAttr: Integer;
+begin
+  d := Dir + '\temp';
+  if not DirectoryExists(d)
+  then ForceDirectories(d);
+
+  //Toolbar1.Enabled := False;
+  if not FormFTP.FTPGetFiles(d,True,False,True)
+  then begin;
+    MessageDlg(lwLngTrns(name,['There were errors retrieving the files from the Dreambox.~' +
+                          'Check the log for more information.']),
+               mtError,[mbOK],0);
+    //ToolBar1.Enabled := True;
+  end;
+  //ToolBar1.Enabled := True;
+
+  cdsServComp.EmptyDataSet;
+  cdsServComp.Close;
+  cdsServComp.Open;
+
+  if FileExists(d + '\lamedb')
+  then fn := 'lamedb'
+  else fn := 'services';
+  r := ReadServices(d + '\' + fn,cdsServComp,True);
+  if r < 0
+  then begin;
+    MessageDlg(lwLngTrns(name,['Error reading services file']),
+               mtError,[mbOK],0);
+    exit;
+  end;
+  if r > 0
+  then MessageDlg(lwLngTrns(name,['There were % service entries with errors found.~' +
+                  'See the log for more information', IntToStr(r)]),
+                  mtWarning,[mbOK],0);
+  FormCompareSet.lActiveDir.Caption := Dir;
+  FormCompareSet.lCompareDir.Caption := d + '\' + fn;
+  if FormCompareSet.ShowModal = mrOK
+  then begin;
+    lvServ.Items.Count := cdsServ.RecordCount;
+    lvServ.Refresh;
+    TotalsBuild();
+
+    SetMenu('changed');
+  end;
+
+  FileAttr := faAnyFile;
+  rc := FindFirst(d + '\*.*',FileAttr,SR);
+  while rc = 0 do begin
+    if (SR.Name <> '.') and (SR.Name <> '..')
+    then
+      if (SR.Attr AND faDirectory) <> faDirectory
+      then DeleteFile(d + '\' + SR.Name);
+    rc := FindNext(SR);
+  end;
+  FindClose(sr);
+
+  RemoveDir(d);
+end;
+
+procedure TFormMain.acCompareServicesDiskExecute(Sender: TObject);
+var
+  r: Integer;
+begin
+  od.FileName := '';
+  od.Title := lwLngTrns(name,['Select the services file to compare with']);
+  od.Filter := 'services|services;lamedb';
+  if od.Execute
+  then begin;
+    cdsServComp.EmptyDataSet;
+    cdsServComp.Close;
+    cdsServComp.Open;
+
+    r := ReadServices(od.FileName,cdsServComp,True);
+    if r < 0
+    then begin;
+      MessageDlg(lwLngTrns(name,['Error reading services file']),
+                 mtError,[mbOK],0);
+      exit;
+    end;
+    if r > 0
+    then MessageDlg(lwLngTrns(name,['There were % service entries with errors found.~' +
+                               'See the log for more information',IntToStr(r)]),
+                    mtWarning,[mbOK],0);
+    FormCompareSet.lActiveDir.Caption := Dir;
+    FormCompareSet.lCompareDir.Caption := od.FileName;
+    if FormCompareSet.ShowModal = mrOK
+    then begin;
+      lvServ.Items.Count := cdsServ.RecordCount;
+      lvServ.Refresh;
+      TotalsBuild();
+
+      SetMenu('changed');
+    end;
+  end;
+end;
+
+procedure TFormMain.acOptionsExecute(Sender: TObject);
+begin
+  FormOptions.ShowModal;
+end;
+
+procedure TFormMain.acClearAllParentalLocksExecute(Sender: TObject);
+var
+  i,cs,cb,co: Integer;
+  servsif: String;
+  servflt: Boolean;
+  pListData: ^TListData;
+begin
+  cs := 0;
+  cb := 0;
+  co := 0;
+  cdsLock.First;
+  while not cdsLock.Eof do begin;
+    inc(co);
+    cdsLock.Delete;
+    cdsLock.First;
+  end;
+
+  ServEdit := True;
+  servsif := cdsServ.IndexFieldNames;
+  cdsServ.IndexFieldNames := '';
+  servflt := cdsServ.Filtered;
+  cdsServ.Filtered := False;
+  cdsServ.First;
+  while not cdsServ.Eof do begin;
+    if cdsServ.FieldByName('servLock').AsInteger = 1
+    then begin;
+      inc(cs);
+      cdsServ.Edit;
+      cdsServ.FieldByName('servLock').AsInteger := 0;
+      cdsServ.Post;
+    end;
+    cdsServ.Next;
+  end;
+  cdsServ.IndexFieldNames := servsif;
+  cdsServ.Filtered := servflt;
+  ServEdit := False;
+  lvServ.Refresh;
+
+  for i := 0 to lvDet.Items.Count - 1 do begin;
+    if lvDet.Items[i].SubItems[9] = '1'
+    then lvDet.Items[i].SubItems[9] := '0';
+  end;
+
+  for i := 0 to tvBouquets.Items.Count - 1 do begin;
+    if (tvBouquets.Items[i].Data = nil) or
+       (tvBouquets.Items[i].Level = 0)
+    then continue;
+    pListData := tvBouquets.Items.Item[i].Data;
+    if pListData.Locked
+    then begin;
+      inc(cb);
+      pListData.Locked := False;
+    end;
+  end;
+
+  lvServ.Repaint;
+  lvDet.Repaint;
+  tvBouquets.Repaint;
+  if (cs > 0) or
+     (cb > 0) or
+     (co > 0)
+  then SetMenu('changed');
+
+  if ShowResultMsg
+  then begin;
+    MessageDlg(lwLngTrns(name,['% locks from services removed,~' +
+                               '% locks from bouquets removed,~' +
+                               '% other locks removed.',
+                               IntToStr(cs),IntToStr(cb),IntToStr(co)]),
+                               mtInformation,[mbOK],0);
+  end;
+end;
+
+procedure TFormMain.acSwitchVersionTwoAndThreeExecute(Sender: TObject);
+begin
+  if SettingsVersion = 2
+  then SetVersionDefaults(3)
+  else SetVersionDefaults(2);
+  SetMenu('changed');
+  MessageDlg(lwLngTrns(name,['The version of the settings set is now changed to %.~~' +
+                             'This means that the next time you save this settings set ' +
+                             'it will be saved in that format.~' +
+                             'Be ware: a version 3 set will NOT work for a Dreambox that ' +
+                             'expects a version 2 set.~' +
+                             'And a version 2 set not on a receiver that expects version 3 ' +
+                             '(7025 and up).~~' +
+                             'You can always see which version is selected at the bottom statusbar ' +
+                             'on the main screen of DreamBoxEdit!',
+                             IntToStr(SettingsVersion)]),
+             mtInformation,[mbOK],0);
+end;
+
+procedure TFormMain.acUpdateAllLanguageFilesExecute(Sender: TObject);
+var
+  l,i: Integer;
+  lf,s: String;
+begin
+  if not OriginalEnglish
+  then begin;
+    MessageDlg('This option is only available if the program is started in English '#13 +
+               'and no language selection is made',
+               mtError,[mbOK],0);
+    exit;
+  end;
+
+  Screen.Cursor := crHourGlass;
+  for l := 0 to MainMenu1.Items[5].Count - 1 do begin;
+    lf := ExtractFilePath(application.exename) +
+          MainMenu1.Items[5].Items[l].Caption +
+          '.lng';
+    if FileExists(lf)
+    then begin;
+      s := lf + '.' + FormatDateTime('yyyymmdd hhmmss',now()) + '.save';
+      CopyFile(PChar(lf),
+               PChar(s),
+               false);
+    end;
+    for i := 0 to Screen.FormCount - 1 do begin;
+      MultiLang.SaveLanguage(FormAbout._lVersion.Caption,Screen.Forms[i],MainMenu1.Items[5].Items[l].Caption,True,False,True);
+    end;
+  end;
+  Screen.Cursor := crDefault;
+end;
+
+procedure TFormMain.acViewFTPSettingsExecute(Sender: TObject);
+begin
+  FormFTP.ShowModal;
+end;
+
+procedure TFormMain.acCheckForUpdatesExecute(Sender: TObject);
+begin
+  TimerCheckVersion.Interval := 2;
+  TimerCheckVersion.Enabled := True;
+end;
+
+procedure TFormMain.acSearchExecute(Sender: TObject);
+begin
+  SearchServices('new');
+end;
+
+procedure TFormMain.acRepeatLastSearchExecute(Sender: TObject);
+begin
+  SearchServices('repeat');
+end;
+
+procedure TFormMain.acShowLogExecute(Sender: TObject);
+begin
+  FormLog.ShowModal;
+end;
+
+procedure TFormMain.acHelpContentsExecute(Sender: TObject);
+var
+  st: Integer;
+  f: String;
+begin
+  f := ExtractFilePath(Application.ExeName) + 'DreamBoxEdit';
+  if FileExists(f + '_' + Language + '.chm')
+  then f := f + '_' + Language + '.chm'
+  else begin;
+    log('i',lwLngTrns(name,['No help file in language % found. Defaulted to English',
+                      Language]));
+    f := f + '_English' + '.chm';
+    if not FileExists(f)
+    then begin;
+      MessageDlg(lwLngTrns(name,['DreamBoxEdit help file "%" not found.',f]),
+                 mtError,[mbOK],0);
+      log('e',lwLngTrns(name,['DreamBoxEdit help file "%" not found.',f]));
+      exit;
+    end;
+  end;
+
+  st := ShellExecute(0,'open',PChar(f),NIL,NIL,SW_SHOWNORMAL);
+  if st <= 32
+  then begin;
+    showmessage(lwLngTrns(name,['Returncode % from executing "%"',IntToStr(st),f]));
+    log('e',lwLngTrns(name,['Returncode % from executing "%"',IntToStr(st),f]));
+  end;
+end;
+
+procedure TFormMain.acAboutExecute(Sender: TObject);
+begin
+  FormAbout.ShowModal();
 end;
 
 end.

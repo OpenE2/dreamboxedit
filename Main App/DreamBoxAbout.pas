@@ -143,7 +143,7 @@ end;
 
 procedure TFormAbout._bCheckNewVersionClick(Sender: TObject);
 begin
-  FormMain.fmCheckfornewversionClick(Self);
+  FormMain.acCheckForUpdatesExecute(Sender);
 end;
 
 end.

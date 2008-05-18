@@ -339,7 +339,7 @@ begin
         ld := FormMain.NewBouquet('T');
 
         new(pListData);
-        FormMain.tv.items.AddChildObject(FormMain.tnTV,s,pListData);
+        FormMain.tvBouquets.items.AddChildObject(FormMain.tnTV,s,pListData);
         pListData.FileName := ld.FileName;
         pListData.Number := ld.Number;
         pListData.Locked := False;
@@ -488,7 +488,7 @@ begin
         ld := FormMain.NewBouquet('R');
 
         new(pListData);
-        FormMain.tv.items.AddChildObject(FormMain.tnRD,s,pListData);
+        FormMain.tvBouquets.items.AddChildObject(FormMain.tnRD,s,pListData);
         pListData.FileName := ld.FileName;
         pListData.Number := ld.Number;
         pListData.Locked := False;
