@@ -4,7 +4,7 @@ object FormSplash: TFormSplash
   BorderIcons = [biHelp]
   BorderStyle = bsNone
   Caption = 'Welcome to DreamBoxEdit from LlamaWare'
-  ClientHeight = 300
+  ClientHeight = 288
   ClientWidth = 415
   Color = clBtnFace
   DefaultMonitor = dmMainForm
@@ -91,56 +91,65 @@ object FormSplash: TFormSplash
   OnDestroy = FormDestroy
   OnPaint = FormPaint
   OnShow = FormShow
-  DesignSize = (
-    415
-    300)
   PixelsPerInch = 96
   TextHeight = 13
-  object Label2: TLabel
-    Left = 82
-    Top = 265
-    Width = 255
-    Height = 18
-    Anchors = [akBottom]
-    Caption = 'D  R  E  A  M  B  O  X  E  D  I  T  '
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clNavy
-    Font.Height = -15
-    Font.Name = 'Verdana'
-    Font.Style = [fsBold]
-    ParentFont = False
-    Transparent = True
-  end
-  object Label1: TLabel
-    Left = 80
-    Top = 264
-    Width = 255
-    Height = 18
-    Anchors = [akBottom]
-    Caption = 'D  R  E  A  M  B  O  X  E  D  I  T  '
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -15
-    Font.Name = 'Verdana'
-    Font.Style = [fsBold]
-    ParentFont = False
-    Transparent = True
-  end
-  object Label3: TLabel
-    Left = 3
+  object Panel1: TPanel
+    Left = -1
     Top = 248
-    Width = 410
-    Height = 13
-    Anchors = [akBottom]
-    Caption = 
-      'W E L C O M E  T O   L L A M A W A R E '#39' S  D R E A M B O X E D ' +
-      'I T'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Verdana'
-    Font.Style = [fsBold]
-    ParentFont = False
-    Transparent = True
+    Width = 417
+    Height = 41
+    BevelOuter = bvNone
+    Color = clWhite
+    TabOrder = 0
+    DesignSize = (
+      417
+      41)
+    object Label1: TLabel
+      Left = 80
+      Top = 23
+      Width = 255
+      Height = 18
+      Anchors = [akBottom]
+      Caption = 'D  R  E  A  M  B  O  X  E  D  I  T  '
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label2: TLabel
+      Left = 82
+      Top = 23
+      Width = 255
+      Height = 18
+      Anchors = [akBottom]
+      Caption = 'D  R  E  A  M  B  O  X  E  D  I  T  '
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clNavy
+      Font.Height = -15
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label3: TLabel
+      Left = 3
+      Top = 4
+      Width = 410
+      Height = 13
+      Anchors = [akBottom]
+      Caption = 
+        'W E L C O M E  T O   L L A M A W A R E '#39' S  D R E A M B O X E D ' +
+        'I T'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
   end
 end

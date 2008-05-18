@@ -8,6 +8,7 @@ uses
 
 type
   TFormSplash = class(TForm)
+    Panel1: TPanel;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
