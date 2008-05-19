@@ -9,9 +9,9 @@ uses
 type
   TFormWait = class(TForm)
     LWPanel1: TLWPanel;
-    Label1: TLabel;
-    Panel1: TPanel;
+    lblBg: TLabel;
     PB: TLWProgressBar;
+    LWPanel2: TLWPanel;
     procedure FormShow(Sender: TObject);
     procedure FormHide(Sender: TObject);
     procedure FormCreate(Sender: TObject);

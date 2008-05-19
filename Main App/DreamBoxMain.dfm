@@ -1,6 +1,6 @@
 object FormMain: TFormMain
-  Left = 283
-  Top = 135
+  Left = 291
+  Top = 132
   AutoScroll = False
   Caption = 'LlamaWare DreamBoxEdit - untitled'
   ClientHeight = 679
@@ -124,9 +124,9 @@ object FormMain: TFormMain
   end
   object lwpnlMain: TLWPanel
     Left = 0
-    Top = 65
+    Top = 63
     Width = 969
-    Height = 595
+    Height = 597
     Align = alClient
     BevelOuter = bvNone
     Color = 16378331
@@ -136,7 +136,7 @@ object FormMain: TFormMain
     object spltrLeft: TSplitter
       Left = 598
       Top = 0
-      Height = 595
+      Height = 597
       Align = alRight
       Color = clSkyBlue
       ParentColor = False
@@ -145,7 +145,7 @@ object FormMain: TFormMain
       Left = 601
       Top = 0
       Width = 368
-      Height = 595
+      Height = 597
       Align = alRight
       BevelOuter = bvNone
       Color = 16378331
@@ -155,7 +155,7 @@ object FormMain: TFormMain
       object spltrRight: TSplitter
         Left = 190
         Top = 0
-        Height = 595
+        Height = 597
         Align = alRight
         Color = clSkyBlue
         ParentColor = False
@@ -164,7 +164,7 @@ object FormMain: TFormMain
         Left = 193
         Top = 0
         Width = 175
-        Height = 595
+        Height = 597
         Align = alRight
         BevelOuter = bvNone
         Caption = 'Bouquets'
@@ -179,10 +179,10 @@ object FormMain: TFormMain
         LineWidth1 = 2
         DesignSize = (
           175
-          595)
+          597)
         object LWPanel3: TLWPanel
           Left = 2
-          Top = 574
+          Top = 576
           Width = 172
           Height = 20
           Anchors = [akLeft, akRight, akBottom]
@@ -236,7 +236,7 @@ object FormMain: TFormMain
           Left = 2
           Top = 20
           Width = 172
-          Height = 552
+          Height = 554
           Anchors = [akLeft, akTop, akRight, akBottom]
           DragMode = dmAutomatic
           Font.Charset = DEFAULT_CHARSET
@@ -268,7 +268,7 @@ object FormMain: TFormMain
         Left = 0
         Top = 0
         Width = 190
-        Height = 595
+        Height = 597
         Align = alClient
         BevelOuter = bvNone
         Caption = 'Details'
@@ -284,12 +284,12 @@ object FormMain: TFormMain
         LineWidth1 = 2
         DesignSize = (
           190
-          595)
+          597)
         object lvDet: TListView
           Left = 2
           Top = 40
           Width = 185
-          Height = 531
+          Height = 533
           Anchors = [akLeft, akTop, akRight, akBottom]
           Columns = <
             item
@@ -339,7 +339,7 @@ object FormMain: TFormMain
         end
         object LWPanel4: TLWPanel
           Left = 2
-          Top = 574
+          Top = 576
           Width = 185
           Height = 20
           Anchors = [akLeft, akRight, akBottom]
@@ -428,7 +428,7 @@ object FormMain: TFormMain
       Left = 0
       Top = 0
       Width = 598
-      Height = 595
+      Height = 597
       Align = alClient
       BevelOuter = bvNone
       Caption = 'Services'
@@ -443,12 +443,12 @@ object FormMain: TFormMain
       LineWidth1 = 2
       DesignSize = (
         598
-        595)
+        597)
       object lvServ: TListView
         Left = 2
         Top = 22
         Width = 594
-        Height = 548
+        Height = 550
         Anchors = [akLeft, akTop, akRight, akBottom]
         Columns = <
           item
@@ -602,7 +602,7 @@ object FormMain: TFormMain
       end
       object LWPanel2: TLWPanel
         Left = 2
-        Top = 572
+        Top = 574
         Width = 503
         Height = 23
         Anchors = [akLeft, akRight, akBottom]
@@ -768,7 +768,7 @@ object FormMain: TFormMain
     Left = 0
     Top = 0
     Width = 969
-    Height = 65
+    Height = 63
     Align = alTop
     BevelOuter = bvLowered
     TabOrder = 2
@@ -776,7 +776,7 @@ object FormMain: TFormMain
       Left = 1
       Top = 1
       Width = 878
-      Height = 63
+      Height = 61
       Align = alClient
       BevelEdges = [beLeft, beTop, beBottom]
       Color = clBtnFace
@@ -790,7 +790,6 @@ object FormMain: TFormMain
         Height = 24
         UseSystemFont = False
         ActionManager = ActionManager1
-        Caption = 'ActionMainMenuBar1'
         ColorMap.HighlightColor = 15660791
         ColorMap.BtnSelectedColor = clBtnFace
         ColorMap.UnusedColor = 15660791
@@ -806,21 +805,23 @@ object FormMain: TFormMain
         Left = 11
         Top = 30
         Width = 158
-        Height = 52
+        Height = 24
         ActionManager = ActionManager1
         Caption = 'ActionToolBar1'
         ColorMap.HighlightColor = 15660791
         ColorMap.BtnSelectedColor = clBtnFace
         ColorMap.UnusedColor = 15660791
+        HorzMargin = 0
         ParentBackground = True
         Spacing = 0
+        VertMargin = 0
       end
     end
     object lwpnlCornerImage: TLWPanel
       Left = 879
       Top = 1
       Width = 89
-      Height = 63
+      Height = 61
       Align = alRight
       BevelOuter = bvNone
       BorderWidth = 1
@@ -833,7 +834,7 @@ object FormMain: TFormMain
         Left = 1
         Top = 1
         Width = 83
-        Height = 57
+        Height = 55
         Align = alClient
         Center = True
         Picture.Data = {
@@ -1247,8 +1248,8 @@ object FormMain: TFormMain
   object MainMenu1: TMainMenu
     AutoHotkeys = maManual
     OwnerDraw = True
-    Left = 88
-    Top = 208
+    Left = 512
+    Top = 184
     object fmFile: TMenuItem
       AutoHotkeys = maManual
       Caption = 'File'
@@ -1403,8 +1404,8 @@ object FormMain: TFormMain
   object ImageList1: TImageList
     Height = 22
     Width = 22
-    Left = 352
-    Top = 208
+    Left = 224
+    Top = 160
     Bitmap = {
       494C01010B000E00040016001600FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000580000005800000001002000000000000079
@@ -2602,8 +2603,8 @@ object FormMain: TFormMain
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 416
-    Top = 143
+    Left = 288
+    Top = 119
   end
   object cdsPos: TClientDataSet
     Aggregates = <>
@@ -2625,8 +2626,8 @@ object FormMain: TFormMain
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 353
-    Top = 128
+    Left = 225
+    Top = 120
   end
   object puDet: TPopupMenu
     AutoHotkeys = maManual
@@ -2774,8 +2775,8 @@ object FormMain: TFormMain
     BeforePost = cdsSatXMLBeforePost
     AfterPost = cdsSatXMLAfterPost
     AfterDelete = cdsSatXMLAfterDelete
-    Left = 385
-    Top = 136
+    Left = 257
+    Top = 120
   end
   object cdsFTV: TClientDataSet
     Aggregates = <>
@@ -2830,8 +2831,8 @@ object FormMain: TFormMain
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 697
-    Top = 88
+    Left = 617
+    Top = 136
   end
   object cdsFRD: TClientDataSet
     Aggregates = <>
@@ -2886,8 +2887,8 @@ object FormMain: TFormMain
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 697
-    Top = 120
+    Left = 617
+    Top = 168
   end
   object cdsFBQ: TClientDataSet
     Aggregates = <>
@@ -2942,15 +2943,15 @@ object FormMain: TFormMain
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 697
-    Top = 152
+    Left = 617
+    Top = 200
   end
   object TimerDetScroll: TTimer
     Enabled = False
     Interval = 100
     OnTimer = TimerDetScrollTimer
-    Left = 512
-    Top = 399
+    Left = 256
+    Top = 239
   end
   object puTV: TPopupMenu
     AutoHotkeys = maManual
@@ -3086,28 +3087,28 @@ object FormMain: TFormMain
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 729
-    Top = 152
+    Left = 649
+    Top = 200
   end
   object TimertvScroll: TTimer
     Enabled = False
     Interval = 100
     OnTimer = TimertvScrollTimer
-    Left = 707
-    Top = 401
+    Left = 619
+    Top = 241
   end
   object expd: TSaveDialog
-    Left = 25
-    Top = 368
+    Left = 57
+    Top = 112
   end
   object od: TOpenDialog
     Options = [ofPathMustExist, ofFileMustExist, ofEnableSizing, ofForceShowHidden]
-    Left = 153
-    Top = 104
+    Left = 17
+    Top = 112
   end
   object MultiLang: TLWLanguage
-    Left = 425
-    Top = 384
+    Left = 513
+    Top = 224
   end
   object cdsLock: TClientDataSet
     Aggregates = <>
@@ -3160,8 +3161,8 @@ object FormMain: TFormMain
     Enabled = False
     Interval = 100
     OnTimer = TimerCheckVersionOnTimer
-    Left = 273
-    Top = 320
+    Left = 225
+    Top = 240
   end
   object puLogo: TPopupMenu
     AutoHotkeys = maManual
@@ -3182,22 +3183,18 @@ object FormMain: TFormMain
     end
   end
   object HTTP1: TIdHTTP
-    MaxLineAction = maException
-    ReadTimeout = 0
     AllowCookies = True
     HandleRedirects = True
     ProxyParams.BasicAuthentication = False
     ProxyParams.ProxyPort = 0
     Request.ContentLength = -1
-    Request.ContentRangeEnd = 0
-    Request.ContentRangeStart = 0
     Request.ContentType = 'text/html'
     Request.Accept = 'text/html, */*'
     Request.BasicAuthentication = False
     Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
     HTTPOptions = [hoForceEncodeParams]
-    Left = 129
-    Top = 304
+    Left = 225
+    Top = 200
   end
   object cdsServComp: TClientDataSet
     Aggregates = <>
@@ -3709,8 +3706,8 @@ object FormMain: TFormMain
         ActionBar = ActionToolBar1
       end>
     Images = ilNewMenu
-    Left = 904
-    Top = 143
+    Left = 120
+    Top = 305
     StyleName = 'XP Style'
     object acFileOpen: TAction
       Category = 'File'
@@ -3872,8 +3869,8 @@ object FormMain: TFormMain
     end
   end
   object ilNewMenu: TImageList
-    Left = 904
-    Top = 180
+    Left = 86
+    Top = 305
     Bitmap = {
       494C01010A000E00040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
@@ -4409,5 +4406,16 @@ object FormMain: TFormMain
       F8008000FC3FF01FF8008000FC3FF83FFC01C000FC3FFC7FFC01C000FC7FFEFF
       FE03E000FFFFFFFFFF8FF800FFFFFFFF00000000000000000000000000000000
       000000000000}
+  end
+  object XPManifest1: TXPManifest
+    Left = 18
+    Top = 305
+  end
+  object XPColorMap1: TXPColorMap
+    HighlightColor = 15660791
+    BtnSelectedColor = clBtnFace
+    UnusedColor = 15660791
+    Left = 50
+    Top = 305
   end
 end

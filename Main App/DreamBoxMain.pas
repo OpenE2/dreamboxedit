@@ -9,7 +9,7 @@ uses
   StrUtils, jpeg, DBCtrls, dbcgrids, Buttons, IdBaseComponent, IdComponent,
   IdTCPConnection, IdTCPClient, Sockets, CommCtrl, LWLanguage, IdFTP, DateUtils,
   MidasLib, IdHTTP, ActnList, ActnCtrls, ActnMan, ActnMenus,
-  XPStyleActnCtrls;
+  XPStyleActnCtrls, ActnColorMaps, XPMan;
 
 type
   TListData = record
@@ -231,6 +231,8 @@ type
     imgCorner: TImage;
     pnlTopBar: TPanel;
     lwpnlCornerImage: TLWPanel;
+    XPManifest1: TXPManifest;
+    XPColorMap1: TXPColorMap;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure sbDrawPanel(StatusBar: TStatusBar;

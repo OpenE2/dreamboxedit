@@ -1509,11 +1509,11 @@ object FormOptions: TFormOptions
     Top = 96
   end
   object FTP1: TIdFTP
-    MaxLineAction = maException
-    ReadTimeout = 10000
+    AutoLogin = True
     Passive = True
     ProxySettings.ProxyType = fpcmNone
     ProxySettings.Port = 0
+    ReadTimeout = 10000
     Left = 720
     Top = 56
   end

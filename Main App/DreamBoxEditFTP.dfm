@@ -564,19 +564,16 @@ object FormFTP: TFormFTP
   end
   object FTP: TIdFTP
     OnStatus = FTPStatus
-    MaxLineAction = maException
-    ReadTimeout = 0
+    AutoLogin = True
     Passive = True
     ProxySettings.ProxyType = fpcmNone
     ProxySettings.Port = 0
+    ReadTimeout = 0
     Left = 304
     Top = 248
   end
   object Telnet: TIdTelnet
     OnStatus = TelnetStatus
-    MaxLineAction = maException
-    ReadTimeout = 0
-    Port = 23
     OnDataAvailable = TelnetDataAvailable
     Terminal = 'dumb'
     Left = 576
