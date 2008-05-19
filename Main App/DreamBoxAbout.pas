@@ -4,27 +4,27 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ExtCtrls, jpeg, Registry, LWBtn, ShellApi;
+  StdCtrls, ExtCtrls, jpeg, Registry, LWBtn, ShellApi, LWPanel;
 
 type
   TFormAbout = class(TForm)
-    PanelMain: TPanel;
-    Image2: TImage;
-    Bevel1: TBevel;
-    _Label6: TLabel;
     _lVersion: TLabel;
-    _Label7: TLabel;
-    _Label8: TLabel;
-    _Label9: TLabel;
-    Bevel2: TBevel;
-    Image1: TImage;
+    lblYear: TLabel;
+    lblCompany: TLabel;
+    lblTM: TLabel;
     _bOK: TLWButton;
-    _lEmail: TLabel;
-    LabelContact: TLabel;
-    Bevel3: TBevel;
-    _Label1: TLabel;
-    _Label4: TLabel;
+    lblThanks: TLabel;
+    lblWebsite: TLabel;
     _bCheckNewVersion: TLWButton;
+    lwpnlCornerImage: TLWPanel;
+    imgCorner: TImage;
+    LWPanel1: TLWPanel;
+    LWPanel2: TLWPanel;
+    lblContact: TLabel;
+    _lEmail: TLabel;
+    Label2: TLabel;
+    Label1: TLabel;
+    Image1: TImage;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure _lEmailClick(Sender: TObject);

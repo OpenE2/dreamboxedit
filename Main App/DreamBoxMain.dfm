@@ -764,7 +764,7 @@ object FormMain: TFormMain
       end
     end
   end
-  object pnlTopBar: TPanel
+  object pnlTopBar: TLWPanel
     Left = 0
     Top = 0
     Width = 969
@@ -772,10 +772,13 @@ object FormMain: TFormMain
     Align = alTop
     BevelOuter = bvLowered
     TabOrder = 2
+    Effect = GradientV
+    Color1 = 16568728
+    Color2 = clWhite
     object ctrlBarMain: TControlBar
       Left = 1
       Top = 1
-      Width = 878
+      Width = 879
       Height = 61
       Align = alClient
       BevelEdges = [beLeft, beTop, beBottom]
@@ -783,6 +786,7 @@ object FormMain: TFormMain
       ParentColor = False
       RowSize = 28
       TabOrder = 0
+      OnPaint = ctrlBarMainPaint
       object ActionMainMenuBar1: TActionMainMenuBar
         Left = 11
         Top = 2
@@ -818,9 +822,9 @@ object FormMain: TFormMain
       end
     end
     object lwpnlCornerImage: TLWPanel
-      Left = 879
+      Left = 880
       Top = 1
-      Width = 89
+      Width = 88
       Height = 61
       Align = alRight
       BevelOuter = bvNone
@@ -833,7 +837,7 @@ object FormMain: TFormMain
       object imgCorner: TImage
         Left = 1
         Top = 1
-        Width = 83
+        Width = 82
         Height = 55
         Align = alClient
         Center = True

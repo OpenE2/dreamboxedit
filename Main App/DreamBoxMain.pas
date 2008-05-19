@@ -9,7 +9,7 @@ uses
   StrUtils, jpeg, DBCtrls, dbcgrids, Buttons, IdBaseComponent, IdComponent,
   IdTCPConnection, IdTCPClient, Sockets, CommCtrl, LWLanguage, IdFTP, DateUtils,
   MidasLib, IdHTTP, ActnList, ActnCtrls, ActnMan, ActnMenus,
-  XPStyleActnCtrls, ActnColorMaps, XPMan;
+  XPStyleActnCtrls, ActnColorMaps, XPMan, uHelpers;
 
 type
   TListData = record
@@ -229,7 +229,7 @@ type
     ilNewMenu: TImageList;
     acViewFTPSettings: TAction;
     imgCorner: TImage;
-    pnlTopBar: TPanel;
+    pnlTopBar: TLWPanel;
     lwpnlCornerImage: TLWPanel;
     XPManifest1: TXPManifest;
     XPColorMap1: TXPColorMap;
@@ -391,6 +391,7 @@ type
     procedure acShowLogExecute(Sender: TObject);
     procedure acHelpContentsExecute(Sender: TObject);
     procedure acAboutExecute(Sender: TObject);
+    procedure ctrlBarMainPaint(Sender: TObject);
   private
     { Private declarations }
     lvDetColumnToSort: Integer;
@@ -11667,6 +11668,13 @@ end;
 procedure TFormMain.acAboutExecute(Sender: TObject);
 begin
   FormAbout.ShowModal();
+end;
+
+procedure TFormMain.ctrlBarMainPaint(Sender: TObject);
+begin
+  GradHorizontal(ctrlBarMain.Canvas, ctrlBarMain.ClientRect, clWhite,
+   $00FCD198);
+
 end;
 
 end.
