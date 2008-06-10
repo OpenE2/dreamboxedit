@@ -4,27 +4,27 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ExtCtrls, jpeg, Registry, LWBtn, ShellApi, LWPanel;
+  StdCtrls, ExtCtrls, jpeg, Registry, LWBtn, ShellApi;
 
 type
   TFormAbout = class(TForm)
+    PanelMain: TPanel;
+    Image2: TImage;
+    Bevel1: TBevel;
+    _Label6: TLabel;
     _lVersion: TLabel;
-    lblYear: TLabel;
-    lblCompany: TLabel;
-    lblTM: TLabel;
-    _bOK: TLWButton;
-    lblThanks: TLabel;
-    lblWebsite: TLabel;
-    _bCheckNewVersion: TLWButton;
-    lwpnlCornerImage: TLWPanel;
-    imgCorner: TImage;
-    LWPanel1: TLWPanel;
-    LWPanel2: TLWPanel;
-    lblContact: TLabel;
-    _lEmail: TLabel;
-    Label2: TLabel;
-    Label1: TLabel;
+    _Label7: TLabel;
+    _Label8: TLabel;
+    _Label9: TLabel;
+    Bevel2: TBevel;
     Image1: TImage;
+    _bOK: TLWButton;
+    _lEmail: TLabel;
+    LabelContact: TLabel;
+    Bevel3: TBevel;
+    _Label1: TLabel;
+    _Label4: TLabel;
+    _bCheckNewVersion: TLWButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure _lEmailClick(Sender: TObject);
@@ -143,7 +143,7 @@ end;
 
 procedure TFormAbout._bCheckNewVersionClick(Sender: TObject);
 begin
-  FormMain.acCheckForUpdatesExecute(Sender);
+  FormMain.fmCheckfornewversionClick(Self);
 end;
 
 end.

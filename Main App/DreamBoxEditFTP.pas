@@ -852,8 +852,7 @@ begin
   if FTPGetFiles(FormMain.Dir,False,cbSelectiveReceive.Checked,False)
   then begin;
     FormMain.AutoOpen := True;
-    //FormMain.tbOpen.Click();
-    FormMain.acFileOpenExecute(Sender);
+    FormMain.tbOpen.Click();
     ModalResult := mrOK;
     if FormMain.ShowResultMsg
     then begin;
@@ -891,19 +890,18 @@ begin
   then Silent := False
   else Silent := True;
 
-  //if FormMain.tbSave.Enabled
-  if FormMain.acFileSave.Enabled then
-  begin
+  if FormMain.tbSave.Enabled
+  then begin;
     r := MessageDlg(FormMain.lwLngTrns(name,[
                     'There are changes made that are not yet saved!~' +
                     'You have to save them before they can be transferred to the Dreambox!~~' +
                     'Save them now?']),
                     mtWarning,[mbYes,mbNo,mbCancel],0);
-    if r = mrYes then
-      //FormMain.tbSave.Click()
-      FormMain.acFileSaveExecute(Sender)
+    if r = mrYes
+    then FormMain.tbSave.Click()
     else
-      if r = mrCancel then exit;
+      if r = mrCancel
+      then exit;
   end;
 
   if FormMain.Dir = ''

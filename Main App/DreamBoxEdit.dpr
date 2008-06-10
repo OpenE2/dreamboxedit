@@ -23,8 +23,7 @@ uses
   DreamBoxEditCompareSets in 'DreamBoxEditCompareSets.pas' {FormCompareSet},
   DreamBoxEditTransponder in 'DreamBoxEditTransponder.pas' {FormTransponder},
   DreamBoxEditNewVersion in 'DreamBoxEditNewVersion.pas' {FormNewVersion},
-  DreamBoxEditSelDir in 'DreamBoxEditSelDir.pas' {FormSelDir},
-  uHelpers in 'uHelpers.pas';
+  DreamBoxEditSelDir in 'DreamBoxEditSelDir.pas' {FormSelDir};
 
 {$R *.res}
 
@@ -32,7 +31,7 @@ begin
   FormSplash := TFormSplash.Create(Application);
   FormSplash.Show;
   FormSplash.Update;
-  Sleep(5000);
+  Sleep(1000);
 
   Application.Initialize;
   Application.Title := 'DreamBoxEdit';

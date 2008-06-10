@@ -1509,7 +1509,7 @@ object FormOptions: TFormOptions
     Top = 96
   end
   object FTP1: TIdFTP
-    AutoLogin = True
+    AutoLogin = False
     Passive = True
     ProxySettings.ProxyType = fpcmNone
     ProxySettings.Port = 0

@@ -506,16 +506,12 @@ begin
 
   if cbQuickFTP.Checked
   then begin;
-    //FormMain.tbFFTPDown.Visible := True;
-    //FormMain.tbFFTPUp.Visible := True;
-    FormMain.acFastDownloadSettings.Enabled := True;
-    FormMain.acFastUploadSettings.Enabled := True;
+    FormMain.tbFFTPDown.Visible := True;
+    FormMain.tbFFTPUp.Visible := True;
   end
   else begin;
-    //FormMain.tbFFTPDown.Visible := False;
-    //FormMain.tbFFTPUp.Visible := False;
-    FormMain.acFastDownloadSettings.Enabled := False;
-    FormMain.acFastUploadSettings.Enabled := False;
+    FormMain.tbFFTPDown.Visible := False;
+    FormMain.tbFFTPUp.Visible := False;
   end;
 
   FormMain.StatusBarShowIPInfo();
@@ -576,16 +572,15 @@ begin
   if ColorDialog1.Execute
   then begin;
     pMainColor.Color := ColorDialog1.Color;
-    //FormMain.ToolBar1.Color := ColorDialog1.Color;
-    FormMain.ActionToolBar1.Color := ColorDialog1.Color;
+    FormMain.ToolBar1.Color := ColorDialog1.Color;
     FormMain.lwPanelL.Color := ColorDialog1.Color;
     FormMain.lwPanelL.Color2 := ColorDialog1.Color;
     FormMain.lwPanelRL.Color := ColorDialog1.Color;
     FormMain.lwPanelRL.Color2 := ColorDialog1.Color;
     FormMain.lwPanelRR.Color := ColorDialog1.Color;
     FormMain.lwPanelRR.Color2 := ColorDialog1.Color;
-    FormMain.spltrLeft.Color := pSplitterColor.Color;
-    FormMain.spltrRight.Color := pSplitterColor.Color;
+    FormMain.Splitter1.Color := pSplitterColor.Color;
+    FormMain.Splitter2.Color := pSplitterColor.Color;
     FormMain.lwPanel2.Color1 := ColorDialog1.Color;
     FormMain.lwPanel3.Color1 := ColorDialog1.Color;
     FormMain.lwPanel4.Color1 := ColorDialog1.Color;
@@ -596,8 +591,7 @@ procedure TFormOptions.bDefaultColorsClick(Sender: TObject);
 begin
   pMainColor.Color := $00F9E9DB;
   pSplitterColor.Color := clSkyBlue;
-  //FormMain.ToolBar1.Color := pMainColor.Color;
-  FormMain.ActionToolBar1.Color := pMainColor.Color;
+  FormMain.ToolBar1.Color := pMainColor.Color;
   FormMain.lwPanelL.Color := pMainColor.Color;
   FormMain.lwPanelL.Color2 := pMainColor.Color;
   FormMain.lwPanelRL.Color := pMainColor.Color;
@@ -607,16 +601,15 @@ begin
   FormMain.LWPanel2.Color1 := pMainColor.Color;
   FormMain.LWPanel3.Color1 := pMainColor.Color;
   FormMain.LWPanel4.Color1 := pMainColor.Color;
-  FormMain.spltrLeft.Color := pSplitterColor.Color;
-  FormMain.spltrRight.Color := pSplitterColor.Color;
+  FormMain.Splitter1.Color := pSplitterColor.Color;
+  FormMain.Splitter2.Color := pSplitterColor.Color;
 end;
 
 procedure TFormOptions.bCancelClick(Sender: TObject);
 begin
   if pMainColor.Color <> OldMainColor
   then begin;
-    //FormMain.ToolBar1.Color := OldMainColor;
-    FormMain.ActionToolBar1.Color := OldMainColor;
+    FormMain.ToolBar1.Color := OldMainColor;
     FormMain.lwPanelL.Color := OldMainColor;
     FormMain.lwPanelL.Color2 := OldMainColor;
     FormMain.lwPanelRL.Color := OldMainColor;
@@ -629,8 +622,8 @@ begin
   end;
   if pSplitterColor.Color <> OldSplitterColor
   then begin;
-    FormMain.spltrLeft.Color := OldSplitterColor;
-    FormMain.spltrRight.Color := OldSplitterColor;
+    FormMain.Splitter1.Color := OldSplitterColor;
+    FormMain.Splitter2.Color := OldSplitterColor;
   end;
 end;
 
@@ -643,7 +636,7 @@ begin
 
   FormMain.lvServ.Width := FormMain.lwPanelL.Width - 4;
   FormMain.lvDet.Width := FormMain.lwPanelRL.Width - 5;
-  FormMain.tvBouquets.Width := FormMain.lwPanelRR.Width - 3;
+  FormMain.tv.Width := FormMain.lwPanelRR.Width - 3;
 
   FormMain.lvServ.Columns[0].Width := 100;
   FormMain.lvServ.Columns[1].Width := 100;
@@ -682,8 +675,8 @@ begin
   if ColorDialog1.Execute
   then begin;
     pSplitterColor.Color := ColorDialog1.Color;
-    FormMain.spltrLeft.Color := ColorDialog1.Color;
-    FormMain.spltrRight.Color := ColorDialog1.Color;
+    FormMain.Splitter1.Color := ColorDialog1.Color;
+    FormMain.Splitter2.Color := ColorDialog1.Color;
   end;
 end;
 

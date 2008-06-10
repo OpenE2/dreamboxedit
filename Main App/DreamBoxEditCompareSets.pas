@@ -467,13 +467,13 @@ begin
         if not newbq
         then begin;
           newbq := True;
-          for j := 0 to FormMain.tvBouquets.Items.Count - 1 do begin;
-            if (FormMain.tvBouquets.Items.Item[j].Level = 1) and
-               (FormMain.tvBouquets.Items.Item[j].Parent.Text[1] = 'P')
+          for j := 0 to FormMain.tv.Items.Count - 1 do begin;
+            if (FormMain.tv.Items.Item[j].Level = 1) and
+               (FormMain.tv.Items.Item[j].Parent.Text[1] = 'P')
             then begin;
-              if FormMain.tvBouquets.Items.Item[j].Text = eNewBouquetName.Text
+              if FormMain.tv.Items.Item[j].Text = eNewBouquetName.Text
               then begin;
-                pListData := FormMain.tvBouquets.Items.Item[j].Data;
+                pListData := FormMain.tv.Items.Item[j].Data;
                 bnr := IntToStr(pListData.Number);
                 break;
               end;
@@ -486,7 +486,7 @@ begin
             pListData.FileName := ld.FileName;
             pListData.Number := ld.Number;
             pListData.Locked := False;
-            FormMain.tvBouquets.Items.AddChildObject(FormMain.tnBQ,eNewBouquetName.Text,pListData);
+            FormMain.tv.Items.AddChildObject(FormMain.tnBQ,eNewBouquetName.Text,pListData);
             FormMain.tnBQ.AlphaSort(True);
             bnr := IntToStr(ld.Number);
           end;

@@ -564,11 +564,10 @@ object FormFTP: TFormFTP
   end
   object FTP: TIdFTP
     OnStatus = FTPStatus
-    AutoLogin = True
+    AutoLogin = False
     Passive = True
     ProxySettings.ProxyType = fpcmNone
     ProxySettings.Port = 0
-    ReadTimeout = 0
     Left = 304
     Top = 248
   end
