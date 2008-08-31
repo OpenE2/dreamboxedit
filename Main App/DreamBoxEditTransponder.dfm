@@ -147,9 +147,9 @@ object FormTransponder: TFormTransponder
     end
     object GroupBox4: TGroupBox
       Left = 8
-      Top = 56
+      Top = 57
       Width = 425
-      Height = 291
+      Height = 290
       Anchors = [akLeft, akTop, akBottom]
       Caption = 'Transponder Data'
       Color = clBtnFace
@@ -163,7 +163,7 @@ object FormTransponder: TFormTransponder
       TabOrder = 2
       DesignSize = (
         425
-        291)
+        290)
       object Label5: TLabel
         Left = 8
         Top = 128
@@ -382,7 +382,7 @@ object FormTransponder: TFormTransponder
       end
       object Label31: TLabel
         Left = 8
-        Top = 270
+        Top = 269
         Width = 345
         Height = 13
         Anchors = [akLeft, akBottom]

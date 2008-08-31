@@ -645,7 +645,7 @@ object FormOptions: TFormOptions
           object bDefaultsForSat: TButton
             Left = 16
             Top = 168
-            Width = 177
+            Width = 129
             Height = 25
             Caption = 'Satellite receiver'
             Font.Charset = DEFAULT_CHARSET
@@ -658,9 +658,9 @@ object FormOptions: TFormOptions
             OnClick = bDefaultsForSatClick
           end
           object bDefaultsForCable: TButton
-            Left = 200
+            Left = 152
             Top = 168
-            Width = 177
+            Width = 113
             Height = 25
             Anchors = [akTop, akRight]
             Caption = 'Cable receiver'
@@ -674,12 +674,12 @@ object FormOptions: TFormOptions
             OnClick = bDefaultsForCableClick
           end
           object bDefaultsFor7025: TButton
-            Left = 384
+            Left = 272
             Top = 168
-            Width = 177
+            Width = 153
             Height = 25
             Anchors = [akTop, akRight]
-            Caption = 'Version 3 settings (7025)'
+            Caption = 'Version 3 settings (Enigma2)'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -688,6 +688,15 @@ object FormOptions: TFormOptions
             ParentFont = False
             TabOrder = 5
             OnClick = bDefaultsFor7025Click
+          end
+          object bDefaultsNewEnigma2: TButton
+            Left = 432
+            Top = 168
+            Width = 137
+            Height = 25
+            Caption = 'New Enigma2 settings'
+            TabOrder = 6
+            OnClick = bDefaultsNewEnigma2Click
           end
         end
         object bNewProfile: TButton
@@ -1492,6 +1501,109 @@ object FormOptions: TFormOptions
             ParentFont = False
             TabOrder = 1
             OnClick = bRDDefaultsClick
+          end
+        end
+      end
+      object TabSheet2: TTabSheet
+        Caption = 'Picon'
+        ImageIndex = 6
+        object cbPiconActivate: TCheckBox
+          Left = 24
+          Top = 32
+          Width = 401
+          Height = 17
+          Caption = 'Download and show picons for services in bouquets list'
+          TabOrder = 0
+        end
+        object GroupBox5: TGroupBox
+          Left = 24
+          Top = 72
+          Width = 377
+          Height = 185
+          Caption = 'Upload picons '
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clHotLight
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+          object Label14: TLabel
+            Left = 24
+            Top = 56
+            Width = 138
+            Height = 13
+            Caption = 'Path for picons on dreambox:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+          end
+          object Label18: TLabel
+            Left = 26
+            Top = 109
+            Width = 197
+            Height = 13
+            Caption = 'Reset to default Dreambox Picon archive:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+          end
+          object cbPiconUpload: TCheckBox
+            Left = 24
+            Top = 32
+            Width = 305
+            Height = 17
+            Caption = 'Upload picons when sending files to Dreambox'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+          end
+          object ePathPicons: TEdit
+            Left = 24
+            Top = 72
+            Width = 321
+            Height = 21
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 1
+          end
+          object bPiconUSB: TButton
+            Left = 24
+            Top = 127
+            Width = 89
+            Height = 25
+            Caption = 'USB'
+            TabOrder = 2
+          end
+          object bPiconHdd: TButton
+            Left = 140
+            Top = 127
+            Width = 89
+            Height = 25
+            Caption = 'HDD'
+            TabOrder = 3
+          end
+          object bPiconCF: TButton
+            Left = 256
+            Top = 127
+            Width = 89
+            Height = 25
+            Caption = 'CF'
+            TabOrder = 4
           end
         end
       end

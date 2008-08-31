@@ -1079,9 +1079,9 @@ object FormAbout: TFormAbout
     object _lVersion: TLabel
       Left = 120
       Top = 32
-      Width = 134
+      Width = 158
       Height = 21
-      Caption = 'Preliminary version'
+      Caption = 'Preliminairy V2.02.01'
       Font.Charset = ANSI_CHARSET
       Font.Color = clActiveCaption
       Font.Height = -15

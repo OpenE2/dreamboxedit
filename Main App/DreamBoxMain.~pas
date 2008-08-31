@@ -11543,13 +11543,12 @@ end;
 
 procedure TFormMain.fmSwitchVersion2and3Click(Sender: TObject);
 begin
-
-  case  SettingsVersion of
-   2: SetVersionDefaults(3);
-   3: SetVersionDefaults(4);
-   4: SetVersionDefaults(2);
-  end;
-
+  if SettingsVersion = 2
+  then SetVersionDefaults(3);
+  if SettingsVersion = 3
+  then SetVersionDefaults(4);
+  if SettingsVersion = 4
+  then SetVersionDefaults(2);
   SetMenu('changed');
   MessageDlg(lwLngTrns(name,['The version of the settings set is now changed to %.~~' +
                              'This means that the next time you save this settings set ' +

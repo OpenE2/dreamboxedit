@@ -190,11 +190,12 @@ begin
   if DBFiles.IndexOf(FormMain.PathServices + 'lamedb') >= 0
   then begin;
     if not Compare
-    then FormMain.SetVersionDefaults(3);
-    sv := 3;
-    svfn := 'lamedb';
-    etfn := 'bouquets.tv';
-    erfn := 'bouquets.radio';
+    then
+      FormMain.SetVersionDefaults(3);
+      sv := 3;
+      svfn := 'lamedb';
+      etfn := 'bouquets.tv';
+      erfn := 'bouquets.radio';
   end
   else begin;
     if not Compare

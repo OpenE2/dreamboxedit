@@ -107,6 +107,17 @@ type
     Label11: TLabel;
     mRDTypes: TMemo;
     bRDDefaults: TButton;
+    TabSheet2: TTabSheet;
+    cbPiconActivate: TCheckBox;
+    GroupBox5: TGroupBox;
+    cbPiconUpload: TCheckBox;
+    ePathPicons: TEdit;
+    Label14: TLabel;
+    bPiconUSB: TButton;
+    bPiconHdd: TButton;
+    bPiconCF: TButton;
+    Label18: TLabel;
+    bDefaultsNewEnigma2: TButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bSaveClick(Sender: TObject);
@@ -138,12 +149,14 @@ type
     procedure bDefaultsFor7025Click(Sender: TObject);
     procedure bTVDefaultsClick(Sender: TObject);
     procedure bRDDefaultsClick(Sender: TObject);
+    procedure bDefaultsNewEnigma2Click(Sender: TObject);
   private
     { Private declarations }
     Loading: Boolean;
     OldMainColor: TColor;
     OldSplitterColor: TColor;
     OnShowTime: Boolean;
+    vers:Integer;
   public
     { Public declarations }
   end;
@@ -513,7 +526,7 @@ begin
     FormMain.tbFFTPDown.Visible := False;
     FormMain.tbFFTPUp.Visible := False;
   end;
-
+  FormMain.SetVersionDefaults(vers);
   FormMain.StatusBarShowIPInfo();
 end;
 
@@ -782,6 +795,7 @@ begin
   if (FormMain.SettingsVersion = 2) and
      (FormMain.lvServ.Items.Count > 0)
   then FormMain.SetMenu('changed');
+  vers:=2;
 end;
 
 procedure TFormOptions.bDefaultsForCableClick(Sender: TObject);
@@ -800,9 +814,11 @@ begin
   ePathServices.Text := '/etc/enigma2/';
   ePathUserBouquets.Text := '/etc/enigma2/';
   ePathSatellites.Text := '/etc/tuxbox/';
-  if (FormMain.SettingsVersion = 2) and
+  if (FormMain.SettingsVersion = 2) or
+     (FormMain.SettingsVersion = 4) and
      (FormMain.lvServ.Items.Count > 0)
-  then FormMain.SetMenu('changed');  
+  then FormMain.SetMenu('changed');
+  vers := 3;
 end;
 
 procedure TFormOptions.eHTTPPortChange(Sender: TObject);
@@ -1013,6 +1029,18 @@ procedure TFormOptions.bRDDefaultsClick(Sender: TObject);
 begin
   mRDTypes.Clear;
   mRDTypes.Lines.Add('2');
+end;
+
+procedure TFormOptions.bDefaultsNewEnigma2Click(Sender: TObject);
+begin
+     ePathServices.Text := '/etc/enigma2/';
+     ePathUserBouquets.Text := '/etc/enigma2/';
+     ePathSatellites.Text := '/etc/tuxbox/';
+     if (FormMain.SettingsVersion = 2) or
+     (FormMain.SettingsVersion = 3) and
+     (FormMain.lvServ.Items.Count > 0)
+  then FormMain.SetMenu('changed');
+  vers := 4;
 end;
 
 end.
