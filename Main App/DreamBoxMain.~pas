@@ -399,6 +399,7 @@ type
     procedure lvDetSave();
     procedure lvDetBuild();
     procedure FormatToolbar();
+    procedure GetPng();
     procedure Deletesatellite(Sender: TObject);
     procedure SearchServices(const option: String);
     function CopyToCB(): Boolean;
@@ -411,6 +412,8 @@ type
     HighDbeNr: Integer;
     DetChanged: Boolean;
     Dir: String;
+    PiconActivate: Boolean;
+    PiconUpload: Boolean;
     AutoOpen: Boolean;
     ShowDetails: Boolean;
     ConfirmDelete: Boolean;
@@ -438,6 +441,7 @@ type
     PathServices: String;
     PathUserBouquets: String;
     PathSatellites: String;
+    PathPicons: String;
     UserTelnetCmd: String;
     DreamboxCmdPrompt: String;
     QuickFTPEnabled: Boolean;
@@ -3316,6 +3320,8 @@ begin
     tv.TopItem := tnTV;
     screen.cursor := crdefault;
     ToolBar1.Enabled := True;
+
+    if PiconActivate then GetPng;
     FormWait.Hide;
 
     cbSatName.ItemIndex := 0;
@@ -3397,102 +3403,6 @@ begin
                               'satellites.xml',Dir]));
     end;
 
-        { PICON start : import needed picon.png
-
-    Start finding which Tv and radio channels we have in the bouquets
-    and make a list of the corresponding png_names (as name or servicereference)}
-
-  
-    servref := TStringList.Create;
-    servref.Add('# TV channels **********');
-    cdsFTV.First;
-    for i := 0 to cdsFTV.RecordCount -1 do
-      begin
-      typ :=  IntToHex(StrToInt(cdsFTV.FieldByName('ftvServType').AsString),1);
-      sid :=  IntToHex(StrToInt(cdsFTV.FieldByName('ftvSID').AsString),1);
-      tsid := IntToHex(StrToInt(cdsFTV.FieldByName('ftvTSID').AsString),1);
-      onid := IntToHex(StrToInt(cdsFTV.FieldByName('ftvNID').AsString),1);
-      namespace := IntToHex(StrToInt(cdsFTV.FieldByName('ftvUniq').AsString),1);
-
-      servref.Add(cdsFTV.FieldByName('ftvName').AsString +
-              '@1_0_'+ typ + '_' + sid  + '_' + tsid + '_' + onid + '_'
-              + namespace + '_0_0_0');
-         cdsFTV.Next;
-      end;
-
-    servref.Add('# Radio channels **********');
-    cdsFRD.First;
-    for i := 0 to cdsFRD.RecordCount -1 do
-      begin
-      typ :=  IntToHex(StrToInt(cdsFRD.FieldByName('frdServType').AsString),1);
-      sid :=  IntToHex(StrToInt(cdsFRD.FieldByName('frdSID').AsString),1);
-      tsid := IntToHex(StrToInt(cdsFRD.FieldByName('frdTSID').AsString),1);
-      onid := IntToHex(StrToInt(cdsFRD.FieldByName('frdNID').AsString),1);
-      namespace := IntToHex(StrToInt(cdsFRD.FieldByName('frdUniq').AsString),1);
-
-      servref.Add(cdsFRD.FieldByName('frdName').AsString +
-              '@1_0_'+ typ + '_' + sid  + '_' + tsid + '_' + onid + '_'
-              + namespace + '_0_0_0');
-         cdsFRD.Next;
-      end;
-
-    {Check if png already exists in local picon-directory
-
-    }
-    if not DirectoryExists(Dir + '\picon') then
-    ForceDirectories(Dir+ '\picon');
-
-    for i := 0 to servref.Count - 1 do
-    begin
-       if copy(servref[i],1,1) = '#' then continue;
-
-       pdel:= LastDelimiter('@', servref[i]);
-       pngsrname := RightStr(servref[i],Length(servref[i])-pdel) ;
-       pngchname :=  TrimRight(LeftStr(servref[i],pdel-1)) ;
-       
-       newDir := Dir + '\picon';
-       if not FileExists(Dir + '\picon\'+pngsrname+'.png') then
-       if DownloadFile('http://dreambox.ingmar.dk/picon/'+pngsrname+'.png',Dir + '\picon\'+pngsrname+'.png')
-       then
-         begin
-         // Showmessage(pngchname);
-          ndel := CountPos('/',pngchname);
-          if ndel > 0 then
-
-            for t1 := 1 to ndel do
-            begin
-               t2 := pos('/', pngchname);
-               newDir := newDir + '\' + (LeftStr(pngchname,t2-1));
-               ForceDirectories(newDir);
-               pngchname := copy(pngchname,t2+1,length(pngchname)-(t2));
-
-            end;
-
-
-         CopyFile(Pchar(Dir + '\picon\'+pngsrname+'.png'),PChar(newDir+ '\'+ pngchname +'.png'),false);
-         end
-       else
-         begin
-           // file not available at server: Request to upload
-          { MessageDlg(lwLngTrns(name,[
-                 'PNG-Server does not contain picon to service reference "%"' +
-                 'Program will show default logo. You can request picon when'+
-                 'mailing us the "misssing_png.txt" file saved in the channellist'+
-                 'directory.',pngsrname]),
-                 mtWarning,[mbOk],0);   }
-            end;
-       //ShowMessage(pngsrname+'('+pngchname+')');
-       if not FileExists(Dir + '\picon\dbe.png') then
-       DownloadFile('http://dreambox.ingmar.dk/picon/dbe.png',Dir + '\picon\dbe.png');
-
-    end;
-
-
-
-   // servref.SaveToFile(Dir +'\test.txt');
-    servref.Free;
-
-    { PICON End}
   end;
 end;
 
@@ -4458,6 +4368,20 @@ begin
     Reg.WriteBool('ConfirmBeforeSort',ConfirmSort);
   end;
 
+  if Reg.ValueExists('PiconActivate')
+  then PiconActivate := Reg.ReadBool('PiconActivate')
+  else begin
+    PiconActivate := False;
+    Reg.WriteBool('PiconActivate',PiconActivate);
+  end;
+
+  if Reg.ValueExists('PiconUpload')
+  then PiconUpload := Reg.ReadBool('PiconUpload')
+  else begin
+    PiconUpload := False;
+    Reg.WriteBool('PiconUpload',PiconUpload);
+  end;
+
   if Reg.ValueExists('ShowResultMessages')
   then ShowResultMsg := Reg.ReadBool('ShowResultMessages')
   else begin;
@@ -4556,6 +4480,13 @@ begin
     Reg.WriteString('Path Satellites',PathSatellites);
   end;
 
+  if Reg.ValueExists('Path Picons')
+  then PathPicons := Reg.ReadString('Path Picons')
+  else begin
+    PathPicons := '/media/usb/picons/';
+    Reg.WriteString('Path Picons', PathPicons);
+  end;
+
   if Reg.ValueExists('Profiles Name')
   then ProfilesName := Reg.ReadString('Profiles Name')
   else begin;
@@ -4571,6 +4502,7 @@ begin
     Reg.WriteString('Profiles Path Services 0',PathServices);
     Reg.WriteString('Profiles Path Userbouquets 0',PathUserbouquets);
     Reg.WriteString('Profiles Path Satellites 0',PathSatellites);
+    Reg.WriteString('Profiles Path Picons 0', PathPicons);
     Reg.WriteInteger('Profiles',1);
   end;
 
@@ -5784,10 +5716,12 @@ begin
                     StringOfChar('-',60) + #13 +
                     lwLngTrns(name,['For this service there are alternatives ' +
                                     'defined on the Dreambox']);
-
 {*** PICON START Loading to bouquets panel:
      first get servicereference from Item.SubItem and then
      load *.png using servicereference_name}
+
+     if PiconActivate = True then
+     begin
 
      typ :=  IntToHex(StrToInt(Item.SubItems[5]),1);
      sid :=  IntToHex(StrToInt(Item.SubItems[2]),1);
@@ -5801,6 +5735,7 @@ begin
      Image1.Picture.LoadFromFile(Dir + '\picon\'+ picon +'.png')
      else
      ImageList2.GetBitmap(0,Image1.Picture.Bitmap);
+     end;
     // Image1.Picture. := ImageList1
    //  Image1.Picture.LoadFromFile(Dir + '\picon\dbe.png');
 {*** Picon END}
@@ -11543,12 +11478,13 @@ end;
 
 procedure TFormMain.fmSwitchVersion2and3Click(Sender: TObject);
 begin
-  if SettingsVersion = 2
-  then SetVersionDefaults(3);
-  if SettingsVersion = 3
-  then SetVersionDefaults(4);
-  if SettingsVersion = 4
-  then SetVersionDefaults(2);
+
+  case  SettingsVersion of
+   2: SetVersionDefaults(3);
+   3: SetVersionDefaults(4);
+   4: SetVersionDefaults(2);
+  end;
+
   SetMenu('changed');
   MessageDlg(lwLngTrns(name,['The version of the settings set is now changed to %.~~' +
                              'This means that the next time you save this settings set ' +
@@ -11729,6 +11665,116 @@ begin
     Result := 0
   else
     Result := (Length(Text) - Length(StringReplace(Text, subtext, '', [rfReplaceAll]))) div Length(subtext);
+end;
+
+Procedure TFormMain.GetPng();
+var
+   servref, misspng: TStringList;
+   i, pdel,ndel, t1, t2: Integer;
+   typ, sid, tsid, onid, namespace, pngchname,pngsrname,newDir : String;
+begin
+              { PICON start : import needed picon.png
+
+    Start finding which Tv and radio channels we have in the bouquets
+    and make a list of the corresponding png_names (as name or servicereference)}
+
+
+    servref := TStringList.Create;
+    misspng := TStringlist.Create;
+    misspng.Add('Missing PNG´s generated '+ DateTimeToStr(now));
+    servref.Add('# TV channels **********');
+    cdsFTV.First;
+    for i := 0 to cdsFTV.RecordCount -1 do
+      begin
+      typ :=  IntToHex(StrToInt(cdsFTV.FieldByName('ftvServType').AsString),1);
+      sid :=  IntToHex(StrToInt(cdsFTV.FieldByName('ftvSID').AsString),1);
+      tsid := IntToHex(StrToInt(cdsFTV.FieldByName('ftvTSID').AsString),1);
+      onid := IntToHex(StrToInt(cdsFTV.FieldByName('ftvNID').AsString),1);
+      namespace := IntToHex(StrToInt(cdsFTV.FieldByName('ftvUniq').AsString),1);
+
+      servref.Add(cdsFTV.FieldByName('ftvName').AsString +
+              '@1_0_'+ typ + '_' + sid  + '_' + tsid + '_' + onid + '_'
+              + namespace + '_0_0_0');
+         cdsFTV.Next;
+      end;
+
+    servref.Add('# Radio channels **********');
+    cdsFRD.First;
+    for i := 0 to cdsFRD.RecordCount -1 do
+      begin
+      typ :=  IntToHex(StrToInt(cdsFRD.FieldByName('frdServType').AsString),1);
+      sid :=  IntToHex(StrToInt(cdsFRD.FieldByName('frdSID').AsString),1);
+      tsid := IntToHex(StrToInt(cdsFRD.FieldByName('frdTSID').AsString),1);
+      onid := IntToHex(StrToInt(cdsFRD.FieldByName('frdNID').AsString),1);
+      namespace := IntToHex(StrToInt(cdsFRD.FieldByName('frdUniq').AsString),1);
+
+      servref.Add(cdsFRD.FieldByName('frdName').AsString +
+              '@1_0_'+ typ + '_' + sid  + '_' + tsid + '_' + onid + '_'
+              + namespace + '_0_0_0');
+         cdsFRD.Next;
+      end;
+
+    {Check if png already exists in local picon-directory
+
+    }
+    if not DirectoryExists(Dir + '\picon') then
+    ForceDirectories(Dir+ '\picon');
+
+    for i := 0 to servref.Count - 1 do
+    begin
+       if copy(servref[i],1,1) = '#' then continue;
+
+       pdel:= LastDelimiter('@', servref[i]);
+       pngsrname := RightStr(servref[i],Length(servref[i])-pdel) ;
+       pngchname :=  TrimRight(LeftStr(servref[i],pdel-1)) ;
+
+       newDir := Dir + '\picon';
+       if not FileExists(Dir + '\picon\'+pngsrname+'.png') then
+       if DownloadFile('http://dreambox.ingmar.dk/picon/'+pngsrname+'.png',Dir + '\picon\'+pngsrname+'.png')
+       then
+         begin
+         // Showmessage(pngchname);
+          ndel := CountPos('/',pngchname);
+          if ndel > 0 then
+
+            for t1 := 1 to ndel do
+            begin
+               t2 := pos('/', pngchname);
+               newDir := newDir + '\' + (LeftStr(pngchname,t2-1));
+               ForceDirectories(newDir);
+               pngchname := copy(pngchname,t2+1,length(pngchname)-(t2));
+
+            end;
+
+
+         CopyFile(Pchar(Dir + '\picon\'+pngsrname+'.png'),PChar(newDir+ '\'+ pngchname +'.png'),false);
+         end
+       else // file not available at server:
+          misspng.Add(pngsrname + ' ' + pngchname);
+             
+       //ShowMessage(pngsrname+'('+pngchname+')');
+       if not FileExists(Dir + '\picon\dbe.png') then
+       DownloadFile('http://dreambox.ingmar.dk/picon/dbe.png',Dir + '\picon\dbe.png');
+
+    end;
+    if not DirectoryExists(Dir + '\missing') then
+    ForceDirectories(Dir+ '\missing');
+    misspng.SaveToFile(Dir+'\missing\missingPng.txt');
+
+    if misspng.Count > 1 then
+           MessageDlg(lwLngTrns(name,[
+                 'PNG-Server does not contain ' + IntToStr(misspng.Count-1) +' picon(s)~' +
+                 'Program will show default logo instead of missing png´s. You can request picon when '+
+                 'mailing us the "misssingPng.txt" file saved in the channellist '+
+                 '"missing" subdirectory.']),
+                 mtWarning,[mbOk],0);
+
+
+   // servref.SaveToFile(Dir +'\test.txt');
+    servref.Free;
+    misspng.Free;
+    { PICON End}
+
 end;
 
 end.

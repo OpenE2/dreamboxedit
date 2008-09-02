@@ -118,6 +118,7 @@ type
     bPiconCF: TButton;
     Label18: TLabel;
     bDefaultsNewEnigma2: TButton;
+    bTVAddHDTV: TButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bSaveClick(Sender: TObject);
@@ -150,6 +151,10 @@ type
     procedure bTVDefaultsClick(Sender: TObject);
     procedure bRDDefaultsClick(Sender: TObject);
     procedure bDefaultsNewEnigma2Click(Sender: TObject);
+    procedure bPiconUSBClick(Sender: TObject);
+    procedure bPiconHddClick(Sender: TObject);
+    procedure bPiconCFClick(Sender: TObject);
+    procedure bTVAddHDTVClick(Sender: TObject);
   private
     { Private declarations }
     Loading: Boolean;
@@ -193,6 +198,9 @@ begin
   if Reg.ValueExists(key)
   then Left := Reg.ReadInteger(key)
   else Left := 300;
+
+  cbPiconActivate.Checked := Reg.ReadBool('PiconActivate');
+  cbPiconUpload.Checked := Reg.ReadBool('PiconUpload');
 
   cbZAPKey.Items[1] := FormMain.lwLngTrns(name,['Spacebar']);
   cbZAPKey.Items[2] := FormMain.lwLngTrns(name,['Double Click']);
@@ -251,6 +259,7 @@ begin
     cdsProfiles.FieldByName('prPathServices').AsString := Reg.ReadString('Profiles Path Services ' + IntToStr(i));
     cdsProfiles.FieldByName('prPathUserbouquets').AsString := Reg.ReadString('Profiles Path Userbouquets ' + IntToStr(i));
     cdsProfiles.FieldByName('prPathSatellites').AsString := Reg.ReadString('Profiles Path Satellites ' + IntToStr(i));
+    cdsProfiles.FieldByName('prPathPicons').AsString := Reg.ReadString('Profiles Path Picons ' + IntToStr(i));
     cdsProfiles.Post;
   end;
   Loading := False;
@@ -267,6 +276,7 @@ begin
   ePathServices.Text := FormMain.PathServices;
   ePathUserBouquets.Text := FormMain.PathUserBouquets;
   ePathSatellites.Text := FormMain.PathSatellites;
+  ePathPicons.Text := FormMain.PathPicons;
 
   eUserTelnetCmd.Text := FormMain.UserTelnetCmd;
   eDreamboxCmdPrompt.Text := FormMain.DreamboxCmdPrompt;
@@ -328,6 +338,13 @@ begin
   Reg := TRegistry.Create;
   Reg.RootKey := HKEY_CURRENT_USER;
   Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
+
+
+  Reg.WriteBool('PiconActivate',cbPiconActivate.Checked);
+  FormMain.PiconActivate := cbPiconActivate.Checked;
+
+  Reg.WriteBool('PiconUpload', cbPiconUpload.Checked);
+  FormMain.PiconUpload := cbPiconUpload.Checked;
 
   Reg.WriteInteger('MainDisplayColor',pMainColor.Color);
   FormMain.MainColor := pMainColor.Color;
@@ -455,6 +472,9 @@ begin
 
   Reg.WriteString('Path Satellites',ePathSatellites.Text);
   FormMain.PathSatellites := ePathSatellites.Text;
+
+  Reg.WriteString('Path Picons', ePathPicons.Text);
+  FormMain.PathPicons := ePathPicons.Text;
 
   Reg.WriteString('User Telnet Command',eUserTelnetCmd.Text);
   FormMain.UserTelnetCmd := eUserTelnetCmd.Text;
@@ -695,6 +715,8 @@ end;
 
 procedure TFormOptions.bSetOptionsToDefaultsClick(Sender: TObject);
 begin
+  cbPiconActivate.Checked := False;
+  cbPiconUpload.Checked := False;
   cbShowDetails.Checked := True;
   cbConfirmDelete.Checked := True;
   cbConfirmSort.Checked := True;
@@ -888,6 +910,7 @@ begin
   cdsProfiles.FieldValues['prPathServices'] := ePathServices.Text;
   cdsProfiles.FieldValues['prPathUserbouquets'] := ePathUserbouquets.Text;
   cdsProfiles.FieldValues['prPathSatellites'] := ePathSatellites.Text;
+  cdsProfiles.FieldValues['PrPathPicons'] := ePathPicons.Text;
   cdsProfiles.Post;
 
   itm.Selected := True;
@@ -926,6 +949,14 @@ begin
     if RightStr(ePathSatellites.Text,1) <> '/'
     then ePathSatellites.Text := ePathSatellites.Text + '/';
 
+    ePathPicons.Text := trim(ePathPicons.Text);
+    if ePathPicons.Text = ''
+    then ePathPicons.Text := '/media/usb/picons/';
+    if LeftStr(ePathPicons.Text,1) <> '/'
+    then ePathPicons.Text := '/' + ePathPicons.Text;
+    if RightStr(ePathPicons.Text,1) <> '/'
+    then ePathPicons.Text := ePathPicons.Text + '/';
+
     Item.Caption := eProfilename.Text;
     cdsProfiles.FindKey([Item.Index]);
     cdsProfiles.Edit;
@@ -939,6 +970,7 @@ begin
     cdsProfiles.FieldValues['prPathServices'] := ePathServices.Text;
     cdsProfiles.FieldValues['prPathUserbouquets'] := ePathUserbouquets.Text;
     cdsProfiles.FieldValues['prPathSatellites'] := ePathSatellites.Text;
+    cdsProfiles.FieldValues['prPathPicons'] := ePathPicons.Text;
     cdsProfiles.Post;
   end
 
@@ -1041,6 +1073,35 @@ begin
      (FormMain.lvServ.Items.Count > 0)
   then FormMain.SetMenu('changed');
   vers := 4;
+end;
+
+procedure TFormOptions.bPiconUSBClick(Sender: TObject);
+begin
+   ePathPicons.Text := '/media/usb/picons/';
+end;
+
+procedure TFormOptions.bPiconHddClick(Sender: TObject);
+begin
+   ePathPicons.Text := '/media/hdd/picons/';
+end;
+
+procedure TFormOptions.bPiconCFClick(Sender: TObject);
+begin
+   ePathPicons.Text := '/media/cf/picons/';
+end;
+
+procedure TFormOptions.bTVAddHDTVClick(Sender: TObject);
+var
+  i: integer;
+  hdtv: boolean;
+begin
+   hdtv:= false;
+   for i := 0 to mTVTypes.Lines.Count -1
+   do begin
+     if trim(mTVTypes.Lines[i]) = '25' then
+     hdtv := True;
+   end;
+   if not hdtv then mTVTypes.Lines.Add('25');
 end;
 
 end.

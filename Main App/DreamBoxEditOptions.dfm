@@ -91,14 +91,14 @@ object FormOptions: TFormOptions
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 765
-    Height = 508
+    Width = 757
+    Height = 506
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
-      765
-      508)
+      757
+      506)
     object bSave: TButton
       Left = 682
       Top = 477
@@ -1404,7 +1404,7 @@ object FormOptions: TFormOptions
             Left = 8
             Top = 88
             Width = 159
-            Height = 177
+            Height = 145
             Hint = 'Default: 1 and 4'
             Anchors = [akLeft, akTop, akRight, akBottom]
             Font.Charset = DEFAULT_CHARSET
@@ -1419,9 +1419,9 @@ object FormOptions: TFormOptions
             TabOrder = 0
           end
           object bTVDefaults: TButton
-            Left = 8
+            Left = 16
             Top = 272
-            Width = 161
+            Width = 153
             Height = 25
             Caption = 'Set to Defaults'
             Font.Charset = ANSI_CHARSET
@@ -1432,6 +1432,15 @@ object FormOptions: TFormOptions
             ParentFont = False
             TabOrder = 1
             OnClick = bTVDefaultsClick
+          end
+          object bTVAddHDTV: TButton
+            Left = 16
+            Top = 240
+            Width = 153
+            Height = 25
+            Caption = 'Add HDTV services'
+            TabOrder = 2
+            OnClick = bTVAddHDTVClick
           end
         end
         object GroupBox4: TGroupBox
@@ -1588,6 +1597,7 @@ object FormOptions: TFormOptions
             Height = 25
             Caption = 'USB'
             TabOrder = 2
+            OnClick = bPiconUSBClick
           end
           object bPiconHdd: TButton
             Left = 140
@@ -1596,6 +1606,7 @@ object FormOptions: TFormOptions
             Height = 25
             Caption = 'HDD'
             TabOrder = 3
+            OnClick = bPiconHddClick
           end
           object bPiconCF: TButton
             Left = 256
@@ -1604,6 +1615,7 @@ object FormOptions: TFormOptions
             Height = 25
             Caption = 'CF'
             TabOrder = 4
+            OnClick = bPiconCFClick
           end
         end
       end
@@ -1682,6 +1694,11 @@ object FormOptions: TFormOptions
       end
       item
         Name = 'prPathSatellites'
+        DataType = ftString
+        Size = 250
+      end
+      item
+        Name = 'prPathPicons'
         DataType = ftString
         Size = 250
       end>

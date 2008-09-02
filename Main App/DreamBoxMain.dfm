@@ -1,6 +1,6 @@
 object FormMain: TFormMain
-  Left = 193
-  Top = 201
+  Left = 194
+  Top = 123
   AutoScroll = False
   Caption = 'LlamaWare DreamBoxEdit - untitled'
   ClientHeight = 544
