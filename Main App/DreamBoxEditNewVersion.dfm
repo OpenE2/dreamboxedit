@@ -20,13 +20,13 @@ object FormNewVersion: TFormNewVersion
     Left = 0
     Top = 0
     Width = 537
-    Height = 555
+    Height = 550
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
       537
-      555)
+      550)
     object Label2: TLabel
       Left = 136
       Top = 16

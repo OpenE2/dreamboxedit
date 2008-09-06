@@ -15,7 +15,6 @@ type
     _lVersion: TLabel;
     _Label7: TLabel;
     _Label8: TLabel;
-    _Label9: TLabel;
     Bevel2: TBevel;
     Image1: TImage;
     _bOK: TLWButton;

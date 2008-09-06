@@ -1101,7 +1101,11 @@ begin
      if trim(mTVTypes.Lines[i]) = '25' then
      hdtv := True;
    end;
-   if not hdtv then mTVTypes.Lines.Add('25');
+   if not hdtv then
+   begin
+   mTVTypes.Lines.Add('25');
+   mTVTypes.Lines.Add('134');
+   end;
 end;
 
 end.

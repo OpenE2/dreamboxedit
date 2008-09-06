@@ -303,7 +303,7 @@ object FormFTP: TFormFTP
       end
     end
     object bSend: TLWButton
-      Left = 288
+      Left = 216
       Top = 168
       Width = 137
       Height = 41
@@ -545,7 +545,7 @@ object FormFTP: TFormFTP
       TabOrder = 8
     end
     object cbCleanUpDreambox: TCheckBox
-      Left = 288
+      Left = 216
       Top = 218
       Width = 281
       Height = 17
@@ -560,6 +560,14 @@ object FormFTP: TFormFTP
       ParentShowHint = False
       ShowHint = False
       TabOrder = 9
+    end
+    object cbAutoReload: TCheckBox
+      Left = 360
+      Top = 192
+      Width = 193
+      Height = 17
+      Caption = 'Auto Reload Settings Enigma2'
+      TabOrder = 10
     end
   end
   object FTP: TIdFTP

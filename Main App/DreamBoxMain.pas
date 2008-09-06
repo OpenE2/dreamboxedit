@@ -5277,7 +5277,7 @@ procedure TFormMain.lvDetDragDrop(Sender, Source: TObject; X,
   Y: Integer);
 var
   item: TListItem;
-  pf: String;
+  pf, newpicon: String;
   pos,i,c: Integer;
   wcds: TClientDataset;
   SkipWarning: Boolean;
@@ -5367,12 +5367,28 @@ begin
       wcds.FieldByName(pf+'T').AsString := 'n';
 
       wcds.Post;
+ //picon png start
+      if PiconActivate then
+      begin
+         newpicon := item.Caption+
+                     '@1_0_' +
+                     IntToHex(StrToInt(lvServ.Selected.SubItems[12]),1) + '_' +
+                     IntToHex(StrToInt(lvServ.Selected.SubItems[9]),1)  + '_' +
+                     IntToHex(StrToInt(lvServ.Selected.SubItems[10]),1) + '_' +
+                     IntToHex(StrToInt(lvServ.Selected.SubItems[11]),1) + '_' +
+                     IntToHex(StrToInt(lvServ.Selected.SubItems[18]),1) +
+                     '_0_0_0';
+         ShowMessage(newpicon);
+
+      end;
+ //picon png end
 
       log('i',lwLngTrns(name,['Service % added to list %',
                               lvServ.Selected.Caption,DetName]));
       lvServ.Selected.Selected := False;
       SetMenu('changed');
       inc(pos);
+
     end;
     if ShowResultMsg
     then MessageDlg(lwLngTrns(name,['% Services added to Bouquet %',
@@ -8382,6 +8398,7 @@ begin
         3: fec := ' 3/4';
         4: fec := ' 5/6';
         5: fec := ' 7/8';
+        9: fec := ' 9/10';
         else fec := 'invalid';
       end;
       if cdsPos.FindKey([cdsServSave.FieldByName('servPos').AsString])
@@ -8525,6 +8542,7 @@ begin
           3: fec := ' 3/4';
           4: fec := ' 5/6';
           5: fec := ' 7/8';
+          9: fec := ' 9/10';
           else fec := 'invalid';
         end;
         if cdsPos.FindKey([cdsServ.FieldByName('servPos').AsString])
@@ -8597,6 +8615,7 @@ begin
           3: fec := ' 3/4';
           4: fec := ' 5/6';
           5: fec := ' 7/8';
+          9: fec := ' 9/10';
           else fec := 'invalid';
         end;
         if cdsPos.FindKey([cdsServ.FieldByName('servPos').AsString])
@@ -8664,6 +8683,7 @@ begin
           3: fec := ' 3/4';
           4: fec := ' 5/6';
           5: fec := ' 7/8';
+          9: fec := '9/10';
           else fec := 'invalid';
         end;
         if cdsPos.FindKey([cdsServ.FieldByName('servPos').AsString])
@@ -8873,14 +8893,14 @@ begin
     Abort;
   end;
   if (cdsSatXML.FieldByName('FEC').AsInteger < 0) or
-     (cdsSatXML.FieldByName('FEC').AsInteger > 5)
+     (cdsSatXML.FieldByName('FEC').AsInteger > 9)
   then begin;
     if FormEditSatXML.dgSatXML.DataSource.Enabled = False
     then begin;
       FormEditSatXML.dgSatXML.DataSource.Enabled := True;
       Screen.Cursor := crDefault;
     end;
-    MessageDlg(lwLngTrns(name,['FEC must be a value in the range 0 - 5']),
+    MessageDlg(lwLngTrns(name,['FEC must be a value in the range 0 - 5 or 9']),
                mtError,[mbOK],0);
     Abort;
   end;
@@ -9629,6 +9649,7 @@ begin
       3: s := '3/4';
       4: s := '5/6';
       5: s := '7/8';
+      9: s := '9/10';
       else s := 'invalid';
     end;
   end
@@ -9816,12 +9837,12 @@ begin
 
   stl := TStringList.Create;
   stl.Clear;
-  HTTP1.Request.Host := 'dreamboxeditversion.happyllama.com';
+  HTTP1.Request.Host := 'pp.digsat.net/ppteam/dreamboxedit';
   {HTTP1.ConnectTimeout := wto;   From Indy 9.14}
   HTTP1.ReadTimeout := wto;
   s := '';
   try
-    stl.Text := HTTP1.Get('http://dreamboxeditversion.happyllama.com/dbeversion.txt');
+    stl.Text := HTTP1.Get('http://pp.digsat.net/ppteam/dreamboxedit/dbeversion.txt');
   except
     on E: Exception
     do s := E.Message;
@@ -9955,7 +9976,7 @@ begin
 
       if FormNewVersion.showmodal = mrOK
       then begin;
-        s := 'http://dreambox.happyllama.com';
+        s := 'http://pp.digsat.net/ppteam/dreamboxedit';
         st := ShellExecute(0,'open',PChar(s),NIL,NIL,SW_SHOWNORMAL);
         if st <= 32
         then begin;
@@ -10331,7 +10352,10 @@ begin
               else
                 if sl[8] = '7/8'
                 then cdsServ.FieldByName('servFEC').AsString := '5'
-                else cdsServ.FieldByName('servFEC').AsString := '0';
+                else
+                  if sl[8] = '9/10'
+                  then cdsServ.FieldByName('servFEC').AsString := '9'
+                  else cdsServ.FieldByName('servFEC').AsString := '0';
         cdsServ.FieldByName('servPos').AsString := FloatToStr(StrToFloat(sl[3])*10);
         cdsServ.FieldByName('servVPID').AsString := sl[14];
         cdsServ.FieldByName('servAPID').AsString := sl[15];
@@ -10582,7 +10606,10 @@ begin
               else
                 if sl[12] = '7/8'
                 then cdsServ.FieldByName('servFEC').AsString := '5'
-                else cdsServ.FieldByName('servFEC').AsString := '0';
+                else
+                  if sl[12] = '9/10'
+                  then cdsServ.FieldByName('servFEC').AsString := '9'
+                  else cdsServ.FieldByName('servFEC').AsString := '0';
         cdsServ.FieldByName('servPos').AsString := FloatToStr(StrToFloat(sl[7])*10);
         cdsServ.FieldByName('servVPID').AsString := sl[18];
         cdsServ.FieldByName('servAPID').AsString := sl[19];
@@ -10768,7 +10795,7 @@ var
   st: Integer;
   s: String;
 begin
-  s := 'http://dreambox.happyllama.com';
+  s := 'http://pp.digsat.net/ppteam/dreamboxedit';
   st := ShellExecute(0,'open',PChar(s),NIL,NIL,SW_SHOWNORMAL);
   if st <= 32
   then begin;

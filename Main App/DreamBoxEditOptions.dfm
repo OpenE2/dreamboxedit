@@ -91,14 +91,14 @@ object FormOptions: TFormOptions
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 757
-    Height = 506
+    Width = 765
+    Height = 508
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
-      757
-      506)
+      765
+      508)
     object bSave: TButton
       Left = 682
       Top = 477
@@ -1515,6 +1515,7 @@ object FormOptions: TFormOptions
       end
       object TabSheet2: TTabSheet
         Caption = 'Picon'
+        Enabled = False
         ImageIndex = 6
         object cbPiconActivate: TCheckBox
           Left = 24

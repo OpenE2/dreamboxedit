@@ -33,6 +33,7 @@ type
     cbCleanUpDreambox: TCheckBox;
     lIPAddress: TLabel;
     eIPAddress: TEdit;
+    cbAutoReload: TCheckBox;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bReceiveClick(Sender: TObject);
@@ -923,12 +924,12 @@ begin
     exit;
   end;
 
-  if FormMain.ServFilename = ''
+ { if FormMain.ServFilename = ''
   then begin;
     if FileExists(FormMain.Dir + '\' + 'lamedb')
     then FormMain.SetVersionDefaults(3)
     else FormMain.SetVersionDefaults(2);
-  end;
+  end;}
 
   if not FileExists(FormMain.Dir + '\' + FormMain.ServFilename)
   then begin;
@@ -952,6 +953,26 @@ begin
 
   screen.Cursor := crHourGlass;
   error := False;
+  if FormMain.SettingsVersion > 2
+  then
+    begin
+    if cbAutoReload.Checked  then
+      begin
+        TelnetStage := 5;
+        if Telnet.Connected = False then
+        begin
+          Telnet.Host := FormMain.DBIP;
+          Telnet.ReadTimeout := 10000;
+          Try Telnet.Connect
+          Except
+          Memo1.Lines.Add(FormMain.lwLngTrns(name,['Connect error setting up telnet session for sending reload command.']));
+          FormMain.log('e',FormMain.lwLngTrns(name,['Connect error setting up telnet session for sending reload command.']));
+          end;
+        end;
+      end;
+    end;
+
+  Sleep(4000);  
   FTP.Host := FormMain.DBIP;
   FTP.Port := StrToInt(FormMain.DBFTPPort);
   FTP.Username := FormMain.DBUsername;
@@ -1400,6 +1421,25 @@ disc:
                'Succesfully transferred the file-set to the dreambox %',s]),
                mtInformation,[mbOK],0);
   end;
+
+  if FormMain.SettingsVersion > 2
+  then
+    begin
+    if cbAutoReload.Checked  then
+      begin
+        TelnetStage := 7;
+       if Telnet.Connected = false then
+       begin
+        Telnet.Host := FormMain.DBIP;
+        Telnet.ReadTimeout := 10000;
+        Try Telnet.Connect
+        Except
+         Memo1.Lines.Add(FormMain.lwLngTrns(name,['Connect error setting up telnet session for reload Enigma2.']));
+         FormMain.log('e',FormMain.lwLngTrns(name,['Connect error setting up telnet session for reload Enigma2.']));
+         end;
+       end;
+      end;
+    end;
 end;
 
 procedure TFormFTP.FTPStatus(ASender: TObject; const AStatus: TIdStatus;
@@ -1484,6 +1524,31 @@ begin
           TelnetStage := 2;
         end
         else
+          if (TelnetStage = 5) and
+           ((pos('~ >',buffer) > 0) or
+            (pos('~#',buffer) > 0) or
+            (pos('dreambox #',buffer) > 0) or
+            (pos(FormMain.DreamboxCmdPrompt,buffer) > 0))
+        then begin;
+            Memo1.Lines.Add(FormMain.lwLngTrns(name,['Sending stop enigma2 command']));
+            FormMain.log('i',FormMain.lwLngTrns(name,['Sending stop enigma2 command']));
+            SendTelnetCmd('init 4 ; sleep 4');
+            TelnetStage := 6;
+        end
+        else
+        if (TelnetStage = 7) and
+           ((pos('~ >',buffer) > 0) or
+            (pos('~#',buffer) > 0) or
+            (pos('dreambox #',buffer) > 0) or
+            (pos(FormMain.DreamboxCmdPrompt,buffer) > 0))
+        then begin;
+            Memo1.Lines.Add(FormMain.lwLngTrns(name,['Sending start enigma2 command']));
+            FormMain.log('i',FormMain.lwLngTrns(name,['Sending start enigma2 command']));
+            SendTelnetCmd('init 3');
+            TelnetStage := 8;
+        end
+        else
+
           if (TelnetStage = 10) and
              ((pos('~ >',buffer) > 0) or
               (pos('~#',buffer) > 0) or

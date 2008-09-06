@@ -155,15 +155,15 @@ object FormAbout: TFormAbout
   object PanelMain: TPanel
     Left = 0
     Top = 0
-    Width = 321
-    Height = 290
+    Width = 313
+    Height = 288
     Align = alClient
     BevelOuter = bvNone
     Color = clWhite
     TabOrder = 0
     DesignSize = (
-      321
-      290)
+      313
+      288)
     object Image2: TImage
       Left = 184
       Top = 40
@@ -1079,9 +1079,9 @@ object FormAbout: TFormAbout
     object _lVersion: TLabel
       Left = 120
       Top = 32
-      Width = 158
+      Width = 66
       Height = 21
-      Caption = 'Preliminairy V2.02.01'
+      Caption = 'v3.00.00'
       Font.Charset = ANSI_CHARSET
       Font.Color = clActiveCaption
       Font.Height = -15

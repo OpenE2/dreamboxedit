@@ -1079,9 +1079,9 @@ object FormAbout: TFormAbout
     object _lVersion: TLabel
       Left = 120
       Top = 32
-      Width = 134
+      Width = 66
       Height = 21
-      Caption = 'Preliminary version'
+      Caption = 'v3.00.00'
       Font.Charset = ANSI_CHARSET
       Font.Color = clActiveCaption
       Font.Height = -15
@@ -1108,26 +1108,12 @@ object FormAbout: TFormAbout
     object _Label8: TLabel
       Left = 120
       Top = 100
-      Width = 103
+      Width = 109
       Height = 27
-      Caption = 'LlamaWare'
+      Caption = 'OpenSource'
       Font.Charset = ANSI_CHARSET
       Font.Color = clRed
       Font.Height = -19
-      Font.Name = 'Comic Sans MS'
-      Font.Style = [fsBold]
-      ParentFont = False
-      Transparent = True
-    end
-    object _Label9: TLabel
-      Left = 228
-      Top = 102
-      Width = 19
-      Height = 16
-      Caption = 'TM'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clRed
-      Font.Height = -11
       Font.Name = 'Comic Sans MS'
       Font.Style = [fsBold]
       ParentFont = False
