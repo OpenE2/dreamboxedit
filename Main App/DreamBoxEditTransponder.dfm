@@ -91,14 +91,14 @@ object FormTransponder: TFormTransponder
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 720
-    Height = 386
+    Width = 712
+    Height = 384
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
-      720
-      386)
+      712
+      384)
     object Label1: TLabel
       Left = 8
       Top = 8
@@ -558,7 +558,7 @@ object FormTransponder: TFormTransponder
         ParentFont = False
         TabOrder = 5
       end
-      object eExtra: TEdit
+      object eTrExtra: TEdit
         Left = 120
         Top = 244
         Width = 289

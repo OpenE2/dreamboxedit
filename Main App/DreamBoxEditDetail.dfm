@@ -1,8 +1,8 @@
 object FormDetail: TFormDetail
-  Left = 243
-  Top = 190
+  Left = 242
+  Top = 166
   Width = 762
-  Height = 604
+  Height = 643
   Caption = 'Service Details'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -91,17 +91,17 @@ object FormDetail: TFormDetail
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 754
-    Height = 570
+    Width = 746
+    Height = 607
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
-      754
-      570)
+      746
+      607)
     object bCancel: TButton
-      Left = 671
-      Top = 541
+      Left = 666
+      Top = 576
       Width = 75
       Height = 25
       Hint = 'Go back to the main panel'
@@ -117,7 +117,7 @@ object FormDetail: TFormDetail
       Left = 8
       Top = 8
       Width = 489
-      Height = 559
+      Height = 598
       Anchors = [akLeft, akTop, akBottom]
       Caption = 'Details'
       Font.Charset = DEFAULT_CHARSET
@@ -129,10 +129,10 @@ object FormDetail: TFormDetail
       TabOrder = 2
       DesignSize = (
         489
-        559)
+        598)
       object Label31: TLabel
         Left = 8
-        Top = 542
+        Top = 581
         Width = 209
         Height = 13
         Anchors = [akLeft, akBottom]
@@ -563,7 +563,7 @@ object FormDetail: TFormDetail
             WordWrap = True
           end
         end
-        object eExtra: TEdit
+        object eTrExtra: TEdit
           Left = 120
           Top = 164
           Width = 337
@@ -587,7 +587,7 @@ object FormDetail: TFormDetail
         Left = 16
         Top = 224
         Width = 465
-        Height = 313
+        Height = 345
         Caption = 'Service Data'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clNavy
@@ -768,6 +768,19 @@ object FormDetail: TFormDetail
           Font.Color = clRed
           Font.Height = -11
           Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label21: TLabel
+          Left = 8
+          Top = 312
+          Width = 83
+          Height = 14
+          Caption = 'Extra parameters'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
           Font.Style = []
           ParentFont = False
         end
@@ -1154,24 +1167,37 @@ object FormDetail: TFormDetail
             TabOrder = 2
           end
         end
+        object eExtra: TEdit
+          Left = 104
+          Top = 312
+          Width = 121
+          Height = 21
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNavy
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 8
+        end
       end
     end
     object gbMemo: TGroupBox
       Left = 504
       Top = 8
       Width = 246
-      Height = 489
+      Height = 528
       Anchors = [akLeft, akTop, akRight, akBottom]
       Caption = 'Present in Bouqets '
       TabOrder = 3
       DesignSize = (
         246
-        489)
+        528)
       object Memo1: TMemo
         Left = 8
         Top = 16
         Width = 230
-        Height = 465
+        Height = 504
         TabStop = False
         Anchors = [akLeft, akTop, akRight, akBottom]
         Color = 15856371
@@ -1181,8 +1207,8 @@ object FormDetail: TFormDetail
       end
     end
     object bSave: TButton
-      Left = 671
-      Top = 509
+      Left = 666
+      Top = 544
       Width = 75
       Height = 25
       Hint = 'Save or Add settings'

@@ -2343,7 +2343,7 @@ object FormMain: TFormMain
         Size = 2
       end
       item
-        Name = 'servExtra'
+        Name = 'servTrExtra'
         DataType = ftString
         Size = 27
       end
@@ -2351,6 +2351,11 @@ object FormMain: TFormMain
         Name = 'servCleanName'
         DataType = ftString
         Size = 50
+      end
+      item
+        Name = 'servExtra'
+        DataType = ftString
+        Size = 75
       end>
     IndexDefs = <>
     Params = <>
@@ -4448,7 +4453,7 @@ object FormMain: TFormMain
         Size = 2
       end
       item
-        Name = 'servExtra'
+        Name = 'servTrExtra'
         DataType = ftString
         Size = 27
       end
@@ -4456,6 +4461,11 @@ object FormMain: TFormMain
         Name = 'servCleanName'
         DataType = ftString
         Size = 50
+      end
+      item
+        Name = 'servExtra'
+        DataType = ftString
+        Size = 75
       end>
     IndexDefs = <>
     Params = <>
@@ -4572,7 +4582,7 @@ object FormMain: TFormMain
         Size = 2
       end
       item
-        Name = 'servExtra'
+        Name = 'servTrExtra'
         DataType = ftString
         Size = 27
       end
@@ -4580,6 +4590,11 @@ object FormMain: TFormMain
         Name = 'servCleanName'
         DataType = ftString
         Size = 50
+      end
+      item
+        Name = 'servExtra'
+        DataType = ftString
+        Size = 75
       end>
     IndexDefs = <>
     Params = <>

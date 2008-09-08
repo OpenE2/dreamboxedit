@@ -91,14 +91,14 @@ object FormImport: TFormImport
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 948
-    Height = 604
+    Width = 940
+    Height = 602
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
-      948
-      604)
+      940
+      602)
     object bCancel: TButton
       Left = 865
       Top = 563

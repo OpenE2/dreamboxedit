@@ -81,13 +81,15 @@ type
     ntLabel8: TLabel;
     Label30: TLabel;
     ntLabel9: TLabel;
-    eExtra: TEdit;
+    eTrExtra: TEdit;
     Label33: TLabel;
     eC07BSDelay: TEdit;
     Label34: TLabel;
     Label35: TLabel;
     eC08PCMDelay: TEdit;
     Bevel1: TBevel;
+    Label21: TLabel;
+    eExtra: TEdit;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bSaveClick(Sender: TObject);
@@ -155,7 +157,7 @@ begin
     eSymb.Enabled := False;
     ePol.Enabled := False;
     eFEC.Enabled := False;
-    eExtra.Enabled := False;
+    eTrExtra.Enabled := False;
   end
   else begin; { Copied or new service, button acts as Add }
     epos.Enabled := True;
@@ -167,7 +169,7 @@ begin
     eSymb.Enabled := True;
     ePol.Enabled := True;
     eFEC.Enabled := True;
-    eExtra.Enabled := True;
+    eTrExtra.Enabled := True;
   end;
 
   ePos.Clear;
@@ -219,7 +221,7 @@ begin
     ePol.ItemIndex := FormMain.cdsSERV.FieldByName('servPol').AsInteger;
     eSymb.Text := FormMain.cdsSERV.FieldByName('servSymb').AsString;
     eFEC.ItemIndex := FormMain.cdsSERV.FieldByName('servFEC').AsInteger;
-    eExtra.Text := FormMain.cdsSERV.FieldByName('servExtra').AsString;
+    eTrExtra.Text := FormMain.cdsSERV.FieldByName('servTrExtra').AsString;
     eNr.Text := FormMain.cdsSERV.FieldByName('servNr').AsString;
     eLock.ItemIndex := FormMain.cdsSERV.FieldByName('servLock').AsInteger;
     eVPID.Text := FormMain.cdsSERV.FieldByName('servVPID').AsString;
@@ -241,6 +243,7 @@ begin
     then cbNoPMT.Checked := True;
 
     eNamespace.Text := FormMain.cdsSERV.FieldByName('servUniq').AsString;
+    eExtra.Text := FormMain.cdsSERV.FieldByName('servExtra').AsString;
 
     if bSave.Tag = 0 { Edit service, button acts as Save }
     then begin;
@@ -317,7 +320,7 @@ begin
     ePol.ItemIndex := -1;
     eSymb.Text := '';
     eFEC.ItemIndex := -1;
-    eExtra.Text := ':2:0';
+    eTrExtra.Text := ':2:0';
     eLock.ItemIndex := 0;
     eVPID.Text := '';
     eAPID.Text := '';
@@ -399,7 +402,7 @@ begin
          (ePol.Text = '') or
          (eSymb.Text = '') or
          (eFEC.Text = '') or
-         (eExtra.Text = '') or
+         (eTrExtra.Text = '') or
          (eNr.Text = '') or
          (eNameSpace.Text = '') or
          (eLock.Text = '')
@@ -414,7 +417,7 @@ begin
          (eNID.Text = '') or
          (eTSID.Text = '') or
          (eFreq.Text = '') or
-         (eExtra.Text = '') or
+         (eTrExtra.Text = '') or
          (eNr.Text = '') or
          (eNameSpace.Text = '') or
          (eLock.Text = '')
@@ -478,7 +481,7 @@ begin
   FormMain.cdsSERV.FieldByName('servSymb').AsString := eSymb.Text;
   FormMain.cdsSERV.FieldByName('servPol').AsInteger := ePol.ItemIndex;
   FormMain.cdsSERV.FieldByName('servFEC').AsInteger := eFEC.ItemIndex;
-  FormMain.cdsSERV.FieldByName('servExtra').AsString := eExtra.Text;
+  FormMain.cdsSERV.FieldByName('servTrExtra').AsString := eTrExtra.Text;
   FormMain.cdsSERV.FieldByName('servCleanName').AsString := eName.Text;
   if stype = 's'
   then p := FloatToStr(StrToFloat(ePos.Items[ePos.ItemIndex])*10)
@@ -504,6 +507,7 @@ begin
   then flags := flags or 4;
   FormMain.cdsSERV.FieldByName('servFlags').AsInteger := flags;
   FormMain.cdsSERV.FieldByName('servUniq').AsString := eNamespace.Text;
+  FormMain.cdsSERV.FieldByName('servextra').AsString := eExtra.Text;
   if bSave.Tag > 0 { Button acts as Add }
   then begin;
     inc(FormMain.HighDbeNr);

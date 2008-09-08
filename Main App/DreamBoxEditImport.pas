@@ -812,7 +812,7 @@ begin
       inc(FormMain.HighDbeNr);
       FormMain.cdsSERV.FieldByName('servDbeNr').AsInteger := FormMain.HighDbeNr;
       FormMain.cdsSERV.FieldByName('servSTC').AsString := 's';
-      FormMain.cdsSERV.FieldByName('servExtra').AsString := ':2:0';
+      FormMain.cdsSERV.FieldByName('servTrExtra').AsString := ':2:0';
       FormMain.cdsSERV.FieldByName('servCleanName').AsString := lvSDX.Items[i].SubItems[1];
       FormMain.cdsSERV.Post;
       FormMain.ServEdit := False;

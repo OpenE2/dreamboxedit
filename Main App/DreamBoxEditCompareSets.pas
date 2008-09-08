@@ -452,7 +452,7 @@ begin
       cdsA.FieldByName('servFlags').AsInteger := flags;
       inc(FormMain.HighDbeNr);
       cdsA.FieldByName('servDbeNr').AsInteger := FormMain.HighDbeNr;
-      cdsA.FieldByName('servExtra').AsString := cdsC.FieldByName('servExtra').AsString;
+      cdsA.FieldByName('servTrExtra').AsString := cdsC.FieldByName('servTrExtra').AsString;
       cdsA.FieldByName('servCleanName').AsString := cdsC.FieldByName('servCleanName').AsString;
       cdsA.Post;
 

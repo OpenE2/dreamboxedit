@@ -20,14 +20,14 @@ object FormCompareSet: TFormCompareSet
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 864
-    Height = 622
+    Width = 856
+    Height = 620
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
-      864
-      622)
+      856
+      620)
     object Label8: TLabel
       Left = 493
       Top = 508
@@ -454,8 +454,8 @@ object FormCompareSet: TFormCompareSet
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 622
-    Width = 864
+    Top = 620
+    Width = 856
     Height = 19
     Panels = <>
   end

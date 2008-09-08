@@ -527,8 +527,9 @@ type
     servDesc:    String[50];
     servT:       String[1];
     servSTC:     String[2];
-    ServExtra:   String[27];
+    ServTrExtra: String[27];
     ServCleanName: String[50];
+    ServExtra:   String[75];
   end;
 var
   CPRec: array of TCPServRec;
@@ -906,13 +907,14 @@ begin
           then cds.FieldByName('servFlags').AsString := IntToStr(StrToInt('$'+copy(s,ib+2,ie-ib-2)));
         end;
       end;
+      cds.FieldByName('servExtra').AsString := ''; { AW: Should be filled with not-processed parameters }
 
       cds.FieldByName('servSTC').AsString := cdsTSID.FieldByName('tsidSTC').AsString;
       cds.FieldByName('servFreq').AsString := cdsTSID.FieldByName('tsidFreq').AsString;
       cds.FieldByName('servSymb').AsString := cdsTSID.FieldByName('tsidSymb').AsString;
       cds.FieldByName('servPol').AsString := cdsTSID.FieldByName('tsidPol').AsString;
       cds.FieldByName('servFEC').AsString := cdsTSID.FieldByName('tsidFEC').AsString;
-      cds.FieldByName('servExtra').AsString := cdsTSID.FieldByName('tsidExtra').AsString;
+      cds.FieldByName('servTrExtra').AsString := cdsTSID.FieldByName('tsidExtra').AsString;
 
       if cdsTSID.FieldByName('tsidSTC').AsString = 's'
       then cds.FieldByName('servPos').AsString := cdsTSID.FieldByName('tsidPos').AsString
@@ -1653,8 +1655,9 @@ begin
     pr.servDesc := CPrec[i].servDesc;
     pr.servT := CPrec[i].servT;
     pr.servSTC := CPrec[i].servSTC;
-    pr.ServExtra := CPrec[i].servExtra;
+    pr.ServTrExtra := CPrec[i].servTrExtra;
     pr.ServCleanName := CPrec[i].ServCleanName;
+    pr.servExtra := CPrec[i].servExtra;
 
     inc(pchar(pr),SizeOf(TCPServRec));
   end;
@@ -3540,7 +3543,7 @@ begin
       cdsTSID.FieldByName('tsidPol').AsString := cdsServSave.FieldByName('servPol').AsString;
       cdsTSID.FieldByName('tsidFEC').AsString := cdsServSave.FieldByName('servFEC').AsString;
       cdsTSID.FieldByName('tsidPos').AsString := cdsServSave.FieldByName('servPos').AsString;
-      cdsTSID.FieldByName('tsidExtra').AsString := cdsServSave.FieldByName('servExtra').AsString;
+      cdsTSID.FieldByName('tsidExtra').AsString := cdsServSave.FieldByName('servTrExtra').AsString;
       cdsTSID.Post;
     end;
     cdsServSave.Next;
@@ -3650,6 +3653,8 @@ begin
 
     if cdsServSave.FieldByName('servFlags').AsInteger  and 127 <> 0
     then s := 'f:' + IntToHex(cdsServSave.FieldByName('servFlags').AsInteger and 127,4) + ',' + s;
+    if cdsServSave.FieldByName('servExtra').AsString <> ''
+    then s := s + ',' + cdsServSave.FieldByName('servExtra').AsString; { AW: append unknown exra fields }
     WriteLn(tf,s);
     cdsServSave.Next;
   end;
@@ -6483,8 +6488,9 @@ begin
       CPRec[i].servDbeNr := cdsServ.FieldByName('servDbeNr').AsInteger;
       CPRec[i].servT := lvDet.Items[d].SubItems[11];
       CPRec[i].servSTC := cdsServ.FieldByName('servSTC').AsString;
-      CPRec[i].servExtra := cdsServ.FieldByName('servExtra').AsString;
+      CPRec[i].servTrExtra := cdsServ.FieldByName('servTrExtra').AsString;
       CPrec[i].ServCleanName := cdsServ.FieldByName('servCleanName').AsString;
+      CPRec[i].servExtra := cdsServ.FieldByName('servExtra').AsString;
       if lvDet.Items[d].SubItems[11] = 'r'
       then CPRec[i].servDesc := lvDet.Items[d].Caption
       else CPRec[i].servDesc := '';
@@ -6516,8 +6522,9 @@ begin
       CPRec[i].servT := lvDet.Items[d].SubItems[11];
       CPRec[i].servDesc := '';
       CPRec[i].servSTC := '';
-      CPRec[i].ServExtra := '';
+      CPRec[i].servTrExtra := '';
       CPRec[i].ServCleanName := CleanText(lvDet.Items[d].Caption);
+      CPRec[i].ServExtra := '';
       inc(i);
     end;
   end;
@@ -6712,8 +6719,9 @@ begin
         cdsServ.FieldByName('servFlags').AsInteger := CPRec[i].servFlags;
         cdsServ.FieldByName('servDbeNr').AsInteger := DbeNr;
         cdsServ.FieldByName('servSTC').AsString := CPRec[i].servSTC;
-        cdsServ.FieldByName('servExtra').AsString := CPRec[i].servExtra;
+        cdsServ.FieldByName('servTrExtra').AsString := CPRec[i].servTrExtra;
         cdsServ.FieldByName('servCleanName').AsString := CPRec[i].ServCleanName;
+        cdsServ.FieldByName('servExtra').AsString := CPRec[i].servExtra;
 
         cdsServ.Post;
         ServEdit := False;
@@ -6839,8 +6847,9 @@ begin
     CPRec[i].servT := 'n';
     CPRec[i].servDesc := '';
     CPRec[i].servSTC := cdsServ.FieldByName('servSTC').AsString;
-    CPRec[i].servExtra := cdsServ.FieldByName('servExtra').AsString;
+    CPRec[i].servTrExtra := cdsServ.FieldByName('servTrExtra').AsString;
     CPRec[i].ServCleanName:= cdsServ.FieldByName('servCleanName').AsString;
+    CPRec[i].servExtra := cdsServ.FieldByName('servextra').AsString;
     inc(i);
   end;
   if not CopyToCB()
@@ -6945,8 +6954,9 @@ begin
     inc(HighDbeNr);
     cdsServ.FieldByName('servDbeNr').AsInteger := HighDbeNr;
     cdsServ.FieldByName('servSTC').AsString := CPRec[i].servSTC;
-    cdsServ.FieldByName('servExtra').AsString := CPRec[i].servExtra;
+    cdsServ.FieldByName('servTrExtra').AsString := CPRec[i].servTrExtra;
     cdsServ.FieldByName('servCleanName').AsString := CPRec[i].ServCleanName;
+    cdsServ.FieldByName('servExtra').AsString := CPRec[i].servExtra;
     cdsServ.Post;
     ServEdit := False;
 
@@ -9837,7 +9847,7 @@ begin
 
   stl := TStringList.Create;
   stl.Clear;
-  HTTP1.Request.Host := 'dreamboxeditversion.happyllama.com';
+  HTTP1.Request.Host := 'pp.digsat.net/ppteam/dreamboxedit';
   {HTTP1.ConnectTimeout := wto;   From Indy 9.14}
   HTTP1.ReadTimeout := wto;
   s := '';
@@ -9976,7 +9986,7 @@ begin
 
       if FormNewVersion.showmodal = mrOK
       then begin;
-        s := 'http://dreambox.happyllama.com';
+        s := 'http://pp.digsat.net/ppteam/dreamboxedit';
         st := ShellExecute(0,'open',PChar(s),NIL,NIL,SW_SHOWNORMAL);
         if st <= 32
         then begin;
@@ -10366,7 +10376,7 @@ begin
         cdsServ.FieldByName('servLock').AsString := '0';
         cdsServ.FieldByName('servDbeNr').AsInteger := HighDbeNr;
         cdsServ.FieldByName('servTypeTxt').AsString := TrnsServType(cdsServ.FieldByName('servType').AsInteger);
-        cdsServ.FieldByName('servExtra').AsString := ':2:0';
+        cdsServ.FieldByName('servTrExtra').AsString := ':2:0';
         cdsServ.FieldByName('servCleanName').AsString := CleanText(sl[0]);
         cdsServ.Post;
       end;
@@ -10620,7 +10630,7 @@ begin
         cdsServ.FieldByName('servLock').AsString := '0';
         cdsServ.FieldByName('servDbeNr').AsInteger := HighDbeNr;
         cdsServ.FieldByName('servTypeTxt').AsString := TrnsServType(cdsServ.FieldByName('servType').AsInteger);
-        cdsServ.FieldByName('servExtra').AsString := ':2:0';
+        cdsServ.FieldByName('servTrExtra').AsString := ':2:0';
         cdsServ.FieldByName('servCleanName').AsString := CleanText(sl[4]);
         cdsServ.Post;
       end;
@@ -10795,7 +10805,7 @@ var
   st: Integer;
   s: String;
 begin
-  s := 'http://dreambox.happyllama.com';
+  s := 'http://pp.digsat.net/ppteam/dreamboxedit';
   st := ShellExecute(0,'open',PChar(s),NIL,NIL,SW_SHOWNORMAL);
   if st <= 32
   then begin;

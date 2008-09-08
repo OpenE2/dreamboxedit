@@ -44,7 +44,7 @@ type
     _lCntServices: TLabel;
     Label2: TLabel;
     ntLabel3: TLabel;
-    eExtra: TEdit;
+    eTrExtra: TEdit;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bSaveClick(Sender: TObject);
@@ -146,7 +146,7 @@ begin
     ePos.Enabled := False;
   end;
   eFreq.Text := FormMain.cdsSERV.FieldByName('servFreq').Asstring;
-  eExtra.Text := FormMain.cdsSERV.FieldByName('servExtra').AsString;
+  eTrExtra.Text := FormMain.cdsSERV.FieldByName('servTrExtra').AsString;
 
   if FormMain.cdsSERV.FieldByName('servSTC').AsString = 's'
   then begin; { Satellite }
@@ -313,7 +313,7 @@ begin
       then p := FloatToStr(StrToFloat(ePos.Items[ePos.ItemIndex])*10);
       FormMain.cdsSERV.FieldByName('servPos').AsString := p;
       FormMain.cdsSERV.FieldByName('servUniq').AsString := eNamespace.Text;
-      FormMain.cdsSERV.FieldByName('servExtra').AsString := eExtra.Text;
+      FormMain.cdsSERV.FieldByName('servTrExtra').AsString := eTrExtra.Text;
       FormMain.cdsSERV.Post;
     end;
     FormMain.cdsSERV.Next;
