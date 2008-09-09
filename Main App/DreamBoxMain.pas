@@ -598,11 +598,33 @@ begin
 end;
 
 function TFormMain.ReadServices(const filename: String; var cds: TClientDataset; const Compare: Boolean): Integer;
+  function ExtractParm(var line: String; const parm: String; const lvalue: Integer): String;
+  var
+    s: String;
+    ib,ie: Integer;
+  begin
+    result := '';                      // default result is blank
+    s := lowercase(line) + ',';        // Lowercase and suffix string with ',' for easier search
+    ib := pos(lowercase(parm),s);      // Find parameter in string
+    while ib <> 0 do begin;
+      ie := posex(',',s,ib+1);         // Find next parameter delimiter ,
+      if ie - ib - length(parm) <> lvalue             // If length is wrong, search again
+      then ib := posex(lowercase(parm),s,ie+1)
+      else break;                      // Found
+    end;
+    if ib = 0                          // Not found
+    then exit;
+    result := copy(line,ib+length(parm),lvalue);  // Copy result from original parameter line
+    line := line + ',';                           // Add trailing ',' to be sure stringreplace works
+    line := StringReplace(line,parm+result+',','',[]); // Remove parameter from original string
+    if RightStr(line,1) = ','
+    then line := Leftstr(line,length(line)-1);    // Remove trailing ',' if needed
+  end;
 var
   tf: TextFile;
-  s: String;
+  s,prm: String;
   psl,tsl: TStringList;
-  i,c,DbeNr,p,ib,ie,ServErr: Integer;
+  i,c,DbeNr,ib,ie,ServErr,l: Integer;
 begin
   if FileExists(FileName)
   then begin;
@@ -796,118 +818,59 @@ begin
       cds.FieldByName('servCleanName').AsString := Cleantext(TrimRight(copy(s,1,50)));
 
       ReadLn(tf,s);
-      p := pos('f:',s);
-      if p = 0
-      then p := pos('c:0',s);
-      if p = 0
+      if pos('p:',s) = 0      // No p: parameter, so whole string is package name
       then begin;
-        if LowerCase(copy(s,1,2)) = 'p:'
-        then cds.FieldByName('servPackage').AsString := TrimRight(copy(s,3,50))
-        else cds.FieldByName('servPackage').AsString := TrimRight(s)
+        l := length(s);
+        if l > 50             // Copy max 50 characters
+        then l := 50;
+        cds.FieldByName('servPackage').AsString := LeftStr(s,l);
       end
       else begin;
-        if pos('p:',s) = 0
-        then begin;
-          log('e',lwLngTrns(name,['Error reading service % with package line:',
-              cds.FieldByName('servName').AsString]));
-          log('e','-- ' + s);
-          cds.FieldByName('servPackage').AsString := TrimRight(copy(s,3,50));
-        end
-        else begin;
-          p := pos('p:',s);
-          if p > 1
-          then cds.FieldByName('servPackage').AsString := TrimRight(copy(s,p+2,length(s)-p-1))
-          else begin;
-            ie := pos('c:0',s);
-            if (ie = 0) or
-               ((pos('f:',s) <> 0) and (pos('f:',s) < ie))
-            then ie := pos('f:',s);
-            cds.FieldByName('servPackage').AsString := copy(s,p+2,ie-4);
-          end;
-          {s := LeftStr(s,p-1);}
-        end;
+        prm := ExtractParm(s,'c:00',4);
+        if prm <> ''
+        then cds.FieldByName('servVPID').AsString := IntToStr(StrToInt('$'+prm));
 
-        ib := pos('c:00',s);
-        if ib > 0
-        then begin;
-          ie := posex(',',s,ib+4);
-          if ie = 0
-          then ie := length(s);
-          if ie-ib-4 > 0
-          then cds.FieldByName('servVPID').AsString := IntToStr(StrToInt('$'+copy(s,ib+4,ie-ib-4)));
-        end;
+        prm := ExtractParm(s,'c:01',4);
+        if prm <> ''
+        then cds.FieldByName('servAPID').AsString := IntToStr(StrToInt('$'+prm));
 
-        ib := pos('c:01',s);
-        if ib > 0
-        then begin;
-          ie := posex(',',s,ib+4);
-          if ie = 0
-          then ie := length(s);
-          if ie-ib-4 > 0
-          then cds.FieldByName('servAPID').AsString := IntToStr(StrToInt('$'+copy(s,ib+4,ie-ib-4)));
-        end;
+        prm := ExtractParm(s,'c:02',4);
+        if prm <> ''
+        then cds.FieldByName('servTPID').AsString := IntToStr(StrToInt('$'+prm));
 
-        ib := pos('c:02',s);
-        if ib > 0
-        then begin;
-          ie := posex(',',s,ib+4);
-          if ie = 0
-          then ie := length(s);
-          if ie-ib-4 > 0
-          then cds.FieldByName('servTPID').AsString := IntToStr(StrToInt('$'+copy(s,ib+4,ie-ib-4)));
-        end;
+        prm := ExtractParm(s,'c:03',4);
+        if prm <> ''
+        then cds.FieldByName('servPPID').AsString := IntToStr(StrToInt('$'+prm));
 
-        ib := pos('c:03',s);
-        if ib > 0
-        then begin;
-          ie := posex(',',s,ib+4);
-          if ie = 0
-          then ie := length(s)+1;
-          if ie-ib-4 > 0
-          then cds.FieldByName('servPPID').AsString := IntToStr(StrToInt('$'+copy(s,ib+4,ie-ib-4)));
-        end;
+        prm := ExtractParm(s,'c:04',4);
+        if prm <> ''
+        then cds.FieldByName('serv3PID').AsString := IntToStr(StrToInt('$'+prm));
 
-        ib := pos('c:04',s);
-        if ib > 0
-        then begin;
-          ie := posex(',',s,ib+4);
-          if ie = 0
-          then ie := length(s)+1;
-          if ie-ib-4 > 0
-          then cds.FieldByName('serv3PID').AsString := IntToStr(StrToInt('$'+copy(s,ib+4,ie-ib-4)));
-        end;
+        prm := ExtractParm(s,'c:07',4);
+        if prm <> ''
+        then cds.FieldByName('servC07BSDelay').AsString := IntToStr(StrToInt('$'+prm));
 
-        ib := pos('c:07',s);
-        if ib > 0
-        then begin;
-          ie := posex(',',s,ib+4);
-          if ie = 0
-          then ie := length(s)+1;
-          if ie-ib-4 > 0
-          then cds.FieldByName('servC07BSDelay').AsString := IntToStr(StrToInt('$'+copy(s,ib+4,ie-ib-4)));
-        end;
+        prm := ExtractParm(s,'c:08',4);
+        if prm <> ''
+        then cds.FieldByName('servC08PCMDelay').AsString := IntToStr(StrToInt('$'+prm));
 
-        ib := pos('c:08',s);
-        if ib > 0
-        then begin;
-          ie := posex(',',s,ib+4);
-          if ie = 0
-          then ie := length(s)+1;
-          if ie-ib-4 > 0
-          then cds.FieldByName('servC08PCMDelay').AsString := IntToStr(StrToInt('$'+copy(s,ib+4,ie-ib-4)));
-        end;
+        prm := ExtractParm(s,'f:',2);
+        if prm <> ''
+        then cds.FieldByName('servFlags').AsString := IntToStr(StrToInt('$'+prm));
 
-        ib := pos('f:',s);
-        if ib > 0
+        prm := '';
+        ib := pos('p:',lowercase(s));                   // Find next parm or end of string
+        ie := min(posex(',c:',lowercase(s)+',c:',ib+1),posex(',f:',lowercase(s)+',f:',ib+1));
+        prm := copy(s,ib+2,ie-ib-2);
+        s := StringReplace(s,'p:'+prm,'',[]);
+        cds.FieldByName('servPackage').AsString := prm;
+        if s <> ''
         then begin;
-          ie := posex(',',s,ib+2);
-          if ie = 0
-          then ie := length(s)+1;
-          if ie-ib-4 > 0
-          then cds.FieldByName('servFlags').AsString := IntToStr(StrToInt('$'+copy(s,ib+2,ie-ib-2)));
+          while LeftStr(s,1) = ',' do
+            s := RightStr(s,length(s)-1);
+          cds.FieldByName('servExtra').AsString := s;      // Remaining parms in servExtra field
         end;
       end;
-      cds.FieldByName('servExtra').AsString := ''; { AW: Should be filled with not-processed parameters }
 
       cds.FieldByName('servSTC').AsString := cdsTSID.FieldByName('tsidSTC').AsString;
       cds.FieldByName('servFreq').AsString := cdsTSID.FieldByName('tsidFreq').AsString;
@@ -3650,7 +3613,6 @@ begin
     then s := 'c:01' + IntToHex(StrToInt(cdsServSave.FieldByName('servAPID').AsString),4) + ',' + s;
     if cdsServSave.FieldByName('servVPID').AsInteger <> 0
     then s := 'c:00' + IntToHex(StrToInt(cdsServSave.FieldByName('servVPID').AsString),4) + ',' + s;
-
     if cdsServSave.FieldByName('servFlags').AsInteger  and 127 <> 0
     then s := 'f:' + IntToHex(cdsServSave.FieldByName('servFlags').AsInteger and 127,4) + ',' + s;
     if cdsServSave.FieldByName('servExtra').AsString <> ''
