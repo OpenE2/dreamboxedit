@@ -11,6 +11,7 @@ object frmMain: TfrmMain
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   OnActivate = FormActivate
   PixelsPerInch = 96
@@ -1331,9 +1332,6 @@ object frmMain: TfrmMain
           end
           item
             Items = <
-              item
-                Action = CustomizeActionBars1
-              end
               item
                 Action = acFileSet
                 ImageIndex = 2
@@ -7940,14 +7938,6 @@ object frmMain: TfrmMain
       FE00F0000000007FFE000000FF00F000000000FFFFC00000FFE1F000000001FF
       FFE00000FFE3FFFFFF0003FFFFFF000000000000000000000000000000000000
       000000000000}
-  end
-  object JvEasterEgg1: TJvEasterEgg
-    Left = 744
-    Top = 333
-  end
-  object JvProfiler1: TJvProfiler
-    Left = 744
-    Top = 381
   end
   object JvWinHelp1: TJvWinHelp
     Left = 744

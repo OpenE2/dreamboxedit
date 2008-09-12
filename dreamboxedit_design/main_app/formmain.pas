@@ -94,8 +94,6 @@ type
     ilCommon24: TImageList;
     tbtnAbout: TToolButton;
     tbtnHelpContents: TToolButton;
-    JvEasterEgg1: TJvEasterEgg;
-    JvProfiler1: TJvProfiler;
     JvWinHelp1: TJvWinHelp;
     JvTrayIcon1: TJvTrayIcon;
     ilTrayIconInfo: TImageList;
