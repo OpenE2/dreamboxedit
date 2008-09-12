@@ -9,7 +9,7 @@ MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
 DCC = $(ROOT)\bin\dcc32.exe $**
 BRCC = $(ROOT)\bin\brcc32.exe $**
 #------------------------------------------------------------------------------
-PROJECTS = DreamBoxEdit.exe LW.bpl
+PROJECTS = DreamBoxEdit.exe LW.bpl dboxedit_design.exe
 #------------------------------------------------------------------------------
 default: $(PROJECTS)
 #------------------------------------------------------------------------------
@@ -18,6 +18,9 @@ DreamBoxEdit.exe: Main App\DreamBoxEdit.dpr
   $(DCC)
 
 LW.bpl: Components\LW.dpk
+  $(DCC)
+
+dboxedit_design.exe: dreamboxedit_design\main_app\dboxedit_design.dpr
   $(DCC)
 
 
