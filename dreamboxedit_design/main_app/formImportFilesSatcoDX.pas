@@ -5,18 +5,18 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, Menus, DB, DBClient, LWBtn, ComCtrls,
-  ExtCtrls, LWPanel;
+  ExtCtrls, LWPanel, JvBaseDlg, JvSelectDirectory, JvDialogs;
 
 type
   TfrmImportSatcoDXFiles = class(TForm)
     lwpnlBG: TLWPanel;
-    GroupBox1: TGroupBox;
+    gbxSatcoDXTVAndRadioServices: TGroupBox;
     lvSDX: TListView;
-    GroupBox3: TGroupBox;
+    gbxDisplayOptions: TGroupBox;
     rbAll: TRadioButton;
     rbNew: TRadioButton;
     rbSame: TRadioButton;
-    GroupBox4: TGroupBox;
+    gbxProcessingOptions: TGroupBox;
     cbNewBouq: TCheckBox;
     cbReplace: TCheckBox;
     cbUsePIDs: TCheckBox;
@@ -28,8 +28,7 @@ type
     Checkall1: TMenuItem;
     Uncheckall1: TMenuItem;
     cdsPck: TClientDataSet;
-    od: TOpenDialog;
-    CheckBox1: TCheckBox;
+    chkSelectDeselectAll: TCheckBox;
     btnDone: TButton;
     sbtnStatisticsToggle: TSpeedButton;
     lwpnlStatistics: TLWPanel;
@@ -56,9 +55,46 @@ type
     bAddPackageName: TButton;
     bGetPackageInfo: TButton;
     bOpen: TLWButton;
-    bCheckDuplicates: TButton;
+    btnCheckDuplicates: TButton;
+    JvSelectDirectory1: TJvSelectDirectory;
+    JvOpenDialog1: TJvOpenDialog;
+    gbxImportDuplicates: TGroupBox;
+    gbxTransponderDetails: TGroupBox;
+    lblTransponderID: TLabel;
+    lblNetworkID: TLabel;
+    _lTSID: TLabel;
+    _lNID: TLabel;
+    lblNamespace: TLabel;
+    _lUniq: TLabel;
+    gbxServiceDetails: TGroupBox;
+    lblServiceID: TLabel;
+    lblServiceType: TLabel;
+    _lSID: TLabel;
+    _lTyp: TLabel;
+    gbxExistingDefinition: TGroupBox;
+    lblSatellite: TLabel;
+    lblPosition: TLabel;
+    lblFrequency: TLabel;
+    lblSymbolrate: TLabel;
+    lblPolarisation: TLabel;
+    lblFEC: TLabel;
+    _lSatName: TLabel;
+    _lSatPos: TLabel;
+    _lFreq: TLabel;
+    _lSymb: TLabel;
+    _lPol: TLabel;
+    _lFEC: TLabel;
+    lvSDXDup: TListView;
+    btnNext: TButton;
+    btnBack: TButton;
     procedure sbtnStatisticsToggleClick(Sender: TObject);
     procedure btnDoneClick(Sender: TObject);
+    procedure bOpenClick(Sender: TObject);
+    procedure bGetPackageInfoClick(Sender: TObject);
+    procedure chkSelectDeselectAllClick(Sender: TObject);
+    procedure btnCheckDuplicatesClick(Sender: TObject);
+    procedure btnBackClick(Sender: TObject);
+    procedure btnNextClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -83,6 +119,49 @@ end;
 procedure TfrmImportSatcoDXFiles.btnDoneClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmImportSatcoDXFiles.bOpenClick(Sender: TObject);
+begin
+  if JvSelectDirectory1.Execute = True then
+  begin
+
+  end;
+end;
+
+procedure TfrmImportSatcoDXFiles.bGetPackageInfoClick(Sender: TObject);
+begin
+  if JvOpenDialog1.Execute then
+  begin
+
+  end;
+end;
+
+procedure TfrmImportSatcoDXFiles.chkSelectDeselectAllClick(Sender: TObject);
+begin
+  if gbxImportDuplicates.Visible = True then
+  begin
+
+  end
+  else
+  begin
+
+  end;
+end;
+
+procedure TfrmImportSatcoDXFiles.btnCheckDuplicatesClick(Sender: TObject);
+begin
+  gbxImportDuplicates.Visible := True;
+end;
+
+procedure TfrmImportSatcoDXFiles.btnBackClick(Sender: TObject);
+begin
+  gbxImportDuplicates.Visible := False;
+end;
+
+procedure TfrmImportSatcoDXFiles.btnNextClick(Sender: TObject);
+begin
+//
 end;
 
 end.

@@ -1,8 +1,8 @@
 object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
-  Left = 354
-  Top = 137
+  Left = 316
+  Top = 171
   Width = 965
-  Height = 686
+  Height = 699
   Caption = 'Import TV and Radio services from SDX files (SatcoDX)'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +17,7 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
     Left = 0
     Top = 0
     Width = 957
-    Height = 652
+    Height = 665
     Align = alClient
     TabOrder = 0
     Effect = GradientV
@@ -25,10 +25,10 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
     Color2 = clWhite
     DesignSize = (
       957
-      652)
+      665)
     object sbtnStatisticsToggle: TSpeedButton
       Left = 480
-      Top = 606
+      Top = 600
       Width = 132
       Height = 19
       Anchors = [akRight, akBottom]
@@ -63,11 +63,11 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
         7917D97F23E09F5CEADAC4F0FBFFF0FBFFF0FBFFF0FBFFF0FBFF}
       OnClick = sbtnStatisticsToggleClick
     end
-    object GroupBox1: TGroupBox
+    object gbxSatcoDXTVAndRadioServices: TGroupBox
       Left = 8
       Top = 16
       Width = 606
-      Height = 588
+      Height = 583
       Anchors = [akLeft, akTop, akRight, akBottom]
       Caption = 'SatcoDX TV and Radio services'
       Color = clCream
@@ -81,12 +81,12 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
       TabOrder = 0
       DesignSize = (
         606
-        588)
+        583)
       object lvSDX: TListView
         Left = 8
         Top = 16
         Width = 590
-        Height = 564
+        Height = 559
         Anchors = [akLeft, akTop, akRight, akBottom]
         Checkboxes = True
         Columns = <
@@ -208,7 +208,7 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
         ViewStyle = vsReport
       end
     end
-    object GroupBox3: TGroupBox
+    object gbxDisplayOptions: TGroupBox
       Left = 621
       Top = 16
       Width = 329
@@ -278,7 +278,7 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
         TabOrder = 2
       end
     end
-    object GroupBox4: TGroupBox
+    object gbxProcessingOptions: TGroupBox
       Left = 621
       Top = 99
       Width = 329
@@ -371,20 +371,9 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
         WordWrap = True
       end
     end
-    object CheckBox1: TCheckBox
-      Left = 24
-      Top = 608
-      Width = 121
-      Height = 17
-      Anchors = [akLeft, akBottom]
-      Caption = 'Select / deselect all'
-      Color = clCream
-      ParentColor = False
-      TabOrder = 3
-    end
     object btnDone: TButton
       Left = 873
-      Top = 622
+      Top = 635
       Width = 75
       Height = 21
       Anchors = [akRight, akBottom]
@@ -394,7 +383,7 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
     end
     object lwpnlStatistics: TLWPanel
       Left = 317
-      Top = 371
+      Top = 365
       Width = 295
       Height = 233
       Anchors = [akRight, akBottom]
@@ -664,7 +653,7 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
         329
         273)
       object bProcess: TLWButton
-        Left = 48
+        Left = 40
         Top = 197
         Width = 249
         Height = 37
@@ -708,7 +697,7 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
         TabOrder = 0
       end
       object bAddPackageName: TButton
-        Left = 48
+        Left = 40
         Top = 76
         Width = 249
         Height = 21
@@ -729,7 +718,7 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
         WordWrap = True
       end
       object bGetPackageInfo: TButton
-        Left = 48
+        Left = 40
         Top = 116
         Width = 249
         Height = 21
@@ -749,9 +738,10 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
         ShowHint = True
         TabOrder = 2
         WordWrap = True
+        OnClick = bGetPackageInfoClick
       end
       object bOpen: TLWButton
-        Left = 48
+        Left = 40
         Top = 156
         Width = 249
         Height = 21
@@ -794,9 +784,10 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
         ParentShowHint = False
         ShowHint = True
         TabOrder = 3
+        OnClick = bOpenClick
       end
-      object bCheckDuplicates: TButton
-        Left = 48
+      object btnCheckDuplicates: TButton
+        Left = 40
         Top = 36
         Width = 249
         Height = 21
@@ -813,7 +804,476 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
         ShowHint = True
         TabOrder = 4
         WordWrap = True
+        OnClick = btnCheckDuplicatesClick
       end
+    end
+    object gbxImportDuplicates: TGroupBox
+      Left = 8
+      Top = 16
+      Width = 945
+      Height = 614
+      Caption = 'Import duplicates'
+      Color = clCream
+      ParentColor = False
+      TabOrder = 7
+      Visible = False
+      DesignSize = (
+        945
+        614)
+      object gbxTransponderDetails: TGroupBox
+        Left = 406
+        Top = 96
+        Width = 191
+        Height = 77
+        Caption = 'Transponder details'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        object lblTransponderID: TLabel
+          Left = 8
+          Top = 16
+          Width = 74
+          Height = 14
+          Caption = 'Transponder ID'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblNetworkID: TLabel
+          Left = 8
+          Top = 32
+          Width = 53
+          Height = 14
+          Caption = 'Network ID'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object _lTSID: TLabel
+          Left = 96
+          Top = 16
+          Width = 65
+          Height = 14
+          AutoSize = False
+          Caption = '-'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object _lNID: TLabel
+          Left = 96
+          Top = 32
+          Width = 65
+          Height = 14
+          AutoSize = False
+          Caption = '-'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblNamespace: TLabel
+          Left = 8
+          Top = 48
+          Width = 57
+          Height = 14
+          Caption = 'Namespace'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object _lUniq: TLabel
+          Left = 96
+          Top = 48
+          Width = 65
+          Height = 14
+          AutoSize = False
+          Caption = '-'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+      end
+      object gbxServiceDetails: TGroupBox
+        Left = 406
+        Top = 20
+        Width = 191
+        Height = 73
+        Caption = 'Service details'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+        object lblServiceID: TLabel
+          Left = 8
+          Top = 16
+          Width = 49
+          Height = 14
+          Caption = 'Service ID'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblServiceType: TLabel
+          Left = 8
+          Top = 32
+          Width = 64
+          Height = 14
+          Caption = 'Service Type'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object _lSID: TLabel
+          Left = 96
+          Top = 16
+          Width = 65
+          Height = 14
+          AutoSize = False
+          Caption = '-'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object _lTyp: TLabel
+          Left = 96
+          Top = 32
+          Width = 65
+          Height = 14
+          AutoSize = False
+          Caption = '-'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+      end
+      object gbxExistingDefinition: TGroupBox
+        Left = 8
+        Top = 20
+        Width = 393
+        Height = 153
+        Caption = 'Existing definition in Dreambox for this transponder/service'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+        DesignSize = (
+          393
+          153)
+        object lblSatellite: TLabel
+          Left = 8
+          Top = 22
+          Width = 37
+          Height = 14
+          Caption = 'Satellite'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblPosition: TLabel
+          Left = 8
+          Top = 41
+          Width = 37
+          Height = 14
+          Caption = 'Position'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblFrequency: TLabel
+          Left = 8
+          Top = 60
+          Width = 52
+          Height = 14
+          Caption = 'Frequency'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblSymbolrate: TLabel
+          Left = 8
+          Top = 79
+          Width = 54
+          Height = 14
+          Caption = 'Symbolrate'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblPolarisation: TLabel
+          Left = 8
+          Top = 98
+          Width = 55
+          Height = 14
+          Caption = 'Polarisation'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblFEC: TLabel
+          Left = 8
+          Top = 118
+          Width = 19
+          Height = 14
+          Caption = 'FEC'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object _lSatName: TLabel
+          Left = 88
+          Top = 22
+          Width = 209
+          Height = 14
+          Anchors = [akLeft, akTop, akRight]
+          AutoSize = False
+          Caption = '-'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object _lSatPos: TLabel
+          Left = 88
+          Top = 41
+          Width = 25
+          Height = 14
+          Anchors = [akTop, akRight]
+          AutoSize = False
+          Caption = '-'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object _lFreq: TLabel
+          Left = 88
+          Top = 60
+          Width = 65
+          Height = 14
+          Anchors = [akTop, akRight]
+          AutoSize = False
+          Caption = '-'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object _lSymb: TLabel
+          Left = 88
+          Top = 79
+          Width = 65
+          Height = 14
+          Anchors = [akTop, akRight]
+          AutoSize = False
+          Caption = '-'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object _lPol: TLabel
+          Left = 88
+          Top = 98
+          Width = 65
+          Height = 14
+          Anchors = [akTop, akRight]
+          AutoSize = False
+          Caption = '-'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object _lFEC: TLabel
+          Left = 88
+          Top = 118
+          Width = 65
+          Height = 14
+          Anchors = [akTop, akRight]
+          AutoSize = False
+          Caption = '-'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+      end
+      object lvSDXDup: TListView
+        Left = 8
+        Top = 182
+        Width = 927
+        Height = 389
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        Checkboxes = True
+        Columns = <
+          item
+            Caption = 'Satellite name'
+            MinWidth = 25
+            Width = 100
+          end
+          item
+            Caption = 'SatPos'
+            MinWidth = 25
+            Width = 46
+          end
+          item
+            Caption = 'Service name'
+            MinWidth = 25
+            Width = 100
+          end
+          item
+            Caption = 'Frequency'
+            MinWidth = 25
+            Width = 65
+          end
+          item
+            Caption = 'Pol.'
+            MinWidth = 25
+            Width = 30
+          end
+          item
+            Caption = 'Symbolrate'
+            MinWidth = 25
+            Width = 65
+          end
+          item
+            Caption = 'FEC'
+            MinWidth = 25
+            Width = 32
+          end
+          item
+            Caption = 'Serv.name in DB'
+            MinWidth = 25
+            Width = 100
+          end
+          item
+            Caption = 'VPID'
+            MinWidth = 25
+            Width = 45
+          end
+          item
+            Caption = 'APID'
+            MinWidth = 25
+            Width = 45
+          end
+          item
+            Caption = 'PPID'
+            MinWidth = 25
+            Width = 45
+          end
+          item
+            Caption = 'Lng'
+            MinWidth = 25
+            Width = 36
+          end>
+        HideSelection = False
+        ReadOnly = True
+        RowSelect = True
+        TabOrder = 3
+        ViewStyle = vsReport
+      end
+      object btnNext: TButton
+        Left = 782
+        Top = 585
+        Width = 75
+        Height = 21
+        Anchors = [akRight, akBottom]
+        Caption = '&Next'
+        TabOrder = 4
+        OnClick = btnNextClick
+      end
+      object btnBack: TButton
+        Left = 862
+        Top = 585
+        Width = 75
+        Height = 21
+        Anchors = [akRight, akBottom]
+        Caption = '&Back'
+        TabOrder = 5
+        OnClick = btnBackClick
+      end
+    end
+    object chkSelectDeselectAll: TCheckBox
+      Left = 24
+      Top = 601
+      Width = 121
+      Height = 17
+      Anchors = [akLeft, akBottom]
+      Caption = 'Select / deselect all'
+      Color = clCream
+      ParentColor = False
+      TabOrder = 3
+      OnClick = chkSelectDeselectAllClick
     end
   end
   object cdsSDX: TClientDataSet
@@ -909,12 +1369,12 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 48
-    Top = 96
+    Left = 624
+    Top = 224
   end
   object pulvSDX: TPopupMenu
-    Left = 88
-    Top = 96
+    Left = 664
+    Top = 224
     object Check1: TMenuItem
       Caption = 'Check / Uncheck          [Spacebar]'
     end
@@ -951,11 +1411,20 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 128
-    Top = 96
+    Left = 704
+    Top = 224
   end
-  object od: TOpenDialog
-    Left = 168
-    Top = 96
+  object JvSelectDirectory1: TJvSelectDirectory
+    ClassicDialog = False
+    Left = 744
+    Top = 224
+  end
+  object JvOpenDialog1: TJvOpenDialog
+    DefaultExt = '*.txt'
+    Filter = 'Text files (*.txt)|*.txt'
+    Height = 0
+    Width = 0
+    Left = 776
+    Top = 224
   end
 end
