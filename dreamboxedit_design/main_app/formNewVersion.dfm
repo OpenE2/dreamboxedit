@@ -32,8 +32,8 @@ object frmNewVersion: TfrmNewVersion
     object Label1: TLabel
       Left = 8
       Top = 8
-      Width = 249
-      Height = 17
+      Width = 229
+      Height = 13
       Caption = 'A new version of DreamBoxEdit has been found!'
       Color = clCream
       ParentColor = False

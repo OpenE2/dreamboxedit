@@ -12,7 +12,7 @@ uses
   JvSelectDirectory, formFiles, formImportFilesSatcoDX, JvDialogs,
   formEditSatellitesXML, formCompareSets, formImportUserBouquets, DB,
   DBClient, LWLanguage, IdBaseComponent, IdComponent, IdTCPConnection,
-  IdTCPClient, IdHTTP, Menus;
+  IdTCPClient, IdHTTP, Menus, formNewVersion;
 
 type
   TfrmMain = class(TForm)
@@ -301,15 +301,22 @@ begin
 end;
 
 procedure TfrmMain.JvTrayIcon1BalloonClick(Sender: TObject);
+var
+  frmNewVersion: TfrmNewVersion;
 begin
-  // Show update window...
+  frmNewVersion := TfrmNewVersion.Create(Self);
+  try
+    frmNewVersion.Show;
+  except
+    if Assigned(frmNewVersion) then frmNewVersion.Free;
+  end;
 end;
 
 procedure TfrmMain.tbtnOpenClick(Sender: TObject);
 begin
   if JvSelectDirectory1.Execute then
   begin
-    //
+    // TODO: Code to open files from disk...
   end;
 end;
 
@@ -317,7 +324,7 @@ procedure TfrmMain.acSaveAsExecute(Sender: TObject);
 begin
   if JvSelectDirectory1.Execute then
   begin
-    //
+    // TODO: Code for save action...
   end;
 end;
 
@@ -363,7 +370,7 @@ begin
 
   if JvOpenDialog1.Execute = True then
   begin
-    //
+    // TODO: Code Re-import exported services...
   end;
 
   JvOpenDialog1.Title := '';
@@ -375,7 +382,7 @@ begin
 
   if JvOpenDialog1.Execute = True then
   begin
-    //
+    // TODO: Code Re-import exported bouquets...
   end;
 
   JvOpenDialog1.Title := '';
@@ -385,7 +392,7 @@ procedure TfrmMain.acExportAllServicesExcelExecute(Sender: TObject);
 begin
   if JvSaveDialog1.Execute = True then
   begin
-
+    // TODO: Code Export all services to Excel readable format...
   end;
 end;
 
@@ -393,7 +400,7 @@ procedure TfrmMain.acExportAllBouquetsExcelExecute(Sender: TObject);
 begin
   if JvSaveDialog1.Execute = True then
   begin
-
+    // TODO: Code Export all bouquets to Excel readable format...
   end;
 end;
 
@@ -401,7 +408,7 @@ procedure TfrmMain.acExportAllServicesSatcoDXExecute(Sender: TObject);
 begin
   if JvSaveDialog1.Execute = True then
   begin
-
+    // TODO: Code Export all services to SatcoDX format...
   end;
 end;
 
