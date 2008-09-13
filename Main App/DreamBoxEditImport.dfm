@@ -1,6 +1,6 @@
 object FormImport: TFormImport
-  Left = 217
-  Top = 163
+  Left = 142
+  Top = 156
   Width = 956
   Height = 638
   Caption = 'Import TV and Radio services from SDX files (SatcoDX)'
@@ -91,14 +91,14 @@ object FormImport: TFormImport
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 940
-    Height = 602
+    Width = 948
+    Height = 604
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
-      940
-      602)
+      948
+      604)
     object bCancel: TButton
       Left = 865
       Top = 563

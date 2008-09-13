@@ -1,6 +1,6 @@
 object FormOptions: TFormOptions
-  Left = 222
-  Top = 165
+  Left = 237
+  Top = 194
   Width = 773
   Height = 542
   Caption = 'DreamBoxEdit Options'
@@ -1515,8 +1515,23 @@ object FormOptions: TFormOptions
       end
       object TabSheet2: TTabSheet
         Caption = 'Picon'
-        Enabled = False
         ImageIndex = 6
+        DesignSize = (
+          742
+          429)
+        object Label23: TLabel
+          Left = 24
+          Top = 54
+          Width = 93
+          Height = 14
+          Caption = 'Local png directory'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
         object cbPiconActivate: TCheckBox
           Left = 24
           Top = 32
@@ -1527,7 +1542,7 @@ object FormOptions: TFormOptions
         end
         object GroupBox5: TGroupBox
           Left = 24
-          Top = 72
+          Top = 104
           Width = 377
           Height = 185
           Caption = 'Upload picons '
@@ -1619,6 +1634,74 @@ object FormOptions: TFormOptions
             OnClick = bPiconCFClick
           end
         end
+        object eLpngDir: TEdit
+          Left = 24
+          Top = 68
+          Width = 377
+          Height = 21
+          Hint = 
+            'Use the browse button to select and/or create a directory on you' +
+            'r PC to store the file-set'
+          Anchors = [akLeft, akTop, akRight]
+          Color = 15395562
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          ParentShowHint = False
+          ReadOnly = True
+          ShowHint = True
+          TabOrder = 2
+        end
+        object bpngBrowse: TLWButton
+          Left = 416
+          Top = 66
+          Width = 75
+          Height = 25
+          Hint = 
+            'Select and/or create a directory on your PC to store the file-se' +
+            't'
+          ShowFocus = False
+          BoldOnDefault = False
+          ButtonLook = blNormal
+          InactiveFont.Charset = DEFAULT_CHARSET
+          InactiveFont.Color = clWindowText
+          InactiveFont.Height = -11
+          InactiveFont.Name = 'MS Sans Serif'
+          InactiveFont.Style = []
+          ActiveFont.Charset = DEFAULT_CHARSET
+          ActiveFont.Color = clWindowText
+          ActiveFont.Height = -11
+          ActiveFont.Name = 'MS Sans Serif'
+          ActiveFont.Style = []
+          DownFont.Charset = DEFAULT_CHARSET
+          DownFont.Color = clWindowText
+          DownFont.Height = -11
+          DownFont.Name = 'MS Sans Serif'
+          DownFont.Style = []
+          InactiveColor = clBtnFace
+          InactiveLineColor = clMaroon
+          InactiveOutlineColor2 = clBlack
+          InactiveOutlineColor3 = clGray
+          ActiveColor = clBtnFace
+          ActiveLineColor = clMaroon
+          ActiveOutlineColor1 = clBlack
+          ActiveOutlineColor3 = clGray
+          DownColor = clBtnFace
+          DownLineColor = clMaroon
+          DownOutlineColor1 = clBlack
+          DownOutlineColor2 = clGray
+          DownOutlineColor3 = clMaroon
+          RoundedPixels = 16
+          Anchors = [akTop, akRight]
+          Caption = 'Browse'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 3
+          OnClick = bpngBrowseClick
+        end
       end
     end
   end
@@ -1702,6 +1785,11 @@ object FormOptions: TFormOptions
         Name = 'prPathPicons'
         DataType = ftString
         Size = 250
+      end
+      item
+        Name = 'prLocalPathPicons'
+        DataType = ftString
+        Size = 20
       end>
     IndexDefs = <>
     Params = <>

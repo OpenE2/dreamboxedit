@@ -592,4 +592,8 @@ object FormFTP: TFormFTP
     Left = 576
     Top = 296
   end
+  object IdAntiFreeze1: TIdAntiFreeze
+    Left = 576
+    Top = 224
+  end
 end

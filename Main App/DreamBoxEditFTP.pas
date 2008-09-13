@@ -34,6 +34,7 @@ type
     lIPAddress: TLabel;
     eIPAddress: TEdit;
     cbAutoReload: TCheckBox;
+    IdAntiFreeze1: TIdAntiFreeze;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bReceiveClick(Sender: TObject);
@@ -772,6 +773,12 @@ begin
     cbCleanUpDreambox.Checked := True;
     Reg.WriteBool('CleanUpDreambox',cbCleanUpDreambox.Checked);
   end;
+  if Reg.ValueExists('AutoReload')
+  then cbAutoReload.Checked := Reg.ReadBool('AutoReload')
+  else begin;
+    cbAutoReload.Checked := True;
+    Reg.WriteBool('AutoReload',cbAutoReload.Checked);
+  end;
   if FormMain.Dir = ''
   then
     if Reg.ValueExists('LastUsedDirectory')
@@ -802,6 +809,7 @@ begin
   Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
 
   Reg.WriteBool('CleanUpDreambox',cbCleanUpDreambox.Checked);
+  Reg.WriteBool('AutoReload',cbAutoReload.Checked);
 
   Key := Name+'.Top';
   Reg.WriteInteger(key,Top);
@@ -809,6 +817,7 @@ begin
   Reg.WriteInteger(key,Left);
   Reg.CloseKey;
   Reg.Destroy;
+  
 end;
 
 procedure TFormFTP.bReceiveClick(Sender: TObject);
@@ -972,7 +981,7 @@ begin
       end;
     end;
 
-  Sleep(4000);  
+  Sleep(3000);
   FTP.Host := FormMain.DBIP;
   FTP.Port := StrToInt(FormMain.DBFTPPort);
   FTP.Username := FormMain.DBUsername;
@@ -1379,14 +1388,16 @@ disc:
   end;
 
   bSend.InactiveColor := clBtnFace;
+  
   bSend.ActiveColor := clBtnFace;
-
+  if cbAutoReload.Checked = False then
   FormMain.Log('i',FormMain.lwLngTrns(name,[
                    'Succesfully transferred the file-set to the dreambox.']));
 
   if (not silent) and
      (FormMain.ShowResultMsg)
   then begin;
+  //  if cbAutoReload.Checked = False then
     MessageDlg(FormMain.lwLngTrns(name,[
                'Succesfully transferred the file-set to the dreambox.~~' +
                'To activate the changes you must select "Reload" or "Reboot settings in Dreambox"!']),
@@ -1417,6 +1428,7 @@ disc:
                   '(as is configured on the options panel).']);
 
     Application.ProcessMessages;
+    if cbAutoReload.Checked = False then
     MessageDlg(FormMain.lwLngTrns(name,[
                'Succesfully transferred the file-set to the dreambox %',s]),
                mtInformation,[mbOK],0);
@@ -1544,8 +1556,20 @@ begin
         then begin;
             Memo1.Lines.Add(FormMain.lwLngTrns(name,['Sending start enigma2 command']));
             FormMain.log('i',FormMain.lwLngTrns(name,['Sending start enigma2 command']));
+
             SendTelnetCmd('init 3');
             TelnetStage := 8;
+        end
+        else
+        if (TelnetStage = 8) and
+           ((pos('~ >',buffer) > 0) or
+            (pos('~#',buffer) > 0) or
+            (pos('dreambox #',buffer) > 0) or
+            (pos(FormMain.DreamboxCmdPrompt,buffer) > 0))
+        then begin;
+            Memo1.Lines.Add(FormMain.lwLngTrns(name,['Terminating telnet']));
+            FormMain.log('i',FormMain.lwLngTrns(name,['Terminating telnet']));
+            Telnet.IOHandler.CloseGracefully;
         end
         else
 
@@ -1569,7 +1593,7 @@ begin
   Timer1.Enabled := False;
   if Telnet.Connected
   then begin;
-    Try Telnet.Disconnect
+    Try   Telnet.Disconnect
     except
     end;
   end;

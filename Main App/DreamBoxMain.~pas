@@ -442,6 +442,7 @@ type
     PathUserBouquets: String;
     PathSatellites: String;
     PathPicons: String;
+    LocalPathPicons: String;
     UserTelnetCmd: String;
     DreamboxCmdPrompt: String;
     QuickFTPEnabled: Boolean;
@@ -2057,6 +2058,7 @@ var
   i,rc,FileAttr: Integer;
   mi: TMenuItem;
   Reg: TRegistry;
+  Adir : String;
 begin
   ClipBFormat := RegisterClipboardFormat('DreamBoxEdit_Cut_and_Paste_Services');
 
@@ -2202,6 +2204,11 @@ begin
   _lDetName.Caption := '. . .';
   AutoOpen := False;
   LastWidth := 0;
+
+
+   Adir := ExtractFilePath(ParamStr(0));
+   if not DirectoryExists(Adir+ '\picon') then
+   ForceDirectories(Adir+ '\picon');
 end;
 
 procedure TFormMain.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -2265,6 +2272,9 @@ begin
   FormatWordsList.Free;
   TVTypes.Free;
   RDTypes.Free;
+
+  FormFTP.Telnet.IOHandler.Close;
+  
 end;
 
 procedure TFormMain.sbDrawPanel(StatusBar: TStatusBar;
@@ -4454,6 +4464,13 @@ begin
   else begin
     PathPicons := '/media/usb/picons/';
     Reg.WriteString('Path Picons', PathPicons);
+  end;
+
+  if Reg.ValueExists('Local Path Picons')
+  then PathPicons := Reg.ReadString('Local Path Picons')
+  else begin
+    PathPicons := ExtractFileName(ParamStr(0))+'\temp';
+    Reg.WriteString('Local Path Picons', PathPicons);
   end;
 
   if Reg.ValueExists('Profiles Name')

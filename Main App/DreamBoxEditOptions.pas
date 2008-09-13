@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, Registry, Sockets, IdBaseComponent,
   IdComponent, IdTCPConnection, IdTCPClient, IdFTP, ComCtrls, StrUtils,
-  Spin, IdExplicitTLSClientServerBase, DB, DBClient, Grids, DBGrids;
+  Spin, IdExplicitTLSClientServerBase, DB, DBClient, Grids, DBGrids, LWBtn;
 
 type
   TFormOptions = class(TForm)
@@ -119,6 +119,9 @@ type
     Label18: TLabel;
     bDefaultsNewEnigma2: TButton;
     bTVAddHDTV: TButton;
+    Label23: TLabel;
+    eLpngDir: TEdit;
+    bpngBrowse: TLWButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bSaveClick(Sender: TObject);
@@ -155,6 +158,7 @@ type
     procedure bPiconHddClick(Sender: TObject);
     procedure bPiconCFClick(Sender: TObject);
     procedure bTVAddHDTVClick(Sender: TObject);
+    procedure bpngBrowseClick(Sender: TObject);
   private
     { Private declarations }
     Loading: Boolean;
@@ -260,6 +264,7 @@ begin
     cdsProfiles.FieldByName('prPathUserbouquets').AsString := Reg.ReadString('Profiles Path Userbouquets ' + IntToStr(i));
     cdsProfiles.FieldByName('prPathSatellites').AsString := Reg.ReadString('Profiles Path Satellites ' + IntToStr(i));
     cdsProfiles.FieldByName('prPathPicons').AsString := Reg.ReadString('Profiles Path Picons ' + IntToStr(i));
+    cdsProfiles.FieldByName('prLocalPathPicons').AsString := Reg.ReadString('Profiles Local Path Picons ' + IntToStr(i));
     cdsProfiles.Post;
   end;
   Loading := False;
@@ -277,6 +282,7 @@ begin
   ePathUserBouquets.Text := FormMain.PathUserBouquets;
   ePathSatellites.Text := FormMain.PathSatellites;
   ePathPicons.Text := FormMain.PathPicons;
+  eLpngDir.Text := FormMain.LocalPathPicons;
 
   eUserTelnetCmd.Text := FormMain.UserTelnetCmd;
   eDreamboxCmdPrompt.Text := FormMain.DreamboxCmdPrompt;
@@ -423,6 +429,7 @@ begin
     Reg.DeleteValue('Profiles Path Services ' + IntToStr(i));
     Reg.DeleteValue('Profiles Path Userbouquets ' + IntToStr(i));
     Reg.DeleteValue('Profiles Path Satellites ' + IntToStr(i));
+    Reg.DeleteValue('Profiles Path Picons ' + IntToStr(i));
   end;
 
   c := 0;
@@ -438,6 +445,7 @@ begin
     Reg.WriteString('Profiles Path Services ' + IntToStr(c),cdsProfiles.FieldValues['prPathServices']);
     Reg.WriteString('Profiles Path Userbouquets ' + IntToStr(c),cdsProfiles.FieldValues['prPathUserbouquets']);
     Reg.WriteString('Profiles Path Satellites ' + IntToStr(c),cdsProfiles.FieldValues['prPathSatellites']);
+    Reg.WriteString('Profiles Path Picons ' + IntToStr(c),cdsProfiles.FieldValues['prPathPicons']);
     cdsProfiles.Next;
     inc(c);
   end;
@@ -803,7 +811,7 @@ end;
 procedure TFormOptions.FormCreate(Sender: TObject);
 begin
   FormMain.MultiLang.SetLanguage(Self,FormMain.Language,False);
-  
+
   cdsProfiles.IndexFieldNames := 'prSeqNr';
   cdsProfiles.CreateDataset;
   cdsProfiles.LogChanges := False;
@@ -1106,6 +1114,19 @@ begin
    mTVTypes.Lines.Add('25');
    mTVTypes.Lines.Add('134');
    end;
+end;
+
+procedure TFormOptions.bpngBrowseClick(Sender: TObject);
+var
+  LocalPathPicons: String;
+begin
+  LocalPathPicons := FormMain.LocalPathPicons;
+  if FormMain.SelDir(LocalPathPicons,True)
+  then begin;
+    eLpngDir.Text := LocalPathPicons;
+    FormMain.LocalPathPicons := eLpngDir.Text;
+  end;
+
 end;
 
 end.

@@ -227,7 +227,6 @@ procedure TFormImport.FormShow(Sender: TObject);
 var
   Reg: Tregistry;
   Key: String;
-  l: Integer;
 begin
   Caption := FormMain.lwLngTrns(name,['Import TV and Radio services from SDX files (SatcoDX)']);
 
