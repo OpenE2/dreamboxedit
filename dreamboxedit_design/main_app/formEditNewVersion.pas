@@ -16,8 +16,6 @@ type
     lblNewVersion: TLabel;
     _lNewVersion: TLabel;
     lblDot: TLabel;
-    gbxChanges: TGroupBox;
-    mmChanges: TMemo;
     bGotoDL: TButton;
     gbxOptions: TGroupBox;
     Label4: TLabel;
@@ -27,6 +25,8 @@ type
     btnDone: TButton;
     CheckBox1: TCheckBox;
     bReset: TButton;
+    gbxChanges: TGroupBox;
+    mmChanges: TMemo;
     procedure btnDoneClick(Sender: TObject);
   private
     { Private declarations }

@@ -1338,7 +1338,11 @@ object frmMain: TfrmMain
               end
               item
                 Action = acShowLog
+                Caption = '&Show log file...'
                 ImageIndex = 4
+              end
+              item
+                Action = acEditSatellitesXML
               end
               item
                 Caption = '-'
@@ -1632,6 +1636,11 @@ object frmMain: TfrmMain
       Caption = 'Show log file...'
       ImageIndex = 4
       OnExecute = acShowLogExecute
+    end
+    object acEditSatellitesXML: TAction
+      Category = 'Tools'
+      Caption = '&Edit Satellites.xml'
+      OnExecute = acEditSatellitesXMLExecute
     end
   end
   object ilCommon16: TImageList

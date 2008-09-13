@@ -33,14 +33,16 @@ type
     bMoveUp: TSpeedButton;
     bMoveDown: TSpeedButton;
     bReload: TButton;
-    bCancel: TButton;
-    bSave: TButton;
+    btnDone: TButton;
     Label14: TLabel;
     DataSource1: TDataSource;
     puSatXML: TPopupMenu;
     InsertTransponder1: TMenuItem;
     Insertcopyoftransponder1: TMenuItem;
     DeleteTransponder1: TMenuItem;
+    sbtnSaveSatellitesXML: TSpeedButton;
+    procedure btnDoneClick(Sender: TObject);
+    procedure sbtnSaveSatellitesXMLClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -53,5 +55,16 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmEditSatellitesXML.btnDoneClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmEditSatellitesXML.sbtnSaveSatellitesXMLClick(
+  Sender: TObject);
+begin
+  //TODO: Save Satellites.xml...
+end;
 
 end.

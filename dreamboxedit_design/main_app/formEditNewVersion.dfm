@@ -13,6 +13,7 @@ object frmNewVersion: TfrmNewVersion
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  Position = poMainFormCenter
   PixelsPerInch = 96
   TextHeight = 13
   object lwpnlBG: TLWPanel
@@ -97,42 +98,6 @@ object frmNewVersion: TfrmNewVersion
       ParentColor = False
       Transparent = True
     end
-    object gbxChanges: TGroupBox
-      Left = 8
-      Top = 56
-      Width = 504
-      Height = 281
-      Anchors = [akLeft, akTop, akRight, akBottom]
-      Caption = 'Changes in new version'
-      Color = clCream
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Arial'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      TabOrder = 0
-      DesignSize = (
-        504
-        281)
-      object mmChanges: TMemo
-        Left = 8
-        Top = 16
-        Width = 488
-        Height = 257
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'MS Sans Serif'
-        Font.Style = []
-        ParentFont = False
-        ReadOnly = True
-        ScrollBars = ssBoth
-        TabOrder = 0
-      end
-    end
     object bGotoDL: TButton
       Left = 368
       Top = 345
@@ -148,7 +113,7 @@ object frmNewVersion: TfrmNewVersion
       Font.Style = []
       ModalResult = 1
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 0
       WordWrap = True
     end
     object gbxOptions: TGroupBox
@@ -166,7 +131,7 @@ object frmNewVersion: TfrmNewVersion
       Font.Style = []
       ParentColor = False
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 1
       DesignSize = (
         505
         169)
@@ -270,8 +235,44 @@ object frmNewVersion: TfrmNewVersion
       Height = 21
       Anchors = [akLeft, akBottom]
       Caption = '&Done'
-      TabOrder = 3
+      TabOrder = 2
       OnClick = btnDoneClick
+    end
+    object gbxChanges: TGroupBox
+      Left = 8
+      Top = 56
+      Width = 504
+      Height = 281
+      Anchors = [akLeft, akTop, akRight, akBottom]
+      Caption = 'Changes in new version'
+      Color = clCream
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 3
+      DesignSize = (
+        504
+        281)
+      object mmChanges: TMemo
+        Left = 8
+        Top = 16
+        Width = 488
+        Height = 257
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+        ReadOnly = True
+        ScrollBars = ssBoth
+        TabOrder = 0
+      end
     end
   end
 end

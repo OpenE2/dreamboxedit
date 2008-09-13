@@ -108,6 +108,7 @@ type
     acCompareSetsDreambox: TAction;
     acCompareSetsOther: TAction;
     acShowLog: TAction;
+    acEditSatellitesXML: TAction;
     procedure tbtnTransferClick(Sender: TObject);
     procedure tbtnOptionsClick(Sender: TObject);
     procedure acHelpAboutExecute(Sender: TObject);
@@ -128,6 +129,7 @@ type
     procedure acCompareSetsDreamboxExecute(Sender: TObject);
     procedure acCompareSetsOtherExecute(Sender: TObject);
     procedure acShowLogExecute(Sender: TObject);
+    procedure acEditSatellitesXMLExecute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -343,6 +345,18 @@ begin
     frmLog.Show;
   except
     if Assigned(frmLog) then frmLog.Free;
+  end;
+end;
+
+procedure TfrmMain.acEditSatellitesXMLExecute(Sender: TObject);
+var
+  frmEditSatellitesXML: TfrmEditSatellitesXML;
+begin
+  frmEditSatellitesXML := TfrmEditSatellitesXML.Create(Self);
+  try
+    frmEditSatellitesXML.Show;
+  except
+    if Assigned(frmEditSatellitesXML) then frmEditSatellitesXML.Free;
   end;
 end;
 
