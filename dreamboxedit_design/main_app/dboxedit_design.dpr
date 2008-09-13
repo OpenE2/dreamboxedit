@@ -13,7 +13,8 @@ uses
   formFiles in 'formFiles.pas' {frmFiles},
   formImportFilesSatcoDX in 'formImportFilesSatcoDX.pas' {frmImportSatcoDXFiles},
   formEditSatellitesXML in 'formEditSatellitesXML.pas' {frmEditSatellitesXML},
-  formCompareSets in 'formCompareSets.pas' {frmCompareSets};
+  formCompareSets in 'formCompareSets.pas' {frmCompareSets},
+  formEditTransponder in 'formEditTransponder.pas' {frmEditTransponder};
 
 {$R *.res}
 
