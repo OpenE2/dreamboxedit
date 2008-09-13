@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 270
-  Top = 158
+  Left = 355
+  Top = 270
   AutoScroll = False
   Caption = 'DreamBoxEdit'
   ClientHeight = 706

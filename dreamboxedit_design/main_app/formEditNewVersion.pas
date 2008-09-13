@@ -4,10 +4,30 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, JvComponentBase, JvBalloonHint;
+  Dialogs, ImgList, JvComponentBase, JvBalloonHint, StdCtrls, Spin,
+  ExtCtrls, LWPanel;
 
 type
-  TForm1 = class(TForm)
+  TfrmNewVersion = class(TForm)
+    lwpnlBG: TLWPanel;
+    Label1: TLabel;
+    lblYourVersion: TLabel;
+    _lCurVersion: TLabel;
+    lblNewVersion: TLabel;
+    _lNewVersion: TLabel;
+    lblDot: TLabel;
+    gbxChanges: TGroupBox;
+    mmChanges: TMemo;
+    bGotoDL: TButton;
+    gbxOptions: TGroupBox;
+    Label4: TLabel;
+    _lSkipVersionNr: TLabel;
+    _lLastCheck: TLabel;
+    _SpinEdit1: TSpinEdit;
+    btnDone: TButton;
+    CheckBox1: TCheckBox;
+    bReset: TButton;
+    procedure btnDoneClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -15,10 +35,15 @@ type
   end;
 
 var
-  Form1: TForm1;
+  frmNewVersion: TfrmNewVersion;
 
 implementation
 
 {$R *.dfm}
+
+procedure TfrmNewVersion.btnDoneClick(Sender: TObject);
+begin
+  Close;
+end;
 
 end.

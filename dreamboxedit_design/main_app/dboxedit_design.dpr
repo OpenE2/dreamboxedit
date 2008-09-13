@@ -9,7 +9,7 @@ uses
   formabout in 'formabout.pas' {frmAbout},
   formlog in 'formlog.pas' {frmLog},
   formprogress in 'formprogress.pas' {frmProgress},
-  formEditNewVersion in 'formEditNewVersion.pas' {Form1},
+  formEditNewVersion in 'formEditNewVersion.pas' {frmNewVersion},
   formFiles in 'formFiles.pas' {frmFiles},
   formImportFilesSatcoDX in 'formImportFilesSatcoDX.pas' {frmImportSatcoDXFiles},
   formEditSatellitesXML in 'formEditSatellitesXML.pas' {frmEditSatellitesXML},
