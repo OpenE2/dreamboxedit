@@ -14,7 +14,8 @@ uses
   formImportFilesSatcoDX in 'formImportFilesSatcoDX.pas' {frmImportSatcoDXFiles},
   formEditSatellitesXML in 'formEditSatellitesXML.pas' {frmEditSatellitesXML},
   formCompareSets in 'formCompareSets.pas' {frmCompareSets},
-  formEditTransponder in 'formEditTransponder.pas' {frmEditTransponder};
+  formEditTransponder in 'formEditTransponder.pas' {frmEditTransponder},
+  formImportUserBouquets in 'formImportUserBouquets.pas' {frmImportUserBouquets};
 
 {$R *.res}
 

@@ -10,7 +10,7 @@ uses
   formlog, formprogress, Buttons, JvBalloonHint, JvProfilerForm,
   JvComponentBase, JvEasterEgg, JvTrayIcon, JvWinHelp, JvBaseDlg,
   JvSelectDirectory, formFiles, formImportFilesSatcoDX, JvDialogs,
-  formEditSatellitesXML, formCompareSets;
+  formEditSatellitesXML, formCompareSets, formImportUserBouquets;
 
 type
   TfrmMain = class(TForm)
@@ -239,10 +239,14 @@ begin
 end;
 
 procedure TfrmMain.acImportUserBouquetFilesExecute(Sender: TObject);
+var
+  frmImportUserBouquets: TfrmImportUserBouquets;
 begin
-  if JvSelectDirectory1.Execute then
-  begin
-    //
+  frmImportUserBouquets := TfrmImportUserBouquets.Create(Self);
+  try
+    frmImportUserBouquets.Show;
+  except
+    if Assigned(frmImportUserBouquets) then frmImportUserBouquets.Free;
   end;
 end;
 
