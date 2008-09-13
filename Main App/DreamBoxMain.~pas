@@ -624,7 +624,7 @@ var
   tf: TextFile;
   s,prm: String;
   psl,tsl: TStringList;
-  i,c,DbeNr,p,ib,ie,ServErr,l: Integer;
+  i,c,DbeNr,ib,ie,ServErr,l: Integer;
 begin
   if FileExists(FileName)
   then begin;
@@ -859,8 +859,8 @@ begin
         then cds.FieldByName('servFlags').AsString := IntToStr(StrToInt('$'+prm));
 
         prm := '';
-        ib := pos('p:',lowercase(s));
-        ie := min(posex(',c:',s+',c:',ib+1),posex(',f:',s+',f:',ib+1));   // Find next parm or end of string
+        ib := pos('p:',lowercase(s));                   // Find next parm or end of string
+        ie := min(posex(',c:',lowercase(s)+',c:',ib+1),posex(',f:',lowercase(s)+',f:',ib+1));
         prm := copy(s,ib+2,ie-ib-2);
         s := StringReplace(s,'p:'+prm,'',[]);
         cds.FieldByName('servPackage').AsString := prm;
@@ -3615,7 +3615,9 @@ begin
     then s := 'c:00' + IntToHex(StrToInt(cdsServSave.FieldByName('servVPID').AsString),4) + ',' + s;
     if cdsServSave.FieldByName('servFlags').AsInteger  and 127 <> 0
     then s := 'f:' + IntToHex(cdsServSave.FieldByName('servFlags').AsInteger and 127,4) + ',' + s;
-    if cdsServSave.FieldByName('servExtra').AsString <> ''
+    { Only for version 4  and higher }
+    if (version >= 4) and
+       (cdsServSave.FieldByName('servExtra').AsString <> '')
     then s := s + ',' + cdsServSave.FieldByName('servExtra').AsString; { Append unknown exra fields }
     WriteLn(tf,s);
     cdsServSave.Next;

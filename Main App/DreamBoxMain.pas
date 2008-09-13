@@ -3615,7 +3615,9 @@ begin
     then s := 'c:00' + IntToHex(StrToInt(cdsServSave.FieldByName('servVPID').AsString),4) + ',' + s;
     if cdsServSave.FieldByName('servFlags').AsInteger  and 127 <> 0
     then s := 'f:' + IntToHex(cdsServSave.FieldByName('servFlags').AsInteger and 127,4) + ',' + s;
-    if cdsServSave.FieldByName('servExtra').AsString <> ''
+    { Only for version 4  and higher }
+    if (SettingsVersion >= 4) and
+       (cdsServSave.FieldByName('servExtra').AsString <> '')
     then s := s + ',' + cdsServSave.FieldByName('servExtra').AsString; { Append unknown exra fields }
     WriteLn(tf,s);
     cdsServSave.Next;
