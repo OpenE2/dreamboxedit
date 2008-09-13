@@ -11,6 +11,7 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  Position = poMainFormCenter
   PixelsPerInch = 96
   TextHeight = 13
   object lwpnlBG: TLWPanel
@@ -740,7 +741,7 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
         WordWrap = True
         OnClick = bGetPackageInfoClick
       end
-      object bOpen: TLWButton
+      object btnOpen: TLWButton
         Left = 40
         Top = 156
         Width = 249
@@ -784,7 +785,7 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
         ParentShowHint = False
         ShowHint = True
         TabOrder = 3
-        OnClick = bOpenClick
+        OnClick = btnOpenClick
       end
       object btnCheckDuplicates: TButton
         Left = 40
@@ -1261,6 +1262,133 @@ object frmImportSatcoDXFiles: TfrmImportSatcoDXFiles
         Caption = '&Back'
         TabOrder = 5
         OnClick = btnBackClick
+      end
+    end
+    object gbxSelectSatcoDXFiles: TGroupBox
+      Left = 8
+      Top = 16
+      Width = 944
+      Height = 614
+      Anchors = [akLeft, akTop, akRight, akBottom]
+      Caption = 'Select the SatcoDX files to process'
+      Color = clCream
+      ParentColor = False
+      TabOrder = 8
+      Visible = False
+      DesignSize = (
+        944
+        614)
+      object Label9: TLabel
+        Left = 11
+        Top = 24
+        Width = 96
+        Height = 13
+        Caption = 'SatcoDX files (*.sdx)'
+      end
+      object Panel2: TPanel
+        Left = 8
+        Top = 539
+        Width = 927
+        Height = 33
+        Anchors = [akLeft, akRight, akBottom]
+        BevelInner = bvLowered
+        Caption = 
+          'Uncheck the files you don'#39't want to process! (spacebar also chec' +
+          'ks / unchecks)'
+        Color = 16510433
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+      end
+      object btnProcess: TButton
+        Left = 853
+        Top = 584
+        Width = 81
+        Height = 21
+        Hint = 'Process all services from the checked file(s)'
+        Anchors = [akRight, akBottom]
+        Caption = '&Process'
+        Default = True
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+        OnClick = btnProcessClick
+      end
+      object btnCancel: TButton
+        Left = 765
+        Top = 584
+        Width = 81
+        Height = 21
+        Anchors = [akRight, akBottom]
+        Cancel = True
+        Caption = '&Cancel'
+        ModalResult = 2
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+        OnClick = btnCancelClick
+      end
+      object lvDir: TListView
+        Left = 8
+        Top = 37
+        Width = 927
+        Height = 492
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        Checkboxes = True
+        Columns = <
+          item
+            Caption = 'Filename'
+            MinWidth = 25
+            Width = 90
+          end
+          item
+            Caption = 'SatName'
+            MinWidth = 25
+            Width = 120
+          end
+          item
+            Alignment = taRightJustify
+            Caption = 'SatPos'
+            MinWidth = 25
+            Width = 55
+          end
+          item
+            Alignment = taRightJustify
+            Caption = 'RealPos'
+            Width = 55
+          end
+          item
+            Alignment = taRightJustify
+            Caption = '#services'
+            MinWidth = 25
+            Width = 60
+          end
+          item
+            Alignment = taRightJustify
+            Caption = 'Size'
+            MinWidth = 25
+            Width = 70
+          end
+          item
+            Caption = 'Filedate'
+            MinWidth = 25
+            Width = 115
+          end>
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        MultiSelect = True
+        ReadOnly = True
+        RowSelect = True
+        ParentFont = False
+        TabOrder = 3
+        ViewStyle = vsReport
       end
     end
     object chkSelectDeselectAll: TCheckBox

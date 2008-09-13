@@ -54,7 +54,7 @@ type
     bProcess: TLWButton;
     bAddPackageName: TButton;
     bGetPackageInfo: TButton;
-    bOpen: TLWButton;
+    btnOpen: TLWButton;
     btnCheckDuplicates: TButton;
     JvSelectDirectory1: TJvSelectDirectory;
     JvOpenDialog1: TJvOpenDialog;
@@ -87,14 +87,22 @@ type
     lvSDXDup: TListView;
     btnNext: TButton;
     btnBack: TButton;
+    gbxSelectSatcoDXFiles: TGroupBox;
+    Panel2: TPanel;
+    btnProcess: TButton;
+    btnCancel: TButton;
+    lvDir: TListView;
+    Label9: TLabel;
     procedure sbtnStatisticsToggleClick(Sender: TObject);
     procedure btnDoneClick(Sender: TObject);
-    procedure bOpenClick(Sender: TObject);
+    procedure btnOpenClick(Sender: TObject);
     procedure bGetPackageInfoClick(Sender: TObject);
     procedure chkSelectDeselectAllClick(Sender: TObject);
     procedure btnCheckDuplicatesClick(Sender: TObject);
     procedure btnBackClick(Sender: TObject);
     procedure btnNextClick(Sender: TObject);
+    procedure btnCancelClick(Sender: TObject);
+    procedure btnProcessClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -121,11 +129,11 @@ begin
   Close;
 end;
 
-procedure TfrmImportSatcoDXFiles.bOpenClick(Sender: TObject);
+procedure TfrmImportSatcoDXFiles.btnOpenClick(Sender: TObject);
 begin
   if JvSelectDirectory1.Execute = True then
   begin
-
+    gbxSelectSatcoDXFiles.Visible := True;
   end;
 end;
 
@@ -140,6 +148,10 @@ end;
 procedure TfrmImportSatcoDXFiles.chkSelectDeselectAllClick(Sender: TObject);
 begin
   if gbxImportDuplicates.Visible = True then
+  begin
+
+  end
+  else if gbxSelectSatcoDXFiles.Visible = True then
   begin
 
   end
@@ -162,6 +174,16 @@ end;
 procedure TfrmImportSatcoDXFiles.btnNextClick(Sender: TObject);
 begin
 //
+end;
+
+procedure TfrmImportSatcoDXFiles.btnCancelClick(Sender: TObject);
+begin
+  gbxSelectSatcoDXFiles.Visible := False;
+end;
+
+procedure TfrmImportSatcoDXFiles.btnProcessClick(Sender: TObject);
+begin
+  //
 end;
 
 end.
