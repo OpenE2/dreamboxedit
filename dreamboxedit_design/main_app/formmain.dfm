@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 355
-  Top = 270
+  Left = 484
+  Top = 277
   AutoScroll = False
   Caption = 'DreamBoxEdit'
   ClientHeight = 706
@@ -1440,8 +1440,8 @@ object frmMain: TfrmMain
         ActionBar = ActionMainMenuBar1
       end>
     Images = ilCommon16
-    Left = 744
-    Top = 224
+    Left = 16
+    Top = 512
     StyleName = 'XP Style'
     object FileOpen1: TFileOpen
       Category = 'File'
@@ -1644,8 +1644,8 @@ object frmMain: TfrmMain
     end
   end
   object ilCommon16: TImageList
-    Left = 744
-    Top = 168
+    Left = 16
+    Top = 552
     Bitmap = {
       494C010113001800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000006000000001002000000000000060
@@ -2450,14 +2450,14 @@ object frmMain: TfrmMain
     HighlightColor = 15660791
     BtnSelectedColor = clBtnFace
     UnusedColor = 15660791
-    Left = 744
-    Top = 272
+    Left = 56
+    Top = 512
   end
   object ilCommon32: TImageList
     Height = 32
     Width = 32
-    Left = 816
-    Top = 168
+    Left = 88
+    Top = 552
     Bitmap = {
       494C010118001D00040020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000000001000001002000000000000000
@@ -6693,8 +6693,8 @@ object frmMain: TfrmMain
   object ilCommon24: TImageList
     Height = 20
     Width = 20
-    Left = 776
-    Top = 168
+    Left = 52
+    Top = 552
     Bitmap = {
       494C010116001800040014001400FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000500000007800000001002000000000000096
@@ -7949,8 +7949,8 @@ object frmMain: TfrmMain
       000000000000}
   end
   object JvWinHelp1: TJvWinHelp
-    Left = 744
-    Top = 469
+    Left = 54
+    Top = 589
   end
   object JvTrayIcon1: TJvTrayIcon
     Active = True
@@ -7959,12 +7959,12 @@ object frmMain: TfrmMain
     Icons = ilTrayIconInfo
     Delay = 500
     OnBalloonClick = JvTrayIcon1BalloonClick
-    Left = 744
-    Top = 421
+    Left = 16
+    Top = 589
   end
   object ilTrayIconInfo: TImageList
-    Left = 711
-    Top = 421
+    Left = 124
+    Top = 552
     Bitmap = {
       494C010102000400040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
@@ -8108,19 +8108,1149 @@ object frmMain: TfrmMain
   object JvSelectDirectory1: TJvSelectDirectory
     ClassicDialog = False
     Title = 'Open file set'
-    Left = 744
-    Top = 509
+    Left = 92
+    Top = 589
   end
   object JvOpenDialog1: TJvOpenDialog
     Height = 0
     Width = 0
-    Left = 744
-    Top = 541
+    Left = 130
+    Top = 589
   end
   object JvSaveDialog1: TJvSaveDialog
     Height = 0
     Width = 0
-    Left = 744
-    Top = 573
+    Left = 168
+    Top = 589
+  end
+  object puServices: TPopupMenu
+    AutoHotkeys = maManual
+    AutoLineReduction = maManual
+    OwnerDraw = True
+    Left = 16
+    Top = 159
+    object ZAPtoservice1: TMenuItem
+      AutoHotkeys = maManual
+      Caption = 'Zap to service                                         Dbl-click'
+    end
+    object N7: TMenuItem
+      AutoHotkeys = maManual
+      Caption = '-'
+    end
+    object CreateBouquet1: TMenuItem
+      Caption = 'Create Bouquet'
+      object Addthissatellitetobouquet1: TMenuItem
+        AutoHotkeys = maManual
+        Caption = 'Make Bouquet for this satellite'
+      end
+      object MakeaBouquetperSatellite1: TMenuItem
+        AutoHotkeys = maManual
+        Caption = 'Make Bouquet for each satellite'
+      end
+      object N5: TMenuItem
+        Caption = '-'
+      end
+      object MakeBouquetperPackage1: TMenuItem
+        Caption = 'Make Bouquet for this Package'
+      end
+      object MakeBouquetforeachPackage1: TMenuItem
+        Caption = 'Make Bouquet for each Package'
+      end
+    end
+    object N4: TMenuItem
+      AutoHotkeys = maManual
+      Caption = '-'
+    end
+    object DeletefromallBouquets1: TMenuItem
+      AutoHotkeys = maManual
+      Caption = 'Delete service(s) from all Bouquets'
+    end
+    object DeleteService1: TMenuItem
+      AutoHotkeys = maManual
+      Caption = 'Delete Service(s)                                     Del'
+    end
+    object Deletesatellite1: TMenuItem
+      Caption = 'Delete Satellite'
+    end
+    object N8: TMenuItem
+      AutoHotkeys = maManual
+      Caption = '-'
+    end
+    object ShowDetails1: TMenuItem
+      AutoHotkeys = maManual
+      Caption = 'Show/Edit Details                                     Enter'
+    end
+    object CopyEditthisservice1: TMenuItem
+      AutoHotkeys = maManual
+      Caption = 'Copy & Edit this service'
+    end
+    object AddaNewService1: TMenuItem
+      AutoHotkeys = maManual
+      Caption = 'Add a new service'
+    end
+    object EditTransponder: TMenuItem
+      AutoHotkeys = maManual
+      Caption = 'Edit Transponder Data'
+    end
+    object SetKeepFlag: TMenuItem
+      Caption = 'Set Keep Flag'
+      object SetKeepFlagOn1: TMenuItem
+        Caption = 'On'
+      end
+      object SetKeepFlagOff1: TMenuItem
+        Caption = 'Off'
+      end
+    end
+    object N15: TMenuItem
+      AutoHotkeys = maManual
+      Caption = '-'
+    end
+    object ServCut: TMenuItem
+      AutoHotkeys = maManual
+      Caption = 
+        'Cut                                                           Ct' +
+        'rl+X'
+    end
+    object ServCopy: TMenuItem
+      AutoHotkeys = maManual
+      Caption = 
+        'Copy                                                        Ctrl' +
+        '+C'
+    end
+    object ServPaste: TMenuItem
+      AutoHotkeys = maManual
+      Caption = 
+        'Paste                                                       Ctrl' +
+        '+V'
+    end
+    object N19: TMenuItem
+      AutoHotkeys = maManual
+      Caption = '-'
+    end
+    object SetPackagename1: TMenuItem
+      AutoHotkeys = maManual
+      Caption = 'Edit Package name'
+    end
+    object servLock: TMenuItem
+      AutoHotkeys = maManual
+      Caption = 'Toggle Parental Lock                               Ctrl+L'
+    end
+    object ChangetypetoTV1: TMenuItem
+      Caption = 'Change type to TV'
+    end
+    object MarkservicesnotinBouquet1: TMenuItem
+      Caption = 'Mark services not in Userbouquets as New'
+    end
+    object Renumberallservices1: TMenuItem
+      Caption = 'Renumber all services'
+    end
+    object ClearallNewflags1: TMenuItem
+      Caption = 'Clear "New" flag for selected service(s)'
+    end
+  end
+  object puDet: TPopupMenu
+    AutoHotkeys = maManual
+    AutoLineReduction = maManual
+    OwnerDraw = True
+    Left = 633
+    Top = 176
+    object Zaptoservice2: TMenuItem
+      Caption = 'Zap to service                 Dbl-click'
+    end
+    object N11: TMenuItem
+      Caption = '-'
+    end
+    object Deletefromfavourites1: TMenuItem
+      Caption = 'Delete entry                    Del'
+    end
+    object N10: TMenuItem
+      Caption = '-'
+    end
+    object Sortlistalfabeticaly1: TMenuItem
+      Caption = 'Sort alphabetically'
+    end
+    object N14: TMenuItem
+      Caption = '-'
+    end
+    object DetCut: TMenuItem
+      Caption = 'Cut                                  Ctrl+X'
+    end
+    object DetCopy: TMenuItem
+      Caption = 'Copy                               Ctrl+C'
+    end
+    object DetPaste: TMenuItem
+      Caption = 'Paste                              Ctrl+V'
+    end
+    object N18: TMenuItem
+      Caption = '-'
+    end
+    object LocateInServices1: TMenuItem
+      Caption = 'Locate in services list      Enter'
+    end
+    object DetLock: TMenuItem
+      Caption = 'Toggle Parental Lock       Ctrl+L'
+    end
+    object N24: TMenuItem
+      Caption = '-'
+    end
+    object InsertMarker1: TMenuItem
+      Caption = 'Insert Marker'
+    end
+    object EditMarker1: TMenuItem
+      Caption = 'Edit Marker Text'
+    end
+    object AutoInsertMarker: TMenuItem
+      Caption = 'Auto insert Markers ...'
+      object InsertMarkerPos: TMenuItem
+        Caption = 'Insert Marker at change of satellite'
+      end
+      object InsertMarkerPackage: TMenuItem
+        Caption = 'Insert Marker at change of package'
+      end
+    end
+    object Removeemptymarkers1: TMenuItem
+      Caption = 'Remove '#39'empty'#39' markers'
+    end
+    object N25: TMenuItem
+      Caption = '-'
+    end
+    object Renameserviceinbouquet1: TMenuItem
+      Caption = 'Rename service in this bouquet   Ctrl+R'
+    end
+    object Renameserviceto1: TMenuItem
+      Caption = 'Format servicename automatically    Ctrf+F'
+    end
+  end
+  object puTV: TPopupMenu
+    AutoHotkeys = maManual
+    AutoLineReduction = maManual
+    AutoPopup = False
+    OwnerDraw = True
+    Left = 826
+    Top = 201
+    object tvShowServices: TMenuItem
+      Caption = 'Show services'
+    end
+    object N17: TMenuItem
+      Caption = '-'
+    end
+    object RenameBouquet1: TMenuItem
+      Caption = 'Rename Bouquet'
+    end
+    object tvInsert: TMenuItem
+      Caption = 'Insert new bouquet                            Ins'
+    end
+    object tvDelete: TMenuItem
+      Caption = 'Delete bouquet                                   Del'
+    end
+    object N3: TMenuItem
+      Caption = '-'
+    end
+    object tvSort: TMenuItem
+      Caption = 'Sort section alphabetically'
+    end
+    object N16: TMenuItem
+      Caption = '-'
+    end
+    object tvCollapseAll: TMenuItem
+      Caption = 'Collapse all'
+    end
+    object tvExpandAll: TMenuItem
+      Caption = 'Expand all'
+    end
+    object N2: TMenuItem
+      Caption = '-'
+    end
+    object tvPrefix: TMenuItem
+      Caption = 'Prefix bouquets with satellite position'
+    end
+    object N6: TMenuItem
+      Caption = '-'
+    end
+    object tvCleanUp0: TMenuItem
+      Caption = 'Remove empty bouquets'
+    end
+    object tvCleanUp1: TMenuItem
+      Caption = 'Remove bouquets with only x service(s)'
+    end
+    object N27: TMenuItem
+      Caption = '-'
+    end
+    object oggleParentalLock1: TMenuItem
+      Caption = 'Toggle Parental Lock'
+    end
+  end
+  object HTTP1: TIdHTTP
+    AllowCookies = True
+    HandleRedirects = True
+    ProxyParams.BasicAuthentication = False
+    ProxyParams.ProxyPort = 0
+    Request.ContentLength = -1
+    Request.Accept = 'text/html, */*'
+    Request.BasicAuthentication = False
+    Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
+    HTTPOptions = [hoForceEncodeParams]
+    Left = 17
+    Top = 472
+  end
+  object TimerCheckVersion: TTimer
+    Enabled = False
+    Interval = 100
+    Left = 17
+    Top = 432
+  end
+  object MultiLang: TLWLanguage
+    Left = 17
+    Top = 392
+  end
+  object TimerDetScroll: TTimer
+    Enabled = False
+    Interval = 100
+    Left = 58
+    Top = 432
+  end
+  object TimertvScroll: TTimer
+    Enabled = False
+    Interval = 100
+    Left = 99
+    Top = 432
+  end
+  object cdsPos: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'PosInt'
+        DataType = ftInteger
+      end
+      item
+        Name = 'PosStr'
+        DataType = ftString
+        Size = 6
+      end
+      item
+        Name = 'PosName'
+        DataType = ftString
+        Size = 50
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 17
+    Top = 352
+  end
+  object cdsSatXML: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'Pos'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Freq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Pol'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Symb'
+        DataType = ftInteger
+      end
+      item
+        Name = 'FEC'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Name'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'Flags'
+        DataType = ftString
+        Size = 2
+      end
+      item
+        Name = 'SeqNr'
+        DataType = ftInteger
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 54
+    Top = 352
+  end
+  object cdsLog: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'Severity'
+        DataType = ftString
+        Size = 7
+      end
+      item
+        Name = 'Time'
+        DataType = ftString
+        Size = 19
+      end
+      item
+        Name = 'Text'
+        DataType = ftString
+        Size = 150
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 92
+    Top = 352
+  end
+  object cdsTSID: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'tsidUniq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'tsidTsid'
+        DataType = ftInteger
+      end
+      item
+        Name = 'tsidNid'
+        DataType = ftInteger
+      end
+      item
+        Name = 'tsidFreq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'tsidSymb'
+        DataType = ftInteger
+      end
+      item
+        Name = 'tsidPol'
+        DataType = ftInteger
+      end
+      item
+        Name = 'tsidFEC'
+        DataType = ftInteger
+      end
+      item
+        Name = 'tsidPos'
+        DataType = ftInteger
+      end
+      item
+        Name = 'tsidSTC'
+        DataType = ftString
+        Size = 2
+      end
+      item
+        Name = 'tsidExtra'
+        DataType = ftString
+        Size = 27
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 320
+    Top = 352
+  end
+  object cdsSERV: TClientDataSet
+    Aggregates = <>
+    FilterOptions = [foCaseInsensitive]
+    FieldDefs = <
+      item
+        Name = 'servSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servUniq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servTSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servNID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servType'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servName'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'servPackage'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'servNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servFreq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servSymb'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servPol'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servFEC'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servPos'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servVPID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servAPID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servTPID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servPPID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'serv3PID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servC07BSDelay'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servc08PCMDelay'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servFlags'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servLock'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servDbeNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servTypeTxt'
+        DataType = ftString
+        Size = 5
+      end
+      item
+        Name = 'servSTC'
+        DataType = ftString
+        Size = 2
+      end
+      item
+        Name = 'servTrExtra'
+        DataType = ftString
+        Size = 27
+      end
+      item
+        Name = 'servCleanName'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'servExtra'
+        DataType = ftString
+        Size = 75
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 206
+    Top = 352
+  end
+  object cdsServComp: TClientDataSet
+    Aggregates = <>
+    FilterOptions = [foCaseInsensitive]
+    FieldDefs = <
+      item
+        Name = 'servSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servUniq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servTSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servNID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servType'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servName'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'servPackage'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'servNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servFreq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servSymb'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servPol'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servFEC'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servPos'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servVPID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servAPID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servTPID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servPPID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'serv3PID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servC07BSDelay'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servc08PCMDelay'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servFlags'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servLock'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servDbeNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servTypeTxt'
+        DataType = ftString
+        Size = 5
+      end
+      item
+        Name = 'servSTC'
+        DataType = ftString
+        Size = 2
+      end
+      item
+        Name = 'servTrExtra'
+        DataType = ftString
+        Size = 27
+      end
+      item
+        Name = 'servCleanName'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'servExtra'
+        DataType = ftString
+        Size = 75
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 244
+    Top = 352
+  end
+  object cdsServSave: TClientDataSet
+    Aggregates = <>
+    FilterOptions = [foCaseInsensitive]
+    FieldDefs = <
+      item
+        Name = 'servSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servUniq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servTSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servNID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servType'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servName'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'servPackage'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'servNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servFreq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servSymb'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servPol'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servFEC'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servPos'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servVPID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servAPID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servTPID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servPPID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'serv3PID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servC07BSDelay'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servc08PCMDelay'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servFlags'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servLock'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servDbeNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'servTypeTxt'
+        DataType = ftString
+        Size = 5
+      end
+      item
+        Name = 'servSTC'
+        DataType = ftString
+        Size = 2
+      end
+      item
+        Name = 'servTrExtra'
+        DataType = ftString
+        Size = 27
+      end
+      item
+        Name = 'servCleanName'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'servExtra'
+        DataType = ftString
+        Size = 75
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 282
+    Top = 352
+  end
+  object cdsLock: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'lockI1'
+        DataType = ftInteger
+      end
+      item
+        Name = 'lockI2'
+        DataType = ftInteger
+      end
+      item
+        Name = 'lockServType'
+        DataType = ftInteger
+      end
+      item
+        Name = 'lockSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'lockTSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'lockNID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'lockUniq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'lockString'
+        DataType = ftString
+        Size = 250
+      end
+      item
+        Name = 'lockFilename'
+        DataType = ftString
+        Size = 100
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 168
+    Top = 352
+  end
+  object cdsAlt: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'altBQName'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'altServType'
+        DataType = ftInteger
+      end
+      item
+        Name = 'altSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'altTSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'altNID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'altUniq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'altFilename'
+        DataType = ftString
+        Size = 100
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 130
+    Top = 352
+  end
+  object cdsFTV: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ftvSeqNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ftvName'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'ftvSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ftvUniq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ftvTSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ftvNID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ftvServType'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ftvSetNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ftvDescr'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'ftvDbeNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ftvT'
+        DataType = ftString
+        Size = 1
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 361
+    Top = 352
+  end
+  object wcdsFBQ: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'fbqSeqNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqName'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'fbqSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqUniq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqTSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqNID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqServType'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqSetNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqDescr'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'fbqDbeNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqT'
+        DataType = ftString
+        Size = 1
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 401
+    Top = 352
+  end
+  object cdsFRD: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'frdSeqNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'frdName'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'frdSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'frdUniq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'frdTSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'frdNID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'frdServType'
+        DataType = ftInteger
+      end
+      item
+        Name = 'frdSetNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'frdDescr'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'frdDbeNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'frdT'
+        DataType = ftString
+        Size = 1
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 441
+    Top = 352
+  end
+  object cdsFBQ: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'fbqSeqNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqName'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'fbqSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqUniq'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqTSID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqNID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqServType'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqSetNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqDescr'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'fbqDbeNr'
+        DataType = ftInteger
+      end
+      item
+        Name = 'fbqT'
+        DataType = ftString
+        Size = 1
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 481
+    Top = 352
   end
 end

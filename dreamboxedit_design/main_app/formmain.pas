@@ -10,7 +10,9 @@ uses
   formlog, formprogress, Buttons, JvBalloonHint, JvProfilerForm,
   JvComponentBase, JvEasterEgg, JvTrayIcon, JvWinHelp, JvBaseDlg,
   JvSelectDirectory, formFiles, formImportFilesSatcoDX, JvDialogs,
-  formEditSatellitesXML, formCompareSets, formImportUserBouquets;
+  formEditSatellitesXML, formCompareSets, formImportUserBouquets, DB,
+  DBClient, LWLanguage, IdBaseComponent, IdComponent, IdTCPConnection,
+  IdTCPClient, IdHTTP, Menus;
 
 type
   TfrmMain = class(TForm)
@@ -109,6 +111,97 @@ type
     acCompareSetsOther: TAction;
     acShowLog: TAction;
     acEditSatellitesXML: TAction;
+    puServices: TPopupMenu;
+    ZAPtoservice1: TMenuItem;
+    N7: TMenuItem;
+    CreateBouquet1: TMenuItem;
+    Addthissatellitetobouquet1: TMenuItem;
+    MakeaBouquetperSatellite1: TMenuItem;
+    N5: TMenuItem;
+    MakeBouquetperPackage1: TMenuItem;
+    MakeBouquetforeachPackage1: TMenuItem;
+    N4: TMenuItem;
+    DeletefromallBouquets1: TMenuItem;
+    DeleteService1: TMenuItem;
+    Deletesatellite1: TMenuItem;
+    N8: TMenuItem;
+    ShowDetails1: TMenuItem;
+    CopyEditthisservice1: TMenuItem;
+    AddaNewService1: TMenuItem;
+    EditTransponder: TMenuItem;
+    SetKeepFlag: TMenuItem;
+    SetKeepFlagOn1: TMenuItem;
+    SetKeepFlagOff1: TMenuItem;
+    N15: TMenuItem;
+    ServCut: TMenuItem;
+    ServCopy: TMenuItem;
+    ServPaste: TMenuItem;
+    N19: TMenuItem;
+    SetPackagename1: TMenuItem;
+    servLock: TMenuItem;
+    ChangetypetoTV1: TMenuItem;
+    MarkservicesnotinBouquet1: TMenuItem;
+    Renumberallservices1: TMenuItem;
+    ClearallNewflags1: TMenuItem;
+    puDet: TPopupMenu;
+    Zaptoservice2: TMenuItem;
+    N11: TMenuItem;
+    Deletefromfavourites1: TMenuItem;
+    N10: TMenuItem;
+    Sortlistalfabeticaly1: TMenuItem;
+    N14: TMenuItem;
+    DetCut: TMenuItem;
+    DetCopy: TMenuItem;
+    DetPaste: TMenuItem;
+    N18: TMenuItem;
+    LocateInServices1: TMenuItem;
+    DetLock: TMenuItem;
+    N24: TMenuItem;
+    InsertMarker1: TMenuItem;
+    EditMarker1: TMenuItem;
+    AutoInsertMarker: TMenuItem;
+    InsertMarkerPos: TMenuItem;
+    InsertMarkerPackage: TMenuItem;
+    Removeemptymarkers1: TMenuItem;
+    N25: TMenuItem;
+    Renameserviceinbouquet1: TMenuItem;
+    Renameserviceto1: TMenuItem;
+    puTV: TPopupMenu;
+    tvShowServices: TMenuItem;
+    N17: TMenuItem;
+    RenameBouquet1: TMenuItem;
+    tvInsert: TMenuItem;
+    tvDelete: TMenuItem;
+    N3: TMenuItem;
+    tvSort: TMenuItem;
+    N16: TMenuItem;
+    tvCollapseAll: TMenuItem;
+    tvExpandAll: TMenuItem;
+    N2: TMenuItem;
+    tvPrefix: TMenuItem;
+    N6: TMenuItem;
+    tvCleanUp0: TMenuItem;
+    tvCleanUp1: TMenuItem;
+    N27: TMenuItem;
+    oggleParentalLock1: TMenuItem;
+    HTTP1: TIdHTTP;
+    TimerCheckVersion: TTimer;
+    MultiLang: TLWLanguage;
+    TimerDetScroll: TTimer;
+    TimertvScroll: TTimer;
+    cdsPos: TClientDataSet;
+    cdsSatXML: TClientDataSet;
+    cdsLog: TClientDataSet;
+    cdsTSID: TClientDataSet;
+    cdsSERV: TClientDataSet;
+    cdsServComp: TClientDataSet;
+    cdsServSave: TClientDataSet;
+    cdsLock: TClientDataSet;
+    cdsAlt: TClientDataSet;
+    cdsFTV: TClientDataSet;
+    wcdsFBQ: TClientDataSet;
+    cdsFRD: TClientDataSet;
+    cdsFBQ: TClientDataSet;
     procedure tbtnTransferClick(Sender: TObject);
     procedure tbtnOptionsClick(Sender: TObject);
     procedure acHelpAboutExecute(Sender: TObject);

@@ -15,7 +15,8 @@ uses
   formEditSatellitesXML in 'formEditSatellitesXML.pas' {frmEditSatellitesXML},
   formCompareSets in 'formCompareSets.pas' {frmCompareSets},
   formEditTransponder in 'formEditTransponder.pas' {frmEditTransponder},
-  formImportUserBouquets in 'formImportUserBouquets.pas' {frmImportUserBouquets};
+  formImportUserBouquets in 'formImportUserBouquets.pas' {frmImportUserBouquets},
+  formShowEditServiceDetails in 'formShowEditServiceDetails.pas' {frmShowEditServiceDetails};
 
 {$R *.res}
 
@@ -35,5 +36,6 @@ begin
 
   Application.Title := 'DreamBoxEdit';
   Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmShowEditServiceDetails, frmShowEditServiceDetails);
   Application.Run;
 end.

@@ -63,12 +63,12 @@ implementation
 
 procedure TfrmEditTransponder.btnOkClick(Sender: TObject);
 begin
-  //TODO: Save changes and close.
+  // TODO: Save changes and close.
 end;
 
 procedure TfrmEditTransponder.btnApplyClick(Sender: TObject);
 begin
-  //TODO: Save changes.
+  // TODO: Save changes.
 end;
 
 end.

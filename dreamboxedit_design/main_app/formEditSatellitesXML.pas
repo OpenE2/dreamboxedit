@@ -64,7 +64,7 @@ end;
 procedure TfrmEditSatellitesXML.sbtnSaveSatellitesXMLClick(
   Sender: TObject);
 begin
-  //TODO: Save Satellites.xml...
+  // TODO: Save Satellites.xml...
 end;
 
 end.
