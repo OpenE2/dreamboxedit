@@ -1517,6 +1517,7 @@ begin
       if (TelnetStage = 0) and
          ((pos('~',buffer) > 0) or
           (pos('dreambox #',buffer) > 0) or
+          (pos('~ #',buffer) > 0) or
           (pos(FormMain.DreamboxCmdPrompt,buffer) > 0))
       then begin;
         Memo1.Lines.Add(FormMain.lwLngTrns(name,['Sending user command: %',FormMain.UserTelnetCmd]));
