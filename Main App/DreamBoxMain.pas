@@ -10000,7 +10000,7 @@ begin
 
       if FormNewVersion.showmodal = mrOK
       then begin;
-        s := 'http://pp.digsat.net/ppteam/dreamboxedit';
+        s := 'http://sourceforge.net/projects/dreamboxedit';
         st := ShellExecute(0,'open',PChar(s),NIL,NIL,SW_SHOWNORMAL);
         if st <= 32
         then begin;
