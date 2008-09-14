@@ -22,9 +22,9 @@ uses
   DreamBoxEditTransponder in 'DreamBoxEditTransponder.pas' {FormTransponder},
   DreamBoxEditNewVersion in 'DreamBoxEditNewVersion.pas' {FormNewVersion},
   DreamBoxEditSelDir in 'DreamBoxEditSelDir.pas' {FormSelDir},
-  formsplash in '..\dreamboxedit_design\main_app\formsplash.pas' {frmSplash},
   formabout in 'formabout.pas' {frmAbout},
-  uHelpers in 'uHelpers.pas';
+  uHelpers in 'uHelpers.pas',
+  formsplash in 'formsplash.pas' {frmSplash};
 
 {$R *.res}
 
@@ -54,6 +54,7 @@ begin
   Application.CreateForm(TFormTransponder, FormTransponder);
   Application.CreateForm(TFormNewVersion, FormNewVersion);
   Application.CreateForm(TFormSelDir, FormSelDir);
+  Application.CreateForm(TfrmSplash, frmSplash);
   finally
     frmSplash.Close;
     if Assigned(frmSplash) then frmSplash.Free;
