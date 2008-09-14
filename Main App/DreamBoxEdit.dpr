@@ -22,44 +22,43 @@ uses
   DreamBoxEditTransponder in 'DreamBoxEditTransponder.pas' {FormTransponder},
   DreamBoxEditNewVersion in 'DreamBoxEditNewVersion.pas' {FormNewVersion},
   DreamBoxEditSelDir in 'DreamBoxEditSelDir.pas' {FormSelDir},
-  formabout in 'formabout.pas' {frmAbout},
+  DreamBoxEditAbout in 'DreamBoxEditAbout.pas' {FormAbout},
   uHelpers in 'uHelpers.pas',
-  formsplash in 'formsplash.pas' {frmSplash};
+  DreamBoxEditSplash in 'DreamBoxEditSplash.pas' {FormSplash};
 
 {$R *.res}
 
 begin
-  frmSplash := TfrmSplash.Create(nil);
+  FormSplash := TFormSplash.Create(nil);
   try
-    frmSplash.Show;
+    FormSplash.Show;
 
-    Application.Initialize;
-    Application.Title := 'DreamBoxEdit';
-    Application.CreateForm(TFormMain, FormMain);
-    Application.CreateForm(TFormWait, FormWait);
-    Application.CreateForm(TFormDetail, FormDetail);
-    Application.CreateForm(TFormAdd, FormAdd);
-    Application.CreateForm(TFormLog, FormLog);
-    Application.CreateForm(TFormFiles, FormFiles);
-    Application.CreateForm(TFormOptions, FormOptions);
-    Application.CreateForm(TFormFTP, FormFTP);
-    Application.CreateForm(TFormImport, FormImport);
-    Application.CreateForm(TFormImportFiles, FormImportFiles);
-    Application.CreateForm(TFormBrowseFile, FormBrowseFile);
-    Application.CreateForm(TFormImportDuplicates, FormImportDuplicates);
-    Application.CreateForm(TFormImportUserBouquets, FormImportUserBouquets);
-    Application.CreateForm(TFormEditSatXML, FormEditSatXML);
-    Application.CreateForm(TFormSelectiveReceive, FormSelectiveReceive);
-    Application.CreateForm(TFormCompareSet, FormCompareSet);
-    Application.CreateForm(TFormTransponder, FormTransponder);
-    Application.CreateForm(TFormNewVersion, FormNewVersion);
-    Application.CreateForm(TFormSelDir, FormSelDir);
-
+  Application.Initialize;
+  Application.Title := 'DreamBoxEdit';
+  Application.CreateForm(TFormMain, FormMain);
+  Application.CreateForm(TFormWait, FormWait);
+  Application.CreateForm(TFormDetail, FormDetail);
+  Application.CreateForm(TFormAdd, FormAdd);
+  Application.CreateForm(TFormLog, FormLog);
+  Application.CreateForm(TFormFiles, FormFiles);
+  Application.CreateForm(TFormOptions, FormOptions);
+  Application.CreateForm(TFormFTP, FormFTP);
+  Application.CreateForm(TFormImport, FormImport);
+  Application.CreateForm(TFormImportFiles, FormImportFiles);
+  Application.CreateForm(TFormBrowseFile, FormBrowseFile);
+  Application.CreateForm(TFormImportDuplicates, FormImportDuplicates);
+  Application.CreateForm(TFormImportUserBouquets, FormImportUserBouquets);
+  Application.CreateForm(TFormEditSatXML, FormEditSatXML);
+  Application.CreateForm(TFormSelectiveReceive, FormSelectiveReceive);
+  Application.CreateForm(TFormCompareSet, FormCompareSet);
+  Application.CreateForm(TFormTransponder, FormTransponder);
+  Application.CreateForm(TFormNewVersion, FormNewVersion);
+  Application.CreateForm(TFormSelDir, FormSelDir);
   finally
-    frmSplash.Close;
-    if Assigned(frmSplash) then frmSplash.Free;
+    FormSplash.Close;
+    if Assigned(FormSplash) then FormSplash.Free;
 
   end;
-        
+
   Application.Run;
 end.

@@ -1,4 +1,4 @@
-unit formsplash;
+unit DreamBoxEditSplash;
 
 interface
 
@@ -7,9 +7,9 @@ uses
   Dialogs, ExtCtrls, StdCtrls, LWPanel, uHelpers;
 
 type
-  TfrmSplash = class(TForm)
+  TFormSplash = class(TForm)
     lwpnlTop: TLWPanel;
-    Label2: TLabel;
+    _Label2: TLabel;
     Panel1: TPanel;
     Image2: TImage;
     Panel2: TPanel;
@@ -34,13 +34,13 @@ type
   end;
 
 var
-  frmSplash: TfrmSplash;
+  FormSplash: TFormSplash;
 
 implementation
 
 {$R *.dfm}
 
-procedure TfrmSplash.FormActivate(Sender: TObject);
+procedure TFormSplash.FormActivate(Sender: TObject);
 var
   tickCount: Cardinal;
 begin

@@ -8,7 +8,7 @@ uses
   ExtCtrls, ToolWin, ImgList, LWPanel, Registry, LWBtn, FileCtrl, ShellApi,
   StrUtils, jpeg, DBCtrls, dbcgrids, Buttons, IdBaseComponent, IdComponent,
   IdTCPConnection, IdTCPClient, Sockets, CommCtrl, LWLanguage, IdFTP, DateUtils,
-  MidasLib, IdHTTP, pngimage, UrlMon, formAbout, uHelpers;
+  MidasLib, IdHTTP, pngimage, UrlMon, uHelpers;
 
 type
   TListData = record
@@ -213,8 +213,6 @@ type
     cdsServComp: TClientDataSet;
     cdsServSave: TClientDataSet;
     cdsAlt: TClientDataSet;
-    Image1: TImage;
-    ImageList2: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure sbDrawPanel(StatusBar: TStatusBar;
@@ -399,21 +397,21 @@ type
     procedure lvDetSave();
     procedure lvDetBuild();
     procedure FormatToolbar();
-    procedure GetPng();
+//    procedure GetPng();
     procedure Deletesatellite(Sender: TObject);
     procedure SearchServices(const option: String);
     function CopyToCB(): Boolean;
     function PasteFromCB(): Boolean;
-    function DownloadFile(Source, Dest: string): Boolean;
-    function CountPos(const subtext: string; Text: string): Integer;
+//    function DownloadFile(Source, Dest: string): Boolean;
+//    function CountPos(const subtext: string; Text: string): Integer;
   public
     { Public declarations }
     ServEdit: Boolean;
     HighDbeNr: Integer;
     DetChanged: Boolean;
     Dir: String;
-    PiconActivate: Boolean;
-    PiconUpload: Boolean;
+    // PiconActivate: Boolean;
+    // PiconUpload: Boolean;
     AutoOpen: Boolean;
     ShowDetails: Boolean;
     ConfirmDelete: Boolean;
@@ -441,8 +439,8 @@ type
     PathServices: String;
     PathUserBouquets: String;
     PathSatellites: String;
-    PathPicons: String;
-    LocalPathPicons: String;
+    // PathPicons: String;
+    // LocalPathPicons: String;
     UserTelnetCmd: String;
     DreamboxCmdPrompt: String;
     QuickFTPEnabled: Boolean;
@@ -493,11 +491,11 @@ var
 
 implementation
 
-uses DreamBoxAbout, DreamBoxEditWait, DreamBoxEditDetail, DreamBoxEditFiles,
+uses DreamBoxEditWait, DreamBoxEditDetail, DreamBoxEditFiles,
   DreamBoxEditAdd, DreamBoxEditLog, DreamBoxEditOptions, DreamBoxEditFTP,
   DreamBoxEditImport, ClipBrd, DreamBoxEditImportFavs,
   DreamBoxEditEditSatXML, DreamBoxEditCompareSets, DreamBoxEditTransponder,
-  DreamBoxEditNewVersion, DreamBoxEditSelDir;
+  DreamBoxEditNewVersion, DreamBoxEditSelDir, DreamBoxEditAbout;
 
 {$R *.dfm}
 
@@ -2208,8 +2206,8 @@ begin
 
 
    Adir := ExtractFilePath(ParamStr(0));
-   if not DirectoryExists(Adir+ '\picon') then
-   ForceDirectories(Adir+ '\picon');
+   // if not DirectoryExists(Adir+ '\picon') then
+   // ForceDirectories(Adir+ '\picon');
 end;
 
 procedure TFormMain.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -3295,7 +3293,7 @@ begin
     screen.cursor := crdefault;
     ToolBar1.Enabled := True;
 
-    if PiconActivate then GetPng;
+    // if PiconActivate then GetPng;
     FormWait.Hide;
 
     cbSatName.ItemIndex := 0;
@@ -4081,14 +4079,14 @@ end;
 
 procedure TFormMain.tbAboutClick(Sender: TObject);
 var
-  frmAbout: TfrmAbout;
+  FormAbout: TFormAbout;
 begin
-  frmAbout := TfrmAbout.Create(Self);
+  FormAbout := TFormAbout.Create(Self);
   try
-    frmAbout.Show;
+    FormAbout.Show;
 
   except
-    if Assigned(frmAbout) then frmAbout.Free;
+    if Assigned(FormAbout) then FormAbout.Free;
 
   end;
 
@@ -4355,7 +4353,7 @@ begin
     Reg.WriteBool('ConfirmBeforeSort',ConfirmSort);
   end;
 
-  if Reg.ValueExists('PiconActivate')
+  {if Reg.ValueExists('PiconActivate')
   then PiconActivate := Reg.ReadBool('PiconActivate')
   else begin
     PiconActivate := False;
@@ -4367,7 +4365,7 @@ begin
   else begin
     PiconUpload := False;
     Reg.WriteBool('PiconUpload',PiconUpload);
-  end;
+  end;}
 
   if Reg.ValueExists('ShowResultMessages')
   then ShowResultMsg := Reg.ReadBool('ShowResultMessages')
@@ -4467,7 +4465,7 @@ begin
     Reg.WriteString('Path Satellites',PathSatellites);
   end;
 
-  if Reg.ValueExists('Path Picons')
+  {if Reg.ValueExists('Path Picons')
   then PathPicons := Reg.ReadString('Path Picons')
   else begin
     PathPicons := '/media/usb/picons/';
@@ -4479,7 +4477,7 @@ begin
   else begin
     PathPicons := ExtractFileName(ParamStr(0))+'\temp';
     Reg.WriteString('Local Path Picons', PathPicons);
-  end;
+  end;}
 
   if Reg.ValueExists('Profiles Name')
   then ProfilesName := Reg.ReadString('Profiles Name')
@@ -4496,7 +4494,7 @@ begin
     Reg.WriteString('Profiles Path Services 0',PathServices);
     Reg.WriteString('Profiles Path Userbouquets 0',PathUserbouquets);
     Reg.WriteString('Profiles Path Satellites 0',PathSatellites);
-    Reg.WriteString('Profiles Path Picons 0', PathPicons);
+    // Reg.WriteString('Profiles Path Picons 0', PathPicons);
     Reg.WriteInteger('Profiles',1);
   end;
 
@@ -5279,7 +5277,7 @@ procedure TFormMain.lvDetDragDrop(Sender, Source: TObject; X,
   Y: Integer);
 var
   item: TListItem;
-  pf, newpicon: String;
+  pf{, newpicon}: String;
   pos,i,c: Integer;
   wcds: TClientDataset;
   SkipWarning: Boolean;
@@ -5370,7 +5368,7 @@ begin
 
       wcds.Post;
  //picon png start
-      if PiconActivate then
+{      if PiconActivate then
       begin
          newpicon := item.Caption+
                      '@1_0_' +
@@ -5382,7 +5380,7 @@ begin
                      '_0_0_0';
          ShowMessage(newpicon);
 
-      end;
+      end;    }
  //picon png end
 
       log('i',lwLngTrns(name,['Service % added to list %',
@@ -5646,7 +5644,7 @@ end;
 procedure TFormMain.lvDetInfoTip(Sender: TObject; Item: TListItem;
   var InfoTip: String);
 var
-  s,sp,cn,fr,pn,pol,picon,typ,sid,tsid,onid,namespace: String;
+  s,sp,cn,fr,pn,pol{,picon,typ,sid,tsid,onid,namespace}: String;
   flt: Boolean;
 begin
   InfoTip := '';
@@ -5736,7 +5734,7 @@ begin
                                     'defined on the Dreambox']);
 {*** PICON START Loading to bouquets panel:
      first get servicereference from Item.SubItem and then
-     load *.png using servicereference_name}
+     load *.png using servicereference_name
 
      if PiconActivate = True then
      begin
@@ -5750,7 +5748,7 @@ begin
      picon := '1_0_'+ typ + '_' + sid + '_' + tsid + '_' + onid + '_' + namespace + '_0_0_0';
 
      if FileExists(Dir + '\picon\'+ picon +'.png') then
-     Image1.Picture.LoadFromFile(Dir + '\picon\'+ picon +'.png')
+       picon Image1.Picture.LoadFromFile(Dir + '\picon\'+ picon +'.png')
      else
      ImageList2.GetBitmap(0,Image1.Picture.Bitmap);
      end;
@@ -9250,7 +9248,7 @@ begin
                false);
     end;
     for i := 0 to Screen.FormCount - 1 do begin;
-      MultiLang.SaveLanguage(GetAppVersion,
+      MultiLang.SaveLanguage('V'+GetAppVersion,
        Screen.Forms[i],MainMenu1.Items[5].Items[l].Caption,True,False,True);
     end;
   end;
@@ -11531,7 +11529,7 @@ end;
 procedure TFormMain.fmSwitchVersion2and3Click(Sender: TObject);
 begin
 
-  case  SettingsVersion of
+  case SettingsVersion of
    2: SetVersionDefaults(3);
    3: SetVersionDefaults(4);
    4: SetVersionDefaults(2);
@@ -11702,25 +11700,25 @@ begin
   end;
 end;
 
-function TFormMain.DownloadFile(Source, Dest: string): Boolean;
+{function TFormMain.DownloadFile(Source, Dest: string): Boolean;}
   { Function for Downloading the file found on the net }
-begin
+{begin
   try
     Result := UrlDownloadToFile(nil, PChar(Source), PChar(Dest), 0, nil) = 0;
   except
     Result := False;
   end;
 end;
-
-function TFormMain.CountPos(const subtext: string; Text: string): Integer;
+ }
+{function TFormMain.CountPos(const subtext: string; Text: string): Integer;
 begin
   if (Length(subtext) = 0) or (Length(Text) = 0) or (Pos(subtext, Text) = 0) then
     Result := 0
   else
     Result := (Length(Text) - Length(StringReplace(Text, subtext, '', [rfReplaceAll]))) div Length(subtext);
 end;
-
-Procedure TFormMain.GetPng();
+}
+{Procedure TFormMain.GetPng();
 var
    servref, misspng: TStringList;
    i, pdel,ndel, t1, t2: Integer;
@@ -11732,7 +11730,7 @@ begin
     and make a list of the corresponding png_names (as name or servicereference)}
 
 
-    servref := TStringList.Create;
+{    servref := TStringList.Create;
     misspng := TStringlist.Create;
     misspng.Add('Missing PNG´s generated '+ DateTimeToStr(now));
     servref.Add('# TV channels **********');
@@ -11770,7 +11768,7 @@ begin
     {Check if png already exists in local picon-directory
 
     }
-    if not DirectoryExists(Dir + '\picon') then
+{    if not DirectoryExists(Dir + '\picon') then
     ForceDirectories(Dir+ '\picon');
 
     for i := 0 to servref.Count - 1 do
@@ -11804,7 +11802,7 @@ begin
          end
        else // file not available at server:
           misspng.Add(pngsrname + ' ' + pngchname);
-             
+
        //ShowMessage(pngsrname+'('+pngchname+')');
        if not FileExists(Dir + '\picon\dbe.png') then
        DownloadFile('http://dreambox.ingmar.dk/picon/dbe.png',Dir + '\picon\dbe.png');
@@ -11828,7 +11826,7 @@ begin
     misspng.Free;
     { PICON End}
 
-end;
+{end;}
 
 end.
 

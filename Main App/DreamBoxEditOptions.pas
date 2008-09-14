@@ -281,8 +281,8 @@ begin
   ePathServices.Text := FormMain.PathServices;
   ePathUserBouquets.Text := FormMain.PathUserBouquets;
   ePathSatellites.Text := FormMain.PathSatellites;
-  ePathPicons.Text := FormMain.PathPicons;
-  eLpngDir.Text := FormMain.LocalPathPicons;
+  // ePathPicons.Text := FormMain.PathPicons;
+  // eLpngDir.Text := FormMain.LocalPathPicons;
 
   eUserTelnetCmd.Text := FormMain.UserTelnetCmd;
   eDreamboxCmdPrompt.Text := FormMain.DreamboxCmdPrompt;
@@ -346,11 +346,11 @@ begin
   Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
 
 
-  Reg.WriteBool('PiconActivate',cbPiconActivate.Checked);
-  FormMain.PiconActivate := cbPiconActivate.Checked;
+  //Reg.WriteBool('PiconActivate',cbPiconActivate.Checked);
+  //FormMain.PiconActivate := cbPiconActivate.Checked;
 
-  Reg.WriteBool('PiconUpload', cbPiconUpload.Checked);
-  FormMain.PiconUpload := cbPiconUpload.Checked;
+  //Reg.WriteBool('PiconUpload', cbPiconUpload.Checked);
+  //FormMain.PiconUpload := cbPiconUpload.Checked;
 
   Reg.WriteInteger('MainDisplayColor',pMainColor.Color);
   FormMain.MainColor := pMainColor.Color;
@@ -429,7 +429,7 @@ begin
     Reg.DeleteValue('Profiles Path Services ' + IntToStr(i));
     Reg.DeleteValue('Profiles Path Userbouquets ' + IntToStr(i));
     Reg.DeleteValue('Profiles Path Satellites ' + IntToStr(i));
-    Reg.DeleteValue('Profiles Path Picons ' + IntToStr(i));
+    // Reg.DeleteValue('Profiles Path Picons ' + IntToStr(i));
   end;
 
   c := 0;
@@ -445,7 +445,7 @@ begin
     Reg.WriteString('Profiles Path Services ' + IntToStr(c),cdsProfiles.FieldValues['prPathServices']);
     Reg.WriteString('Profiles Path Userbouquets ' + IntToStr(c),cdsProfiles.FieldValues['prPathUserbouquets']);
     Reg.WriteString('Profiles Path Satellites ' + IntToStr(c),cdsProfiles.FieldValues['prPathSatellites']);
-    Reg.WriteString('Profiles Path Picons ' + IntToStr(c),cdsProfiles.FieldValues['prPathPicons']);
+//    Reg.WriteString('Profiles Path Picons ' + IntToStr(c),cdsProfiles.FieldValues['prPathPicons']);
     cdsProfiles.Next;
     inc(c);
   end;
@@ -481,8 +481,8 @@ begin
   Reg.WriteString('Path Satellites',ePathSatellites.Text);
   FormMain.PathSatellites := ePathSatellites.Text;
 
-  Reg.WriteString('Path Picons', ePathPicons.Text);
-  FormMain.PathPicons := ePathPicons.Text;
+//  Reg.WriteString('Path Picons', ePathPicons.Text);
+//  FormMain.PathPicons := ePathPicons.Text;
 
   Reg.WriteString('User Telnet Command',eUserTelnetCmd.Text);
   FormMain.UserTelnetCmd := eUserTelnetCmd.Text;
@@ -723,8 +723,8 @@ end;
 
 procedure TFormOptions.bSetOptionsToDefaultsClick(Sender: TObject);
 begin
-  cbPiconActivate.Checked := False;
-  cbPiconUpload.Checked := False;
+//  cbPiconActivate.Checked := False;
+//  cbPiconUpload.Checked := False;
   cbShowDetails.Checked := True;
   cbConfirmDelete.Checked := True;
   cbConfirmSort.Checked := True;
@@ -918,7 +918,7 @@ begin
   cdsProfiles.FieldValues['prPathServices'] := ePathServices.Text;
   cdsProfiles.FieldValues['prPathUserbouquets'] := ePathUserbouquets.Text;
   cdsProfiles.FieldValues['prPathSatellites'] := ePathSatellites.Text;
-  cdsProfiles.FieldValues['PrPathPicons'] := ePathPicons.Text;
+//  cdsProfiles.FieldValues['PrPathPicons'] := ePathPicons.Text;
   cdsProfiles.Post;
 
   itm.Selected := True;
@@ -957,14 +957,14 @@ begin
     if RightStr(ePathSatellites.Text,1) <> '/'
     then ePathSatellites.Text := ePathSatellites.Text + '/';
 
-    ePathPicons.Text := trim(ePathPicons.Text);
+{    ePathPicons.Text := trim(ePathPicons.Text);
     if ePathPicons.Text = ''
     then ePathPicons.Text := '/media/usb/picons/';
     if LeftStr(ePathPicons.Text,1) <> '/'
     then ePathPicons.Text := '/' + ePathPicons.Text;
     if RightStr(ePathPicons.Text,1) <> '/'
     then ePathPicons.Text := ePathPicons.Text + '/';
-
+ }
     Item.Caption := eProfilename.Text;
     cdsProfiles.FindKey([Item.Index]);
     cdsProfiles.Edit;
@@ -978,7 +978,7 @@ begin
     cdsProfiles.FieldValues['prPathServices'] := ePathServices.Text;
     cdsProfiles.FieldValues['prPathUserbouquets'] := ePathUserbouquets.Text;
     cdsProfiles.FieldValues['prPathSatellites'] := ePathSatellites.Text;
-    cdsProfiles.FieldValues['prPathPicons'] := ePathPicons.Text;
+//    cdsProfiles.FieldValues['prPathPicons'] := ePathPicons.Text;
     cdsProfiles.Post;
   end
 
@@ -1117,16 +1117,16 @@ begin
 end;
 
 procedure TFormOptions.bpngBrowseClick(Sender: TObject);
-var
-  LocalPathPicons: String;
+{var
+  LocalPathPicons: String;}
 begin
-  LocalPathPicons := FormMain.LocalPathPicons;
+{  LocalPathPicons := FormMain.LocalPathPicons;
   if FormMain.SelDir(LocalPathPicons,True)
   then begin;
     eLpngDir.Text := LocalPathPicons;
     FormMain.LocalPathPicons := eLpngDir.Text;
   end;
-
+ }
 end;
 
 end.

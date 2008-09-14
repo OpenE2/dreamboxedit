@@ -1,4 +1,4 @@
-object frmAbout: TfrmAbout
+object FormAbout: TFormAbout
   Left = 494
   Top = 296
   BorderStyle = bsNone

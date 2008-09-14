@@ -1,4 +1,4 @@
-object frmSplash: TfrmSplash
+object FormSplash: TFormSplash
   Left = 617
   Top = 233
   BorderStyle = bsNone
@@ -30,7 +30,7 @@ object frmSplash: TfrmSplash
     DesignSize = (
       434
       89)
-    object Label2: TLabel
+    object _Label2: TLabel
       Left = 343
       Top = 74
       Width = 80

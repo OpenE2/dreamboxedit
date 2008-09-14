@@ -91,14 +91,14 @@ object FormOptions: TFormOptions
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 765
-    Height = 508
+    Width = 757
+    Height = 506
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
-      765
-      508)
+      757
+      506)
     object bSave: TButton
       Left = 682
       Top = 477
@@ -1516,6 +1516,7 @@ object FormOptions: TFormOptions
       object TabSheet2: TTabSheet
         Caption = 'Picon'
         ImageIndex = 6
+        TabVisible = False
         DesignSize = (
           742
           429)

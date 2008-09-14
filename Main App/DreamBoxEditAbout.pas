@@ -1,4 +1,4 @@
-unit formabout;
+unit DreamBoxEditAbout;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   Dialogs, StdCtrls, LWPanel, ExtCtrls, uHelpers, ShellApi;
 
 type
-  TfrmAbout = class(TForm)
+  TFormAbout = class(TForm)
     Panel4: TPanel;
     pnlLeft: TPanel;
     imgLogo: TImage;
@@ -38,7 +38,7 @@ type
   end;
 
 var
-  frmAbout: TfrmAbout;
+  FormAbout: TFormAbout;
 
 implementation
 
@@ -46,7 +46,7 @@ uses DreamBoxMain;
 
 {$R *.dfm}
 
-procedure TfrmAbout.lblWebsiteClick(Sender: TObject);
+procedure TFormAbout.lblWebsiteClick(Sender: TObject);
 var
   st: Integer;
   s: String;
@@ -62,12 +62,12 @@ begin
   end;
 end;
 
-procedure TfrmAbout.btnDoneClick(Sender: TObject);
+procedure TFormAbout.btnDoneClick(Sender: TObject);
 begin
   Close;
 end;
 
-procedure TfrmAbout.FormActivate(Sender: TObject);
+procedure TFormAbout.FormActivate(Sender: TObject);
 begin
   lblVersion.Caption := GetAppVersion;
 end;
