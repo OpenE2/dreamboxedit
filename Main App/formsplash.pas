@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls, LWPanel;
+  Dialogs, ExtCtrls, StdCtrls, LWPanel, uHelpers;
 
 type
   TfrmSplash = class(TForm)
@@ -21,7 +21,7 @@ type
     Label1: TLabel;
     Label3: TLabel;
     Label4: TLabel;
-    Label5: TLabel;
+    lVersion: TLabel;
     Label6: TLabel;
     Label7: TLabel;
     Label8: TLabel;
@@ -44,6 +44,8 @@ procedure TfrmSplash.FormActivate(Sender: TObject);
 var
   tickCount: Cardinal;
 begin
+  lVersion.Caption := lVersion.Caption + ' ' + GetAppVersion;
+
   tickCount := GetTickCount + 2000;
 
   while (GetTickCount <= tickCount) do
