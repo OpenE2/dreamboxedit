@@ -688,10 +688,11 @@ begin
   if not compare
   then
     if pos('/2/',s) <> 0
-    then SetVersionDefaults(2);
-    if pos('/3/',s) <> 0
-    then SetVersionDefaults(3)
-    else SetVersionDefaults(4);
+    then SetVersionDefaults(2)
+    else
+      if pos('/3/',s) <> 0
+      then SetVersionDefaults(3)
+      else SetVersionDefaults(4);
 
   psl := TStringList.Create;
 
@@ -11541,10 +11542,10 @@ begin
                              'This means that the next time you save this settings set ' +
                              'it will be saved in that format.~' +
                              'Be ware: a version 3 and 4 set will NOT work for a Dreambox that ' +
-                             'expects a version 2 set.' +
-                             'Version 4 is Enigma2 with drivers after august 2008.~' +
+                             'expects a version 2 set.~' +
                              'And a version 2 set not on a receiver that expects version 3 or 4' +
-                             '(Enigma2).~~' +
+                             ' (Enigma2).~~' +
+                             'Version 4 is Enigma2 with drivers after august 2008.~~' +
                              'You can always see which version is selected at the bottom statusbar ' +
                              'on the main screen of DreamBoxEdit!',
                              IntToStr(SettingsVersion)]),
