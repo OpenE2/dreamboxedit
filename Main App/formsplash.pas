@@ -44,7 +44,7 @@ procedure TfrmSplash.FormActivate(Sender: TObject);
 var
   tickCount: Cardinal;
 begin
-  lVersion.Caption := lVersion.Caption + ' ' + GetAppVersion;
+  lVersion.Caption := 'version ' + GetAppVersion;
 
   tickCount := GetTickCount + 2000;
 
