@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, LWPanel, ExtCtrls, uHelpers;
+  Dialogs, StdCtrls, LWPanel, ExtCtrls, uHelpers, ShellApi;
 
 type
   TfrmAbout = class(TForm)
@@ -42,12 +42,24 @@ var
 
 implementation
 
+uses DreamBoxMain;
+
 {$R *.dfm}
 
 procedure TfrmAbout.lblWebsiteClick(Sender: TObject);
+var
+  st: Integer;
+  s: String;
 begin
-  // Go to the website, should be configurable without need to recompile...
-
+  s := 'http://dreamboxedit.digsat.net/index.html';
+  st := ShellExecute(0,'open',PChar(s),NIL,NIL,SW_SHOWNORMAL);
+  if st <= 32
+  then begin;
+    showmessage(FormMain.lwLngTrns(name,['Returncode % from opening "%"',
+                                   IntToStr(st),s]));
+    FormMain.log('e',FormMain.lwLngTrns(name,['Returncode % from opening "%"',
+                 IntToStr(st),s]));
+  end;
 end;
 
 procedure TfrmAbout.btnDoneClick(Sender: TObject);

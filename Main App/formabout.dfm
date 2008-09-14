@@ -1,6 +1,6 @@
 object frmAbout: TfrmAbout
-  Left = 1048
-  Top = 248
+  Left = 494
+  Top = 296
   BorderStyle = bsNone
   ClientHeight = 288
   ClientWidth = 511

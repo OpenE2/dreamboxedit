@@ -1,6 +1,6 @@
 object frmSplash: TfrmSplash
-  Left = 1179
-  Top = 767
+  Left = 617
+  Top = 233
   BorderStyle = bsNone
   ClientHeight = 215
   ClientWidth = 434
@@ -45,12 +45,12 @@ object frmSplash: TfrmSplash
       ParentFont = False
       Transparent = True
     end
-    object Label5: TLabel
+    object lVersion: TLabel
       Left = 3
       Top = 77
-      Width = 60
+      Width = 35
       Height = 13
-      Caption = 'version 2.20'
+      Caption = 'version'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11

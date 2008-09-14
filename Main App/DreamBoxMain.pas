@@ -9826,9 +9826,28 @@ begin
 end;
 
 procedure TFormMain.TimerCheckVersionOnTimer(Sender: TObject);
+  function FormatVersionNumber(const VersNum: String): Integer;
+  var
+    s,c: String;
+    v,f,i: Integer;
+  begin
+    v := 0;
+    f := 1;
+    s := '.' + VersNum;
+    while pos('.',s) <> 0 do begin;
+      for i := length(s) downto 1 do begin;
+        if s[i] = '.' then break;
+      end;
+      c := copy(s,i+1,length(s)-i);
+      v := v + StrToInt(c) * f;
+      f := f * 100;
+      s := LeftStr(s,i-1);
+    end;
+    Result := v;
+  end;
 var
   s,ds: String;
-  i,wto,vc,vo,st,vskip: integer;
+  i,vc,vo,wto,st,vskip: integer;
   gocopy: Boolean;
   svc,svo: String;
   sl: TStringList;
@@ -9907,16 +9926,14 @@ begin
   end;
 
   s := trim(GetAppVersion);
-  svc := s;
   s := StringReplace(s,'v','',[rfReplaceAll,rfIgnoreCase]);
-  s := StringReplace(s,'.','',[rfReplaceAll,rfIgnoreCase]);
-  vc := StrToInt(s);
+  svc := s;
+  vc := FormatVersionNumber(s);
 
   s := trim(sl[1]);
-  svo := s;
   s := StringReplace(s,'v','',[rfReplaceAll,rfIgnoreCase]);
-  s := StringReplace(s,'.','',[rfReplaceAll,rfIgnoreCase]);
-  vo := StrToInt(s);
+  svo := s;
+  vo := FormatVersionNumber(s);
 
   if vo > vc
   then log('i',lwLngTrns(name,['A newer version of DreamBoxEdit is available online: %',
@@ -10802,7 +10819,7 @@ var
   st: Integer;
   s: String;
 begin
-  s := 'http://pp.digsat.net/ppteam/dreamboxedit';
+  s := 'http://dreamboxedit.digsat.net/index.html';
   st := ShellExecute(0,'open',PChar(s),NIL,NIL,SW_SHOWNORMAL);
   if st <= 32
   then begin;

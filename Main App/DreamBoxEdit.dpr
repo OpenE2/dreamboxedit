@@ -33,9 +33,9 @@ begin
   try
     frmSplash.Show;
 
-    Application.Initialize;
-    Application.Title := 'DreamBoxEdit';
-    Application.CreateForm(TFormMain, FormMain);
+  Application.Initialize;
+  Application.Title := 'DreamBoxEdit';
+  Application.CreateForm(TFormMain, FormMain);
   Application.CreateForm(TFormWait, FormWait);
   Application.CreateForm(TFormDetail, FormDetail);
   Application.CreateForm(TFormAdd, FormAdd);
