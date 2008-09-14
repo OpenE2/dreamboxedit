@@ -8,7 +8,7 @@ uses
   ExtCtrls, ToolWin, ImgList, LWPanel, Registry, LWBtn, FileCtrl, ShellApi,
   StrUtils, jpeg, DBCtrls, dbcgrids, Buttons, IdBaseComponent, IdComponent,
   IdTCPConnection, IdTCPClient, Sockets, CommCtrl, LWLanguage, IdFTP, DateUtils,
-  MidasLib, IdHTTP, pngimage, UrlMon;
+  MidasLib, IdHTTP, pngimage, UrlMon, formAbout, uHelpers;
 
 type
   TListData = record
@@ -3630,7 +3630,7 @@ begin
     cdsServSave.Next;
   end;
   WriteLn(tf,'end');
-  WriteLn(tf,'Edited with LlamaWare DreamBoxEdit ' + FormAbout._lVersion.Caption +
+  WriteLn(tf,'Edited with LlamaWare DreamBoxEdit ' + GetAppVersion +
              ' on ' + FormatDateTime('ddmmmyyyy hh:mm:ss',now()));
   CloseFile(tf);
   Log('i',lwLngTrns(name,['services saved in %',Dir]));
@@ -3755,7 +3755,7 @@ begin
     end;
     cdsFBQ.IndexFieldNames := sif;
     WriteLn(tf,'end');
-    WriteLn(tf,'Edited with LlamaWare DreamBoxEdit ' + FormAbout._lVersion.Caption +
+    WriteLn(tf,'Edited with LlamaWare DreamBoxEdit ' + GetAppVersion +
                ' on ' + FormatDateTime('ddmmmyyyy hh:mm:ss',now()));
     CloseFile(tf);
     Log('i',lwLngTrns(name,['bouquets saved in %',Dir]));
@@ -4079,8 +4079,18 @@ begin
 end;
 
 procedure TFormMain.tbAboutClick(Sender: TObject);
+var
+  frmAbout: TfrmAbout;
 begin
-  FormAbout.ShowModal();
+  frmAbout := TfrmAbout.Create(Self);
+  try
+    frmAbout.Show;
+
+  except
+    if Assigned(frmAbout) then frmAbout.Free;
+
+  end;
+
 end;
 
 procedure TFormMain.puServicesPopup(Sender: TObject);
@@ -4571,11 +4581,13 @@ begin
 
 
   s := '';
-  if Reg.ValueExists('AutoCheckVersionLastVersionChecked')
-  then s := Reg.ReadString('AutoCheckVersionLastVersionChecked');
-  if s < FormAbout._lVersion.Caption
-  then Reg.DeleteValue('AutoCheckVersion');
-  Reg.WriteString('AutoCheckVersionLastVersionChecked',FormAbout._lVersion.Caption);
+
+  if Reg.ValueExists('AutoCheckVersionLastVersionChecked') then
+    s := Reg.ReadString('AutoCheckVersionLastVersionChecked');
+
+  if s < GetAppVersion then Reg.DeleteValue('AutoCheckVersion');
+
+  Reg.WriteString('AutoCheckVersionLastVersionChecked', GetAppVersion);
 
   if Reg.ValueExists('AutoCheckVersion')
   then AutoCheckVersion := Reg.ReadBool('AutoCheckVersion')
@@ -4651,8 +4663,7 @@ begin
   lvDetSortDescending := False;
   lvDetColumnToSort := 999;
 
-  log('i',lwLngTrns(name,['DreamBoxEdit % started',
-                          FormAbout._lVersion.Caption]));
+  log('i',lwLngTrns(name,['DreamBoxEdit % started', GetAppVersion]));
 
   { Default blacklist, unless later on specified different in config file from Dreambox }
   BlackList := True;
@@ -4703,16 +4714,16 @@ begin
   Reg.RootKey := HKEY_CURRENT_USER;
   Reg.OpenKey('\SOFTWARE\LlamaWare\DreamBoxEdit',True);
   if (FileExists('Version notes.txt') and
-     (Reg.ValueExists('First time ' + FormAbout._lVersion.Caption)))
+     (Reg.ValueExists('First time ' + GetAppVersion)))
   then begin;
-    if Reg.ReadInteger('First time ' + FormAbout._lVersion.Caption) <> FileAge('Version notes.txt')
-    then Reg.DeleteValue('First time ' + FormAbout._lVersion.Caption);
+    if Reg.ReadInteger('First time ' + GetAppVersion) <> FileAge('Version notes.txt')
+    then Reg.DeleteValue('First time ' + GetAppVersion);
   end;
 
-  if not Reg.ValueExists('First time ' + FormAbout._lVersion.Caption)
+  if not Reg.ValueExists('First time ' + GetAppVersion)
   then begin;
-    if FileExists('Version notes.txt')
-    then begin;
+    if FileExists('Version notes.txt') then
+    begin
       wn := TStringList.Create;
       wn.LoadFromFile('Version notes.txt');
       if MessageDlg(lwLngTrns(name,['New version notes:~~ % ~~' +
@@ -4720,12 +4731,19 @@ begin
                                     'time you start DreamBoxEdit?',
                                     wn.Text]),
                     mtinformation,[mbYes,mbNo],0,) = mrNo
-      then Reg.WriteInteger('First time ' + FormAbout._lVersion.Caption,FileAge('Version notes.txt'));
+      then
+        Reg.WriteInteger('First time ' + GetAppVersion,
+         FileAge('Version notes.txt'));
+
       wn.Free;
+
     end;
+
   end;
+
   Reg.CloseKey;
   Reg.Destroy;
+
 end;
 
 procedure TFormMain.tbFilesClick(Sender: TObject);
@@ -9231,7 +9249,8 @@ begin
                false);
     end;
     for i := 0 to Screen.FormCount - 1 do begin;
-      MultiLang.SaveLanguage(FormAbout._lVersion.Caption,Screen.Forms[i],MainMenu1.Items[5].Items[l].Caption,True,False,True);
+      MultiLang.SaveLanguage(GetAppVersion,
+       Screen.Forms[i],MainMenu1.Items[5].Items[l].Caption,True,False,True);
     end;
   end;
   Screen.Cursor := crDefault;
@@ -9887,7 +9906,7 @@ begin
     exit;
   end;
 
-  s := trim(FormAbout._lVersion.Caption);
+  s := trim(GetAppVersion);
   svc := s;
   s := StringReplace(s,'v','',[rfReplaceAll,rfIgnoreCase]);
   s := StringReplace(s,'.','',[rfReplaceAll,rfIgnoreCase]);
@@ -11532,8 +11551,9 @@ begin
                                   'time you start DreamBoxEdit?',
                                   wn.Text]),
                   mtinformation,[mbYes,mbNo],0) = mrNo
-    then Reg.WriteInteger('First time ' + FormAbout._lVersion.Caption,FileAge('Version notes.txt'))
-    else Reg.DeleteValue('First time ' + FormAbout._lVersion.Caption);
+    then Reg.WriteInteger('First time ' + GetAppVersion,
+     FileAge('Version notes.txt'))
+    else Reg.DeleteValue('First time ' + GetAppVersion);
     wn.Free;
   end
   else begin;

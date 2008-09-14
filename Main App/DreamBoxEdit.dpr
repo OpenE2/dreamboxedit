@@ -4,8 +4,6 @@ uses
   Forms,
   Windows,
   DreamBoxMain in 'DreamBoxMain.pas' {FormMain},
-  DreamBoxAbout in 'DreamBoxAbout.pas' {FormAbout},
-  DreamBoxSplash in 'DreamBoxSplash.pas' {FormSplash},
   DreamBoxEditWait in 'DreamBoxEditWait.pas' {FormWait},
   DreamBoxEditDetail in 'DreamBoxEditDetail.pas' {FormDetail},
   DreamBoxEditAdd in 'DreamBoxEditAdd.pas' {FormAdd},
@@ -23,20 +21,21 @@ uses
   DreamBoxEditCompareSets in 'DreamBoxEditCompareSets.pas' {FormCompareSet},
   DreamBoxEditTransponder in 'DreamBoxEditTransponder.pas' {FormTransponder},
   DreamBoxEditNewVersion in 'DreamBoxEditNewVersion.pas' {FormNewVersion},
-  DreamBoxEditSelDir in 'DreamBoxEditSelDir.pas' {FormSelDir};
+  DreamBoxEditSelDir in 'DreamBoxEditSelDir.pas' {FormSelDir},
+  formsplash in '..\dreamboxedit_design\main_app\formsplash.pas' {frmSplash},
+  formabout in 'formabout.pas' {frmAbout},
+  uHelpers in 'uHelpers.pas';
 
 {$R *.res}
 
 begin
-  FormSplash := TFormSplash.Create(Application);
-  FormSplash.Show;
-  FormSplash.Update;
-  Sleep(1000);
+  frmSplash := TfrmSplash.Create(nil);
+  try
+    frmSplash.Show;
 
-  Application.Initialize;
-  Application.Title := 'DreamBoxEdit';
-  Application.CreateForm(TFormMain, FormMain);
-  Application.CreateForm(TFormAbout, FormAbout);
+    Application.Initialize;
+    Application.Title := 'DreamBoxEdit';
+    Application.CreateForm(TFormMain, FormMain);
   Application.CreateForm(TFormWait, FormWait);
   Application.CreateForm(TFormDetail, FormDetail);
   Application.CreateForm(TFormAdd, FormAdd);
@@ -55,8 +54,11 @@ begin
   Application.CreateForm(TFormTransponder, FormTransponder);
   Application.CreateForm(TFormNewVersion, FormNewVersion);
   Application.CreateForm(TFormSelDir, FormSelDir);
-  FormSplash.Hide;
-  FormSplash.Free;
+  finally
+    frmSplash.Close;
+    if Assigned(frmSplash) then frmSplash.Free;
+
+  end;
         
   Application.Run;
 end.

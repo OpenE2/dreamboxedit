@@ -8,7 +8,7 @@ uses
   ExtCtrls, ToolWin, ImgList, LWPanel, Registry, LWBtn, FileCtrl, ShellApi,
   StrUtils, jpeg, DBCtrls, dbcgrids, Buttons, IdBaseComponent, IdComponent,
   IdTCPConnection, IdTCPClient, Sockets, CommCtrl, LWLanguage, IdFTP, DateUtils,
-  MidasLib, IdHTTP, pngimage, UrlMon;
+  MidasLib, IdHTTP, pngimage, UrlMon, formAbout, uHelpers;
 
 type
   TListData = record
@@ -2272,9 +2272,6 @@ begin
   FormatWordsList.Free;
   TVTypes.Free;
   RDTypes.Free;
-
-  FormFTP.Telnet.IOHandler.Close;
-  
 end;
 
 procedure TFormMain.sbDrawPanel(StatusBar: TStatusBar;
@@ -3626,14 +3623,14 @@ begin
     if cdsServSave.FieldByName('servFlags').AsInteger  and 127 <> 0
     then s := 'f:' + IntToHex(cdsServSave.FieldByName('servFlags').AsInteger and 127,4) + ',' + s;
     { Only for version 4  and higher }
-    if (version >= 4) and
+    if (SettingsVersion >= 4) and
        (cdsServSave.FieldByName('servExtra').AsString <> '')
     then s := s + ',' + cdsServSave.FieldByName('servExtra').AsString; { Append unknown exra fields }
     WriteLn(tf,s);
     cdsServSave.Next;
   end;
   WriteLn(tf,'end');
-  WriteLn(tf,'Edited with LlamaWare DreamBoxEdit ' + FormAbout._lVersion.Caption +
+  WriteLn(tf,'Edited with LlamaWare DreamBoxEdit ' + GetAppVersion +
              ' on ' + FormatDateTime('ddmmmyyyy hh:mm:ss',now()));
   CloseFile(tf);
   Log('i',lwLngTrns(name,['services saved in %',Dir]));
@@ -4082,8 +4079,18 @@ begin
 end;
 
 procedure TFormMain.tbAboutClick(Sender: TObject);
+var
+  frmAbout: TfrmAbout;
 begin
-  FormAbout.ShowModal();
+  frmAbout := TfrmAbout.Create(Self);
+  try
+    frmAbout.Show;
+
+  except
+    if Assigned(frmAbout) then frmAbout.Free;
+
+  end;
+
 end;
 
 procedure TFormMain.puServicesPopup(Sender: TObject);
