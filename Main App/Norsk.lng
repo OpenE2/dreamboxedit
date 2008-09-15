@@ -1,7 +1,5 @@
 V3.0.0.0
-D2008-09-14 23:15:29
-<not used anymore>pFormMain.Image1.Hint=Service png
-mFormAbout.message.About=Om
+D2008-09-15 23:14:30
 mFormAbout.message.Returncode % from opening "%"=Tilbakemelding % fra åpning"%"
 mFormAdd.message.Add to bouquet=Legg til bukett
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Bukett % eksisterer allerede, skriv inn et nytt navn eller la navnet stå tomt og gå inn på en eksisterende bukett.
@@ -274,13 +272,11 @@ mFormMain.message.Enter the search argument=Sett inn søkeord
 mFormMain.message.Entry % deleted=Post % slettet
 mFormMain.message.Error exporting service % of satellite at % to SatcoDX format, invalid SID, NID and/or TSID:=Feil under eksportering av kanal % på satellit ved % til SatcoDX format, ugyldig SID, NID og/eller TSID:
 mFormMain.message.Error processing Cut action for %: service not found in Servicetable=Feil under prosessen med Klipping for %: kanal ikke funnet i Kanallisten
-mFormMain.message.Error reading service % with package line:=Feil med å lese kanal % ved pakke linje:
 mFormMain.message.Error reading services file=Feil med å lese kanal fil
 mFormMain.message.Explanation of errors found within TV and/or Radio User Bouquet:=Forklaring av feil funnet innenfor TV og/eller Radio Bruker Bukett :
 mFormMain.message.Export file saved to %, but there were % errors.~See the log for more information.~~The services with errors were skipped!=Eksport fil lagret i %, men med % feil.
 mFormMain.message.Export file saved to %=Eksport fil lagret i %
 mFormMain.message.Exporting services to %=Eksporterer kanaler til %
-mFormMain.message.FEC must be a value in the range 0 - 5=FEC må ha verdier innenfor 0 - 5
 mFormMain.message.FEC=FEC
 mFormMain.message.File % copied from % to %=Fil % kopiert fra % til %
 mFormMain.message.File % not found in "%"=Fil % ikke funnet i "%"
@@ -377,7 +373,6 @@ mFormMain.message.SymbolRate=SymbolRate
 mFormMain.message.The directory you selected contains either no services data or an old version of the setting files.~This version of DreamBoxEdit only supports file-sets belonging to (unofficial) images 1.04.a.5 released after february 14th 2003.~~To edit older file-sets use DreamBoxEdit version 1.41 or older.=Adressen du valgte inneholder enten ingen kanal data eller det er en gammel versjon av innstillingsfiler.~Denne versjonen av DreamBoxEdit støtter kun fil-sett som tilhører (uoffisielle) images 1.04.a.5 utgitt etter 14 februar 2003.~~For redigering av eldre fil-sett må du bruke DreamBoxEdit versjon 1.41 eller eldre.
 mFormMain.message.The entry you selected in the details panel is not a regular service but a "sub service",~which means there is no corresponding service definition.=Posten du valgte under detaljpanelet er ikke en vanlig kanal men en "sub kanal",~Med det menes at det ikke er noen korresponderende kanal definisjon.
 mFormMain.message.The service you selected in the details panel is currently not available in the services panel~due to the there made selection on type or satellite=Kanalen du valgte i detaljpanelet er ikke tilgjengelig i kanalpanelet ~grunnet ditt valg av kanal type eller satellitt
-mFormMain.message.The version of the settings set is now changed to %.~~This means that the next time you save this settings set it will be saved in that format.~Be ware: a version 3 set will NOT work for a Dreambox that expects a version 2 set.~And a version 2 set not on a receiver that expects version 3 (7025 and up).~~You can always see which version is selected at the bottom statusbar on the main screen of DreamBoxEdit!=Versjonen på innstillinger er nå endret til %.~~Det betyr at neste gang du lagrer innstillinger vil de bli lagret i dette formatet.~Advarsel: versjon 3 innstillinger vil IKKE fungere for en Dreambox som krever versjon 2 innstillinger.~Og en versjon 2 vil ikke fungere på en mottaker som krever versjon 3 (7025 og opp).~~Du kan alltid se vilken versjon som er valgt i statusfeltet på hovedskjermen på DreamBoxEdit!
 mFormMain.message.The ZAP command did not receive the normal 0 returncode from the Dreambox.=Zap kommandoen mottok ikke den vanlige 0 tilbakemeldingen fra Dreamboxen.
 mFormMain.message.There is no file-set loaded to upload to the Dreambox.=Det er ikke noen fil-sett lastet til opplasting til Dreamboxen.
 mFormMain.message.There is no newer version of dreamBoxEdit available online=Det finnes ikke noen nyere versjon av DreamBoxEdit tilgjenglig online..

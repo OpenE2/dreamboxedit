@@ -1,7 +1,5 @@
 V3.0.0.0
-D2008-09-14 23:15:25
-<not used anymore>pFormMain.Image1.Hint=Service png
-mFormAbout.message.About=Névjegy
+D2008-09-15 23:14:06
 mFormAbout.message.Returncode % from opening "%"="%" megnyitásakor keletkezett kód %
 mFormAdd.message.Add to bouquet=Hozzáadás a Bouquet-hez
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=A % csomag már létezik, adj meg egy másik nevet, vagy hagyd üresen és klikkelj egy létezõ csomagra
@@ -274,13 +272,11 @@ mFormMain.message.Enter the search argument=Add meg a keresési paramétert
 mFormMain.message.Entry % deleted=% bejegyzés törölve
 mFormMain.message.Error exporting service % of satellite at % to SatcoDX format, invalid SID, NID and/or TSID:=Hiba a % csatorna (% mûholdon) exportálása során SatcoDX formátumba, érvénytelen SID, NID és/vagy TSID:
 mFormMain.message.Error processing Cut action for %: service not found in Servicetable=Vágási akció végrehajtási hiba a %-nál: nem találom a csatornát a csatornalistában
-mFormMain.message.Error reading service % with package line:=Hiba a % csatorna beolvasásakor a csomag sorban:
 mFormMain.message.Error reading services file=HIba a csatornafájl beolvasásakor
 mFormMain.message.Explanation of errors found within TV and/or Radio User Bouquet:=A TV és/vagy a Rádió felhasználói csomagoknál talált hibák magyarázata:
 mFormMain.message.Export file saved to %, but there were % errors.~See the log for more information.~~The services with errors were skipped!=A % export fájlt mentettem, de % hiba keletkezett:~Olvassa el a log naplót, ahol több információt is olvashat.~~A hibás csatornákat nem exportáltam.
 mFormMain.message.Export file saved to %=Az exportált fájl elmentve a %-ban
 mFormMain.message.Exporting services to %=Csatornák exportálása a %-ba
-mFormMain.message.FEC must be a value in the range 0 - 5=A FEC értékének 0 és 5 között kell lennie
 mFormMain.message.FEC=FEC
 mFormMain.message.File % copied from % to %=A % fájlt átmásoltam a %-ból a %-be
 mFormMain.message.File % not found in "%"=Nem találom a % fájlt a "%"-ban
@@ -377,7 +373,6 @@ mFormMain.message.SymbolRate=SymboRate
 mFormMain.message.The directory you selected contains either no services data or an old version of the setting files.~This version of DreamBoxEdit only supports file-sets belonging to (unofficial) images 1.04.a.5 released after february 14th 2003.~~To edit older file-sets use DreamBoxEdit version 1.41 or older.=A kiválasztott könyvtár vagy nem tartalmaz adatokat vagy az adatok régi verziójú beállításokat tartalmaz.~A DreamBoxEdit e verziója csak azokat a fájl csomagokat tartalmazza, melyek a 2003 február 14-e utáni Image fájlokhoz (v1.04.a.5) tartoznak.~~Régebbi fájl csomagok módosításához használd a DreamBoxEdit szoftver 1.41-es vagy az elõtti verzióját.
 mFormMain.message.The entry you selected in the details panel is not a regular service but a "sub service",~which means there is no corresponding service definition.=A részletes panelen kiválasztott bejegyzés nem egy szokványos csatorna, hanem egy "alszolgáltatás", ~ami azt jelenti hogy nem tartozik hozzá megfelelõ csatorna meghatározás.
 mFormMain.message.The service you selected in the details panel is currently not available in the services panel~due to the there made selection on type or satellite=A részletes panelen kiválasztott csatorna jelenleg nem elérhetõ a csatornalistában~az ott kiválasztott típus vagy mûhold miatt
-mFormMain.message.The version of the settings set is now changed to %.~~This means that the next time you save this settings set it will be saved in that format.~Be ware: a version 3 set will NOT work for a Dreambox that expects a version 2 set.~And a version 2 set not on a receiver that expects version 3 (7025 and up).~~You can always see which version is selected at the bottom statusbar on the main screen of DreamBoxEdit!=A settings csomag verzióját megváltoztattam %-ra.~~Ez azt jelenti, hogy ha legközelebb elmenti ezt a settings csomagot, akkor az ebben a formátumban lesz elmentve.~Figyelem: A 3-as verziójú csomag nem fog mûködni olyan DreamBox-ban amiben csak 2-es verziójú csomag tölthetõ.~Ugyanígy a 2-es verziójú csomag nem fog mûködni olyan beltériben ami 3-as verziót fogad (7025 és afelettiek).~~A DreamBoxEdit fõoldalán az alsó státuszsorában mindíg láthatja milyen verzió van kiválasztva.
 mFormMain.message.The ZAP command did not receive the normal 0 returncode from the Dreambox.=A ZAP parancs nem kapta meg a szokásos 0 válaszkódot a DreamBoxtól.
 mFormMain.message.There is no file-set loaded to upload to the Dreambox.=Nem lett kiválasztva feltöltendõ fájl csomag a DreamBoxba.
 mFormMain.message.There is no newer version of dreamBoxEdit available online=Jelen pillanatban nincs elérhetõ újab DreamBoxEdit szoftver.

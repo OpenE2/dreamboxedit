@@ -1,7 +1,5 @@
 V3.0.0.0
-D2008-09-14 23:15:35
-<not used anymore>pFormMain.Image1.Hint=Service png
-mFormAbout.message.About=O programu
+D2008-09-15 23:15:05
 mFormAbout.message.Returncode % from opening "%"=Povratni kod% otvaranja "%"
 mFormAdd.message.Add to bouquet=Dodaj u buket
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Lista % vec postoji, ubaci novo ime ili ostavi prazno i klikni na postojecu listu
@@ -274,13 +272,11 @@ mFormMain.message.Enter the search argument=Unesi argument za trazenje
 mFormMain.message.Entry % deleted=Unos % obrisan
 mFormMain.message.Error exporting service % of satellite at % to SatcoDX format, invalid SID, NID and/or TSID:=Greska slanja servisa % satelita % u SatcoDX oblik, pogresan SID, NID i/ili TSID:
 mFormMain.message.Error processing Cut action for %: service not found in Servicetable=Greska kod izvrsavanja funkcije rezanja: servis nije pronadjen u servis tabeli
-mFormMain.message.Error reading service % with package line:=Greska u citanju servisa % sa linijom paketa:
 mFormMain.message.Error reading services file=Greska u citanju servis fajla
 mFormMain.message.Explanation of errors found within TV and/or Radio User Bouquet:=Objasnjenje gresaka pronadjeno unutar TV i/ili Radio korisnicke liste:
 mFormMain.message.Export file saved to %, but there were % errors.~See the log for more information.~~The services with errors were skipped!=Poslati fajl sacuvan u %, ali tu postoji % gresaka.~Pogledaj log info za vise informacija.~~Servisi sa greskama su preskoceni!
 mFormMain.message.Export file saved to %=Poslati fajl sacuvan u %
 mFormMain.message.Exporting services to %=Salje servise u %
-mFormMain.message.FEC must be a value in the range 0 - 5=FEC mora biti vrednost izmedju 0 i 5
 mFormMain.message.FEC=FEC
 mFormMain.message.File % copied from % to %=Fajl % kopiran iz % u %
 mFormMain.message.File % not found in "%"=Fajl % nije pronadjen u "%"

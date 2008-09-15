@@ -1,7 +1,5 @@
 V3.0.0.0
-D2008-09-14 23:15:17
-<not used anymore>pFormMain.Image1.Hint=Service png
-mFormAbout.message.About=A propos
+D2008-09-15 23:13:29
 mFormAbout.message.Returncode % from opening "%"=Code de retour % en ouvrant "%"
 mFormAdd.message.Add to bouquet=Ajouter au bouquet
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Le bouquet % existe déjà. Entrer un nom différent ou laisser vide le nouveau nom et cliquer sur un bouquet existant
@@ -274,13 +272,11 @@ mFormMain.message.Enter the search argument=Entrer la requète de recherche
 mFormMain.message.Entry % deleted=L'entrée % a été supprimée
 mFormMain.message.Error exporting service % of satellite at % to SatcoDX format, invalid SID, NID and/or TSID:=Erreur d'exportation service % du satellite à % vers le format SatcoDX, invalid SID, NID et/ou TSID:
 mFormMain.message.Error processing Cut action for %: service not found in Servicetable=Erreur dans l'action Cut pour %: service non trouvé dans la table des services
-mFormMain.message.Error reading service % with package line:=Erreur dans la lecture du service % avec:
 mFormMain.message.Error reading services file=Erreur de lecture du fichier des services
 mFormMain.message.Explanation of errors found within TV and/or Radio User Bouquet:=Explication des erreurs trouvées dans les bouquers TV et/ou Radio:
 mFormMain.message.Export file saved to %, but there were % errors.~See the log for more information.~~The services with errors were skipped!=Fichier exporté sauvé vers %, mais il y a % erreurs.~voir le journal pour plus d'information.~~Les services avec des erreurs ont été sautés !
 mFormMain.message.Export file saved to %=Fichier export sauvé sous %
 mFormMain.message.Exporting services to %=Exportation des services sous %
-mFormMain.message.FEC must be a value in the range 0 - 5=FEC doit être entre 0 et 5
 mFormMain.message.FEC=FEC
 mFormMain.message.File % copied from % to %=Fichier % copié de % vers %
 mFormMain.message.File % not found in "%"=Fichier % non trouvé dans "%"
@@ -377,7 +373,6 @@ mFormMain.message.SymbolRate=Fréquence symbole
 mFormMain.message.The directory you selected contains either no services data or an old version of the setting files.~This version of DreamBoxEdit only supports file-sets belonging to (unofficial) images 1.04.a.5 released after february 14th 2003.~~To edit older file-sets use DreamBoxEdit version 1.41 or older.=Le repertoire que vous avez sélectionné ne contient pas de donnée de services, ou un anciène version du fichier de configuration~Cette version de DreamBoxEdit ne support que les fichiers des images 1.04 et 1.05 après le 14 févier 2003~~Pour éditer des fichiers plus ancien, utiliser DreamBoxEdit version 1.41 ou plus vieux
 mFormMain.message.The entry you selected in the details panel is not a regular service but a "sub service",~which means there is no corresponding service definition.=L'entrée que vous avez selectionné dans le panneau de détail n'est pas un service standard, mais un  "sous-service",~ce qui signifie qu'il n'y a pas de définition de service correspondante.
 mFormMain.message.The service you selected in the details panel is currently not available in the services panel~due to the there made selection on type or satellite=Le service que vous avez sélectionné dans le panneau de détail n'est pas disponible de le panneau des services~au cause des sélection faite sur le type ou le satellite
-mFormMain.message.The version of the settings set is now changed to %.~~This means that the next time you save this settings set it will be saved in that format.~Be ware: a version 3 set will NOT work for a Dreambox that expects a version 2 set.~And a version 2 set not on a receiver that expects version 3 (7025 and up).~~You can always see which version is selected at the bottom statusbar on the main screen of DreamBoxEdit!=La version des sets de paramètres est maintenant changée en %.~~Ceci signifie que la prochaine fois que vous sauverez ces sets paramètres, ils seront sauvés dans ce format.~Attention: un set version 3 ne fonctionnera pas pour une Dreambox qui s'attend à un set version 2.~Et un set version 2 pas sur un récepteur qui s'attend à la version 3 (7025 et suivant). ~~Vous pouvez toujours voir quelle version est choisie au bas du statusbar sur l'écran principal de DreamBoxEdit !
 mFormMain.message.The ZAP command did not receive the normal 0 returncode from the Dreambox.=La commande ZAP n'a pas reçu un code de retour normal de la Dreambox
 mFormMain.message.There is no file-set loaded to upload to the Dreambox.=Il n'y a pas de fichiers à télécharger dans la Dreambox
 mFormMain.message.There is no newer version of dreamBoxEdit available online=Il n'y a pas de nouvelle version de DreamboxEdit disponible en ligne

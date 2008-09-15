@@ -43,6 +43,7 @@ type
     Label18: TLabel;
     Label19: TLabel;
     Insertcopyoftransponder1: TMenuItem;
+    Label20: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure InsertTransponder1Click(Sender: TObject);

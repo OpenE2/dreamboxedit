@@ -8688,7 +8688,7 @@ begin
           3: fec := ' 3/4';
           4: fec := ' 5/6';
           5: fec := ' 7/8';
-          9: fec := '9/10';
+          9: fec := ' 9/10';
           else fec := 'invalid';
         end;
         if cdsPos.FindKey([cdsServ.FieldByName('servPos').AsString])
@@ -8897,8 +8897,9 @@ begin
                mtError,[mbOK],0);
     Abort;
   end;
-  if (cdsSatXML.FieldByName('FEC').AsInteger < 0) or
-     (cdsSatXML.FieldByName('FEC').AsInteger > 9)
+  if (cdsSatXML.FieldByName('FEC').AsInteger < 0) or        
+    ((cdsSatXML.FieldByName('FEC').AsInteger > 5) and
+     (cdsSatXML.FieldByName('FEC').AsInteger <> 9))
   then begin;
     if FormEditSatXML.dgSatXML.DataSource.Enabled = False
     then begin;
@@ -11814,10 +11815,10 @@ begin
 
     if misspng.Count > 1 then
            MessageDlg(lwLngTrns(name,[
-                 'PNG-Server does not contain ' + IntToStr(misspng.Count-1) +' picon(s)~' +
-                 'Program will show default logo instead of missing png´s. You can request picon when '+
+                 'PNG-Server does not contain % picon(s)~' +
+                 'Program will show default logo instead of missing png(s). You can request picon when '+
                  'mailing us the "misssingPng.txt" file saved in the channellist '+
-                 '"missing" subdirectory.']),
+                 '"missing" subdirectory.',IntToStr(misspng.Count-1)]),
                  mtWarning,[mbOk],0);
 
 

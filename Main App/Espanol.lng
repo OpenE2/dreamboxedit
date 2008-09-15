@@ -1,7 +1,5 @@
 V3.0.0.0
-D2008-09-14 23:15:15
-<not used anymore>pFormMain.Image1.Hint=Service png
-mFormAbout.message.About=Info
+D2008-09-15 23:13:19
 mFormAbout.message.Returncode % from opening "%"=Abriendo "%"
 mFormAdd.message.Add to bouquet=Añadir al Bouquet
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.= El Bouquet % ya existe, entre un nuevo nombre, o deje espacio en blanco, y clique en un Bouquet existente.
@@ -265,12 +263,10 @@ mFormMain.message.Empty or invalid file for import.~~A valid file:~- is a by Dre
 mFormMain.message.Enter the search argument=Entre argumento de busqueda
 mFormMain.message.Entry % deleted=Entrada eliminada
 mFormMain.message.Error processing Cut action for %: service not found in Servicetable=Error de proceso %: servicio no encontrado en Tabla de servicios
-mFormMain.message.Error reading service % with package line:=Servicio de lectura incorrecto % en linea de archivo:
 mFormMain.message.Error reading services file=Error leyendo archivos de servicio
 mFormMain.message.Explanation of errors found within TV and/or Radio User Bouquet:=Error interno en  TV y/o Radio User Bouquet:
 mFormMain.message.Export file saved to %=Exportacion de archivo salvado en %
 mFormMain.message.Exporting services to %=Exportacion de  Servicios a %
-mFormMain.message.FEC must be a value in the range 0 - 5=El /los FEC deben tener un valor entre  0 y 5
 mFormMain.message.FEC=FEC
 mFormMain.message.File % copied from % to %=Archivo % copiado de % a %
 mFormMain.message.File % not found in "%"=Archivo % no encontrado en"%"

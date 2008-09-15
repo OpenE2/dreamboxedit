@@ -1,7 +1,5 @@
 V3.0.0.0
-D2008-09-14 23:15:08
-<not used anymore>pFormMain.Image1.Hint=Service png
-mFormAbout.message.About=O programu
+D2008-09-15 23:12:47
 mFormAbout.message.Returncode % from opening "%"=povratnikod%od otvaranja"%"
 mFormAdd.message.Add to bouquet=Dodaj u buket
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Lista%vec postoji, ubaci novo ime ili ostavi prazno i klikni na postojecu listu
@@ -253,12 +251,10 @@ mFormMain.message.Empty or invalid file for import.~~A valid file:~- is a by Dre
 mFormMain.message.Enter the search argument=Unesi argument za trazenje
 mFormMain.message.Entry % deleted=Unos % obrisan
 mFormMain.message.Error processing Cut action for %: service not found in Servicetable=Greska kod izvrsavanja rezi funkcije: servis nije pronadjen u servis tabeli
-mFormMain.message.Error reading service % with package line:=Greska u citanju servisa % sa linijom paketa
 mFormMain.message.Error reading services file=Greska u citanju servis fajla
 mFormMain.message.Explanation of errors found within TV and/or Radio User Bouquet:=Objasnjenje gresaka pronadjeno unutar TV i/ili Radio korisnicke liste
 mFormMain.message.Export file saved to %=poslati fajl sacuvan u %
 mFormMain.message.Exporting services to %=Salje servise u %
-mFormMain.message.FEC must be a value in the range 0 - 5=FEC mora biti vrijednost izmedju 0 i 5
 mFormMain.message.FEC=FEC
 mFormMain.message.File % copied from % to %=Fajl % kopiran iz % u %
 mFormMain.message.File % not found in "%"=Fajl % nije pronadjen u "%"

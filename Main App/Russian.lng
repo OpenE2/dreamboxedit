@@ -1,7 +1,5 @@
 V3.0.0.0
-D2008-09-14 23:15:33
-<not used anymore>pFormMain.Image1.Hint=Service png
-mFormAbout.message.About=О программе
+D2008-09-15 23:14:52
 mFormAbout.message.Returncode % from opening "%"=Код возврата % от открытия "%"
 mFormAdd.message.Add to bouquet=Добавить к букету
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Букет % уже есть, выберете другое имя или оставьте новое имя пустым и щелкните на существующем букете
@@ -274,13 +272,11 @@ mFormMain.message.Enter the search argument=Введите критерий поиска
 mFormMain.message.Entry % deleted=Позиция % удалена
 mFormMain.message.Error exporting service % of satellite at % to SatcoDX format, invalid SID, NID and/or TSID:=Ошибка экспорта сервиса % со спутникаt % в SatcoDX формат, неверный SID, NID и/или TSID:
 mFormMain.message.Error processing Cut action for %: service not found in Servicetable=Ошибка при вырезке для %: сервис не найден в списке
-mFormMain.message.Error reading service % with package line:=Ошибка при чтении сервиса % со строкой пакета:
 mFormMain.message.Error reading services file=Ошибка при чтении файла сервисов
 mFormMain.message.Explanation of errors found within TV and/or Radio User Bouquet:=Разъяснение ошибок, найденных в ТВ и/или Радио Букетах пользователя:
 mFormMain.message.Export file saved to %, but there were % errors.~See the log for more information.~~The services with errors were skipped!=Экспорт записан в %, но было % ошибок.~Смотрите log для информации.~~Сервисы с ошибками пропущены!
 mFormMain.message.Export file saved to %=Файл экспорта сохранен в  %
 mFormMain.message.Exporting services to %=Экспорт сервисов в %
-mFormMain.message.FEC must be a value in the range 0 - 5=FEC должен быть в пределах 0 - 5
 mFormMain.message.FEC=FEC
 mFormMain.message.File % copied from % to %=Файл % скопирован из % в %
 mFormMain.message.File % not found in "%"=Файл % не найден в "%"
@@ -377,7 +373,6 @@ mFormMain.message.SymbolRate=Поток
 mFormMain.message.The directory you selected contains either no services data or an old version of the setting files.~This version of DreamBoxEdit only supports file-sets belonging to (unofficial) images 1.04.a.5 released after february 14th 2003.~~To edit older file-sets use DreamBoxEdit version 1.41 or older.=В выбранной Вами папке либо нет данных сервисов, либо устаревшая версия установок.~Данная версия DreamBoxEdit поддерживает установки начиная с прошивки 1.04.a.5 от 14.02.2003~~Для правки старья используйте DreamBoxEdit v.1.41 или древнее.
 mFormMain.message.The entry you selected in the details panel is not a regular service but a "sub service",~which means there is no corresponding service definition.=Позиция выбранная Вами в окне деталей не является регулярным сервисом а "sub service",~что означает, что нет соответствующих определений сервиса.
 mFormMain.message.The service you selected in the details panel is currently not available in the services panel~due to the there made selection on type or satellite=Сервис выбранный Вами в окне деталей в настоящий момент не доступен в панеле~сервисов, т.к. сделан выбор типа или спутника.
-mFormMain.message.The version of the settings set is now changed to %.~~This means that the next time you save this settings set it will be saved in that format.~Be ware: a version 3 set will NOT work for a Dreambox that expects a version 2 set.~And a version 2 set not on a receiver that expects version 3 (7025 and up).~~You can always see which version is selected at the bottom statusbar on the main screen of DreamBoxEdit!=Версия с установками изменена на %.~~Т.о. в дальнейшем при сохранении установок будет использоваться этот формат.~Внимание: Версия 3 не будет работать для Dreambox с версией 2.~А версия 2 не будет работать на ресиверах под версию 3 (7025 и выше).~~Вы всегда можете определить выбранную версию в строке состояния главного окна DreamBoxEdit!
 mFormMain.message.The ZAP command did not receive the normal 0 returncode from the Dreambox.=ZAP команда не получила обычный код возврата 0 от Dreambox.
 mFormMain.message.There is no file-set loaded to upload to the Dreambox.=Установки для обновления Dreambox не загружены.
 mFormMain.message.There is no newer version of dreamBoxEdit available online=Новой версии DreamBoxEdit пока нет

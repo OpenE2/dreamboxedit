@@ -1,7 +1,5 @@
 V3.0.0.0
-D2008-09-14 23:15:19
-<not used anymore>pFormMain.Image1.Hint=Service png
-mFormAbout.message.About=Για το Πρόγραμμα
+D2008-09-15 23:13:37
 mFormAbout.message.Returncode % from opening "%"=Returncode % στο άνοιγμα του "%"
 mFormAdd.message.Add to bouquet=Προσθήκη σε Μπουκέτο
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Το Μπουκέτο % ήδη υπάρχει, επιλέξτε διαφορετικό όνομα ή αφήστε το νέο όνομα κενό και κάντε κλίκ σε ένα υπάρχον μπουκέτο
@@ -274,13 +272,11 @@ mFormMain.message.Enter the search argument=Ορίστε το θέμα αναζήτησης
 mFormMain.message.Entry % deleted=Η καταχώρηση % διαγράφηκε
 mFormMain.message.Error exporting service % of satellite at % to SatcoDX format, invalid SID, NID and/or TSID:=Σφάλμα κατά την εξαγωγή της υπηρεσίας % του δορυφόρου στο % SatcoDX, λάθος SID, NID και/ή TSID:
 mFormMain.message.Error processing Cut action for %: service not found in Servicetable=Σφάλμα ενέργειας Αποκοπήσ για το %: η υπηρεσία δεν βρέθηκε στον Πίνακα υπηρεσιών
-mFormMain.message.Error reading service % with package line:=Σφάλμα ανάγνωσης υπηρεσίας % στην γραμμή πακέτου:
 mFormMain.message.Error reading services file=Σφάλμα ανάγνωσης αρχείου υπηρεσιών
 mFormMain.message.Explanation of errors found within TV and/or Radio User Bouquet:=Επεξήγηση σφαλμάτων που βρέθηκαν στα μπουκέτα χρήστη TV και/ή Ράδιο:
 mFormMain.message.Export file saved to %, but there were % errors.~See the log for more information.~~The services with errors were skipped!=Το αρχείο αποθηκεύτηκε στο % , αλλά υπάρχουν % λάθη.~Δείτε το αρχείο καταγραφής για περισσότερες πληροφορίες.~~Οι υπηρέσιες με λάθη αγνοήθηκαν !
 mFormMain.message.Export file saved to %=Το αρχείο εξαγωγής αποθηκεύτηκε στο %
 mFormMain.message.Exporting services to %=Εξαγωγή υπηρεσιών στο %
-mFormMain.message.FEC must be a value in the range 0 - 5=Το FEC πρέπει να έχει τιμή 0 - 5
 mFormMain.message.FEC=FEC
 mFormMain.message.File % copied from % to %=Το αρχείο % αντιγράφηκε απο το % στο %
 mFormMain.message.File % not found in "%"=Το αρχείο % δεν βρέθηκε στο "%"
@@ -377,7 +373,6 @@ mFormMain.message.SymbolRate=SymbolRate
 mFormMain.message.The directory you selected contains either no services data or an old version of the setting files.~This version of DreamBoxEdit only supports file-sets belonging to (unofficial) images 1.04.a.5 released after february 14th 2003.~~To edit older file-sets use DreamBoxEdit version 1.41 or older.=Ο φάκελος που έχετε επιλέξει, δέν περιλαμβάνει αρχεία με δεδομένα υπηρεσιών ή είναι αρχεία παλαιότερων εκδόσεων.~Αυτή η έκδοση του DreamBoxEdit υποστηρίζει μόνο σετ αρχείων (και μη επίσιμου) λογισμικού 1.04.a.5 που εκδόθηκαν μετά την 14η Φεβρουαρίου 2003.~~Για να επεξεργαστείτε παλαιότερα σετ αρχείων χρησιμοποιήστε έκδοση DreamBoxEdit 1.41 ή παλαιότερη.
 mFormMain.message.The entry you selected in the details panel is not a regular service but a "sub service",~which means there is no corresponding service definition.=Η καταχώρηση που έχετε επιλέξει στον πίνακα λεπτομερειών δέν είναι κανονική υπηρεσία αλλά "υπο υπηρεσία"~που σημαίνει οτι δεν υπάρχει αντίστοιχος προσδιορισμός υπηρεσίας.
 mFormMain.message.The service you selected in the details panel is currently not available in the services panel~due to the there made selection on type or satellite=Η υπηρεσία που έχετε επιλέξει στον πίνακα λεπτομερειών δέν είναι διαθέσιμη στον πίνακα υπηρεσιών λόγω του ότι έγιναν αλλαγές στην επιλογή του τύπου ή του δορυφόρου
-mFormMain.message.The version of the settings set is now changed to %.~~This means that the next time you save this settings set it will be saved in that format.~Be ware: a version 3 set will NOT work for a Dreambox that expects a version 2 set.~And a version 2 set not on a receiver that expects version 3 (7025 and up).~~You can always see which version is selected at the bottom statusbar on the main screen of DreamBoxEdit!=Η έκδοση του σετ ρυθμίσεων άλλαξε σε %.~~Αυτό σημαίνει οτι την επόμενη φορά που θα αποθηκεύσετε το σετ θα αποθηκευτεί σε αυτή τη μορφή.~Προσοχή : Η έκδοση 3 ΔΕΝ θα λειτουργεί σε Dreambox που χρησιμοποιεί σετ έκδοσης 2.~Και μία έκδοση 2 δεν θα λειτουργεί σε δέκτη που λειτουργεί με έκδοση 3 (7025 και νεότερο).~~Μπορείτε πάντα νε βλέπετε ποιά έκδοση έχετε επιλέξει απο την μπάρα κατάστασης στο κάτω μέρος της κύριας~οθόνης του προγράμματος
 mFormMain.message.The ZAP command did not receive the normal 0 returncode from the Dreambox.=Η εντολή ΖΑΡ δεν έλαβε τον κανονικό κωδικό 0 (returncode 0) απο το Dreambox.
 mFormMain.message.There is no file-set loaded to upload to the Dreambox.=Δέν υπάρχει φορτωμένο σετ αρχείων για αποστολή στο Dreambox.
 mFormMain.message.There is no newer version of dreamBoxEdit available online=Δέν υπάρχει νεότερη έκδοση dreamBoxEdit

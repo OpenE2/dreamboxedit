@@ -20,14 +20,14 @@ object FormEditSatXML: TFormEditSatXML
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 612
-    Height = 481
+    Width = 604
+    Height = 479
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
-      612
-      481)
+      604
+      479)
     object Label1: TLabel
       Left = 8
       Top = 120
@@ -215,7 +215,8 @@ object FormEditSatXML: TFormEditSatXML
               '2'
               '3'
               '4'
-              '5')
+              '5'
+              '9')
             Width = 35
             Visible = True
           end
@@ -246,7 +247,7 @@ object FormEditSatXML: TFormEditSatXML
       end
     end
     object bSave: TButton
-      Left = 528
+      Left = 526
       Top = 438
       Width = 75
       Height = 25
@@ -262,7 +263,7 @@ object FormEditSatXML: TFormEditSatXML
       OnClick = bSaveClick
     end
     object bCancel: TButton
-      Left = 528
+      Left = 526
       Top = 406
       Width = 75
       Height = 25
@@ -277,7 +278,7 @@ object FormEditSatXML: TFormEditSatXML
       OnClick = bCancelClick
     end
     object bReload: TButton
-      Left = 528
+      Left = 526
       Top = 344
       Width = 75
       Height = 39
@@ -403,7 +404,7 @@ object FormEditSatXML: TFormEditSatXML
       end
       object Label9: TLabel
         Left = 208
-        Top = 40
+        Top = 24
         Width = 27
         Height = 14
         Caption = '3: 3/4'
@@ -416,7 +417,7 @@ object FormEditSatXML: TFormEditSatXML
       end
       object Label10: TLabel
         Left = 208
-        Top = 56
+        Top = 40
         Width = 27
         Height = 14
         Caption = '4: 5/6'
@@ -429,7 +430,7 @@ object FormEditSatXML: TFormEditSatXML
       end
       object Label11: TLabel
         Left = 208
-        Top = 72
+        Top = 56
         Width = 27
         Height = 14
         Caption = '5: 7/8'
@@ -531,10 +532,23 @@ object FormEditSatXML: TFormEditSatXML
         Font.Style = []
         ParentFont = False
       end
+      object Label20: TLabel
+        Left = 208
+        Top = 72
+        Width = 33
+        Height = 14
+        Caption = '9: 9/10'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
     end
   end
   object DataSource1: TDataSource
-    DataSet = FormMain.cdsSatXML
+    DataSet = FormMain.cdsSERV
     Left = 32
     Top = 232
   end

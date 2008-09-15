@@ -1,7 +1,5 @@
 V3.0.0.0
-D2008-09-14 23:15:12
-<not used anymore>pFormMain.Image1.Hint=Service png
-mFormAbout.message.About=Info
+D2008-09-15 23:13:07
 mFormAbout.message.Returncode % from opening "%"=Fehlercode % beim Öffnen von "%"
 mFormAdd.message.Add to bouquet=Bouquet hinzufügen
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Ein Bouquet mit dem Namen % existiert berets. Geben sie bitte einen neuen Namen ein, oder lassen sie das Feld leer und klicken sie auf ein existierendes Bouquet.
@@ -274,13 +272,11 @@ mFormMain.message.Enter the search argument=Geben sie einen Suchtext ein
 mFormMain.message.Entry % deleted=% wurde gelöscht
 mFormMain.message.Error exporting service % of satellite at % to SatcoDX format, invalid SID, NID and/or TSID:=Fehler beim Exportieren des Kanals % ins SatcoDX Format, ungültige SID, NID und/ider TSID:
 mFormMain.message.Error processing Cut action for %: service not found in Servicetable=Fehler beim Ausschneiden von %. Der Kanal wurde nicht in der Kanalliste gefunden
-mFormMain.message.Error reading service % with package line:=Fehler beim Lesen des Kanal % in Zeile:
 mFormMain.message.Error reading services file=Fehler beim Lesen der Datei "services"
 mFormMain.message.Explanation of errors found within TV and/or Radio User Bouquet:=Nähere Infos zu den Fehlern, die in den TV und Radio User Bouquets gefunden wurden:
 mFormMain.message.Export file saved to %, but there were % errors.~See the log for more information.~~The services with errors were skipped!=Export Datei wurde in % gespeichert, es traten jedoch % Fehler auf.~Weitere Hinweise finden sie im Log.~~Die fehlerhaften Kanäle wurden übersprungen.
 mFormMain.message.Export file saved to %=Exportierte Datei gespeichert als %
 mFormMain.message.Exporting services to %=Exportiere Kanäle nach %
-mFormMain.message.FEC must be a value in the range 0 - 5=Die FEC muss einen Wert zwischen 0 und 5 haben
 mFormMain.message.FEC=FEC
 mFormMain.message.File % copied from % to %=Datei % wurde von % nach % kopiert
 mFormMain.message.File % not found in "%"=Datei % wurde im Verzeichnis "%" nicht gefunden
@@ -377,7 +373,6 @@ mFormMain.message.SymbolRate=Symbolrate
 mFormMain.message.The directory you selected contains either no services data or an old version of the setting files.~This version of DreamBoxEdit only supports file-sets belonging to (unofficial) images 1.04.a.5 released after february 14th 2003.~~To edit older file-sets use DreamBoxEdit version 1.41 or older.=Das gewählte Verzeichnis enthält entweder keine Kanalliste oder eine alte Version der Kanalliste.~Diese Version von DreamBoxEdit unterstützt nur Kanallisten die mit den images nach dem 14. Februar 2003 (ab beta 1.04.a.5) erstellt wurden.~~Um alte Kanallisten zu bearbeiten verwenden sie bitte DreamBoxEdit Version 1.41 oder älter.
 mFormMain.message.The entry you selected in the details panel is not a regular service but a "sub service",~which means there is no corresponding service definition.=Der gewählte Eintrag ist kein regulärer Kanal sondern ein "sub sevice", d.h. es ist kein passender Kanal definiert.
 mFormMain.message.The service you selected in the details panel is currently not available in the services panel~due to the there made selection on type or satellite=Der eben in der Detailliste gewählte Kanal ist in der Kanalliste momentan nicht verfügbar, da dort nicht der richtige Typ oder Satellit gewählt wurde.
-mFormMain.message.The version of the settings set is now changed to %.~~This means that the next time you save this settings set it will be saved in that format.~Be ware: a version 3 set will NOT work for a Dreambox that expects a version 2 set.~And a version 2 set not on a receiver that expects version 3 (7025 and up).~~You can always see which version is selected at the bottom statusbar on the main screen of DreamBoxEdit!=Die Version der Kanallisten wird nun auf % geändert.~~Das bedeutet, dass ab dem nächsten Speichern die Kanallisten in diesem Format gespeichert werden.~Achtung: Eine Kanalliste in Version 3 funktioniert nicht in einer Dreambox die eine Kanalliste Version 2 erwartet~und eine Dreambox die eine Kanalliste Version 3 erwartet kann keine Kanalliste Version 2 verarbeiten.~Version 3 wird ab der Dreambox 7025 verwendet.~~Sie können jeweils in der Status Leiste des Hauptfenster von DreamBoxEdit die aktuell verwendete Version sehen.
 mFormMain.message.The ZAP command did not receive the normal 0 returncode from the Dreambox.=Fehler beim Ausführen des ZAP Kommandos, ein Fehlercode wurde von der Dreambox gemeldet
 mFormMain.message.There is no file-set loaded to upload to the Dreambox.=Es ist keine Settings Datei geöffnet, die in die Dreambox geladen werden kann.
 mFormMain.message.There is no newer version of dreamBoxEdit available online=Sie verwenden zur Zeit die aktuelle Version von DreamBoxEdit

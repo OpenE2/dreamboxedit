@@ -1,7 +1,5 @@
 V3.0.0.0
-D2008-09-14 23:15:38
-<not used anymore>pFormMain.Image1.Hint=Service png
-mFormAbout.message.About=Hakkýnda
+D2008-09-15 23:15:29
 mFormAbout.message.Returncode % from opening "%"=Gelen cevap %  "%" açýlýrken
 mFormAdd.message.Add to bouquet=Bukete ekle
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Buket % zaten var. Farklý bir isim girin veya yeni buketin adýný boþ býrakarak baþka bir bukete týklayýn.
@@ -256,12 +254,10 @@ mFormMain.message.Empty or invalid file for import.~~A valid file:~- is a by Dre
 mFormMain.message.Enter the search argument=Aramak istediðiniz terimi yazýnýz
 mFormMain.message.Entry % deleted=% silindi
 mFormMain.message.Error processing Cut action for %: service not found in Servicetable=% kesme iþleminde hata: kanal tablosunda bu kanal bulunamadý
-mFormMain.message.Error reading service % with package line:=% kanalýný okurken paket satýrýnda hata oluþtu:
 mFormMain.message.Error reading services file=Kanal dosyasýný okurken hata oluþtu
 mFormMain.message.Explanation of errors found within TV and/or Radio User Bouquet:=TV ve/veya Radyo Kiþisel Buketlerinde hata açýklamasý bulundu :
 mFormMain.message.Export file saved to %=Yedeklenen dosya % olarak kaydedildi
 mFormMain.message.Exporting services to %=Kanal dosyasý % içine veriliyor
-mFormMain.message.FEC must be a value in the range 0 - 5=FEC  0 - 5 arasýnda bir deðer olmalýdýr
 mFormMain.message.FEC=FEC
 mFormMain.message.File % copied from % to %=% dosyasý % 'den % 'e kopyalandý
 mFormMain.message.File % not found in "%"=% dosyasý "%" içinde bulunamadý

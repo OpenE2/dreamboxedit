@@ -1,7 +1,5 @@
 V3.0.0.0
-D2008-09-14 23:15:31
-<not used anymore>pFormMain.Image1.Hint=Service png
-mFormAbout.message.About=Autor ...
+D2008-09-15 23:14:41
 mFormAbout.message.Returncode % from opening "%"=Zwrotny kod % z otwarcia "%"
 mFormAdd.message.Add to bouquet=Dodaj do zbioru
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Zbiór % ju¿ istnieje, wpisz definicje nazwy, lub now¹ nazwê.
@@ -268,12 +266,10 @@ mFormMain.message.Enter the number of services to look for=Aby zobaczyæ wpisz nu
 mFormMain.message.Enter the search argument=Wpisz szukany argument
 mFormMain.message.Entry % deleted=% usuniêty
 mFormMain.message.Error processing Cut action for %: service not found in Servicetable=B³¹d przetwarzania dla %: nadawca nie znaleziony w tabeli
-mFormMain.message.Error reading service % with package line:=B³¹d odczytu nadawcy % w lini operatorów:
 mFormMain.message.Error reading services file=B³¹d odczytu pliku nadawców
 mFormMain.message.Explanation of errors found within TV and/or Radio User Bouquet:=Objaœnienie b³êdów opartych w TV i/lub Radio zbiorze:
 mFormMain.message.Export file saved to %=Eksportowany plik zapisz do %
 mFormMain.message.Exporting services to %=Eksport nadawców do %
-mFormMain.message.FEC must be a value in the range 0 - 5=FEC musi zawieraæ wartoœæ z zakresu 0 - 5
 mFormMain.message.FEC=FEC
 mFormMain.message.File % copied from % to %=Plik % kopiowany z % do %
 mFormMain.message.File % not found in "%"=Plik % nie istnieje w "%"
@@ -362,7 +358,6 @@ mFormMain.message.SymbolRate=SR
 mFormMain.message.The directory you selected contains either no services data or an old version of the setting files.~This version of DreamBoxEdit only supports file-sets belonging to (unofficial) images 1.04.a.5 released after february 14th 2003.~~To edit older file-sets use DreamBoxEdit version 1.41 or older.=Katalog, który wybra³eœ nie zawiera ¿adnych danych, lub s¹ to dane w starszej wersji.~Ta wersja DreamBoxEdit wspiera tylko pliki utworzone wersj¹ 1.04..5. ~~Aby edytowaæ starsze pliki, u¿yj DreamBoxEdit 1.41 lub starsz¹.
 mFormMain.message.The entry you selected in the details panel is not a regular service but a "sub service",~which means there is no corresponding service definition.=Wpis w selekcji nie jest regularn¹ us³ug¹ oprócz "pod nadawcy",~który zasób w tym miejscu nie jest odpowiedni¹ definicj¹ nadawcy.
 mFormMain.message.The service you selected in the details panel is currently not available in the services panel~due to the there made selection on type or satellite=Wybrany nadawca jest nie dostêpny z powodu wybranej selekcji rodzaju lub satelit.
-mFormMain.message.The version of the settings set is now changed to %.~~This means that the next time you save this settings set it will be saved in that format.~Be ware: a version 3 set will NOT work for a Dreambox that expects a version 2 set.~And a version 2 set not on a receiver that expects version 3 (7025 and up).~~You can always see which version is selected at the bottom statusbar on the main screen of DreamBoxEdit!=Wersja zapisu ustawieñ aktualnie ustawiona na % rodzaj.~~Nastêpne wprowadzone zmiany, zostan¹ zapise tym formacie.~Wybór: Wersja 3 nie wspó³racuje z tunerami Dreambox który akceptuje 2 rodzaj ustawieñ.~          Wersja 2 nie wspó³pracuje z tunerami którye akceptuj¹ wersjê 3 (7025 i nowsze).~~Aktualnie wybrana wersja jest widoczna w dolnym pasku status, g³ównego ekranu DreamBoxEdit!
 mFormMain.message.The ZAP command did not receive the normal 0 returncode from the Dreambox.=Polecenie ZAP nie wykonane, 0 kodów powrotnych z Dreamboxa.
 mFormMain.message.There is no file-set loaded to upload to the Dreambox.=¯aden plik nie ustawiony, aby za³adowaæ do Dreamboxa.
 mFormMain.message.There is no newer version of dreamBoxEdit available online=Nowsza wersja DreamBoxEdit nie dostêpna

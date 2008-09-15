@@ -1,10 +1,5 @@
 V3.0.0.0
-D2008-09-14 23:32:09
-<not used anymore>mFormMain.message.Error reading service % with package line:=
-<not used anymore>mFormMain.message.FEC must be a value in the range 0 - 5=
-<not used anymore>mFormMain.message.The version of the settings set is now changed to %.~~This means that the next time you save this settings set it will be saved in that format.~Be ware: a version 3 set will NOT work for a Dreambox that expects a version 2 set.~And a version 2 set not on a receiver that expects version 3 (7025 and up).~~You can always see which version is selected at the bottom statusbar on the main screen of DreamBoxEdit!=
-<not used anymore>pFormMain.Image1.Hint=Service png
-mFormAbout.message.About=
+D2008-09-15 23:12:40
 mFormAbout.message.Returncode % from opening "%"=
 mFormAdd.message.Add to bouquet=
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=
@@ -342,6 +337,7 @@ mFormMain.message.Package name=
 mFormMain.message.Package=
 mFormMain.message.Parental Lock is On=
 mFormMain.message.Please first select an entry in the part of the list where the new entry should be added=
+mFormMain.message.PNG-Server does not contain % picon(s)~Program will show default logo instead of missing png(s). You can request picon when mailing us the "misssingPng.txt" file saved in the channellist "missing" subdirectory.=
 mFormMain.message.Pol=
 mFormMain.message.Polarization must be a value in the range 0 - 3=
 mFormMain.message.PPID=
