@@ -220,7 +220,9 @@ begin
     eFreq.Text := FormMain.cdsSERV.FieldByName('servFreq').Asstring;
     ePol.ItemIndex := FormMain.cdsSERV.FieldByName('servPol').AsInteger;
     eSymb.Text := FormMain.cdsSERV.FieldByName('servSymb').AsString;
-    eFEC.ItemIndex := FormMain.cdsSERV.FieldByName('servFEC').AsInteger;
+    if FormMain.cdsSERV.FieldByName('servFEC').AsInteger = 9
+    then eFEC.ItemIndex := 6
+    else eFEC.ItemIndex := FormMain.cdsSERV.FieldByName('servFEC').AsInteger;
     eTrExtra.Text := FormMain.cdsSERV.FieldByName('servTrExtra').AsString;
     eNr.Text := FormMain.cdsSERV.FieldByName('servNr').AsString;
     eLock.ItemIndex := FormMain.cdsSERV.FieldByName('servLock').AsInteger;
@@ -480,7 +482,9 @@ begin
   FormMain.cdsSERV.FieldByName('servFreq').AsString := eFreq.Text;
   FormMain.cdsSERV.FieldByName('servSymb').AsString := eSymb.Text;
   FormMain.cdsSERV.FieldByName('servPol').AsInteger := ePol.ItemIndex;
-  FormMain.cdsSERV.FieldByName('servFEC').AsInteger := eFEC.ItemIndex;
+  if eFEC.ItemIndex = 6
+  then FormMain.cdsSERV.FieldByName('servFEC').AsInteger := 9
+  else FormMain.cdsSERV.FieldByName('servFEC').AsInteger := eFEC.ItemIndex;
   FormMain.cdsSERV.FieldByName('servTrExtra').AsString := eTrExtra.Text;
   FormMain.cdsSERV.FieldByName('servCleanName').AsString := eName.Text;
   if stype = 's'

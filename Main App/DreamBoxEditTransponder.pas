@@ -152,7 +152,9 @@ begin
   then begin; { Satellite }
     eSymb.Text := FormMain.cdsSERV.FieldByName('servSymb').AsString;
     ePol.ItemIndex := FormMain.cdsSERV.FieldByName('servPol').AsInteger;
-    eFEC.ItemIndex := FormMain.cdsSERV.FieldByName('servFEC').AsInteger;
+    if FormMain.cdsSERV.FieldByName('servFEC').AsInteger = 9
+    then eFec.ItemIndex := 6
+    else eFEC.ItemIndex := FormMain.cdsSERV.FieldByName('servFEC').AsInteger;
     lSymb.Visible := True;
     ntlMSymb.Visible := True;
     eSymb.Visible := True;
@@ -308,7 +310,9 @@ begin
       FormMain.cdsSERV.FieldByName('servFreq').AsString := eFreq.Text;
       FormMain.cdsSERV.FieldByName('servSymb').AsString := eSymb.Text;
       FormMain.cdsSERV.FieldByName('servPol').AsInteger := ePol.ItemIndex;
-      FormMain.cdsSERV.FieldByName('servFEC').AsInteger := eFEC.ItemIndex;
+      if eFEC.ItemIndex = 6
+      then FormMain.cdsSERV.FieldByName('servFEC').AsInteger := 9
+      else FormMain.cdsSERV.FieldByName('servFEC').AsInteger := eFEC.ItemIndex;
       if FormMain.cdsSERV.FieldByName('servSTC').AsString = 's' { can only change for satellite services}
       then p := FloatToStr(StrToFloat(ePos.Items[ePos.ItemIndex])*10);
       FormMain.cdsSERV.FieldByName('servPos').AsString := p;
