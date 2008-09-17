@@ -889,11 +889,13 @@ procedure TFormFTP.bSendClick(Sender: TObject);
 var
   error: Boolean;
   i,r,ib,ie: Integer;
-  s,f,lfn: String;
+  c,s,f,lfn: String;
   silent: Boolean;
   fsl,DBFilesU: TStringList;
   tf: TextFile;
   fn: String;
+  CmdOK: Boolean;
+  IdHTTP1: TIdHTTP;
 label
   disc;
 begin
@@ -962,26 +964,7 @@ begin
 
   screen.Cursor := crHourGlass;
   error := False;
-  if FormMain.SettingsVersion > 2
-  then
-    begin
-    if cbAutoReload.Checked  then
-      begin
-        TelnetStage := 5;
-        if Telnet.Connected = False then
-        begin
-          Telnet.Host := FormMain.DBIP;
-          Telnet.ReadTimeout := 10000;
-          Try Telnet.Connect
-          Except
-          Memo1.Lines.Add(FormMain.lwLngTrns(name,['Connect error setting up telnet session for sending reload command.']));
-          FormMain.log('e',FormMain.lwLngTrns(name,['Connect error setting up telnet session for sending reload command.']));
-          end;
-        end;
-      end;
-    end;
 
-  Sleep(3000);
   FTP.Host := FormMain.DBIP;
   FTP.Port := StrToInt(FormMain.DBFTPPort);
   FTP.Username := FormMain.DBUsername;
@@ -1388,7 +1371,7 @@ disc:
   end;
 
   bSend.InactiveColor := clBtnFace;
-  
+
   bSend.ActiveColor := clBtnFace;
   if cbAutoReload.Checked = False then
   FormMain.Log('i',FormMain.lwLngTrns(name,[
@@ -1397,7 +1380,7 @@ disc:
   if (not silent) and
      (FormMain.ShowResultMsg)
   then begin;
-  //  if cbAutoReload.Checked = False then
+   if cbAutoReload.Checked = False then
     MessageDlg(FormMain.lwLngTrns(name,[
                'Succesfully transferred the file-set to the dreambox.~~' +
                'To activate the changes you must select "Reload" or "Reboot settings in Dreambox"!']),
@@ -1439,19 +1422,50 @@ disc:
     begin
     if cbAutoReload.Checked  then
       begin
-        TelnetStage := 7;
-       if Telnet.Connected = false then
-       begin
-        Telnet.Host := FormMain.DBIP;
-        Telnet.ReadTimeout := 10000;
-        Try Telnet.Connect
-        Except
-         Memo1.Lines.Add(FormMain.lwLngTrns(name,['Connect error setting up telnet session for reload Enigma2.']));
-         FormMain.log('e',FormMain.lwLngTrns(name,['Connect error setting up telnet session for reload Enigma2.']));
-         end;
+       IdHTTP1 := TIdHTTP.Create(Self);
+       IdHTTP1.Request.BasicAuthentication := True;
+       IdHTTP1.Request.Username := FormMain.DBUsername;
+       IdHTTP1.Request.Password := FormMain.DBPassword;
+
+       c := 'http://' +
+           FormMain.DBIP + ':' + FormMain.DBHTTPPort +
+           '/web/servicelistreload?mode=0';
+       Application.ProcessMessages;
+       try
+        s := IdHTTP1.Get(c);
+       except
+        on E: Exception
+        do s := E.Message;
        end;
+       IdHTTP1.Destroy;
+
+       FormMain.log('i',FormMain.lwLngTrns(name,['Network response: %',s]));
+       Memo1.Lines.Add(FormMain.lwLngTrns(name,['Network response: %',s]));
+       if pos('true',s) > 0
+       then begin;
+        CmdOK := True;
+
+        FormMain.log('i',FormMain.lwLngTrns(name,['Sending auto reload command succeded.']));
+        Memo1.Lines.Add(FormMain.lwLngTrns(name,['Sending auto reload command succeded.']));
+
+       end;
+       if not CmdOK
+       then begin;
+       FormMain.log('e',FormMain.lwLngTrns(name,[
+                       'Could not connect to Dreambox on IP adress %, check ' +
+                       'the IP address and/or your network.',FormMain.DBIP]));
+       Memo1.Lines.Add(FormMain.lwLngTrns(name,[
+                      'Could not connect to Dreambox on IP adress %, check ' +
+                      'the IP address and/or your network.',FormMain.DBIP]));
+       MessageDlg(FormMain.lwLngTrns(name,[
+                 'Sending reload command failed. See the log for more information.~~' +
+                 'Reboot the Dreambox by hand to activate the new settings.']),
+                 mtError,[mbOK],0);
+       end;
+
       end;
     end;
+
 end;
 
 procedure TFormFTP.FTPStatus(ASender: TObject; const AStatus: TIdStatus;
@@ -1545,7 +1559,7 @@ begin
         then begin;
             Memo1.Lines.Add(FormMain.lwLngTrns(name,['Sending stop enigma2 command']));
             FormMain.log('i',FormMain.lwLngTrns(name,['Sending stop enigma2 command']));
-            SendTelnetCmd('init 4 ; sleep 4');
+            SendTelnetCmd('init 4 ; sleep 6');
             TelnetStage := 6;
         end
         else
@@ -1824,3 +1838,7 @@ begin
 end;
 
 end.
+
+
+
+

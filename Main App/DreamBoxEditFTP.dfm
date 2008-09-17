@@ -91,14 +91,14 @@ object FormFTP: TFormFTP
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 646
-    Height = 472
+    Width = 654
+    Height = 474
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
-      646
-      472)
+      654
+      474)
     object GroupBox1: TGroupBox
       Left = 8
       Top = 16
