@@ -1340,12 +1340,30 @@ begin
         end;
         Memo1.Lines.Add(FormMain.lwLngTrns(name,['Unused bouquet "%" removed from Dreambox.',
                                                  DBFilesU[r]]));
-        FormMain.Log('w',FormMain.lwLngTrns(name,['Unused bouquet "%" removed from Dreambox.',
+        FormMain.Log('i',FormMain.lwLngTrns(name,['Unused bouquet "%" removed from Dreambox.',
                                                   DBFilesU[r]]));
       end;
     end;
   end;
 
+  { Delete lamedb file from dreambox when using old settings }
+  if FormMain.SettingsVersion = 2
+  then begin;
+    DBFilesU.Clear;
+    try
+      Ftp.List(DBFilesU,FormMain.PathServices +'lamedb',False);
+    Except
+    end;
+    if DBFilesU.Count > 0
+    then begin;
+      try
+        FTP.Delete(FormMain.PathServices +'lamedb');
+      Except
+      end;
+      Memo1.Lines.Add(FormMain.lwLngTrns(name,['Unused lamedb file removed from Dreambox.']));
+      FormMain.Log('i',FormMain.lwLngTrns(name,['Unused lamedb file removed from Dreambox.']));
+    end;
+  end;
   DBFilesU.Free;
 
 disc:

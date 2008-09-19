@@ -95,7 +95,7 @@ uses DreamBoxMain, DreamBoxEditWait, DreamBoxEditImportFiles,
 
 {$R *.dfm}
 
-type
+type      { SatcoDX V110 record layout}
   TSatcodx = record
     Hdr:             Array[0..6] of char;
     Rectype:         Char;
@@ -123,9 +123,10 @@ type
     CountryCode:     Array[0..1] of char;
     LanguageCode:    Array[0..2] of char;
     Crypto:          Array[0..3] of char;
-    ServiceName2:    Array[0..40] of char;
-    ServiceName3:    Array[0..15] of char; { Ignored part of name }
-    Reserve1:        Array[0..155] of char;
+    ServiceName2:    Array[0..55] of char;
+    Package:         Array[0..31] of char;
+    Networkname:     Array[0..31] of char;
+    Various:         Array[0..92] of char;
     LF:              Char;
 end;
 
@@ -322,18 +323,19 @@ var
   unixf: Boolean;
   rec: TSatcoDX;
   buf: array[0..328] of char; { array[0..127] of char; }
-  rb,i,seq: Integer;
+  ir,rb,i,i2,seq: Integer;
   cDS,cTotal,cTV,cRadio,cSkipped,cUnique,cNew: Integer;
-  servsif,skip: String;
+  s,s2,servsif,skip: String;
   servflt: Boolean;
   SDXDir,stype,satpos,uniq: String;
-function GetRecord(): Integer;
+  sl: TStringList;
+procedure FmtRecord();
 var
   i,p,b: Integer;
   ns,ew: String;
   r: TSatcoDX;
 begin
-  if unixf
+  {if unixf
   then begin;
     BlockRead(sdf,buf,328,i);
     Result := i;
@@ -343,10 +345,10 @@ begin
     if eof(sdtf)
     then Result := 0
     else Result := length(buf);
-  end;
+  end;}
   r := TSatcoDX(buf);
   p := pos('MPG2',buf);
-  if p {pos('MPG2',buf)} > 30 { Too large satname, probably dvb2000 }
+  if p {pos('MPG2',buf)} > 30 { Too long satname, probably dvb2000 }
   then begin;
     p := pos('MPG2',buf);
     for i := 28 to 150 do
@@ -440,7 +442,10 @@ begin
     FormMain.log('i',FormMain.lwLngTrns(name,['Importing SatcoDX file: %',
                                          FormImportFiles.lvDir.Items[i].Caption]));
     inc(cDS);
-    unixf := True;
+    sl := TStringList.Create;
+    sl.LoadFromFile(FormImportFiles.lvDir.Items[i].Caption);
+
+    {unixf := True;
     AssignFile(sdf,FormImportFiles.lvDir.Items[i].Caption);
     Reset(sdf,1);
     BlockRead(sdf,buf,150,rb);
@@ -456,12 +461,31 @@ begin
     else begin;
       AssignFile(sdtf,FormImportFiles.lvDir.Items[i].Caption);
       Reset(sdtf);
-    end;
+    end;}
 
-    rb := GetRecord(); { BlockRead(sdf,buf,128,rb); }
-    while rb > 0 do begin;
+    {rb := GetRecord();} { BlockRead(sdf,buf,128,rb); }
+    {while rb > 0 do begin;}
+    for ir := 0 to sl.Count - 1 do begin;
+      if LowerCase(leftstr(sl[ir],7)) <> 'satcodx'
+      then continue;
+
       inc(cTotal);
+      s := sl[ir];
+
+{if pos('ReiseSch0192AST01HKU00000027500309910992099',s) > 0
+then showmessage('jaja');}
+
+      s := UTF8ToAnsi(s);
+
+      {s2 := s;
+      CharToOem(PChar(s),PChar(s2));
+      s := s2;
+      s := UTF8ToAnsi(s);}
+      for i2 := 0 to length(s) - 1 do
+        buf[i2] := s[i2+1];
+      FmtRecord();
       rec := TSatcoDX(buf);
+
       skip := '';
       if (rec.ChannelType <> 'T') and
          (rec.ChannelType <> 'R')
@@ -534,7 +558,8 @@ begin
         then cdsSDX.FieldByName('Pol').AsString := '1'
         else cdsSDX.FieldByName('Pol').AsString := '0';
         cdsSDX.FieldByName('SymbRate').AsString := rec.SymbolRate + '000';
-        cdsSDX.FieldByName('ServName').AsString := rec.ServiceName1 + rec.ServiceName2;
+        cdsSDX.FieldByName('ServName').AsString := LeftStr(rec.ServiceName1 + rec.ServiceName2,50);
+        cdsSDX.FieldByName('Package').AsString := rec.Package;
         if rec.FEC = '7'
         then cdsSDX.FieldValues['FEC'] := 5
         else
@@ -577,11 +602,12 @@ begin
         cdsSDX.FieldByName('Checked').AsString := '';
         cdsSDX.Post;
       end;
-      rb := GetRecord(); { BlockRead(sdf,buf,128,rb); }
+      //rb := GetRecord(); { BlockRead(sdf,buf,128,rb); }
     end;
-    if unixf
+    sl.Free;
+    {if unixf
     then CloseFile(sdf)
-    else CloseFile(sdtf);
+    else CloseFile(sdtf);}
   end;
 
   FormMain.cdsSERV.IndexFieldNames := servsif;
