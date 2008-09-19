@@ -46,7 +46,7 @@ var
 
 implementation
 
-uses DreamBoxEditWait, DreamBoxMain;
+uses DreamBoxMain;
 
 {$R *.dfm}
 
@@ -300,12 +300,7 @@ var
 begin
   psl := TStringList.Create;
 
-  screen.cursor := crHourglass;
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := lvFavs.Items.Count;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  FormMain.ShowWait('init',0,lvFavs.Items.Count,0);
   application.ProcessMessages;
 
   servsif := FormMain.cdsSERV.IndexFieldNames;
@@ -321,7 +316,7 @@ begin
   errRD := 0;
   for i := 0 to lvFavs.Items.Count - 1 do begin;
     inc(p);
-    FormWait.pb.Position := p;
+    FormMain.ShowWait('pos',0,0,p);
 
     if (lvFavs.Items[i].Checked) and
        (FileExists(FavDir+'\'+lvFavs.Items[i].Caption))
@@ -631,8 +626,7 @@ begin
   FormMain.cdsSERV.IndexFieldNames := servsif;
   FormMain.cdsSERV.Filtered := servflt;
 
-  screen.cursor := crdefault;
-  FormWait.Hide;
+  FormMain.ShowWait('free',0,0,0);
   psl.Free;
 
   if (FormMain.ShowResultMsg) or

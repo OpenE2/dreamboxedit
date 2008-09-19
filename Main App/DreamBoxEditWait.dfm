@@ -1,13 +1,13 @@
 object FormWait: TFormWait
-  Left = 333
-  Top = 407
+  Left = 474
+  Top = 454
   AlphaBlend = True
-  AlphaBlendValue = 190
+  AlphaBlendValue = 240
   BorderIcons = []
-  BorderStyle = bsSingle
+  BorderStyle = bsNone
   Caption = 'Progress'
   ClientHeight = 75
-  ClientWidth = 433
+  ClientWidth = 294
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -87,10 +87,10 @@ object FormWait: TFormWait
     03FFFF0000FFFE00007FFC00003FF800001FF000000FE0000007E0000007C000
     0003C0000003FFCE73FFFFE667FFFFF24FFFFFF81FFFFFFC3FFFFFFE7FFF}
   OldCreateOrder = False
+  Position = poOwnerFormCenter
   Scaled = False
+  OnClose = FormClose
   OnCreate = FormCreate
-  OnHide = FormHide
-  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object LWPanel1: TLWPanel
@@ -98,14 +98,14 @@ object FormWait: TFormWait
     Top = 0
     Width = 433
     Height = 75
-    Align = alClient
     TabOrder = 0
-    Color1 = clBlue
-    Color2 = clBlack
+    Effect = GradientV
+    Color1 = clBlack
+    Color2 = clGray
     LineWidth2 = 5
     object Label1: TLabel
-      Left = 88
-      Top = 46
+      Left = 8
+      Top = 14
       Width = 239
       Height = 22
       Caption = 'Processing, please wait ...'
@@ -119,48 +119,37 @@ object FormWait: TFormWait
       ParentFont = False
       Transparent = True
     end
-    object Panel1: TPanel
-      Left = 1
-      Top = 1
-      Width = 74
-      Height = 73
-      Align = alLeft
-      BevelOuter = bvNone
-      Color = clNavy
-      TabOrder = 0
-      object PB: TLWProgressBar
-        Left = 4
-        Top = 4
-        Width = 65
-        Height = 65
-        BarType = btCircle
-        Min = 1
-        Max = 100
-        Position = 33
-        CircleDirection = diClockwise
-        Color = clNavy
-        BackgroundColor = clNavy
-        BarColor = clYellow
-        BarStepSize = 10
-        BarBlockSize = 2
-        BorderWidth = 0
-        CircleDensity = 4
-        CircleRadius = 29
-        CircleBarWidth = 15
-        RectangleSlant = 0
-        OutlineColor1 = clSilver
-        OutlineColor2 = clBlack
-        Caption = '-'
-        CaptionOutline = False
-        CaptionOutlineColor1 = clSilver
-        CaptionOutlineColor2 = clBlack
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Height = -11
-        Font.Name = 'MS Sans Serif'
-        Font.Style = []
-        SetDefaults = False
-      end
+    object PB: TLWProgressBar
+      Left = 4
+      Top = 44
+      Width = 277
+      Height = 20
+      BarType = btRectangle
+      Min = 1
+      Max = 100
+      Position = 33
+      CircleDirection = diClockwise
+      Color = clBlack
+      BackgroundColor = 4473924
+      BarColor = clRed
+      BarStepSize = 2
+      BarBlockSize = 1
+      BorderWidth = 4
+      CircleDensity = 4
+      CircleRadius = 45
+      CircleBarWidth = 20
+      RectangleSlant = 0
+      OutlineColor1 = clMedGray
+      OutlineColor2 = clGray
+      CaptionOutline = False
+      CaptionOutlineColor1 = clSilver
+      CaptionOutlineColor2 = clBlack
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      SetDefaults = False
     end
   end
 end

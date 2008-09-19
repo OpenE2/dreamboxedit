@@ -90,7 +90,7 @@ var
 
 implementation
 
-uses DreamBoxMain, DreamBoxEditWait, DreamBoxEditImportFiles,
+uses DreamBoxMain, DreamBoxEditImportFiles,
   DreamBoxEditImportDuplicates;
 
 {$R *.dfm}
@@ -141,12 +141,7 @@ begin;
   lvSDX.Items.EndUpdate;
   lvSDX.Items.BeginUpdate;
 
-  screen.cursor := crHourglass;
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := cdsSDX.RecordCount;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  FormMain.ShowWait('init',0,cdsSDX.RecordCount,0);
   application.ProcessMessages;
 
   p := 0;
@@ -155,7 +150,7 @@ begin;
   do begin;
     inc(p);
     if p mod 25 = 0
-    then FormWait.pb.Position := p;
+    then FormMain.ShowWait('pos',0,0,p);
 
     show := False;
     if rbAll.Checked
@@ -207,8 +202,7 @@ begin;
     cdsSDX.Next;
   end;
 
-  FormWait.Hide;
-  screen.cursor := crdefault;
+  FormMain.ShowWait('free',0,0,0);
 
   lvSDX.Items.EndUpdate;
 end;
@@ -318,14 +312,11 @@ end;
 procedure TFormImport.bOpenClick(Sender: TObject);
 var
   Reg: TRegistry;
-  sdf: file;
-  sdtf: textfile;
-  unixf: Boolean;
   rec: TSatcoDX;
   buf: array[0..328] of char; { array[0..127] of char; }
   ir,rb,i,i2,seq: Integer;
   cDS,cTotal,cTV,cRadio,cSkipped,cUnique,cNew: Integer;
-  s,s2,servsif,skip: String;
+  s,servsif,skip: String;
   servflt: Boolean;
   SDXDir,stype,satpos,uniq: String;
   sl: TStringList;
@@ -335,17 +326,6 @@ var
   ns,ew: String;
   r: TSatcoDX;
 begin
-  {if unixf
-  then begin;
-    BlockRead(sdf,buf,328,i);
-    Result := i;
-  end
-  else begin;
-    Readln(sdtf,buf);
-    if eof(sdtf)
-    then Result := 0
-    else Result := length(buf);
-  end;}
   r := TSatcoDX(buf);
   p := pos('MPG2',buf);
   if p {pos('MPG2',buf)} > 30 { Too long satname, probably dvb2000 }
@@ -445,26 +425,6 @@ begin
     sl := TStringList.Create;
     sl.LoadFromFile(FormImportFiles.lvDir.Items[i].Caption);
 
-    {unixf := True;
-    AssignFile(sdf,FormImportFiles.lvDir.Items[i].Caption);
-    Reset(sdf,1);
-    BlockRead(sdf,buf,150,rb);
-    if pos(char(13)+char(10),buf) > 0
-    then unixf := False;
-    CloseFile(sdf);
-
-    if unixf
-    then begin;
-      AssignFile(sdf,FormImportFiles.lvDir.Items[i].Caption);
-      Reset(sdf,1);
-    end
-    else begin;
-      AssignFile(sdtf,FormImportFiles.lvDir.Items[i].Caption);
-      Reset(sdtf);
-    end;}
-
-    {rb := GetRecord();} { BlockRead(sdf,buf,128,rb); }
-    {while rb > 0 do begin;}
     for ir := 0 to sl.Count - 1 do begin;
       if LowerCase(leftstr(sl[ir],7)) <> 'satcodx'
       then continue;
@@ -472,15 +432,12 @@ begin
       inc(cTotal);
       s := sl[ir];
 
-{if pos('ReiseSch0192AST01HKU00000027500309910992099',s) > 0
-then showmessage('jaja');}
-
+      { Translate special characters to single byte characters    }
+      { Otherwise the name string is longer and following fields  }
+      { are at the wrong position for the record format           }
+      { special character are still"garbled", correct translation }
+      { should be handled in a next release                       }
       s := UTF8ToAnsi(s);
-
-      {s2 := s;
-      CharToOem(PChar(s),PChar(s2));
-      s := s2;
-      s := UTF8ToAnsi(s);}
       for i2 := 0 to length(s) - 1 do
         buf[i2] := s[i2+1];
       FmtRecord();
@@ -602,12 +559,8 @@ then showmessage('jaja');}
         cdsSDX.FieldByName('Checked').AsString := '';
         cdsSDX.Post;
       end;
-      //rb := GetRecord(); { BlockRead(sdf,buf,128,rb); }
     end;
     sl.Free;
-    {if unixf
-    then CloseFile(sdf)
-    else CloseFile(sdtf);}
   end;
 
   FormMain.cdsSERV.IndexFieldNames := servsif;
@@ -752,12 +705,7 @@ var
   servsif: String;
   servflt: Boolean;
 begin
-  screen.cursor := crHourglass;
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := lvSDX.Items.Count;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  FormMain.ShowWait('init',0,lvSDX.Items.Count,0);
   application.ProcessMessages;
   p := 0;
 
@@ -775,7 +723,7 @@ begin
     stype := 0;
     inc(p);
     if p mod 10 = 0
-    then FormWait.pb.Position := p;
+    then FormMain.ShowWait('pos',0,0,p);
 
     add := True;
     if not lvSDX.Items[i].Checked
@@ -950,8 +898,7 @@ begin
     end;
   end;
 
-  FormWait.Hide;
-  screen.cursor := crdefault;
+  FormMain.ShowWait('free',0,0,0);
 end;
 
 procedure TFormImport.Checkall1Click(Sender: TObject);
@@ -1150,18 +1097,14 @@ begin
     sl.Free;
 
     { Process all SatcoDX entries }
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := cdsSDX.RecordCount;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    FormMain.ShowWait('init',0,cdsSDX.RecordCount,0);
     ca := 0;
     p := 0;
     cdsSDX.First;
     while not cdsSDX.Eof do begin;
       inc(p);
       if p mod 25 = 0
-      then FormWait.pb.Position := p;
+      then FormMain.ShowWait('pos',0,0,p);
 
       if cdsPck.FindKey([cdsSDX.FieldByName('SatPos').AsString,
                          cdsSDX.FieldByName('Freq').AsString,
@@ -1174,7 +1117,7 @@ begin
       end;
       cdsSDX.Next;
     end;
-    FormWait.Hide;
+    FormMain.ShowWait('free',0,0,0);
 
     if ca > 0
     then lvSDXBuild();

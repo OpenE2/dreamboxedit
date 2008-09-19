@@ -463,6 +463,7 @@ type
     EplTVFilename: String;
     EplRDFilename: String;
     HidePassword: Boolean;
+    ShowWaitCloseAllowed: Boolean;
     procedure ParseString(const ss: String; var psl: TStringList);
     procedure lvServColumnsAdjust();
     procedure log(const sev: String; const text: String);
@@ -470,6 +471,7 @@ type
     procedure FormatPopupMenu(var puMenu: TPopupMenu);
     procedure StatusBarShowIPInfo();
     procedure SetVersionDefaults(const Version: Integer);
+    procedure ShowWait(const cmd: String; const min, max, position: Integer);
     function TrnsServType(const ServType: Integer): String;
     function CheckStringsOK(const Descr,Line: String; var psl: TStringList; const MinArgs: Integer; const Format: String): Boolean;
     function lwLngTrns(form: String; args: array of String): String;
@@ -532,6 +534,44 @@ type
   end;
 var
   CPRec: array of TCPServRec;
+  FormWait: TFormWait;
+
+procedure TFormMain.ShowWait(const cmd: String; const min, max, position: Integer);
+begin
+  { Make progresbar screen visible and initialise progress bar }
+  if lowercase(cmd) = 'init'
+  then begin;
+    ShowWaitCloseAllowed := False;
+    FormWait := TFormWait.Create(Self);
+    FormWait.Show;
+    FormWait.PB.Min := min;
+    FormWait.PB.Max := max;
+    FormWait.PB.Position := position;
+    FormWait.PB.Caption := '';
+    screen.Cursor := crHourGlass;
+  end
+  else
+    { Clean up progress bar screen }
+    if lowercase(cmd) = 'free'
+    then begin;
+      FormWait.Free;
+      ShowWaitCloseAllowed := True;
+      screen.Cursor := crDefault;
+    end
+    else
+      { Set position on progress bar }
+      if lowercase(cmd) = 'pos'
+      then begin;
+        FormWait.PB.Position := position;
+        if min <> 0
+        then FormWait.PB.Min := min;
+        if max <> 0
+        then FormWait.PB.Max := max;
+      end
+      else MessageDlg(lwLngTrns(name,['Internal error: invalid call to progressbar ' +
+                                      'routine, command is "%"',cmd]),
+                      mtError,[mbOK],0);
+end;
 
 procedure TFormMain.TotalsBuild();
 var
@@ -2373,13 +2413,8 @@ begin
 
     FormMain.Caption := 'LlamaWare DreamBoxEdit - ' + Dir;
 
-    screen.cursor := crHourglass;
     ToolBar1.Enabled := False;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := 9;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    ShowWait('init',0,9,0);
     application.ProcessMessages;
 
     psl := TStringList.Create;
@@ -2446,19 +2481,18 @@ begin
     else sb.Panels[2].Text := '';
 
     { process services file }
-    FormWait.pb.Position := 1;
+    ShowWait('pos',0,0,1);
 
     ServErr := ReadServices(Dir+'\'+ServFilename,cdsServ,False);
     if ServErr < 0
     then begin;
-      screen.cursor := crdefault;
       ToolBar1.Enabled := True;
-      FormWait.Hide;
+      ShowWait('free',0,0,0);
       exit;
     end;
 
     { process parental lock / blacklist / whitelist file (if present/specified) }
-    FormWait.pb.Position := 2;
+    ShowWait('pos',0,0,2);
     BlackList := True; { Default }
     lfn := 'services.locked'; { Default }
     { Check for whitelist setting when settings type is not 2 }
@@ -2509,7 +2543,7 @@ begin
             cdsLock.FieldByName('lockUniq').AsInteger := StrToInt('$0'+psl.Strings[6]);
             cdsLock.FieldByName('lockString').AsString := '';
           end
-          else begin;                     
+          else begin;
             if psl.Count >= 11
             then begin;
               cdsLock.FieldByName('lockString').AsString := psl.Strings[10];
@@ -2542,7 +2576,7 @@ begin
     end;
 
     { process bouquets ('Providers') }
-    FormWait.pb.Position := 3;
+    ShowWait('pos',0,0,3);
 
     tnBQ := tv.Items.Add(nil,'Providers');
     if FileExists(Dir+'\bouquets')
@@ -2680,7 +2714,7 @@ begin
     end;
 
     { process TV User Bouquets Index File and TV User Bouquets Files }
-    FormWait.pb.Position := 4;
+    ShowWait('pos',0,0,4);
 
     tnTV := tv.Items.Insert(TNBQ,'TV User Bouquets');
 
@@ -2724,7 +2758,7 @@ begin
       CloseFile(tf);
 
       seqnr := 0;
-      FormWait.pb.Position := 5;
+      ShowWait('pos',0,0,5);
       for i := 0 to fsl.Count - 1 do begin;
         { First extract filename with version>2 settings set }
         if (SettingsVersion <> 2) and
@@ -2966,7 +3000,7 @@ begin
     end;
 
     { process Radio User Bouquet Index File and Radio User Bouquet Files }
-    FormWait.pb.Position := 6;
+    ShowWait('pos',0,0,6);
 
     tnRD := tv.Items.Insert(TNBQ,'Radio User Bouquets');
 
@@ -3010,7 +3044,7 @@ begin
       CloseFile(tf);
 
       seqnr := 0;
-      FormWait.pb.Position := 7;
+      ShowWait('pos',0,0,7);
       for i := 0 to fsl.Count - 1 do begin;
         { First extract filename with version>2 settings set }
         if (SettingsVersion <> 2) and
@@ -3045,7 +3079,7 @@ begin
           else pListData.Locked := False;
           tv.Items.AddChildObject(tnRD,UTF8ToAnsi(s),pListData);
           bn := UTF8ToAnsi(s);
-          
+
           sl := TStringList.Create;
           while not eof(tf)
           do begin;
@@ -3251,7 +3285,7 @@ begin
     end;
 
     { process satellites.xml }
-    FormWait.pb.Position := 8;
+    ShowWait('pos',0,0,8);
 
     if FileExists(Dir+'\satellites.xml')
     then begin;
@@ -3290,11 +3324,10 @@ begin
     { Ready }
     tv.FullExpand;
     tv.TopItem := tnTV;
-    screen.cursor := crdefault;
     ToolBar1.Enabled := True;
 
     // if PiconActivate then GetPng;
-    FormWait.Hide;
+    ShowWait('free',0,0,0);
 
     cbSatName.ItemIndex := 0;
     ePackage.Text := '';
@@ -3469,7 +3502,6 @@ begin
                            'bouquets','bouquets_bak',Dir]));
   end;
 
-  screen.cursor := crHourglass;
   ToolBar1.Enabled := False;
   application.ProcessMessages;
 
@@ -3519,15 +3551,14 @@ begin
   end;
 
   p := 0;
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := cdsTSID.RecordCount +
-                     cdsServ.RecordCount +
-                     cdsFTV.RecordCount +
-                     cdsFRD.RecordCount +
-                     cdsFBQ.RecordCount;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  ShowWait('init',
+           0,
+           cdsTSID.RecordCount +
+           cdsServ.RecordCount +
+           cdsFTV.RecordCount +
+           cdsFRD.RecordCount +
+           cdsFBQ.RecordCount,
+           0);
 
   AssignFile(tf,Dir + '\' + ServFilename);
   SetLineBreakStyle(tf,tlbsLF);
@@ -3546,7 +3577,7 @@ begin
   do begin;
     inc(p);
     if p mod 25 = 0
-    then FormWait.pb.Position := p;
+    then ShowWait('pos',0,0,p);
 
     s := LowerCase(IntToHex(StrToInt(cdsTSID.FieldByName('tsidUniq').AsString),8)) + ':' +
          LowerCase(IntToHex(StrToInt(cdsTSID.FieldByName('tsidTSID').AsString),4)) + ':' +
@@ -3589,7 +3620,7 @@ begin
   do begin;
     inc(p);
     if p mod 25 = 0
-    then FormWait.pb.Position := p;
+    then ShowWait('pos',0,0,p);
 
     inc(c);
     s := IntToHex(StrToInt(cdsServSave.FieldByName('servSID').AsString),4) + ':' +
@@ -3740,7 +3771,7 @@ begin
       do begin;
         inc(p);
         if p mod 25 = 0
-        then FormWait.pb.Position := p;
+        then ShowWait('pos',0,0,p);
 
         s := LowerCase(IntToHex(StrToInt(cdsFBQ.FieldByName('fbqSID').AsString),4)) + ':' +
              LowerCase(IntToHex(StrToInt(cdsFBQ.FieldByName('fbqUniq').AsString),8)) + ':' +
@@ -3809,7 +3840,7 @@ begin
     do begin;
       inc(p);
       if p mod 25 = 0
-      then FormWait.pb.Position := p;
+      then ShowWait('pos',0,0,p);
 
       { Check alternatives for service within bouquet if settingsversion > 2 }
       if (SettingsVersion <> 2) and
@@ -3963,7 +3994,7 @@ begin
     do begin;
       inc(p);
       if p mod 25 = 0
-      then FormWait.pb.Position := p;
+      then ShowWait('pos',0,0,p);
 
       { Check alternatives for service within bouquet if settingsversion > 2 }
       if (SettingsVersion <> 2) and
@@ -4069,9 +4100,8 @@ begin
   CloseFile(tf);
   Log('i',lwLngTrns(name,['Radio User Bouquet index file % saved in %',EplRDFilename,Dir]));
 
-  screen.cursor := crdefault;
   ToolBar1.Enabled := True;
-  FormWait.Hide;
+  ShowWait('free',0,0,0);
   SetMenu('loaded');
 
   psl.Free;
@@ -4084,12 +4114,10 @@ begin
   FormAbout := TFormAbout.Create(Self);
   try
     FormAbout.Show;
-
   except
-    if Assigned(FormAbout) then FormAbout.Free;
-
+    if Assigned(FormAbout)
+    then FormAbout.Free;
   end;
-
 end;
 
 procedure TFormMain.puServicesPopup(Sender: TObject);
@@ -4764,13 +4792,8 @@ begin
   if lvServ.SelCount > 1
   then begin;
     mult := True;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := lvServ.SelCount;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    ShowWait('init',0,lvServ.SelCount,0);
     Application.ProcessMessages;
-    Screen.Cursor := crHourGlass;
   end;
   lvServ.Items.BeginUpdate;
 
@@ -4786,7 +4809,7 @@ begin
     if mult
     then begin;
       inc(p);
-      FormWait.pb.Position := p;
+      ShowWait('pos',0,0,p);
     end;
     DbeNr := lvServ.Selected.SubItems[20];
     while cdsFBQ.FindKey([DbeNr])
@@ -4829,10 +4852,7 @@ begin
 
   lvServ.Items.EndUpdate;
   if mult
-  then begin;
-    FormWait.Hide;
-    Screen.Cursor := crDefault;
-  end;
+  then ShowWait('free',0,0,0);
   TotalsBuild();
 
   if ShowResultMsg
@@ -4878,13 +4898,8 @@ begin
 
   if mult
   then begin;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := lvServ.SelCount;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    ShowWait('init',0,lvServ.SelCount,0);
     Application.ProcessMessages;
-    Screen.Cursor := crHourGlass;
   end;
   lvServ.Items.BeginUpdate;
 
@@ -4902,7 +4917,7 @@ begin
     if mult
     then begin;
       inc(p);
-      FormWait.pb.Position := p;
+      ShowWait('pos',0,0,p);
     end;
 
     DbeNr := lvServ.Items[i].SubItems[20];
@@ -4949,10 +4964,7 @@ begin
 
   lvServ.Items.EndUpdate;
   if mult
-  then begin;
-    FormWait.Hide;
-    Screen.Cursor := crDefault;
-  end;
+  then ShowWait('free',0,0,0);
   TotalsBuild();
   if (ShowResultMsg)
   then
@@ -5088,14 +5100,9 @@ var
   ld: TLIstData;
   pListData: ^TListData;
 begin
-  Screen.Cursor := crHourGlass;
   ToolBar1.Enabled := False;
 
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := cdsServ.RecordCount;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  ShowWait('init',0,cdsServ.RecordCount,0);
   Application.ProcessMessages;
   p := 0;
 
@@ -5111,7 +5118,7 @@ begin
   do begin;
     inc(p);
     if p mod 25 = 0
-    then FormWait.pb.Position := p;
+    then ShowWait('pos',0,0,p);
 
     if (cdsPos.FindKey([cdsServ.FieldByName('servPos').AsString])) and
        (cdsPos.FieldByName('PosName').AsString <> '')
@@ -5206,8 +5213,7 @@ begin
   tnTV.Item[0].Selected := True;
   tnTV.Item[0].MakeVisible;
 
-  FormWait.Hide;
-  Screen.Cursor := crDefault;
+  ShowWait('free',0,0,0);
   ToolBar1.Enabled := True;
 
   if ShowResultMsg
@@ -5483,13 +5489,8 @@ begin
   if lvDet.SelCount > 1
   then begin;
     mult := True;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := lvDet.SelCount;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    ShowWait('init',0,lvDet.SelCount,0);
     Application.ProcessMessages;
-    Screen.Cursor := crHourGlass;
   end;
   lvDet.Items.BeginUpdate;
 
@@ -5516,7 +5517,7 @@ begin
     if mult
     then begin;
       inc(p);
-      FormWait.pb.Position := p;
+      ShowWait('pos',0,0,p);
     end;
 
     if not wcds.FindKey([IntToStr(DetSetNr),
@@ -5530,10 +5531,7 @@ begin
                               lvDet.Selected.Caption,DetName]));
       lvDet.Items.EndUpdate;
       if mult
-      then begin;
-        FormWait.Hide;
-        Screen.Cursor := crDefault;
-      end;
+      then ShowWait('free',0,0,0);
       TotalsBuild();
       MessageDlg(lwLngTrns(name,['Delete User Bouquet: % from list % not found ....',
                                  lvDet.Selected.Caption,DetName]),
@@ -5550,10 +5548,7 @@ begin
 
   lvDet.Items.EndUpdate;
   if mult
-  then begin;
-    FormWait.Hide;
-    Screen.Cursor := crDefault;
-  end;
+  then ShowWait('free',0,0,0);
   TotalsBuild();
 
   if ShowResultMsg
@@ -5981,14 +5976,10 @@ begin
   end;
 
   log('i',lwLngTrns(name,['Updating satellites.xml with currently loaded transponder data']));
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := 100;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  ShowWait('init',0,100,0);
 
   { rebuild transponder table from services table }
-  FormWait.pb.Position := 1;
+  ShowWait('pos',0,0,1);
   cdsTSID.EmptyDataSet;
   cdsTSID.Close;
   cdsTSID.Open;
@@ -6036,7 +6027,7 @@ begin
 
   { Update satellites.xml table with transponders }
   p := 0;
-  FormWait.pb.Max := cdsTSID.RecordCount;
+  ShowWait('pos',0,cdsTSID.RecordCount,0);
   seq := cdsSatXML.RecordCount + 1;
   ta := 0;
   wname := '';
@@ -6044,7 +6035,7 @@ begin
   while not cdsTSID.Eof do begin;
     inc(p);
     if p mod 5 = 0
-    then FormWait.pb.Position := p;
+    then ShowWait('pos',0,0,p);
 
     if not cdsSatXML.FindKey([cdsTSID.FieldByName('tsidPos').AsString,
                               cdsTSID.FieldByName('tsidFreq').AsString,
@@ -6090,7 +6081,7 @@ begin
   if NewSatXMLBottom
   then cdsSatXML.IndexFieldNames := sifSatXML;
 
-  FormWait.Hide;
+  ShowWait('free',0,0,0);
 
   log('i',lwLngTrns(name,['% existing transponders, ',IntToStr(te)]));
   log('i',lwLngTrns(name,['% ... new transponders added,',IntToStr(ta)]));
@@ -6257,48 +6248,6 @@ begin
     if Key = 70
     then SearchServices('new')
     else SearchServices('repeat');
-    {if (SearchArg = '') or
-       (key = 70)
-    then begin;
-      if not InputQuery(lwLngTrns(name,['Search']),
-                        lwLngTrns(name,['Enter the search argument']),
-                        SearchArg)
-      then exit;
-      lvServ.ClearSelection;
-    end;
-    screen.Cursor := crHourGlass;
-    if lvServ.Selected = nil
-    then si := 0
-    else begin;
-      si := lvServ.Selected.Index + 1;
-      lvServ.ClearSelection;
-    end;
-
-    for i := si to lvServ.Items.Count - 1 do begin;
-      if (pos(LowerCase(SearchArg),LowerCase(lvServ.Items[i].Caption)) > 0) or
-         (pos(LowerCase(SearchArg),LowerCase(lvServ.Items[i].SubItems[0])) > 0) or
-         (pos(LowerCase(SearchArg),LowerCase(lvServ.Items[i].SubItems[1])) > 0) or
-         (pos(LowerCase(SearchArg),LowerCase(lvServ.Items[i].SubItems[2])) > 0) or
-         (pos(LowerCase(SearchArg),LowerCase(lvServ.Items[i].SubItems[3])) > 0) or
-         (pos(LowerCase(SearchArg),LowerCase(lvServ.Items[i].SubItems[4])) > 0) or
-         (pos(LowerCase(SearchArg),LowerCase(lvServ.Items[i].SubItems[5])) > 0)
-      then break;
-      if ShowDetails
-      then
-        if (pos(LowerCase(SearchArg),LowerCase(lvServ.Items[i].SubItems.Text)) > 0)
-        then break;
-    end;
-    if i < lvServ.Items.Count
-    then begin;
-      lvServ.Items[i].Selected := True;
-      lvServ.Items[i].MakeVisible(False);
-      FormMain.ActiveControl := lvServ;
-    end
-    else begin;
-      MessageDlg(lwLngTrns(name,['No (more) occurrences of "%" found in services.',SearchArg]),
-                 mtInformation,[mbOK],0);
-    end;
-    screen.Cursor := crDefault;}
   end
   else
     if key = 46
@@ -6583,13 +6532,8 @@ begin
 
   if length(CPRec) >= 10
   then begin;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := length(CPRec);
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    ShowWait('init',0,length(CPRec),0);
     Application.ProcessMessages;
-    Screen.Cursor := crHourGlass;
   end;
 
   servsif := cdsServ.IndexFieldNames;
@@ -6607,7 +6551,7 @@ begin
     if length(CPRec) >= 10
     then begin;
       inc(p);
-      FormWait.pb.Position := p;
+      ShowWait('pos',0,0,p);
     end;
 
     if (CPRec[i].servT = 'n') or
@@ -6771,10 +6715,7 @@ begin
   lvServ.Items.EndUpdate;
 
   if length(CPRec) >= 10
-  then begin;
-    FormWait.Hide;
-    Screen.Cursor := crDefault;
-  end;
+  then ShowWait('free',0,0,0);
 
   if item <> nil
   then begin;
@@ -6799,6 +6740,7 @@ begin
   if lvServ.SelCount = 0
   then exit;
 
+  screen.Cursor := crHourGlass;
   i := 0;
   SetLength(CPRec,lvServ.SelCount);
   for d := 0 to lvServ.Items.Count - 1 do begin;
@@ -6815,6 +6757,7 @@ begin
                          'found in Servicetable',
                          lvDet.Items[d].Caption]),
                  mtError,[mbOK],0);
+      screen.Cursor := crDefault;
       exit;
     end;
     CPRec[i].servSID := cdsServ.FieldValues['servSID'];
@@ -6847,6 +6790,7 @@ begin
     CPRec[i].servExtra := cdsServ.FieldByName('servextra').AsString;
     inc(i);
   end;
+  screen.Cursor := crDefault;
   if not CopyToCB()
   then begin;
     MessageDlg('Error copying data to clipboard',
@@ -6879,13 +6823,8 @@ begin
 
   if length(CPRec) >= 10
   then begin;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := length(CPRec);
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    ShowWait('init',0,length(CPRec),0);
     Application.ProcessMessages;
-    Screen.Cursor := crHourGlass;
   end;
 
   servsif := cdsServ.IndexFieldNames;
@@ -6900,7 +6839,7 @@ begin
     if length(CPRec) >= 10
     then begin;
       inc(p);
-      FormWait.pb.Position := p;
+      ShowWait('pos',0,0,p);
     end;
 
     if CPrec[i].servT <> 'n'
@@ -6967,10 +6906,7 @@ begin
   lvServ.Items.EndUpdate;
 
   if length(CPRec) >= 10
-  then begin;
-    FormWait.Hide;
-    Screen.Cursor := crDefault;
-  end;
+  then ShowWait('free',0,0,0);
 
   TotalsBuild();
 end;
@@ -7735,14 +7671,9 @@ var
   pListData: ^TListData;
   ld: TListData;
 begin
-  Screen.Cursor := crHourGlass;
   ToolBar1.Enabled := False;
 
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := tnBQ.Count;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  ShowWait('init',0,tnBQ.Count,0);
   Application.ProcessMessages;
   p := 0;
 
@@ -7767,6 +7698,7 @@ begin
   slBNr.Clear;
   slBNr.Sorted := True;
   for i := 0 to tnBQ.Count - 1 do begin;
+    ShowWait('pos',0,0,i);
     pListData := tnBQ.Item[i].Data;
     slBNr.Add(IntToStr(pListData.Number));
     slBouqToNr.add(tnBQ.Item[i].Text + '=' + IntToStr(pListData.Number));
@@ -7783,12 +7715,13 @@ begin
   servflt := cdsServ.Filtered;
   cdsServ.Filtered := False;
 
+  ShowWait('pos',0,cdsFBQ.RecordCount,0);
   tv.Items.BeginUpdate;
   cdsFBQ.First;
   while not cdsFBQ.Eof
   do begin;
     inc(p);
-    FormWait.pb.Position := p;
+    ShowWait('pos',0,0,p);
 
     if cdsFBQ.FieldByName('fbqSetNr').AsInteger < 0
     then begin;
@@ -7938,8 +7871,7 @@ begin
 
   tnTV.Item[0].Selected := True;
   tnTV.Item[0].MakeVisible;
-  FormWait.Hide;
-  Screen.Cursor := crDefault;
+  ShowWait('free',0,0,0);
   ToolBar1.Enabled := True;
 
   if ShowResultMsg
@@ -8145,21 +8077,16 @@ begin
       tn := tnBQ;
     end;
 
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := tn.Count;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  ShowWait('init',0,tn.Count,0);
   Application.ProcessMessages;
-  Screen.Cursor := crHourGlass;
-
+  
   c := 0;
   p := 0;
   RebuildDet := False;
   tv.Items.BeginUpdate;
   for i := tn.Count - 1 downto 0 do begin;
     inc(p);
-    FormWait.pb.Position := p;
+    ShowWait('pos',0,0,p);
     if (fn <> 'fbq') and
        (tn.Count = 1)
     then break;
@@ -8182,8 +8109,7 @@ begin
     cds.Filter := '';
   end;
   tv.Items.EndUpdate;
-  FormWait.Hide;
-  Screen.Cursor := crDefault;
+  ShowWait('free',0,0,0);
 
   if RebuildDet
   then begin;
@@ -8349,14 +8275,8 @@ begin
     cdsServSave.LoadFromStream(TempStream);
     TempStream.Free;
 
-    screen.Cursor := crHourGlass;
-
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := cdsServSave.RecordCount;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
-    application.ProcessMessages;           
+    ShowWait('init',0,cdsServSave.RecordCount,0);
+    application.ProcessMessages;
     p := 0;
 
     log('i',lwLngTrns(name,['Exporting services to %',expd.FileName]));
@@ -8391,7 +8311,7 @@ begin
     while not cdsServSave.Eof do begin;
       inc(p);
       if p mod 25 = 0
-      then FormWait.pb.Position := p;
+      then ShowWait('pos',0,0,p);
 
       if cdsServSave.FieldByName('servPol').AsInteger = 0
       then pol := 'H'
@@ -8439,8 +8359,7 @@ begin
     cdsServSave.Filtered := servflt;
     CloseFile(tf);
 
-    FormWait.Hide;
-    screen.Cursor := crDefault;
+    ShowWait('free',0,0,0);
 
     MessageDlg(lwLngTrns(name,['Export file saved to %',expd.FileName]),
                mtInformation,[mbOK],0);
@@ -8470,15 +8389,7 @@ begin
   expd.FileName := Dir + '\DreamBoxEdit Export Bouquets.txt';
   if expd.Execute
   then begin;
-    screen.Cursor := crHourGlass;
-
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := tnTV.Count +
-                       tnRD.Count +
-                       tnBQ.Count;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    ShowWait('init',0,tnTV.Count+tnRD.Count+tnBQ.Count,0);
     application.ProcessMessages;
     p := 0;
 
@@ -8519,7 +8430,7 @@ begin
     { Export User Bouquets TV }
     for i := 0 to tnTV.Count -1 do begin;
       inc(p);
-      FormWait.pb.Position := p;
+      ShowWait('pos',0,0,p);
 
       pListData := tnTV.Item[i].Data;
       cdsFTV.Filter := 'ftvSetNr = ''' + IntToStr(pListData.Number) + '''';
@@ -8592,7 +8503,7 @@ begin
     { Export User Bouquets Radio }
     for i := 0 to tnRD.Count -1 do begin;
       inc(p);
-      FormWait.pb.Position := p;
+      ShowWait('pos',0,0,p);
 
       pListData := tnRD.Item[i].Data;
       cdsFRD.Filter := 'frdSetNr = ''' + IntToStr(pListData.Number) + '''';
@@ -8665,7 +8576,7 @@ begin
     { Export Bouquets }
     for i := 0 to tnBQ.Count -1 do begin;
       inc(p);
-      FormWait.pb.Position := p;
+      ShowWait('pos',0,0,p);
 
       pListData := tnBQ.Item[i].Data;
       cdsFBQ.Filter := 'fbqSetNr = ''' + IntToStr(pListData.Number) + '''';
@@ -8734,9 +8645,8 @@ begin
 
     CloseFile(tf);
 
-    FormWait.Hide;
+    ShowWait('free',0,0,0);
 
-    screen.Cursor := crDefault;
     MessageDlg(lwLngTrns(name,['Export file saved to %',expd.FileName]),
                mtInformation,[mbOK],0);
   end;
@@ -10033,12 +9943,7 @@ begin
     cdsServSave.LoadFromStream(TempStream);
     TempStream.Free;
 
-    screen.Cursor := crHourGlass;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := cdsServSave.RecordCount;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    ShowWait('init',0,cdsServSave.RecordCount,0);
     application.ProcessMessages;
     p := 0;
 
@@ -10057,7 +9962,7 @@ begin
     while not cdsServSave.Eof do begin;
       inc(p);
       if p mod 25 = 0
-      then FormWait.pb.Position := p;
+      then ShowWait('pos',0,0,p);
 
       if (cdsServSave.FieldByName('servSID').AsInteger < 0) or
          (cdsServSave.FieldByName('servSID').AsInteger > 99999) or
@@ -10147,9 +10052,8 @@ begin
     cdsServSave.Filtered := servflt;
     CloseFile(tf);
 
-    FormWait.Hide;
-    screen.Cursor := crDefault;
-
+    ShowWait('free',0,0,0);
+    
     if err = 0
     then begin;
       if ShowResultMsg
@@ -10305,12 +10209,7 @@ begin
     end;
     CloseFile(tf);
 
-    screen.Cursor := crHourGlass;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := sli.Count;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    ShowWait('init',0,sli.Count,0);
     application.ProcessMessages;
 
     log('i',lwLngTrns(name,['Starting import of exported services file "%"',
@@ -10331,7 +10230,7 @@ begin
 
       inc(p);
       if p mod 25 = 0
-      then FormWait.pb.Position := p;
+      then ShowWait('pos',0,0,p);
 
       col := IsValidLine(sl);
       if col > 0
@@ -10406,8 +10305,7 @@ begin
     TotalsBuild();
     tv.FullExpand;
 
-    FormWait.Hide;
-    screen.Cursor := crDefault;
+    ShowWait('free',0,0,0);
 
     s := lwLngTrns(name,['Import of exported services file finished. ' +
                          'There were % services added ' +
@@ -10556,12 +10454,7 @@ begin
     end;
     CloseFile(tf);
 
-    screen.Cursor := crHourGlass;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := sli.Count;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    ShowWait('init',0,sli.Count,0);
     application.ProcessMessages;
 
     log('i',lwLngTrns(name,['Starting import of exported bouquets file "%"',
@@ -10585,7 +10478,7 @@ begin
 
       inc(p);
       if p mod 25 = 0
-      then FormWait.pb.Position := p;
+      then ShowWait('pos',0,0,p);
 
       col := IsValidLine(sl);
       if col > 0
@@ -10714,8 +10607,7 @@ begin
     TotalsBuild();
     tv.FullExpand;
 
-    FormWait.Hide;
-    screen.Cursor := crDefault;
+    ShowWait('free',0,0,0);
 
     s := lwLngTrns(name,['Import of exported bouquets file finished. ' +
                          'There were % services added, % bouquet entries added ' +
@@ -10742,14 +10634,9 @@ var
   s,sp: String;
   item: TListItem;
 begin
-  screen.cursor := crHourglass;
   if lvDet.Items.Count > 50
   then begin;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := lvDet.Items.Count - 1;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    ShowWait('init',0,lvDet.Items.Count - 1,0);
     application.ProcessMessages;
   end;
 
@@ -10759,7 +10646,7 @@ begin
   while i <= lvDet.Items.Count - 1 do begin;
     inc(p);
     if lvDet.Items.Count > 50
-    then FormWait.pb.Position := p;
+    then ShowWait('pos',0,0,p);
 
     if (lvDet.Items[i].SubItems[11] = 'm') or
        (lvDet.Items[i].SubItems[11] = 's') or
@@ -10808,8 +10695,7 @@ begin
   end;
   lvDetSave();
   if lvDet.Items.Count > 50
-  then FormWait.Hide;
-  screen.cursor := crdefault;
+  then ShowWait('free',0,0,0);
 
   TotalsBuild();
 end;
@@ -10837,14 +10723,9 @@ var
   item: TListItem;
   flt: Boolean;
 begin
-  screen.cursor := crHourglass;
   if lvDet.Items.Count > 50
   then begin;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := lvDet.Items.Count - 1;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    ShowWait('init',0,lvDet.Items.Count-1,0);
     application.ProcessMessages;
   end;
 
@@ -10856,7 +10737,7 @@ begin
   while i <= lvDet.Items.Count - 1 do begin;
     inc(p);
     if lvDet.Items.Count > 50
-    then FormWait.pb.Position := p;
+    then ShowWait('pos',0,0,p);
 
     cdsServ.Locate('servDbeNr',lvDet.Items[i].SubItems[10],[]);
     if (lvDet.Items[i].SubItems[11] = 'm') or
@@ -10903,8 +10784,7 @@ begin
   lvDetSave();
   cdsServ.Filtered := flt;
   if lvDet.Items.Count > 50
-  then FormWait.Hide;
-  screen.cursor := crdefault;
+  then ShowWait('free',0,0,0);
 
   TotalsBuild();
 end;
@@ -10946,14 +10826,9 @@ begin
 
   pack := lvServ.Selected.SubItems[0];
 
-  Screen.Cursor := crHourGlass;
   ToolBar1.Enabled := False;
 
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := cdsServ.RecordCount;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  ShowWait('init',0,cdsServ.RecordCount,0);
   Application.ProcessMessages;
   p := 0;
 
@@ -10967,7 +10842,7 @@ begin
   do begin;
     inc(p);
     if p mod 25 = 0
-    then FormWait.pb.Position := p;
+    then ShowWait('pos',0,0,p);
 
     if CleanText(cdsServ.FieldByName('servPackage').AsString) <> pack
     then begin;
@@ -11057,8 +10932,7 @@ begin
   tnTV.Item[0].Selected := True;
   tnTV.Item[0].MakeVisible;
 
-  FormWait.Hide;
-  Screen.Cursor := crDefault;
+  ShowWait('free',0,0,0);
   ToolBar1.Enabled := True;
 
   if ShowResultMsg
@@ -11078,13 +10952,8 @@ begin
   if lvServ.Selected = nil
   then exit;
 
-  Screen.Cursor := crHourGlass;
   ToolBar1.Enabled := False;
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := cdsServ.RecordCount;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  ShowWait('init',0,cdsServ.RecordCount,0);
   Application.ProcessMessages;
   p := 0;
 
@@ -11101,7 +10970,7 @@ begin
   do begin;
     inc(p);
     if p mod 25 = 0
-    then FormWait.pb.Position := p;
+    then ShowWait('pos',0,0,p);
 
     b := CleanText(cdsServ.FieldByName('servPackage').AsString);
 
@@ -11192,8 +11061,7 @@ begin
   tnTV.Item[0].Selected := True;
   tnTV.Item[0].MakeVisible;
 
-  FormWait.Hide;
-  Screen.Cursor := crDefault;
+  ShowWait('free',0,0,0);
   ToolBar1.Enabled := True;
 
   if ShowResultMsg
@@ -11219,13 +11087,8 @@ begin
   frdsif := cdsFRD.IndexFieldNames;
   cdsFRD.IndexFieldNames := 'frdDbeNr';
 
-  Screen.Cursor := crHourGlass;
   ToolBar1.Enabled := False;
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := cdsServ.RecordCount;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  ShowWait('init',0,cdsServ.RecordCount,0);
   Application.ProcessMessages;
 
   ServEdit := True;
@@ -11236,7 +11099,7 @@ begin
   while not cdsServ.Eof do begin;
     inc(p);
     if p mod 25 = 0
-    then FormWait.pb.Position := p;
+    then ShowWait('pos',0,0,p);
 
     cdsServ.Edit;
     if (not cdsFTV.FindKey([cdsServ.FieldByName('servDbeNr').AsInteger])) and
@@ -11265,8 +11128,7 @@ begin
   ServEdit := False;
   lvServ.Refresh;
 
-  FormWait.Hide;
-  Screen.Cursor := crDefault;
+  ShowWait('free',0,0,0);
   ToolBar1.Enabled := True;
 
   if ShowResultMsg
@@ -11476,13 +11338,8 @@ begin
   if lvServ.Selected = nil
   then exit;
 
-  Screen.Cursor := crHourGlass;
   ToolBar1.Enabled := False;
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := lvServ.SelCount;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  ShowWait('init',0,lvServ.SelCount,0);
   Application.ProcessMessages;
 
   p := 0;
@@ -11490,7 +11347,7 @@ begin
   while lvServ.Selected <> nil do begin;
     inc(p);
     if p mod 5 = 0
-    then FormWait.pb.Position := p;
+    then ShowWait('pos',0,0,p);
 
     if not cdsServ.Locate('servDbeNr',lvServ.Selected.SubItems[20],[])
     then begin;
@@ -11514,9 +11371,8 @@ begin
     lvServ.Selected.Selected := False;
   end;
 
-  FormWait.Hide;
+  ShowWait('free',0,0,0);
   ToolBar1.Enabled := True;
-  Screen.Cursor := crDefault;
 
   lvServ.Refresh;
   lvDet.Repaint;
@@ -11587,14 +11443,9 @@ var
   i,p: Integer;
   sp: String;
 begin
-  screen.cursor := crHourglass;
   if lvDet.Items.Count > 50
   then begin;
-    FormWait.pb.Caption := '';
-    FormWait.pb.Min := 0;
-    FormWait.pb.Max := lvDet.Items.Count - 1;
-    FormWait.pb.Position := 0;
-    FormWait.Show;
+    ShowWait('init',0,lvDet.Items.Count - 1,0);
     application.ProcessMessages;
   end;
 
@@ -11604,7 +11455,7 @@ begin
   while i <= lvDet.Items.Count - 1 do begin;
     inc(p);
     if lvDet.Items.Count > 50
-    then FormWait.pb.Position := p;
+    then ShowWait('pos',0,0,p);
 
     { Delete empty markers }
     if (i + 1 <= lvDet.Items.Count - 1) and
@@ -11620,8 +11471,7 @@ begin
   end;
   lvDetSave();
   if lvDet.Items.Count > 50
-  then FormWait.Hide;
-  screen.cursor := crdefault;
+  then ShowWait('free',0,0,0);
 
   TotalsBuild();
 end;

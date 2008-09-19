@@ -1,6 +1,6 @@
 object FormAbout: TFormAbout
-  Left = 494
-  Top = 296
+  Left = 902
+  Top = 336
   BorderStyle = bsNone
   ClientHeight = 288
   ClientWidth = 511

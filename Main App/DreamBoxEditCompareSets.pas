@@ -58,7 +58,7 @@ var
 
 implementation
 
-uses DreamBoxMain, DreamBoxEditWait;
+uses DreamBoxMain;
 
 {$R *.dfm}
 
@@ -110,12 +110,7 @@ begin
   servflt := cdsA.Filtered;
   cdsA.Filtered := False;
 
-  screen.cursor := crHourglass;
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := cdsC.RecordCount + cdsA.RecordCount;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  FormMain.ShowWait('init',0,cdsC.RecordCount+cdsA.RecordCount,0);
   application.ProcessMessages;
   p := 0;
 
@@ -128,7 +123,7 @@ begin
   while not cdsC.Eof do begin;
     inc(p);
     if p mod 25 = 0
-    then FormWait.pb.Position := p;
+    then FormMain.ShowWait('pos',0,0,p);
 
     if not cdsA.FindKey([cdsC.FieldByName('servSID').AsString,
                          cdsC.FieldByName('servUniq').AsString,
@@ -197,7 +192,7 @@ begin
   while not cdsA.Eof do begin;
     inc(p);
     if p mod 25 = 0
-    then FormWait.pb.Position := p;
+    then FormMain.ShowWait('pos',0,0,p);
 
     if not cdsC.FindKey([cdsA.FieldByName('servSID').AsString,
                          cdsA.FieldByName('servUniq').AsString,
@@ -235,9 +230,8 @@ begin
   cdsA.Filtered := servflt;
 
   lvDiff.Items.EndUpdate;
-  FormWait.Hide;
-  screen.cursor := crdefault;
-
+  FormMain.ShowWait('free',0,0,0);
+  
   if lvDiff.Items.Count = 0
   then MessageDlg(FormMain.lwLngTrns(name,[
                   'No differences found between loaded file-set and the services file ' +
@@ -385,12 +379,7 @@ var
   pListData: ^TListData;
   ld: TListData;
 begin
-  screen.cursor := crHourglass;
-  FormWait.pb.Caption := '';
-  FormWait.pb.Min := 0;
-  FormWait.pb.Max := lvDiff.Items.Count - 1;
-  FormWait.pb.Position := 0;
-  FormWait.Show;
+  FormMain.ShowWait('init',0,lvDiff.Items.Count-1,0);
   application.ProcessMessages;
   p := 0;
   sa := 0;
@@ -406,7 +395,7 @@ begin
 
   for i := 0 to lvDiff.Items.Count - 1 do begin;
     inc(p);
-    FormWait.pb.Position := p;
+    FormMain.ShowWait('pos',0,0,p);
 
     if not lvDiff.Items.Item[i].Checked
     then continue;
@@ -672,7 +661,7 @@ begin
   cdsA.IndexFieldNames := servsif;
   cdsA.Filtered := servflt;
 
-  FormWait.Hide;
+  FormMain.ShowWait('free',0,0,0);
   screen.cursor := crdefault;
 
   FormMain.log('i',FormMain.lwLngTrns(name,[

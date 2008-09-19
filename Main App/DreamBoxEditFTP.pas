@@ -1008,6 +1008,10 @@ begin
   Memo1.Lines.Add(FormMain.lwLngTrns(name,['Dreambox response: %',FTP.LoginMsg.Text[0]]));
   FormMain.Log('i',FormMain.lwLngTrns(name,['Dreambox response: %',FTP.LoginMsg.Text[0]]));
 
+  Memo1.Lines.Add(FormMain.lwLngTrns(name,['** Getting directory list % **',
+                                           FormMain.PathServices +'*']));
+  FormMain.log('i',FormMain.lwLngTrns(name,['** Getting directory list % **',
+                                            FormMain.PathServices +'*']));
   try
     Ftp.List(DBFilesU,FormMain.PathUserBouquets+'*',False);
   Except
@@ -1347,9 +1351,13 @@ begin
   end;
 
   { Delete lamedb file from dreambox when using old settings }
-  if FormMain.SettingsVersion = 2
+  if FormMain.SettingsVersion < 3
   then begin;
     DBFilesU.Clear;
+    Memo1.Lines.Add(FormMain.lwLngTrns(name,['** Getting directory list % **',
+                                             FormMain.PathServices +'lamedb']));
+    FormMain.log('i',FormMain.lwLngTrns(name,['** Getting directory list % **',
+                                              FormMain.PathServices +'lamedb']));
     try
       Ftp.List(DBFilesU,FormMain.PathServices +'lamedb',False);
     Except
@@ -1440,6 +1448,7 @@ disc:
     begin
     if cbAutoReload.Checked  then
       begin
+       CmdOK := False;
        IdHTTP1 := TIdHTTP.Create(Self);
        IdHTTP1.Request.BasicAuthentication := True;
        IdHTTP1.Request.Username := FormMain.DBUsername;

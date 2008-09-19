@@ -36,7 +36,6 @@ begin
   Application.Initialize;
   Application.Title := 'DreamBoxEdit';
   Application.CreateForm(TFormMain, FormMain);
-  Application.CreateForm(TFormWait, FormWait);
   Application.CreateForm(TFormDetail, FormDetail);
   Application.CreateForm(TFormAdd, FormAdd);
   Application.CreateForm(TFormLog, FormLog);
