@@ -28,6 +28,8 @@ type
     lblTranslators: TLabel;
     lblWebsite: TLabel;
     btnDone: TButton;
+    lblArtistCredits: TLabel;
+    Label2: TLabel;
     procedure lblWebsiteClick(Sender: TObject);
     procedure btnDoneClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);

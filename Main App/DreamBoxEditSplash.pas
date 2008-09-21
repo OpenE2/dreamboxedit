@@ -26,6 +26,8 @@ type
     Label7: TLabel;
     Label8: TLabel;
     Label9: TLabel;
+    lblArtistCredits: TLabel;
+    Label2: TLabel;
     procedure FormActivate(Sender: TObject);
   private
     { Private declarations }

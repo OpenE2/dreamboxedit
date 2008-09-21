@@ -61,7 +61,6 @@ type
     CopyEditthisservice1: TMenuItem;
     puDet: TPopupMenu;
     Deletefromfavourites1: TMenuItem;
-    iLogo: TImage;
     _ToolButton2: TToolButton;
     fmFTP: TMenuItem;
     _ToolButton6: TToolButton;
@@ -213,6 +212,8 @@ type
     cdsServComp: TClientDataSet;
     cdsServSave: TClientDataSet;
     cdsAlt: TClientDataSet;
+    tbarRight: TToolBar;
+    iLogo: TImage;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure sbDrawPanel(StatusBar: TStatusBar;
