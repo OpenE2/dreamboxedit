@@ -203,8 +203,8 @@ begin
   then Left := Reg.ReadInteger(key)
   else Left := 300;
 
-  cbPiconActivate.Checked := Reg.ReadBool('PiconActivate');
-  cbPiconUpload.Checked := Reg.ReadBool('PiconUpload');
+  {cbPiconActivate.Checked := Reg.ReadBool('PiconActivate');
+  cbPiconUpload.Checked := Reg.ReadBool('PiconUpload');}
 
   cbZAPKey.Items[1] := FormMain.lwLngTrns(name,['Spacebar']);
   cbZAPKey.Items[2] := FormMain.lwLngTrns(name,['Double Click']);
@@ -263,8 +263,8 @@ begin
     cdsProfiles.FieldByName('prPathServices').AsString := Reg.ReadString('Profiles Path Services ' + IntToStr(i));
     cdsProfiles.FieldByName('prPathUserbouquets').AsString := Reg.ReadString('Profiles Path Userbouquets ' + IntToStr(i));
     cdsProfiles.FieldByName('prPathSatellites').AsString := Reg.ReadString('Profiles Path Satellites ' + IntToStr(i));
-    cdsProfiles.FieldByName('prPathPicons').AsString := Reg.ReadString('Profiles Path Picons ' + IntToStr(i));
-    cdsProfiles.FieldByName('prLocalPathPicons').AsString := Reg.ReadString('Profiles Local Path Picons ' + IntToStr(i));
+    //cdsProfiles.FieldByName('prPathPicons').AsString := Reg.ReadString('Profiles Path Picons ' + IntToStr(i));
+    //cdsProfiles.FieldByName('prLocalPathPicons').AsString := Reg.ReadString('Profiles Local Path Picons ' + IntToStr(i));
     cdsProfiles.Post;
   end;
   Loading := False;
@@ -1085,17 +1085,17 @@ end;
 
 procedure TFormOptions.bPiconUSBClick(Sender: TObject);
 begin
-   ePathPicons.Text := '/media/usb/picons/';
+//   ePathPicons.Text := '/media/usb/picons/';
 end;
 
 procedure TFormOptions.bPiconHddClick(Sender: TObject);
 begin
-   ePathPicons.Text := '/media/hdd/picons/';
+//   ePathPicons.Text := '/media/hdd/picons/';
 end;
 
 procedure TFormOptions.bPiconCFClick(Sender: TObject);
 begin
-   ePathPicons.Text := '/media/cf/picons/';
+//   ePathPicons.Text := '/media/cf/picons/';
 end;
 
 procedure TFormOptions.bTVAddHDTVClick(Sender: TObject);
