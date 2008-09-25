@@ -1,5 +1,5 @@
 V3.0.0.0
-D2008-09-15 23:13:29
+D2008-09-25 22:02:52
 mFormAbout.message.Returncode % from opening "%"=Code de retour % en ouvrant "%"
 mFormAdd.message.Add to bouquet=Ajouter au bouquet
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Le bouquet % existe déjà. Entrer un nom différent ou laisser vide le nouveau nom et cliquer sur un bouquet existant
@@ -440,7 +440,6 @@ mFormTransponder.message.Transponder data=Donnée du transpondeur
 mFormTransponder.message.Type=Type
 mFormTransponder.message.You changed the key data of the transponder definition but a transponder with this key already exists.~~Are you sure you want to add the services of this transponder to the already existing transponder?=Vous avez changé les données principales de la définition de transpondeur mais un transpondeur avec cette clef existe déjà.~~Etes-vous sûr vous voulez-vous ajouter les services de ce transpondeur au transpondeur existant ?
 mFormTransponder.message.You must first enter the satellite position and frequency fields before you can calculate the namespace.=Vous devez entrer en premier la position du satellite et la fréquence présente avant que vous puissiez calculer les données.
-mFormWait.message.Progress=Progression
 pFormAbout.LabelContact.Caption=Contact :
 pFormAdd.bCancel.Caption=Annuler
 pFormAdd.bCancel.Hint=Annuler l'opération
@@ -541,6 +540,7 @@ pFormEditSatXML.Label17.Caption=2: Utiliser BAT
 pFormEditSatXML.Label18.Caption=4: Utiliser ONIT
 pFormEditSatXML.Label19.Caption=8: Passer NIT des réseaux connus
 pFormEditSatXML.Label2.Caption=Polarisation :
+pFormEditSatXML.Label20.Caption=9: 9/10
 pFormEditSatXML.Label3.Caption=0: Horizontale
 pFormEditSatXML.Label4.Caption=1: Verticale
 pFormEditSatXML.Label5.Caption=FEC :
@@ -768,6 +768,7 @@ pFormMain.ShowDetails1.Caption=Voir/Editer les groupes                          
 pFormMain.Sortlistalfabeticaly1.Caption=Trier alphabétiquement
 pFormMain.tbAbout.Caption=A propos
 pFormMain.tbAbout.Hint=Voir les infos au sujet de ce programme
+pFormMain.tbarRight.Caption=tbarRight
 pFormMain.tbExit.Caption=Sortir
 pFormMain.tbExit.Hint=Sortie du programme
 pFormMain.tbFFTPDown.Hint=Téléchargement FTP d'un dossier avec un minimum de dialogues dans le dernier répertoire utilisé

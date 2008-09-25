@@ -1,5 +1,5 @@
 V3.0.0.0
-D2008-09-15 23:14:41
+D2008-09-25 22:04:10
 mFormAbout.message.Returncode % from opening "%"=Zwrotny kod % z otwarcia "%"
 mFormAdd.message.Add to bouquet=Dodaj do zbioru
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Zbiór % ju¿ istnieje, wpisz definicje nazwy, lub now¹ nazwê.
@@ -423,7 +423,6 @@ mFormTransponder.message.Transponder data=Transponder
 mFormTransponder.message.Type=Rodzaj
 mFormTransponder.message.You changed the key data of the transponder definition but a transponder with this key already exists.~~Are you sure you want to add the services of this transponder to the already existing transponder?=Zmieni³eœ kluczowe dane transpondera lecz transponder z tym kluczem ju¿ istnieje.~~Czy na pewno chcesz dokonaæ zmian w istniej¹cym transponderze?
 mFormTransponder.message.You must first enter the satellite position and frequency fields before you can calculate the namespace.=Aby obliczyæ namespace, musisz wpisaæ pozycje, czêstliwoœæ...
-mFormWait.message.Progress=Wykonywanie
 pFormAbout.LabelContact.Caption=Kontakt:
 pFormAdd.bCancel.Caption=Anuluj
 pFormAdd.bCancel.Hint=Anulowanie operacji
@@ -524,6 +523,7 @@ pFormEditSatXML.Label17.Caption=2: U¿yj BAT
 pFormEditSatXML.Label18.Caption=4: U¿yj ONIT
 pFormEditSatXML.Label19.Caption=8: Pomiñ NITs znanych sieci
 pFormEditSatXML.Label2.Caption=Polaryzacja:
+pFormEditSatXML.Label20.Caption=9: 9/10
 pFormEditSatXML.Label3.Caption=0: H-Pozioma
 pFormEditSatXML.Label4.Caption=1: V-Pionowa
 pFormEditSatXML.Label5.Caption=FEC:
@@ -751,6 +751,7 @@ pFormMain.ShowDetails1.Caption=Edycja nadawcy                                   
 pFormMain.Sortlistalfabeticaly1.Caption=Sortuj alfabetycznie
 pFormMain.tbAbout.Caption=Autor ...
 pFormMain.tbAbout.Hint=Pokazuje dane autora o programie
+pFormMain.tbarRight.Caption=tbarRight
 pFormMain.tbExit.Caption=Wyjœcie
 pFormMain.tbExit.Hint=Zamkniêcie program
 pFormMain.tbFFTPDown.Hint=FTP Pobiera pliki z minimalnym dialogiem do ostatniego u¿ywanego katalogu

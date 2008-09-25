@@ -1,5 +1,5 @@
 V3.0.0.0
-D2008-09-15 23:15:05
+D2008-09-25 22:04:31
 mFormAbout.message.Returncode % from opening "%"=Povratni kod% otvaranja "%"
 mFormAdd.message.Add to bouquet=Dodaj u buket
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Lista % vec postoji, ubaci novo ime ili ostavi prazno i klikni na postojecu listu
@@ -440,7 +440,6 @@ mFormTransponder.message.Transponder data=Podaci Transpondera
 mFormTransponder.message.Type=Tip
 mFormTransponder.message.You changed the key data of the transponder definition but a transponder with this key already exists.~~Are you sure you want to add the services of this transponder to the already existing transponder?=Promenili ste kljucni podatak definicije transpondera, ali transponder sa ovim kljucem vec postoji.~~Da li ste sigurni da zelite dodati servise ovog transpondera vec postojecem transponderu?
 mFormTransponder.message.You must first enter the satellite position and frequency fields before you can calculate the namespace.=Morate prvo uneti poziciju satelita i frekvenciju pre nego sto budete racunali prostor imena.
-mFormWait.message.Progress=Progres
 pFormAbout.LabelContact.Caption=Kontakt:
 pFormAdd.bCancel.Caption=Otkazi
 pFormAdd.bCancel.Hint=Otkazi operaciju
@@ -541,6 +540,7 @@ pFormEditSatXML.Label17.Caption=2: Koristi BAT
 pFormEditSatXML.Label18.Caption=4: Koristi ONIT
 pFormEditSatXML.Label19.Caption=8: Zanemari NITs poznatih mreza
 pFormEditSatXML.Label2.Caption=Polarizacija:
+pFormEditSatXML.Label20.Caption=9: 9/10
 pFormEditSatXML.Label3.Caption=0: Horizontala
 pFormEditSatXML.Label4.Caption=1: Vertikala
 pFormEditSatXML.Label5.Caption=FEC:
@@ -768,6 +768,7 @@ pFormMain.ShowDetails1.Caption=Prikazi/promeni Detalje                          
 pFormMain.Sortlistalfabeticaly1.Caption=Sortiraj alfabetski
 pFormMain.tbAbout.Caption=O prog.
 pFormMain.tbAbout.Hint=Prikazi info o ovom programu
+pFormMain.tbarRight.Caption=tbarRight
 pFormMain.tbExit.Caption=Izlaz
 pFormMain.tbExit.Hint=Izadji iz ovog programa
 pFormMain.tbFFTPDown.Hint=FTP Download skupa fajlova sa minimumom dijaloga ka zadnje koriscenom direktorijumu
