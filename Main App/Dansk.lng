@@ -1,5 +1,5 @@
 V3.0.0.0
-D2008-09-25 22:02:20
+D2008-09-26 22:15:20
 mFormAbout.message.Returncode % from opening "%"=Fejlkode % fra åbning af "%"
 mFormAdd.message.Add to bouquet=Tilføj til buket
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Buketten % findes allerede, byt navn eller lad feltet forbli blankt og klik på en eksisterende buket.
@@ -63,6 +63,7 @@ mFormFiles.message.Original Size=Original Størrelse
 mFormFiles.message.Restore file(s) to last backup=Gendan fil(er) til seneste backup
 mFormFiles.message.Restore file(s) to original files=Gendan fil(er) til original
 mFormFiles.message.Size=Størrelse
+mFormFTP.message.** Getting directory list % **=** Henter liste over mapper % **
 mFormFTP.message.** Retrieving file "%" **=** Henter filen "%" **
 mFormFTP.message.** Retrieving file list of "%" **=** Henter filliste af "%" **
 mFormFTP.message.** Sending file "%" **=**  Overfører filen "%" **
@@ -95,6 +96,7 @@ mFormFTP.message.Network response: %=Netværk svar: %
 mFormFTP.message.Reload command ready.=Genindlæsnings kommando klar.
 mFormFTP.message.Second of two steps completed.=Anden af 2 opgaver er klar.
 mFormFTP.message.Send the on the option panel specified custom Telnet command.~Currenty defined command:~~----------------------------------------------~%~----------------------------------------------=Afsend kommandoen angivet under "Egen Telnet Kommando"~Nuværende egen kommando:~~----------------------------------------------~%~----------------------------------------------
+mFormFTP.message.Sending auto reload command succeded.=Genindlæsningskommando blev succefuldt gennemført.
 mFormFTP.message.Sending password %=Sender password %
 mFormFTP.message.Sending reboot command=Sender reboot kommando
 mFormFTP.message.Sending reload command failed. See the log for more information.~~Reboot the Dreambox by hand to activate the new settings.=Fejl ved genindlæsning. Se i loggen for yderligere information.~~Genstart Dreamboxen manuelt for at aktivere de nye indstillinger.
@@ -114,6 +116,7 @@ mFormFTP.message.There were errors retrieving the files from the Dreambox.~Check
 mFormFTP.message.There were errors tranferring the files to the Dreambox.~Check the log for more information.=Der opstod en fejl ved overførsel af filer til Dreamboxen.~Kontroller loggen for yderligere information.
 mFormFTP.message.This might take up to a few minutes to let the Dreambox complete the reloading.=Det kan tage et par minutter for Dreamboxen at genindlæse filerne fuldstændigt.
 mFormFTP.message.Unused bouquet "%" removed from Dreambox.=Ubrugt buket "%" fjernet fra Dreamboxen.
+mFormFTP.message.Unused lamedb file removed from Dreambox.=Ubenyttet lamedb blev fjernet fra Dreamboxen.
 mFormFTP.message.User command sent.=Bruger kommando afsendt.
 mFormFTP.message.You must select a local directory before you can transfer the files from the Dreambox to your PC.=Du skal vælge en lokal mappe på din harddisk inden du kan overføre filer fra Dreamboxen til din PC.
 mFormFTP.message.You must select a local directory before you can transfer the files from your PC to the Dreambox.=Du skal vælge en lokal mappe på din harddisk inden du kan overføre filer fra din PC til Dreamboxen.
@@ -301,6 +304,7 @@ mFormMain.message.Import of exported bouquets file finished. There were % servic
 mFormMain.message.Import of exported bouquets file: error in line %, column %=Import af eksporteret buket fil: fejl på række %, kolonne%
 mFormMain.message.Import of exported services file finished. There were % services added and % error(s) found (see log).=Importen af eksporteret kanal liste afsluttet. Der blev tilføjet % kanaler og fundet % fejl (se loggen).
 mFormMain.message.Import of exported services file: error in line %, column %=Import af eksporteret kanal fil: fejl i linie %, kolonne %
+mFormMain.message.Internal error: invalid call to progressbar routine, command is "%"=Intern fejl: ugyldigt kald til bjælke for indlæsningsrutine, kommandoen er "%"
 mFormMain.message.Invalid bouquet entry in "%" not loaded: SID: %, Namespace: %, TSID: %, NID: %, Type: %: Service not found.=Ugyldig buket værdi i "%" ikke indlæst: SID %, namespace: %, TSID: %, NID: %, Type: %: Kanal ikke fundet.
 mFormMain.message.Invalid line found (not enough values) and skipped in file "bouquet"=Ugyldig række fundet (ukorrekte værdier) og fjernet i filen "bouquet"
 mFormMain.message.Invalid line in settings found and skipped: missing or invalid not-hexadecimal parameter %=Ugyldig linie fundet elleroversprunget: manglende eller ugyldig ikke-hexadecimal parameter %
