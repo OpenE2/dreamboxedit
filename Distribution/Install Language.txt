@@ -1,0 +1,9 @@
+How to install a DreamBoxEdit language pack:
+
+- just put the language file(s) in the directory on your PC DreamBoxEdit runs from.
+
+The new language will immediately become visible when you select 'Language' on the menubar.
+
+
+Contact & Language Packs:
+http://dreamboxedit.digsat.net
