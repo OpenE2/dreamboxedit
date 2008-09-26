@@ -323,7 +323,7 @@ object FormMain: TFormMain
   object LWPanelB: TLWPanel
     Left = 0
     Top = 47
-    Width = 799
+    Width = 802
     Height = 415
     Align = alClient
     Color = 16378331
@@ -331,7 +331,7 @@ object FormMain: TFormMain
     Color2 = 16378331
     LineWidth1 = 2
     object Splitter1: TSplitter
-      Left = 427
+      Left = 430
       Top = 1
       Height = 413
       Align = alRight
@@ -339,7 +339,7 @@ object FormMain: TFormMain
       ParentColor = False
     end
     object LWPanelR: TLWPanel
-      Left = 430
+      Left = 433
       Top = 1
       Width = 368
       Height = 413
@@ -620,7 +620,7 @@ object FormMain: TFormMain
     object LWPanelL: TLWPanel
       Left = 1
       Top = 1
-      Width = 426
+      Width = 429
       Height = 413
       Align = alClient
       Caption = 'Services'
@@ -635,12 +635,12 @@ object FormMain: TFormMain
       Color2 = 16378331
       LineWidth1 = 2
       DesignSize = (
-        426
+        429
         413)
       object lvServ: TListView
         Left = 2
         Top = 22
-        Width = 422
+        Width = 425
         Height = 366
         Anchors = [akLeft, akTop, akRight, akBottom]
         Columns = <
@@ -795,7 +795,7 @@ object FormMain: TFormMain
       object LWPanel2: TLWPanel
         Left = 2
         Top = 390
-        Width = 325
+        Width = 328
         Height = 20
         Anchors = [akLeft, akRight, akBottom]
         BorderWidth = 2
@@ -814,7 +814,7 @@ object FormMain: TFormMain
         MarginRight = 2
         MarginBottom = 2
         DesignSize = (
-          325
+          328
           20)
         object Label1: TLabel
           Left = 8
@@ -846,7 +846,7 @@ object FormMain: TFormMain
           Transparent = True
         end
         object Label3: TLabel
-          Left = 175
+          Left = 178
           Top = 4
           Width = 95
           Height = 14
@@ -861,7 +861,7 @@ object FormMain: TFormMain
           Transparent = True
         end
         object _lServD: TLabel
-          Left = 281
+          Left = 284
           Top = 4
           Width = 39
           Height = 13
@@ -956,9 +956,9 @@ object FormMain: TFormMain
     end
   end
   object tbarRight: TToolBar
-    Left = 799
+    Left = 802
     Top = 47
-    Width = 42
+    Width = 39
     Height = 415
     Align = alRight
     ButtonHeight = 99

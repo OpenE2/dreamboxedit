@@ -9760,7 +9760,7 @@ var
   s,ds: String;
   i,vc,vo,wto,st,vskip: integer;
   gocopy: Boolean;
-  svc,svo: String;
+  svc,svo: String;         
   sl: TStringList;
   Reg: TRegistry;
   stl: TStrings;
