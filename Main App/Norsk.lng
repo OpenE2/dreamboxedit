@@ -1,5 +1,5 @@
 V3.0.0.0
-D2008-09-26 23:06:33
+D2008-09-27 14:26:41
 mFormAbout.message.Returncode % from opening "%"=Tilbakemelding % fra åpning"%"
 mFormAdd.message.Add to bouquet=Legg til bukett
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Bukett % eksisterer allerede, skriv inn et nytt navn eller la navnet stå tomt og gå inn på en eksisterende bukett.
@@ -226,7 +226,7 @@ mFormMain.message.% services deleted from services and from  % bouquet(s)=% kana
 mFormMain.message.% services were not found in any userbouquet and are marked as New=% kanaler ble ikke funnet i noen brukerbuketter og blir derfor merket som Ny
 mFormMain.message.%~%~ChNr %~Package %~%~Frequency % %~%~SID %~Namespace %~TSID %~NID %~Type %=%~%~KanalNr %~Pakke %~%~Frekvens% %~%~SID %~Namespace %~TSID %~NID %~Type %
 mFormMain.message.%~%~This is a marker~%=%~%~Dette er en markør~%
-mFormMain.message.%~%~This is not a regular service but~a subservice of a multiple service~%~SID %~Namespace %~TSID %~NID %~Type %=%~%~Dette er ikke en vanlig servise men~en del av en multiservise~%~SID %~Namespace %~TSID %~NID %~Type %
+mFormMain.message.%~%~This is not a regular service but~a subservice of a multiple service~%~SID %~Namespace %~TSID %~NID %~Type %=%~%~Dette er ikke en vanlig service men~en del av en multiservice~%~SID %~Namespace %~TSID %~NID %~Type %
 mFormMain.message.%~Parental Lock ON=%~Foreldre Lås PÅ
 mFormMain.message... All files are loaded but unsupported  references were found in the TV and/or Radio User Bouquet list!=.. Alle filer er lastet men referanser uten støtte ble funnet i TV og/eller Radio Bruker Bukett liste!
 mFormMain.message... Although you will loose these unsupported references, you can still go on editing and saving.=.. Skjønt du vil miste disse ustøttede referanser, kan du allikevel fortsette med å redigere og lagre.
@@ -251,7 +251,7 @@ mFormMain.message.Bouquet details=Bukett detaljer
 mFormMain.message.Bouquet name: %~Bouquet number: %~(modified with DreamBoxEdit)=Bukett navn: %~Bukett nummer: %~(modifisert med DreamBoxEdit)
 mFormMain.message.Bouquet name: %~Bouquet number: %~(original as scanned by Dreambox)=Bukett navn: %~Bukett nummer: %~(original som er scannet med Dreambox)
 mFormMain.message.bouquets saved in %=Buketter lagret i %
-mFormMain.message.Cable service=Kabel servise
+mFormMain.message.Cable service=Kabel service
 mFormMain.message.Cable=Kabel
 mFormMain.message.Ch.Nr.=Ch.Nr.
 mFormMain.message.Create bouquet % for satellite position %: service % already in bouquet %=Lag bukett % for satellitt posisjon %: kanal % er allerede i bukett%
@@ -358,7 +358,7 @@ mFormMain.message.Reference in Radio User Bouquet (%) to bouquet skipped:=Refera
 mFormMain.message.Reference in TV User Bouquet (%) to bouquet skipped:=Referanse i TV  Bruker Bukett (%) til bukett droppet:
 mFormMain.message.Remove bouquets with only x services=Fjern buketter med bare x antall kanaler
 mFormMain.message.Rename service % in this userbouquet=Døp om tjeneste % i denne brukerbukett
-mFormMain.message.Renamed service: %~Real name: %=Nytt navn på service %~Virkelig navn %
+mFormMain.message.Renamed service: %~Real name: %=Døp om tjeneste %~Virkelig navn %
 mFormMain.message.Returncode % from executing "%"=Tilbakemelding % fra utføring "%"
 mFormMain.message.Returncode % from opening "%"=Tilbakemelding % fra åpning "%"
 mFormMain.message.SatcoDX tranlation file "SatcoDX TransTable.txt" is missing from the directory where DreamBoxEdit is installed.~Without this file the SatcoDX import function wil not work.~~You can find this file in the installation package of DreamBoxEdit.=SatcoDX ovesettelse fil "SatcoDX Trans Table.txt. er borte fra den adressa som du installerte DreamBoxEdit.~Uten denne filen vil ikke SatcoDX import funksjonen virke.~~Du kan finne denne filen i installasjonspakken til DreamBoxEdit.
@@ -392,7 +392,7 @@ mFormMain.message.SID=SID
 mFormMain.message.Starting import of exported bouquets file "%"=Starter å importere eksporterte bukett fil  "%"
 mFormMain.message.Starting import of exported services file "%"=Starter import av eksportert kanal fil "%"
 mFormMain.message.SymbolRate=SymbolRate
-mFormMain.message.Terrestrial service=Bakkenett service
+mFormMain.message.Terrestrial service=Bakkenett kanaler
 mFormMain.message.The currently active profile is "%".~You can define profiles and switch between them on the options panel.=Den aktive profilen er "%"~Du kan definere profiler og bytte på dem i panelet for alternativer
 mFormMain.message.The directory you selected contains either no services data or an old version of the setting files.~This version of DreamBoxEdit only supports file-sets belonging to (unofficial) images 1.04.a.5 released after february 14th 2003.~~To edit older file-sets use DreamBoxEdit version 1.41 or older.=Adressen du valgte inneholder enten ingen kanal data eller det er en gammel versjon av innstillingsfiler.~Denne versjonen av DreamBoxEdit støtter kun fil-sett som tilhører (uoffisielle) images 1.04.a.5 utgitt etter 14 februar 2003.~~For redigering av eldre fil-sett må du bruke DreamBoxEdit versjon 1.41 eller eldre.
 mFormMain.message.The entry you selected in the details panel is not a regular service but a "sub service",~which means there is no corresponding service definition.=Posten du valgte under detaljpanelet er ikke en vanlig kanal men en "sub kanal",~Med det menes at det ikke er noen korresponderende kanal definisjon.
