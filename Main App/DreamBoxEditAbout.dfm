@@ -1,8 +1,8 @@
 object FormAbout: TFormAbout
-  Left = 902
-  Top = 336
+  Left = 477
+  Top = 240
   BorderStyle = bsNone
-  ClientHeight = 288
+  ClientHeight = 293
   ClientWidth = 511
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -14,13 +14,14 @@ object FormAbout: TFormAbout
   OldCreateOrder = False
   Position = poMainFormCenter
   OnActivate = FormActivate
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Panel4: TPanel
     Left = 0
     Top = 79
     Width = 511
-    Height = 209
+    Height = 214
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
@@ -28,7 +29,7 @@ object FormAbout: TFormAbout
       Left = 0
       Top = 0
       Width = 129
-      Height = 209
+      Height = 214
       Align = alLeft
       BevelOuter = bvNone
       Color = clBlack
@@ -1337,7 +1338,7 @@ object FormAbout: TFormAbout
       Left = 129
       Top = 0
       Width = 382
-      Height = 209
+      Height = 214
       Align = alClient
       TabOrder = 1
       Effect = GradientV
@@ -1345,10 +1346,10 @@ object FormAbout: TFormAbout
       Color2 = clGray
       DesignSize = (
         382
-        209)
-      object Label1: TLabel
-        Left = 185
-        Top = 55
+        214)
+      object _lblLlamaWare: TLabel
+        Left = 289
+        Top = 56
         Width = 65
         Height = 14
         Caption = 'Llamaware'
@@ -1362,24 +1363,9 @@ object FormAbout: TFormAbout
         ParentFont = False
         Transparent = True
       end
-      object lblDevelopementTeam: TLabel
-        Left = 1
-        Top = 31
-        Width = 296
-        Height = 16
-        AutoSize = False
-        Caption = 'the DreamBoxEdit development team at Digsat.net.'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Height = -13
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        Transparent = True
-      end
-      object Label4: TLabel
-        Left = 251
-        Top = 52
+      object _lblTM: TLabel
+        Left = 356
+        Top = 56
         Width = 12
         Height = 10
         Caption = 'TM'
@@ -1396,9 +1382,12 @@ object FormAbout: TFormAbout
       object lblDevelopedBy: TLabel
         Left = 1
         Top = 11
-        Width = 263
-        Height = 16
-        Caption = 'DreamBoxEdit is developed and maintained by'
+        Width = 368
+        Height = 38
+        AutoSize = False
+        Caption = 
+          'DreamBoxEdit is developed and maintained by the DreamBoxEdit dev' +
+          'elopment team at Digsat.net.'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
         Font.Height = -13
@@ -1406,20 +1395,7 @@ object FormAbout: TFormAbout
         Font.Style = []
         ParentFont = False
         Transparent = True
-      end
-      object lblAdapted: TLabel
-        Left = 1
-        Top = 53
-        Width = 178
-        Height = 16
-        Caption = 'Adapted from DreamBoxEdit by'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Height = -13
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        Transparent = True
+        WordWrap = True
       end
       object lblTranslators: TLabel
         Left = 1
@@ -1442,7 +1418,7 @@ object FormAbout: TFormAbout
       object lblWebsite: TLabel
         Left = 1
         Top = 160
-        Width = 296
+        Width = 368
         Height = 21
         Cursor = crHandPoint
         AutoSize = False
@@ -1457,12 +1433,12 @@ object FormAbout: TFormAbout
         WordWrap = True
         OnClick = lblWebsiteClick
       end
-      object lblArtistCredits: TLabel
+      object lblLogoBy: TLabel
         Left = 1
         Top = 84
-        Width = 128
+        Width = 124
         Height = 16
-        Caption = 'Logo artwork done by '
+        Caption = 'Logo artwork done by'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
         Font.Height = -13
@@ -1471,8 +1447,8 @@ object FormAbout: TFormAbout
         ParentFont = False
         Transparent = True
       end
-      object Label2: TLabel
-        Left = 129
+      object _lblLitemotiv: TLabel
+        Left = 289
         Top = 86
         Width = 62
         Height = 14
@@ -1487,12 +1463,27 @@ object FormAbout: TFormAbout
         ParentFont = False
         Transparent = True
       end
+      object lblAdapted: TLabel
+        Left = 1
+        Top = 54
+        Width = 178
+        Height = 16
+        Caption = 'Adapted from DreamBoxEdit by'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Transparent = True
+      end
       object btnDone: TButton
         Left = 300
-        Top = 181
+        Top = 186
         Width = 75
         Height = 21
         Anchors = [akLeft, akBottom]
+        Cancel = True
         Caption = '&Done'
         TabOrder = 0
         OnClick = btnDoneClick
@@ -1512,7 +1503,7 @@ object FormAbout: TFormAbout
     DesignSize = (
       511
       79)
-    object lblAppName: TLabel
+    object _lblAppName: TLabel
       Left = 420
       Top = 63
       Width = 80
@@ -1527,13 +1518,13 @@ object FormAbout: TFormAbout
       ParentFont = False
       Transparent = True
     end
-    object lblVersion: TLabel
+    object _lblVersion: TLabel
       Left = 3
       Top = 66
-      Width = 60
+      Width = 36
       Height = 13
       Anchors = [akLeft, akBottom]
-      Caption = 'version 2.20'
+      Caption = 'x.x.x.x'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -1554,16 +1545,18 @@ object FormAbout: TFormAbout
       object lblAuthors: TLabel
         Left = 8
         Top = 8
-        Width = 309
+        Width = 401
         Height = 13
-        Caption = 'The team: HappyLlama, Tammie78N, Talius, Henksat, Jazzydane'
+        AutoSize = False
+        Caption = 'The team'
       end
       object lblHosted: TLabel
         Left = 8
         Top = 32
-        Width = 100
+        Width = 409
         Height = 13
-        Caption = 'Hosted at: Digsat.net'
+        AutoSize = False
+        Caption = 'Hosted at'
       end
     end
     object Panel1: TPanel

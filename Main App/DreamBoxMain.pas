@@ -498,7 +498,8 @@ uses DreamBoxEditWait, DreamBoxEditDetail, DreamBoxEditFiles,
   DreamBoxEditAdd, DreamBoxEditLog, DreamBoxEditOptions, DreamBoxEditFTP,
   DreamBoxEditImport, ClipBrd, DreamBoxEditImportFavs,
   DreamBoxEditEditSatXML, DreamBoxEditCompareSets, DreamBoxEditTransponder,
-  DreamBoxEditNewVersion, DreamBoxEditSelDir, DreamBoxEditAbout;
+  DreamBoxEditNewVersion, DreamBoxEditSelDir, DreamBoxEditAbout,
+  DreamBoxEditSplash;
 
 {$R *.dfm}
 
@@ -9148,7 +9149,16 @@ begin
   end;
 
   Screen.Cursor := crHourGlass;
+
+  { Create available screens to include them in screen.forms set loop }
+  FormAbout := TFormAbout.Create(Self);
+  FormAbout.Show;
+  FormSplash := TFormSplash.Create(Self);
+  FormSplash.Show;
+  ShowWait('Init',0,MainMenu1.Items[5].Count - 1,0);
+
   for l := 0 to MainMenu1.Items[5].Count - 1 do begin;
+    ShowWait('Pos',0,0,l);
     lf := ExtractFilePath(application.exename) +
           MainMenu1.Items[5].Items[l].Caption +
           '.lng';
@@ -9164,6 +9174,12 @@ begin
        Screen.Forms[i],MainMenu1.Items[5].Items[l].Caption,True,False,True);
     end;
   end;
+
+  { Free available screens }
+  ShowWait('Free',0,0,0);
+  FormSplash.Free;
+  FormAbout.Free;
+
   Screen.Cursor := crDefault;
 end;
 

@@ -1,5 +1,5 @@
 V3.0.0.0
-D2008-09-25 21:54:32
+D2008-09-30 19:49:01
 mFormAbout.message.Returncode % from opening "%"=
 mFormAdd.message.Add to bouquet=
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=
@@ -470,7 +470,14 @@ mFormTransponder.message.Type=
 mFormTransponder.message.You changed the key data of the transponder definition but a transponder with this key already exists.~~Are you sure you want to add the services of this transponder to the already existing transponder?=
 mFormTransponder.message.You must first enter the satellite position and frequency fields before you can calculate the namespace.=
 mfrmAbout.message.Returncode % from opening "%"=
-pFormAbout.LabelContact.Caption=Contact:
+pFormAbout.btnDone.Caption=&Done
+pFormAbout.lblAdapted.Caption=Adapted from DreamBoxEdit by
+pFormAbout.lblAuthors.Caption=The team
+pFormAbout.lblDevelopedBy.Caption=DreamBoxEdit is developed and maintained by the DreamBoxEdit development team at Digsat.net.
+pFormAbout.lblHosted.Caption=Hosted at
+pFormAbout.lblLogoBy.Caption=Logo artwork done by
+pFormAbout.lblTranslators.Caption=With many thanks to all people who made the various translations of this program!
+pFormAbout.lblWebsite.Caption=Go to the DreamBoxEdit website to see the credits.
 pFormAdd.bCancel.Caption=Cancel
 pFormAdd.bCancel.Hint=Cancel operation
 pFormAdd.bOK.Caption=OK
@@ -758,6 +765,7 @@ pFormMain.fmSearchRepeat.Caption=Repeat search
 pFormMain.fmSwitchVersion2and3.Caption=Toggle between version 2, 3 and 4 settings
 pFormMain.fmTools.Caption=Tools
 pFormMain.fmUpdSatXML.Caption=Update satellites.xml (add new entries from services)
+pFormMain.FormWait.Caption=Progress
 pFormMain.iLogo.Hint=Click here to check for a new version of DreamBoxEdit or to go directly to dreambox.happyllama.com
 pFormMain.InsertMarker1.Caption=Insert Marker
 pFormMain.InsertMarkerPackage.Caption=Insert Marker at change of package
@@ -976,6 +984,12 @@ pFormSelectiveReceive.cbServices.Caption=Services (including Parental Lock file)
 pFormSelectiveReceive.cbUserBouquetsRadio.Caption=User Bouquets Radio
 pFormSelectiveReceive.cbUserBouquetsTV.Caption=User Bouquets TV
 pFormSelectiveReceive.GroupBox1.Caption=Select files to receive
+pFormSplash.Label6.Caption=DreamBoxEdit is developed and maintained by the DreamBoxEdit development team at Digsat.net.
+pFormSplash.lAction.Caption=Initializing application...
+pFormSplash.lblAdapted.Caption=Adapted from DreamBoxEdit by
+pFormSplash.lblAuthors.Caption=The team
+pFormSplash.lblHosted.Caption=Hosted at
+pFormSplash.lblLogoBy.Caption=Logo artwork done by
 pFormTransponder.bCalculate.Caption=Calculate Namespace
 pFormTransponder.bCalculate.Hint=Calculate the namespace value for this transponder
 pFormTransponder.bCancel.Caption=Cancel

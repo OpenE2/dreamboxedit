@@ -1,5 +1,5 @@
 V3.0.0.0
-D2008-09-25 22:03:39
+D2008-09-30 19:49:36
 mFormAbout.message.Returncode % from opening "%"="%" megnyitásakor keletkezett kód %
 mFormAdd.message.Add to bouquet=Hozzáadás a Bouquet-hez
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=A % csomag már létezik, adj meg egy másik nevet, vagy hagyd üresen és klikkelj egy létezõ csomagra
@@ -440,7 +440,14 @@ mFormTransponder.message.Transponder data=Transzponder adatok
 mFormTransponder.message.Type=Típus
 mFormTransponder.message.You changed the key data of the transponder definition but a transponder with this key already exists.~~Are you sure you want to add the services of this transponder to the already existing transponder?=Megváltoztattad a transzponder definició kulcs adatát, de ezen a kulcson már létezik egy transzponder.~~Biztos hogy hozzá akarod adni ennek a transzpondernek a csatornáját a már létezõ transzponderhez?
 mFormTransponder.message.You must first enter the satellite position and frequency fields before you can calculate the namespace.=Elõbb meg kell adnod a mûhold pozícióját és a frekvenciát mielõtt kiszámolhatod a névhelyet.
-pFormAbout.LabelContact.Caption=Kapcsolat:
+pFormAbout.btnDone.Caption=&Done
+pFormAbout.lblAdapted.Caption=Adapted from DreamBoxEdit by
+pFormAbout.lblAuthors.Caption=The team
+pFormAbout.lblDevelopedBy.Caption=DreamBoxEdit is developed and maintained by the DreamBoxEdit development team at Digsat.net.
+pFormAbout.lblHosted.Caption=Hosted at
+pFormAbout.lblLogoBy.Caption=Logo artwork done by
+pFormAbout.lblTranslators.Caption=With many thanks to all people who made the various translations of this program!
+pFormAbout.lblWebsite.Caption=Go to the DreamBoxEdit website to see the credits.
 pFormAdd.bCancel.Caption=Mégse
 pFormAdd.bCancel.Hint=Mûvelet megszakítása
 pFormAdd.bOK.Caption=Rendben
@@ -728,6 +735,7 @@ pFormMain.fmSearchRepeat.Caption=Ismételt keresés          F3
 pFormMain.fmSwitchVersion2and3.Caption=2-es és 3-as verzió közötti váltás
 pFormMain.fmTools.Caption=Eszközök
 pFormMain.fmUpdSatXML.Caption=satellites.xml frissítése
+pFormMain.FormWait.Caption=Progress
 pFormMain.iLogo.Hint=Klikkelj ide ha a dreambox.happyllama.com címre akarsz ugrani
 pFormMain.InsertMarker1.Caption=Marker beszúrása
 pFormMain.InsertMarkerPackage.Caption=Marker beszúrása a csomagváltáshoz
@@ -946,6 +954,12 @@ pFormSelectiveReceive.cbServices.Caption=Csatornák (beleértve a gyermekzár fájlo
 pFormSelectiveReceive.cbUserBouquetsRadio.Caption=Felhasználói Rádió csomagok
 pFormSelectiveReceive.cbUserBouquetsTV.Caption=Felhasználói TV csomagok
 pFormSelectiveReceive.GroupBox1.Caption=Letöltendõ fájlok kijelölése
+pFormSplash.Label6.Caption=DreamBoxEdit is developed and maintained by the DreamBoxEdit development team at Digsat.net.
+pFormSplash.lAction.Caption=Initializing application...
+pFormSplash.lblAdapted.Caption=Adapted from DreamBoxEdit by
+pFormSplash.lblAuthors.Caption=The team
+pFormSplash.lblHosted.Caption=Hosted at
+pFormSplash.lblLogoBy.Caption=Logo artwork done by
 pFormTransponder.bCalculate.Caption=Névhely kiszámítása
 pFormTransponder.bCalculate.Hint=E transzponder névhely értékének kiszámítása
 pFormTransponder.bCancel.Caption=Mégsem

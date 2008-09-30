@@ -1,5 +1,5 @@
 V3.0.0.0
-D2008-09-25 22:03:09
+D2008-09-30 19:49:19
 mFormAbout.message.Returncode % from opening "%"=Returncode % στο άνοιγμα του "%"
 mFormAdd.message.Add to bouquet=Προσθήκη σε Μπουκέτο
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Το Μπουκέτο % ήδη υπάρχει, επιλέξτε διαφορετικό όνομα ή αφήστε το νέο όνομα κενό και κάντε κλίκ σε ένα υπάρχον μπουκέτο
@@ -440,7 +440,14 @@ mFormTransponder.message.Transponder data=Στοιχεία Αναμεταδότη
 mFormTransponder.message.Type=Τύπος
 mFormTransponder.message.You changed the key data of the transponder definition but a transponder with this key already exists.~~Are you sure you want to add the services of this transponder to the already existing transponder?=Έχετε αλλάξει τα δεδομένα ορισμού του αναμεταδότη αλλά ο αναμεταδότης με τα ίδια στοιχεία υπάρχει ήδη.~~Είστε σίγουρος οτι θέλετε να προσθέσετε τις υπηρεσίες αυτού του αναμεταδότη στον υπάρχοντα αναμεταδότη;
 mFormTransponder.message.You must first enter the satellite position and frequency fields before you can calculate the namespace.=Πρίν υπολογίσετε το namespace πρέπει να εισάγετε τη θέση του δορυφόρου και τα πεδία της συχνότητας.
-pFormAbout.LabelContact.Caption=Επαφή:
+pFormAbout.btnDone.Caption=&Done
+pFormAbout.lblAdapted.Caption=Adapted from DreamBoxEdit by
+pFormAbout.lblAuthors.Caption=The team
+pFormAbout.lblDevelopedBy.Caption=DreamBoxEdit is developed and maintained by the DreamBoxEdit development team at Digsat.net.
+pFormAbout.lblHosted.Caption=Hosted at
+pFormAbout.lblLogoBy.Caption=Logo artwork done by
+pFormAbout.lblTranslators.Caption=With many thanks to all people who made the various translations of this program!
+pFormAbout.lblWebsite.Caption=Go to the DreamBoxEdit website to see the credits.
 pFormAdd.bCancel.Caption=Ακύρωση
 pFormAdd.bCancel.Hint=Ακύρωση εργασίας
 pFormAdd.bOK.Caption=OK
@@ -728,6 +735,7 @@ pFormMain.fmSearchRepeat.Caption=Repeat search          F3
 pFormMain.fmSwitchVersion2and3.Caption=Αλλαγή ρυθμίσεων μεταξύ έκδοσης 2 και 3
 pFormMain.fmTools.Caption=Εργαλεία
 pFormMain.fmUpdSatXML.Caption=Ανανέωση satellites.xml (προσθήκη νέων καταχωρήσεων απο τις υπηρεσίες)
+pFormMain.FormWait.Caption=Progress
 pFormMain.iLogo.Hint=Πατήστε εδώ για να γίνει έλεγχος νέας έκδοσης DreamBoxEdit ή για να πάτε στο dreambox.happyllama.com
 pFormMain.InsertMarker1.Caption=Εισαγωγή Δείκτη
 pFormMain.InsertMarkerPackage.Caption=Εισαγωγή Δείκτη στις αλλαγες πακέτων
@@ -946,6 +954,12 @@ pFormSelectiveReceive.cbServices.Caption=Υπηρεσίες ( Με γονικό κλείδωμα)
 pFormSelectiveReceive.cbUserBouquetsRadio.Caption=Μπουκέτα Χρήστη Radio
 pFormSelectiveReceive.cbUserBouquetsTV.Caption=Μπουκέτα Χρήστη TV
 pFormSelectiveReceive.GroupBox1.Caption=Επιλογή αρχείων για λήψη
+pFormSplash.Label6.Caption=DreamBoxEdit is developed and maintained by the DreamBoxEdit development team at Digsat.net.
+pFormSplash.lAction.Caption=Initializing application...
+pFormSplash.lblAdapted.Caption=Adapted from DreamBoxEdit by
+pFormSplash.lblAuthors.Caption=The team
+pFormSplash.lblHosted.Caption=Hosted at
+pFormSplash.lblLogoBy.Caption=Logo artwork done by
 pFormTransponder.bCalculate.Caption=Υπολογισμός Namespace
 pFormTransponder.bCalculate.Hint=Υπολογισμός τιμής namespace για αυτόν τον αναμεταδότη
 pFormTransponder.bCancel.Caption=Ακύρωση

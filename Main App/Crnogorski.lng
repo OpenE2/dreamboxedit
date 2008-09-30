@@ -1,5 +1,5 @@
 V3.0.0.0
-D2008-09-25 22:02:11
+D2008-09-30 20:31:23
 mFormAbout.message.Returncode % from opening "%"=povratnikod%od otvaranja"%"
 mFormAdd.message.Add to bouquet=Dodaj u buket
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Lista%vec postoji, ubaci novo ime ili ostavi prazno i klikni na postojecu listu
@@ -396,7 +396,14 @@ mFormTransponder.message.Transponder data=Podaci Transpondera
 mFormTransponder.message.Type=Tip
 mFormTransponder.message.You changed the key data of the transponder definition but a transponder with this key already exists.~~Are you sure you want to add the services of this transponder to the already existing transponder?=Promijenili ste kljucni podatak definicije transpondera, ali transponder sa ovim kljucem vec postoji.~~Da li ste sigurni da zelite dodati servise ovog transpondera vec postojecem transponderu?
 mFormTransponder.message.You must first enter the satellite position and frequency fields before you can calculate the namespace.=Morate prvo unijeti poziciju satelita i frekvenciju prije nego sto mozete racunati prostor imena.
-pFormAbout.LabelContact.Caption=Kontakt:
+pFormAbout.btnDone.Caption=&Done
+pFormAbout.lblAdapted.Caption=Adapted from DreamBoxEdit by
+pFormAbout.lblAuthors.Caption=The team
+pFormAbout.lblDevelopedBy.Caption=DreamBoxEdit is developed and maintained by the DreamBoxEdit development team at Digsat.net.
+pFormAbout.lblHosted.Caption=Hosted at
+pFormAbout.lblLogoBy.Caption=Logo artwork done by
+pFormAbout.lblTranslators.Caption=With many thanks to all people who made the various translations of this program!
+pFormAbout.lblWebsite.Caption=Go to the DreamBoxEdit website to see the credits.
 pFormAdd.bCancel.Caption=Otkazi
 pFormAdd.bCancel.Hint=Otkazi operaciju
 pFormAdd.bOK.Caption=OK
@@ -684,6 +691,7 @@ pFormMain.fmSearchRepeat.Caption=Repeat search          F3
 pFormMain.fmSwitchVersion2and3.Caption=Switch between version 2 and 3 settings
 pFormMain.fmTools.Caption=Alati
 pFormMain.fmUpdSatXML.Caption=Inoviraj satellites.xml
+pFormMain.FormWait.Caption=Progress
 pFormMain.iLogo.Hint=Kliknite ovdje da bi ste otisli na dreambox.happyllama.com
 pFormMain.InsertMarker1.Caption=Umetni Marker
 pFormMain.InsertMarkerPackage.Caption=Unesi marker pri promjeni paketa
@@ -902,6 +910,12 @@ pFormSelectiveReceive.cbServices.Caption=Servisi (ukljucujuci Zakljucavanjefajla
 pFormSelectiveReceive.cbUserBouquetsRadio.Caption=Korisnicki Buket Radio
 pFormSelectiveReceive.cbUserBouquetsTV.Caption=Korisnicki buket TV
 pFormSelectiveReceive.GroupBox1.Caption=Izaberite fajlove za preuzimanje
+pFormSplash.Label6.Caption=DreamBoxEdit is developed and maintained by the DreamBoxEdit development team at Digsat.net.
+pFormSplash.lAction.Caption=Initializing application...
+pFormSplash.lblAdapted.Caption=Adapted from DreamBoxEdit by
+pFormSplash.lblAuthors.Caption=The team
+pFormSplash.lblHosted.Caption=Hosted at
+pFormSplash.lblLogoBy.Caption=Logo artwork done by
 pFormTransponder.bCalculate.Caption=Izracunajte prostor imena
 pFormTransponder.bCalculate.Hint=Izracunajte vrijednost prostora imena za ovaj transponder
 pFormTransponder.bCancel.Caption=Otkazi

@@ -1,5 +1,5 @@
 V3.0.0.0
-D2008-09-28 14:32:00
+D2008-09-30 19:50:01
 mFormAbout.message.Returncode % from opening "%"=Код возврата % от открытия "%"
 mFormAdd.message.Add to bouquet=Добавить к букету
 mFormAdd.message.Bouquet % already exists, enter a different name or leave the new name blank and click on a existing bouquet.=Букет % уже есть, выберете другое имя или оставьте новое имя пустым и щелкните на существующем букете
@@ -470,7 +470,14 @@ mFormTransponder.message.Type=Тип
 mFormTransponder.message.You changed the key data of the transponder definition but a transponder with this key already exists.~~Are you sure you want to add the services of this transponder to the already existing transponder?=Вы изменили ключевые данные транспондера, но такой уже есть~~Вы уверены, что хотите добавить сервисы этого транспондера к уже существующему?
 mFormTransponder.message.You must first enter the satellite position and frequency fields before you can calculate the namespace.=До рассчета namespace сначала задайте позицию спутника и частоту
 mfrmAbout.message.Returncode % from opening "%"=Код возврата % от открытия "%"
-pFormAbout.LabelContact.Caption=Контакт:
+pFormAbout.btnDone.Caption=&Done
+pFormAbout.lblAdapted.Caption=Adapted from DreamBoxEdit by
+pFormAbout.lblAuthors.Caption=The team
+pFormAbout.lblDevelopedBy.Caption=DreamBoxEdit is developed and maintained by the DreamBoxEdit development team at Digsat.net.
+pFormAbout.lblHosted.Caption=Hosted at
+pFormAbout.lblLogoBy.Caption=Logo artwork done by
+pFormAbout.lblTranslators.Caption=With many thanks to all people who made the various translations of this program!
+pFormAbout.lblWebsite.Caption=Go to the DreamBoxEdit website to see the credits.
 pFormAdd.bCancel.Caption=Отменить
 pFormAdd.bCancel.Hint=Отменить операцию
 pFormAdd.bOK.Caption=OK
@@ -758,6 +765,7 @@ pFormMain.fmSearchRepeat.Caption=Repeat search          F3
 pFormMain.fmSwitchVersion2and3.Caption=Переключение между версиями установок 2 и 3
 pFormMain.fmTools.Caption=Инструменты
 pFormMain.fmUpdSatXML.Caption=Обновление satellites.xml
+pFormMain.FormWait.Caption=Progress
 pFormMain.iLogo.Hint=Проверка наличия новой версии DreamBoxEdit либо переход на dreambox.happyllama.com
 pFormMain.InsertMarker1.Caption=Установить маркер
 pFormMain.InsertMarkerPackage.Caption=Вставка Маркера при смене пакета
@@ -976,6 +984,12 @@ pFormSelectiveReceive.cbServices.Caption=Сервисы (включая файлы Родит. Контроля)
 pFormSelectiveReceive.cbUserBouquetsRadio.Caption=Букеты Радио
 pFormSelectiveReceive.cbUserBouquetsTV.Caption=Букеты ТВ
 pFormSelectiveReceive.GroupBox1.Caption=Выбор файлов для получения
+pFormSplash.Label6.Caption=DreamBoxEdit is developed and maintained by the DreamBoxEdit development team at Digsat.net.
+pFormSplash.lAction.Caption=Initializing application...
+pFormSplash.lblAdapted.Caption=Adapted from DreamBoxEdit by
+pFormSplash.lblAuthors.Caption=The team
+pFormSplash.lblHosted.Caption=Hosted at
+pFormSplash.lblLogoBy.Caption=Logo artwork done by
 pFormTransponder.bCalculate.Caption=Рассчет Namespace
 pFormTransponder.bCalculate.Hint=Рассчитайте значение namespace для данного транспондера
 pFormTransponder.bCancel.Caption=Отменить

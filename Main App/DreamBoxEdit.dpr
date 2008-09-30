@@ -29,13 +29,12 @@ uses
 {$R *.res}
 
 begin
-  FormSplash := TFormSplash.Create(nil);
-  try
-    FormSplash.Show;
-
   Application.Initialize;
   Application.Title := 'DreamBoxEdit';
   Application.CreateForm(TFormMain, FormMain);
+  FormSplash := TFormSplash.Create(nil);
+  try
+    FormSplash.Show;
   Application.CreateForm(TFormDetail, FormDetail);
   Application.CreateForm(TFormAdd, FormAdd);
   Application.CreateForm(TFormLog, FormLog);

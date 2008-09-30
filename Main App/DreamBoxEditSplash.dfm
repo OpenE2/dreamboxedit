@@ -1,9 +1,9 @@
 object FormSplash: TFormSplash
-  Left = 868
-  Top = 423
+  Left = 591
+  Top = 309
   BorderStyle = bsNone
   ClientHeight = 215
-  ClientWidth = 434
+  ClientWidth = 496
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,12 +15,13 @@ object FormSplash: TFormSplash
   Position = poScreenCenter
   Visible = True
   OnActivate = FormActivate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object lwpnlTop: TLWPanel
     Left = 0
     Top = 0
-    Width = 434
+    Width = 496
     Height = 77
     Align = alTop
     TabOrder = 0
@@ -28,10 +29,10 @@ object FormSplash: TFormSplash
     Color1 = clCream
     Color2 = clBtnFace
     DesignSize = (
-      434
+      496
       77)
     object _Label2: TLabel
-      Left = 343
+      Left = 405
       Top = 62
       Width = 80
       Height = 13
@@ -45,13 +46,13 @@ object FormSplash: TFormSplash
       ParentFont = False
       Transparent = True
     end
-    object lVersion: TLabel
+    object _lVersion: TLabel
       Left = 3
       Top = 65
-      Width = 35
+      Width = 36
       Height = 13
       Anchors = [akLeft, akBottom]
-      Caption = 'version'
+      Caption = 'x.x.x.x'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -63,29 +64,29 @@ object FormSplash: TFormSplash
     object Panel2: TPanel
       Left = 1
       Top = 1
-      Width = 432
+      Width = 494
       Height = 59
       Align = alTop
       BevelOuter = bvNone
       Color = clCream
       TabOrder = 1
-      object Label8: TLabel
+      object lblAuthors: TLabel
         Left = 8
         Top = 8
-        Width = 309
+        Width = 45
         Height = 13
-        Caption = 'The team: HappyLlama, Tammie78N, Talius, Henksat, Jazzydane'
+        Caption = 'The team'
       end
-      object Label9: TLabel
+      object lblHosted: TLabel
         Left = 8
         Top = 32
-        Width = 100
+        Width = 46
         Height = 13
-        Caption = 'Hosted at: Digsat.net'
+        Caption = 'Hosted at'
       end
     end
     object Panel1: TPanel
-      Left = 354
+      Left = 416
       Top = 6
       Width = 75
       Height = 51
@@ -334,7 +335,7 @@ object FormSplash: TFormSplash
   object Panel4: TPanel
     Left = 0
     Top = 77
-    Width = 434
+    Width = 496
     Height = 138
     Align = alClient
     BevelOuter = bvNone
@@ -1651,7 +1652,7 @@ object FormSplash: TFormSplash
     object LWPanel1: TLWPanel
       Left = 129
       Top = 0
-      Width = 305
+      Width = 367
       Height = 138
       Align = alClient
       TabOrder = 1
@@ -1659,10 +1660,11 @@ object FormSplash: TFormSplash
       Color1 = clBlack
       Color2 = clGray
       object lAction: TLabel
-        Left = 181
+        Left = 245
         Top = 115
         Width = 113
         Height = 13
+        Alignment = taRightJustify
         Caption = 'Initializing application...'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
@@ -1672,9 +1674,9 @@ object FormSplash: TFormSplash
         ParentFont = False
         Transparent = True
       end
-      object Label1: TLabel
-        Left = 185
-        Top = 58
+      object _lblLlamaWare: TLabel
+        Left = 281
+        Top = 54
         Width = 65
         Height = 14
         Caption = 'Llamaware'
@@ -1688,24 +1690,9 @@ object FormSplash: TFormSplash
         ParentFont = False
         Transparent = True
       end
-      object Label3: TLabel
-        Left = 1
-        Top = 31
-        Width = 296
-        Height = 16
-        AutoSize = False
-        Caption = 'the DreamBoxEdit development team at Digsat.net.'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWhite
-        Font.Height = -13
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        Transparent = True
-      end
-      object Label4: TLabel
-        Left = 251
-        Top = 55
+      object _lblTM: TLabel
+        Left = 347
+        Top = 54
         Width = 12
         Height = 10
         Caption = 'TM'
@@ -1722,9 +1709,12 @@ object FormSplash: TFormSplash
       object Label6: TLabel
         Left = 1
         Top = 11
-        Width = 263
-        Height = 16
-        Caption = 'DreamBoxEdit is developed and maintained by'
+        Width = 336
+        Height = 32
+        AutoSize = False
+        Caption = 
+          'DreamBoxEdit is developed and maintained by the DreamBoxEdit dev' +
+          'elopment team at Digsat.net.'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
         Font.Height = -13
@@ -1732,8 +1722,9 @@ object FormSplash: TFormSplash
         Font.Style = []
         ParentFont = False
         Transparent = True
+        WordWrap = True
       end
-      object Label7: TLabel
+      object lblAdapted: TLabel
         Left = 1
         Top = 52
         Width = 178
@@ -1747,7 +1738,7 @@ object FormSplash: TFormSplash
         ParentFont = False
         Transparent = True
       end
-      object lblArtistCredits: TLabel
+      object lblLogoBy: TLabel
         Left = 1
         Top = 84
         Width = 128
@@ -1761,8 +1752,8 @@ object FormSplash: TFormSplash
         ParentFont = False
         Transparent = True
       end
-      object Label2: TLabel
-        Left = 129
+      object _lblLitemotiv: TLabel
+        Left = 281
         Top = 86
         Width = 62
         Height = 14

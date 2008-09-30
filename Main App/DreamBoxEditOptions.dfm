@@ -695,6 +695,12 @@ object FormOptions: TFormOptions
             Width = 137
             Height = 25
             Caption = 'New Enigma2 settings'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clNavy
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
             TabOrder = 6
             OnClick = bDefaultsNewEnigma2Click
           end
@@ -1439,6 +1445,12 @@ object FormOptions: TFormOptions
             Width = 153
             Height = 25
             Caption = 'Add HDTV services'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clNavy
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
             TabOrder = 2
             OnClick = bTVAddHDTVClick
           end

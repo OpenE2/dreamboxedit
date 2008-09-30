@@ -567,6 +567,12 @@ object FormFTP: TFormFTP
       Width = 193
       Height = 17
       Caption = 'Auto Reload Settings Enigma2'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 10
     end
   end
