@@ -896,9 +896,15 @@ begin
         if prm <> ''
         then cds.FieldByName('servC08PCMDelay').AsString := IntToStr(StrToInt('$'+prm));
 
-        prm := ExtractParm(s,'f:',2);
+        { Flags field shoulb be either 2 or 4 bytes }
+        prm := ExtractParm(s,'f:',2); { 2 bytes flags field }
         if prm <> ''
-        then cds.FieldByName('servFlags').AsString := IntToStr(StrToInt('$'+prm));
+        then cds.FieldByName('servFlags').AsString := IntToStr(StrToInt('$'+prm))
+        else begin;
+          prm := ExtractParm(s,'f:',4); { or 4 bytes flags field }
+          if prm <> ''
+          then cds.FieldByName('servFlags').AsString := IntToStr(StrToInt('$'+prm));
+        end;
 
         prm := '';
         ib := pos('p:',lowercase(s));                   // Find next parm or end of string
