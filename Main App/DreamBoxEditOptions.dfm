@@ -134,7 +134,7 @@ object FormOptions: TFormOptions
       Top = 8
       Width = 750
       Height = 457
-      ActivePage = tsProfiles
+      ActivePage = TabSheet5
       Anchors = [akLeft, akTop, akRight, akBottom]
       MultiLine = True
       TabOrder = 2
@@ -1495,7 +1495,7 @@ object FormOptions: TFormOptions
             Top = 88
             Width = 159
             Height = 177
-            Hint = 'Default: 1 and 4'
+            Hint = 'Default: 2'
             Anchors = [akLeft, akTop, akRight, akBottom]
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
