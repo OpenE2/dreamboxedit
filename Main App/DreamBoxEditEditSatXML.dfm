@@ -548,7 +548,7 @@ object FormEditSatXML: TFormEditSatXML
     end
   end
   object DataSource1: TDataSource
-    DataSet = FormMain.cdsSERV
+    DataSet = FormMain.cdsSatXML
     Left = 32
     Top = 232
   end
