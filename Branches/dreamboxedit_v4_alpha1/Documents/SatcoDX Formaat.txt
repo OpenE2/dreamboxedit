@@ -1,0 +1,51 @@
+
+Automatic Receiver Programming with SatcoDX Industry Standard Format Protocol
+Current Version: 03
+
+SATCODX103Astra 1B, 1C, 1E, TMPG20125150001Canal + 0192AST01GKU______220005016100840129040060005301105NED______IRMGBlauw  
+
+----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0----+----1----+----2----+--
+SATCODX1vvsssssssssssssssssstbrstfffffffffpsssssssspppp______bb______sssssFvvvvaaaappppsssssnnnnntttttlll_cclllccccssssssssssss
+          |                 ||   |        ||       |   |     |       |    ||   |   |   |    |    |    |   | |  |   service2
+          |                 ||   |        ||       |   |     |       |    ||   |   |   |    |    |    |   | |  crypto
+          |                 ||   |        ||       |   |     |       |    ||   |   |   |    |    |    |   | language code
+          |                 ||   |        ||       |   |     |       |    ||   |   |   |    |    |    |   country code
+          |                 ||   |        ||       |   |     |       |    |VpidApidPcrpSid  Nid  TSID language
+          |                 ||   |        |service pos cov.  bm      symb FEC
+          |                 ||   freq.    pol(0=v)
+          |                 |broadcastsystem(*)
+          satname           type(@)
+
+Channeltype
+T Television Channel 
+R Radio Channel 
+D Data Transmission 
+_ Package Transponder 
+
+Broadcastsystem:
+ADR_ ADR (Astra Digital Radio)  
+BMAC B-MAC (B-type Multiplexed Analogue Components)  
+D2MC D2-MAC (Half-Bit-Rate Duo-Binary Multiplexed Analogue Components)  
+DIC1 Digicipher 1  
+DIC2 Digicipher 2  
+ISDB ISDB (Integrated Services Digital Broadcasting)  
+MPG1 MPEG-1 (Motion Pictures Experts Group 1)  
+MP15 MPEG-1.5 (Motion Pictures Experts Group 1.5)  
+MPG2 MPEG-2 (Motion Pictures Experts Group 2)  
+MPG4 MPEG-4 (Motion Pictures Experts Group 4)  
+MUSE MUSE (Multiple Subnyquist Encoding)  
+NTSC NTSC (National Television Standards Committee)  
+PAL_ PAL (Phase Alternation of Lines)  
+SECM SECAM (Systeme Electronique Couleur Avec Memoire) 
+
+bM: 
+KU
+..
+
+FEC:
+0 no
+1 1/2 
+2 2/3 
+3 3/4 
+5 5/6 
+7 7/8 

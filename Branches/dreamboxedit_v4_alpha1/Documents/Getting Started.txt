@@ -1,0 +1,12 @@
+To set-up your development enviroment you need the following configuration.
+
+- Delphi 7.0 Build 8.1;
+- Indy 10 instead of the standard components that come with Delphi 7;
+
+The version of Indy that is used here is located in the folder [root]\3rthparty\components. The installation will guide you through the process of uninstalling your current Indy version before installing the new one.
+
+When opening the application for the first time, open the LW.dpk package first and install it.
+
+That's all there is to it.
+
+T78N 

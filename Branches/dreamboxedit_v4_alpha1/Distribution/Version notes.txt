@@ -1,0 +1,28 @@
+Important:
+
+DreamBoxEdit creates default values for all options.
+It's important however to check the various settings on the options panel.
+
+The most important setting is the profile for a Dreambox that specifies both:
+- the network settings needed to contact the Dreambox, and
+- the paths where the settings reside on the Dreambox. Those paths must be specified 
+  correctly. They vary with the different types of Dreamboxes (satellite, cable, 7025 etc.).
+  On the options panel you can set them to the default for a specific type of Dreambox.
+
+Tips and known issues with the 7025:
+- In DreamBoxEdit you must specify the correct paths on the 7025. You can do this 
+  very easy with the "Defaults for 7025" button on the options panel.
+- You have to enable "Multibouquet" on the 7025 in order to be able to see your bouquets.
+- The DreamBoxEdit ZAP command fails because the 7025 webinterface does not yet support this command.
+
+
+Contact:
+
+Forum:
+http://digsat.net/wbb2/board.php?boardid=273
+
+Homepage:
+http://dreamboxedit.digsat.net/
+
+Sourceforge:
+http://sourceforge.net/projects/dreamboxedit/
