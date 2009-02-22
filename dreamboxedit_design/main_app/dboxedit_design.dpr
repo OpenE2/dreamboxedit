@@ -16,7 +16,8 @@ uses
   formCompareSets in 'formCompareSets.pas' {frmCompareSets},
   formEditTransponder in 'formEditTransponder.pas' {frmEditTransponder},
   formImportUserBouquets in 'formImportUserBouquets.pas' {frmImportUserBouquets},
-  formShowEditServiceDetails in 'formShowEditServiceDetails.pas' {frmShowEditServiceDetails};
+  formShowEditServiceDetails in 'formShowEditServiceDetails.pas' {frmShowEditServiceDetails},
+  uHelpers in 'uHelpers.pas';
 
 {$R *.res}
 

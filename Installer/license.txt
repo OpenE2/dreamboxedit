@@ -1,0 +1,8 @@
+DreamBoxEdit License agreement
+
+DreamBoxEdit is open source.
+You may use the program freely on as many computers and how long you want.
+
+The newest version can always be found on
+- http://dreamboxedit.digsat.net
+- http://sourceforge.net/projects/dreamboxedit/

@@ -7,7 +7,7 @@ uses
   Dialogs, StdCtrls, DB, DBClient, Grids, DBGrids, ComCtrls, Math, Menus,
   ExtCtrls, ToolWin, ImgList, LWPanel, Registry, LWBtn, FileCtrl, ShellApi,
   StrUtils, jpeg, DBCtrls, dbcgrids, Buttons, IdBaseComponent, IdComponent,
-  IdTCPConnection, IdTCPClient, Sockets, CommCtrl, LWLanguage, IdFTP, DateUtils,
+  IdTCPConnection, IdTCPClient, Sockets, CommCtrl, LWLanguage, DateUtils,
   MidasLib, IdHTTP, pngimage, UrlMon, uHelpers;
 
 type

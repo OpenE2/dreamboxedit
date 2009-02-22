@@ -1,6 +1,6 @@
 object FormMain: TFormMain
-  Left = 347
-  Top = 134
+  Left = 380
+  Top = 172
   AutoScroll = False
   Caption = 'LlamaWare DreamBoxEdit - untitled'
   ClientHeight = 481
@@ -1613,7 +1613,7 @@ object FormMain: TFormMain
     AutoHotkeys = maManual
     OwnerDraw = True
     Left = 64
-    Top = 40
+    Top = 96
     object fmFile: TMenuItem
       AutoHotkeys = maManual
       Caption = 'File'
@@ -1798,8 +1798,8 @@ object FormMain: TFormMain
   object ImageList1: TImageList
     Height = 22
     Width = 22
-    Left = 336
-    Top = 24
+    Left = 320
+    Top = 96
     Bitmap = {
       494C01010C000E00040016001600FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000580000005800000001002000000000000079
@@ -3562,8 +3562,8 @@ object FormMain: TFormMain
     AutoHotkeys = maManual
     AutoPopup = False
     TrackButton = tbLeftButton
-    Left = 528
-    Top = 8
+    Left = 464
+    Top = 120
     object puLogoCheckfornewversion: TMenuItem
       Caption = 'Check for new version'
       OnClick = fmCheckfornewversionClick
