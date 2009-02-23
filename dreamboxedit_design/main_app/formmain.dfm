@@ -707,13 +707,14 @@ object frmMain: TfrmMain
         Top = 2
         Width = 214
         Height = 24
+        UseSystemFont = False
         ActionManager = amMain
         Caption = 'ActionMainMenuBar1'
         ColorMap.HighlightColor = 15660791
         ColorMap.BtnSelectedColor = clBtnFace
         ColorMap.UnusedColor = 15660791
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuText
+        Font.Color = clWindowText
         Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = []
